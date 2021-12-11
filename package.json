@@ -1,0 +1,11 @@
+{
+  "name": "mini_program_game",
+  "version": "1",
+  "description": "有客摇钱树",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "qrcodejs2": "0.0.2",
+    "umtrack-wx": "^2.7.1"
+  }
+}

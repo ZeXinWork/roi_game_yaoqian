@@ -1,0 +1,3456 @@
+<template>
+  <view>
+    <navbar
+      :params="{
+        navColor: navColor,
+        titleColor: '#fff',
+        title: gameInfo.logoInfo ? '' : '一起云博饼',
+      }"
+      class=""
+    >
+      <view
+        v-if="gameInfo.logoInfo.img"
+        class="diy_logo"
+        :style="
+          'background:url(' +
+          gameInfo.logoInfo.img +
+          ') no-repeat;background-size:contain'
+        "
+      >
+      </view>
+    </navbar>
+    <view
+      id="main"
+      :style="{
+        paddingTop: navbarHeight + 'px',
+        background: `url(${
+          gameInfo.backgroundInfo.backgroundUrl ||
+          'https://static.roi-cloud.com/upload/20211210/60935669165852'
+        }) no-repeat`,
+        backgroundSize: '100%',
+      }"
+    >
+      <view class="swiper_wrap">
+        <uni-notice-bar
+          showIcon="true"
+          color="#fff"
+          background-color="transparent"
+          scrollable="true"
+          single="true"
+          text="活动发起方和参与用户需同意《络绎有客博饼用户服务协议》方可进行游戏，使用本服务即视为已阅读并同意受本协议的约束。活动发起方不得利用本程序从事国家法律法规禁止的违法犯罪活动，不得上架法律法规禁止或限制发布的产品，活动发起方对所提供奖品的质量和兑奖承诺全权负责。"
+        >
+        </uni-notice-bar>
+      </view>
+      <view class="tips">
+        游戏时间：{{
+          gameInfo.startTime
+            ? gameInfo.startTime + ' - ' + gameInfo.endTime
+            : '未开始'
+        }}
+      </view>
+      <canvas canvas-id="shareCanvas" id="shareCanvas"></canvas>
+      <!-- <view class="bowl_title">
+				<image src="https://static.roi-cloud.com/base/icon_bo-title.png" mode=""></image>
+			</view> -->
+      <view class="bowl">
+        <view
+          :data-url="'/pages/rule/rule?gameId=' + gameId"
+          class="rule"
+          @click="toPage"
+          >游戏规则</view
+        >
+      </view>
+
+      <view style="position: relative">
+        <view
+          :data-url="'/pages/conversion/conversion?gameId=' + gameId"
+          class="gift_wrap"
+          @click="toPage"
+        >
+          <image
+            class="icon_gift"
+            src="https://static.roi-cloud.com/base/icon_gift.png"
+            mode=""
+          ></image>
+          <view class="shadow">兑换奖品</view>
+        </view>
+        <view style="position: relative">
+          <view
+            v-if="gameInfo.gameType == 2"
+            :data-url="'/pages/prize/prize?gameId=' + gameId"
+            class="gift_wrap"
+            @click="toPage"
+          >
+            <image
+              class="icon_gift"
+              src="https://static.roi-cloud.com/base/icon_gift.png"
+              mode=""
+            ></image>
+            <view class="shadow">兑换奖品</view>
+          </view>
+          <view class="chance">
+            您还有
+            <view class="number">
+              {{
+                userPlayInfo.playTimes - userPlayInfo.playedTimes < 0
+                  ? 0
+                  : userPlayInfo.playTimes - userPlayInfo.playedTimes || 0
+              }}
+            </view>
+            次博饼机会
+          </view>
+          <view class="de_btn btn_primary" @click="play">摇一摇</view>
+        </view>
+      </view>
+
+      <view class="de_btn zl_btn" @click="popShow('share')">喊好友来博饼</view>
+      <view class="record_wrap">
+        <text @click="popShow('score')">积分明细</text>
+        <view class="line"></view>
+        <text @click="onHelper">个人中心</text>
+        <view class="line"></view>
+        <text @click="onHelper">助力记录</text>
+      </view>
+
+      <view class="gift_swiper" v-if="advertList[1].length > 0">
+        <swiper
+          :circular="true"
+          :autoplay="true"
+          :interval="3000"
+          :duration="1000"
+        >
+          <swiper-item
+            v-for="item in advertList[1]"
+            :key="item"
+            v-if="item.locationType == 1"
+          >
+            <view class="swiper-item">
+              <image :src="item.uploadImgInfo.img" mode="aspectFill"></image>
+            </view>
+          </swiper-item>
+        </swiper>
+      </view>
+      <view class="rank_wrap">
+        <view class="rank_title">
+          <view class="icon_rangk"></view>
+          <text>排行榜</text>
+        </view>
+        <view
+          :data-url="'/pages/rule/rule?gameId=' + gameId"
+          class="rule"
+          @click="toPage"
+          >游戏规则</view
+        >
+        <view class="rank_time">
+          {{ gameInfo.startTime }} - {{ gameInfo.endTime }}
+        </view>
+        <view class="my_rank">
+          <view class="my_rank_top">
+            <view class="rank_avatar">
+              <image :src="user_info.avatar" mode=""></image>
+            </view>
+            <view class="my_rank_item">
+              <view class="my_rank_title">我的排行</view>
+              <view class="rank_item_number">{{ userRank.ranking || 0 }}</view>
+            </view>
+            <view class="my_rank_item">
+              <view class="my_rank_title">总博饼分</view>
+              <view class="rank_item_number">{{ userRank.score || 0 }}</view>
+            </view>
+          </view>
+          <button class="share_btn" open-type="share" data-rank="1">
+            <image
+              class="icon_wechat"
+              src="https://static.roi-cloud.com/base/icon_wechat.png"
+              mode=""
+            >
+            </image>
+            <text>晒排名 加次数</text>
+          </button>
+        </view>
+        <view class="rank_list">
+          <view
+            v-for="(item, index) in kingofKingsList"
+            :key="index"
+            class="mlr30"
+          >
+            <view class="rank_box">
+              <view class="gift_image">
+                <image
+                  :src="item.info.prizeImgInfo.img"
+                  mode="aspectFill"
+                ></image>
+              </view>
+              <view class="gift_right">
+                <view class="gift_title">
+                  <view class="gift_level">{{ item.info.prizeNote }}</view>
+                  <view class="no_number">{{ item.range }}</view>
+                </view>
+                <view class="">{{ item.info.prizeName }}</view>
+              </view>
+            </view>
+            <view
+              class="box_item"
+              v-for="(user, userIndex) in item.list"
+              :key="item"
+            >
+              <view class="box_item_left">
+                <image
+                  v-if="user.no_num < 4"
+                  class="no_icon"
+                  :src="
+                    'https://static.roi-cloud.com/base/icon_no_' +
+                    user.no_num +
+                    '.png'
+                  "
+                  mode="aspectFill"
+                >
+                </image>
+                <view class="no_icon" v-else>{{ user.no_num }}</view>
+                <image class="avatar" :src="user.avatar" mode=""></image>
+                <text class="username">{{ user.nickName }}</text>
+              </view>
+              <text>{{ user.score }}</text>
+            </view>
+          </view>
+
+          <view class="border_top">
+            <view
+              class="box_item"
+              v-for="(user, userIndex) in otherKingList"
+              :key="userIndex"
+            >
+              <view class="box_item_left">
+                <image
+                  v-if="user.no_num < 4"
+                  class="no_icon"
+                  :src="
+                    'https://static.roi-cloud.com/base/icon_no_' +
+                    user.no_num +
+                    '.png'
+                  "
+                  mode=""
+                >
+                </image>
+                <view class="no_icon" v-else>{{ user.no_num }}</view>
+                <image class="avatar" :src="user.avatar" mode=""></image>
+                <text class="username">{{ user.nickName }}</text>
+              </view>
+              <text>{{ user.score }}</text>
+            </view>
+          </view>
+
+          <!-- <view class="rank_box">
+						<view class="gift_image">
+						</view>
+						<view class="gift_right">
+							<view class="gift_title">
+								<view class="gift_level">二等奖</view>
+								<view class="no_number">第2名</view>
+							</view>
+							<view class="">蝉妈妈SVIP会员 6个月</view>
+						</view>
+					</view> -->
+        </view>
+      </view>
+      <popup ref="share" width="650" bgColor="#FFF8DC">
+        <view class="p_title"
+          >多邀多得上不封顶
+          <image
+            @click="$refs.share.hide()"
+            class="icon_close"
+            src="https://static.roi-cloud.com/base/icon_close.png"
+            mode=""
+          ></image>
+        </view>
+        <view class="share_img_wrap">
+          <image
+            src="https://static.roi-cloud.com/base/share_img.png"
+            mode="aspectFit"
+          ></image>
+        </view>
+
+        <button
+          open-type="share"
+          class="pop_share_btn"
+          data-type="1"
+          v-if="user_info.userId"
+        >
+          <image
+            src="https://static.roi-cloud.com/base/icon_share_wechat.png"
+            mode=""
+          ></image>
+          <view class="share_text"> 邀请好友 </view>
+        </button>
+        <view
+          class="pop_share_btn"
+          v-else
+          @click="$refs.share.hide(), toLogin()"
+        >
+          <image
+            src="https://static.roi-cloud.com/base/icon_share_wechat.png"
+            mode=""
+          ></image>
+          <view class="share_text"> 邀请好友 </view>
+        </view>
+      </popup>
+
+      <!-- 分数排行 -->
+      <popup ref="score" width="650">
+        <view class="p_title"
+          >分数明细
+          <image
+            @click="$refs.score.hide()"
+            class="icon_close"
+            src="https://static.roi-cloud.com/base/icon_close.png"
+            mode=""
+          ></image>
+        </view>
+        <view class="score_menu">
+          <view
+            :class="['score_item', { active: currentScoreItem == 1 }]"
+            @click="changeItem(1)"
+            >中奖明细</view
+          >
+          <view
+            :class="['score_item', { active: currentScoreItem == 2 }]"
+            @click="changeItem(2)"
+            >奖品明细</view
+          >
+        </view>
+        <view v-if="currentScoreItem == 1">
+          <view class="score_list" v-if="scoreDetailList.length > 0">
+            <view
+              class="score_list_item"
+              v-for="item in scoreDetailList"
+              :key="item"
+            >
+              <view class="item_left">{{ awardLevel[item.prizeLevel] }}</view>
+              <view class="item_right">
+                <text class="t_blod">{{
+                  item.prizeLevel > 0
+                    ? gameInfo.gameType == 1
+                      ? item.prizeIntegral
+                      : ''
+                    : '未中奖'
+                }}</text>
+                <text>{{ item.playTime }}</text>
+              </view>
+            </view>
+          </view>
+          <view class="no_data" v-else>暂无数据</view>
+        </view>
+        <view v-if="currentScoreItem == 2">
+          <view class="score_list" v-if="exchangeList.length > 0">
+            <view
+              class="score_list_item"
+              v-for="item in exchangeList"
+              :key="item"
+            >
+              <view class="item_left">{{ item.prizeInfo.prizeName }}</view>
+              <view class="item_right">
+                <text class="t_blod">+1</text>
+                <text>{{
+                  item.prizeInfo.verifyTime > 0 ? item.verify_time : '未核销'
+                }}</text>
+              </view>
+            </view>
+          </view>
+          <view class="no_data" v-else>暂无数据</view>
+        </view>
+      </popup>
+
+      <popup ref="help" width="650" :canClose="false">
+        <view class="p_title">
+          <text>助力记录</text>
+          <image
+            @click.stop="closeHelp"
+            class="icon_close"
+            src="https://static.roi-cloud.com/base/icon_close.png"
+            mode=""
+          ></image>
+        </view>
+        <view class="help_menu">
+          <view
+            :class="['help_item', { active: currentHelpItem == 1 }]"
+            @click="changeHelpTypeList(1)"
+            >好友助力</view
+          >
+          <view
+            :class="['help_item', { active: currentHelpItem == 2 }]"
+            @click="changeHelpTypeList(2)"
+            >我的助力</view
+          >
+        </view>
+        <view class="help_tip">
+          <image
+            src="https://static.roi-cloud.com/base/icon_bulb.png"
+            mode=""
+          ></image>
+          <text>每人每天可邀请无限好友助力（不可重复助力）</text>
+        </view>
+        <view class="help_list" v-if="helper.list.length > 0">
+          <scroll-view
+            v-show="showItem == 1"
+            :scroll-y="true"
+            ref="scroll"
+            :scroll-top="helperTop"
+            @scrolltolower.stop.prevent="helpMeListMore"
+            @scroll="helpScroll"
+            style="height: 100%"
+          >
+            <view
+              class="help_list_item"
+              v-for="item in helper.list"
+              :key="item.recordId"
+            >
+              <view class="help_left">
+                <view class="avatar">
+                  <image :src="item.helpUserInfo.avatar" mode=""></image>
+                </view>
+                <view class="username">{{ item.helpUserInfo.nickName }}</view>
+              </view>
+              <view class="help_right">
+                <text>{{ getTime(item.helpTime) }} </text>
+                <text class="ml10">为我助力</text>
+              </view>
+            </view>
+          </scroll-view>
+          <scroll-view
+            v-show="showItem == 2"
+            :scroll-y="true"
+            ref="scroll"
+            :scroll-top="helperTop"
+            @scrolltolower.stop.prevent="helpMeListMore"
+            @scroll="helpScroll"
+            style="height: 100%"
+          >
+            <view
+              class="help_list_item"
+              v-for="item in helper.list"
+              :key="item.recordId"
+            >
+              <view class="help_left">
+                <view class="avatar">
+                  <image :src="item.userInfo.avatar" mode=""></image>
+                </view>
+                <view class="username">{{ item.userInfo.nickName }}</view>
+              </view>
+              <view class="help_right">
+                <text>{{ getTime(item.helpTime) }} </text>
+                <text class="ml10">为TA助力</text>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+        <view v-else class="no_data"> 暂无数据 </view>
+      </popup>
+      <popup ref="award" width="650" bgColor="#FFF8DC" class="">
+        <view class="p_title">
+          <text :style="{ color: gameResult.level == 6 ? '#fff' : '#333' }">{{
+            gameResult.level == 0 ? '差一点就博中了！' : '恭喜您获得'
+          }}</text>
+          <image
+            @click="$refs.award.hide()"
+            class="icon_close"
+            src="https://static.roi-cloud.com/base/icon_close.png"
+            mode=""
+          ></image>
+        </view>
+        <view class="bg_level-6" v-if="gameResult.level == 6">
+          <image
+            src="https://static.roi-cloud.com/base/over_bg.png"
+            mode=""
+          ></image>
+        </view>
+        <!-- 中奖 -->
+        <view
+          v-if="gameResult.level != 0"
+          class="award_level"
+          :style="{ 'margin-top': gameResult.level == 6 ? '-36px' : '10upx' }"
+        >
+          <image
+            :src="
+              'https://static.roi-cloud.com/base/icon_award-' +
+              (gameResult.level || 1) +
+              '.png'
+            "
+            mode=""
+          ></image>
+        </view>
+        <!-- 未中奖 -->
+        <view v-else class="icon_cry">
+          <image
+            src="https://static.roi-cloud.com/base/icon_cry.png"
+            mode=""
+          ></image>
+        </view>
+        <!-- 骰子 -->
+        <view class="dice_result">
+          <!-- 	<view class="dice_item" v-for="(item,index) in gamePoint" :key="item">
+						<text>{{ item }}</text>
+						<image :src="pointsImages[item-1]" mode="">
+						</image>
+					</view> -->
+          <view class="dice_item">
+            <!-- <text>{{ pointsImages[0] }}</text> -->
+            <image :src="pointsImages[0]" mode=""> </image>
+          </view>
+          <view class="dice_item">
+            <!-- <text>{{ pointsImages[1] }}</text> -->
+            <image :src="pointsImages[1]" mode=""> </image>
+          </view>
+          <view class="dice_item">
+            <!-- <text>{{ pointsImages[2] }}</text> -->
+            <image :src="pointsImages[2]" mode=""> </image>
+          </view>
+          <view class="dice_item">
+            <!-- <text>{{ pointsImages[3] }}</text> -->
+            <image :src="pointsImages[3]" mode=""> </image>
+          </view>
+          <view class="dice_item">
+            <!-- <text>{{ pointsImages[4] }}</text> -->
+            <image :src="pointsImages[4]" mode=""> </image>
+          </view>
+          <view class="dice_item">
+            <!-- <text>{{ pointsImages[5] }}</text> -->
+            <image :src="pointsImages[5]" mode=""> </image>
+          </view>
+        </view>
+        <!-- 即玩即中 -->
+        <view v-if="gameInfo.gameType == 2 && gameResult.level > 0">
+          <view v-if="gameResult.prizeStatus == 1" class="award_title"
+            >恭喜您拿到奖品啦</view
+          >
+          <view
+            class="goods_wrap"
+            :style="{ 'margin-top': gameResult.prizeStatus == 1 ? 0 : '16px' }"
+          >
+            <image :src="gameResult.prizeImageUrl" mode=""></image>
+            <view class="prizeName">
+              {{ gameResult.prizeName }}
+            </view>
+          </view>
+        </view>
+        <!-- 积分兑换 -->
+        <view>
+          <view class="integral"> 积分明细{{ gameResult.points || 0 }}】 </view>
+        </view>
+        <view
+          class="ad_wrap"
+          v-if="advertList[2].length > 0 && gameResult.level > 0"
+        >
+          <swiper
+            :circular="true"
+            :autoplay="true"
+            :interval="3000"
+            autoplay
+            :duration="1000"
+          >
+            <swiper-item v-for="item in advertList[2]" :key="item">
+              <view class="swiper-item">
+                <image :src="item.uploadImgInfo.img" mode="aspectFill"></image>
+              </view>
+            </swiper-item>
+          </swiper>
+        </view>
+        <!-- 2、无次数 -->
+        <view v-if="userPlayInfo.playTimes - userPlayInfo.playedTimes == 0">
+          <button
+            open-type="share"
+            class="again mt50"
+            v-if="setting.SHARE.STATUS == 0"
+          >
+            喊好友加好运
+          </button>
+          <view
+            class="again mt50"
+            style="padding: 0 10px"
+            @click="$refs.award.hide()"
+            v-else
+            >今日战罢，明日再来
+          </view>
+          <view v-if="setting.SHARE.STATUS == 0">
+            <view class="help_tips">
+              助力成功，您和好友各得一次机会
+              <image
+                src="https://static.roi-cloud.com/base/game-tip.png"
+                mode=""
+              ></image>
+            </view>
+            <!-- <view class="bo_center">去博饼广场刷刷好运 ></view> -->
+          </view>
+        </view>
+        <!-- 1、还有次数 -->
+        <view v-else class="again mt50" @click="$refs.award.hide()"
+          >再来一把</view
+        >
+      </popup>
+      <popup ref="assistance" class="assistance_pop" width="630">
+        <view class="avatar">
+          <image :src="helperInfo.avatar" mode=""></image>
+        </view>
+        <text class="username">{{ helperInfo.nickName }}</text>
+        <!-- 分享中奖 -->
+        <view v-if="helperInfo.prize">
+          <view class="ass_m_title mt50"
+            >在[ {{ helperInfo.gameName }} ] 博到了</view
+          >
+          <view class="g_img">
+            <view class="goods_wrap">
+              <image
+                :src="helperInfo.prize && helperInfo.prize.prizeImageUrl"
+                mode=""
+              ></image>
+              <view class="prizeName">
+                {{ helperInfo.prizeName }}
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 分享排行 -->
+        <view v-else-if="helperInfo.king">
+          <view class="ass_m_title mt50"
+            >在[ {{ helperInfo.gameName }} ] 排名</view
+          >
+          <view class="g_rank_no"
+            >第 {{ helperInfo.king && helperInfo.king.rankNumber }} 名</view
+          >
+        </view>
+        <!-- 未中奖 -->
+        <view v-else>
+          <view class="ass_m_title mt50"
+            >正在参与[ {{ helperInfo.gameName }} ]</view
+          >
+        </view>
+
+        <view class="ass_m_title">你也来一把</view>
+        <view class="mt10">一起博饼，各得一次机会</view>
+        <view class="play_btn mt50" @click="gameHelp">我也来一把</view>
+        <view class="ad_wrap" v-if="advertList[4].length > 0">
+          <swiper
+            :circular="true"
+            :autoplay="true"
+            :interval="3000"
+            autoplay
+            :duration="1000"
+          >
+            <swiper-item v-for="item in advertList[4]" :key="item">
+              <view class="swiper-item">
+                <image :src="item.uploadImgInfo.img" mode="aspectFill"></image>
+              </view>
+            </swiper-item>
+          </swiper>
+        </view>
+      </popup>
+
+      <popup ref="help_other" class="help_other" width="630">
+        <view class="help_status_icon">
+          <image
+            src="https://static.roi-cloud.com/base/icon_success.png"
+            mode=""
+          ></image>
+        </view>
+        <view class="help_m_title">助力成功</view>
+        <view class="help_sub_title">恭喜您获得一次博饼机会</view>
+        <view class="play_btn mt100" @click="$refs.help_other.hide()"
+          >去博饼</view
+        >
+      </popup>
+      <popup ref="help_other_faile" class="help_other_faile" width="630">
+        <view class="help_status_icon">
+          <image
+            src="https://static.roi-cloud.com/base/icon_fail.png"
+            mode=""
+          ></image>
+        </view>
+        <view class="help_m_title">助力失败</view>
+        <view class="help_sub_title">{{ helpFaileMsg }}</view>
+        <view class="play_btn mt100" @click="$refs.help_other_faile.hide()"
+          >去博饼</view
+        >
+      </popup>
+
+      <popup ref="get_out" bgColor="#FFF8DC" class="get_out" width="630">
+        <image
+          @click="closeThisPage"
+          class="icon_close"
+          src="https://static.roi-cloud.com/base/icon_close.png"
+          mode=""
+        >
+        </image>
+        <view class="p_bowl">
+          <image
+            class="img_bowl"
+            src="https://static.roi-cloud.com/base/icon_bowl.png"
+            mode=""
+          ></image>
+          <image
+            class="icon_dice-2"
+            src="https://static.roi-cloud.com/base/p_dice.png"
+            mode=""
+          ></image>
+          <image
+            class="icon_dice-1"
+            src="https://static.roi-cloud.com/base/p_dice-2.png"
+            mode=""
+          ></image>
+          <image
+            class="icon_dice-4"
+            src="https://static.roi-cloud.com/base/icon_dice-4.png"
+            mode=""
+          ></image>
+          <image
+            class="icon_dice-5"
+            src="https://static.roi-cloud.com/base/icon_dice-5.png"
+            mode=""
+          ></image>
+        </view>
+        <image
+          class="icon_dice"
+          src="https://static.roi-cloud.com/base/p_dice.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-3"
+          src="https://static.roi-cloud.com/base/icon_dice-3.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_sad"
+          src="https://static.roi-cloud.com/base/icon_fail.png"
+          mode=""
+        ></image>
+        <view class="m_title">本游戏因违规已停止服务</view>
+        <view class="s_title"> 很抱歉由于涉嫌违规已 停止服务。 </view>
+        <view class="btn_know" @click="closeThisPage">我知道</view>
+        <navigator
+          hover-class="none"
+          url="/pages/webView/webView?src=https://mp.weixin.qq.com/s/-vyXSDr_h-OTVsZfkZRf6w"
+          class="bttom_tips"
+        >
+          关闭后依然可进行奖品相关操作 如有疑问请 <text>点击查看</text>
+        </navigator>
+      </popup>
+      <popup ref="over_popup" bgColor="#FFF8DC" class="over_popup" width="630">
+        <view>
+          <view class="over_header">
+            <view class="over_title">
+              <text>活动结束</text>
+              <uni-icons
+                @click="$refs.over_popup.hide()"
+                class="icon_close"
+                type="closeempty"
+                size="30"
+                color="#fff"
+              ></uni-icons>
+            </view>
+          </view>
+          <view class="o_avatar">
+            <image :src="user_info.avatar" mode=""></image>
+          </view>
+          <view class="o_username">{{ user_info.nickName }}</view>
+          <view v-if="gameInfo.isSvip == 1">
+            <view class="o_rank">本次活动已经结束</view>
+            <view class="o_rank"
+              >最终排名为<text>【第{{ userRank.ranking }}名】</text></view
+            >
+            <view v-if="kingPrize">
+              <view class="get_goods_wrap">
+                <view class="get_img">
+                  <image :src="kingPrize.prizeInfo.img" mode=""></image>
+                </view>
+                <view class="get_right">
+                  <view class="get_level">{{
+                    kingPrize.prizeInfo.prizeNote
+                  }}</view>
+                  <view class="get_title">{{
+                    kingPrize.prizeInfo.prizeName
+                  }}</view>
+                </view>
+              </view>
+              <view class="svip_end_tips"
+                >工作人员会在5个工作日内主动联系您处理领奖</view
+              >
+              <view @click="checkPhone" class="get_btn">我知道了</view>
+            </view>
+            <view v-else>
+              <view class="svip_end_tips"
+                >奖品兑换截止{{ gameInfo.overChance }}
+                <view>数量有限，兑完即止</view>
+              </view>
+              <navigator
+                v-if="gameInfo.gameType == 1"
+                :url="'/pages/conversion/conversion?gameId=' + gameId"
+                class="get_btn"
+                >点我去兑换</navigator
+              >
+              <navigator
+                v-if="gameInfo.gameType == 2"
+                :url="'/pages/prize/prize?gameId=' + gameId"
+                class="get_btn"
+              >
+                点我领奖
+              </navigator>
+            </view>
+          </view>
+          <view v-else>
+            <view class="o_rank">感谢参与，本次活动已结束</view>
+            <view class="icon_gift_box">
+              <image
+                src="https://static.roi-cloud.com/base/icon_gift_box.png"
+                mode=""
+              ></image>
+              <view class="gift_box_tips">
+                奖品{{ gameInfo.gameType == 2 ? '领取' : '兑换' }}截止{{
+                  gameInfo.overChance
+                }}数量有限，对完即止</view
+              >
+            </view>
+            <navigator
+              v-if="gameInfo.gameType == 1"
+              :url="'/pages/conversion/conversion?gameId=' + gameId"
+              class="get_btn"
+              >点我去兑换</navigator
+            >
+            <navigator
+              v-if="gameInfo.gameType == 2"
+              :url="'/pages/prize/prize?gameId=' + gameId"
+              class="get_btn"
+            >
+              点我领奖
+            </navigator>
+          </view>
+        </view>
+      </popup>
+    </view>
+    <uni-popup ref="login_popup" type="bottom">
+      <view class="login_poup">
+        <view class="login_title">登录小程序</view>
+        <view class="sub_title">申请获取以下权限，以提供更优质的服务</view>
+        <view class="logint_desc">
+          获取你的公开信息（昵称、头像、地区等）
+          获取你当前地理位置以匹配游戏范围
+        </view>
+        <view class="agreement">
+          <text>点击立即登录即同意</text>
+          <text class="protocol" @click="openProtocol">用户协议</text>
+        </view>
+        <view class="btns">
+          <view class="def_btn" @click="cancelLogin">取消</view>
+          <view class="def_btn active" @click="getUserProfile">登录</view>
+        </view>
+      </view>
+    </uni-popup>
+    <popup ref="contact" class="contactPoup" width="500">
+      <view class="">
+        <image
+          src="https://static.roi-cloud.com/base/customerService.png"
+          mode=""
+        ></image>
+      </view>
+    </popup>
+    <popup ref="tip" bgColor="#FFF8DC" class="get_out" width="630">
+      <image
+        @click="$refs.tip.close()"
+        class="icon_close"
+        src="https://static.roi-cloud.com/base/icon_close.png"
+        mode=""
+      >
+      </image>
+      <view class="p_bowl">
+        <image
+          class="img_bowl"
+          src="https://static.roi-cloud.com/base/icon_bowl.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-2"
+          src="https://static.roi-cloud.com/base/p_dice.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-1"
+          src="https://static.roi-cloud.com/base/p_dice-2.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-4"
+          src="https://static.roi-cloud.com/base/icon_dice-4.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-5"
+          src="https://static.roi-cloud.com/base/icon_dice-5.png"
+          mode=""
+        ></image>
+      </view>
+      <image
+        class="icon_dice"
+        src="https://static.roi-cloud.com/base/p_dice.png"
+        mode=""
+      ></image>
+      <image
+        class="icon_dice-3"
+        src="https://static.roi-cloud.com/base/icon_dice-3.png"
+        mode=""
+      ></image>
+      <image
+        class="icon_sad"
+        src="https://static.roi-cloud.com/base/icon_fail.png"
+        mode=""
+      ></image>
+      <view class="m_title">
+        <text>本游戏人数已经达到上限</text>
+      </view>
+      <view class="s_title">
+        <text
+          >很抱歉，{{ gameInfo.gameName }}人数达到上限，新用户无法加入。</text
+        >
+      </view>
+      <view class="btn_know" @click="$refs.tip.close()">我知道</view>
+      <navigator
+        hover-class="none"
+        url="/pages/webView/webView?src=https://mp.weixin.qq.com/s/-vyXSDr_h-OTVsZfkZRf6w"
+        class="bttom_tips"
+      >
+        关闭后依然可以进行奖品相关操作 如有疑问请点击查看
+        <text>更多解决方案</text>
+      </navigator>
+    </popup>
+    <popup ref="network" bgColor="#FFF8DC" class="get_out" width="630">
+      <image
+        @click="$refs.network.close()"
+        class="icon_close"
+        src="https://static.roi-cloud.com/base/icon_close.png"
+        mode=""
+      >
+      </image>
+      <view class="p_bowl">
+        <image
+          class="img_bowl"
+          src="https://static.roi-cloud.com/base/icon_bowl.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-2"
+          src="https://static.roi-cloud.com/base/p_dice.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-1"
+          src="https://static.roi-cloud.com/base/p_dice-2.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-4"
+          src="https://static.roi-cloud.com/base/icon_dice-4.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-5"
+          src="https://static.roi-cloud.com/base/icon_dice-5.png"
+          mode=""
+        ></image>
+      </view>
+      <image
+        class="icon_dice"
+        src="https://static.roi-cloud.com/base/p_dice.png"
+        mode=""
+      ></image>
+      <image
+        class="icon_dice-3"
+        src="https://static.roi-cloud.com/base/icon_dice-3.png"
+        mode=""
+      ></image>
+      <image
+        class="icon_sad"
+        src="https://static.roi-cloud.com/base/icon_fail.png"
+        mode=""
+      ></image>
+      <view class="m_title">
+        <text>无法进行博饼游戏</text>
+      </view>
+      <view class="s_title">
+        <text>很抱歉，因为没有可用的网络连接，不能进行博饼游戏。</text>
+      </view>
+      <view class="btn_know" @click="$refs.network.close()">我知道</view>
+      <navigator
+        hover-class="none"
+        url="/pages/webView/webView?src=https://mp.weixin.qq.com/s/-vyXSDr_h-OTVsZfkZRf6w"
+        class="bttom_tips"
+      >
+        如您正在手机网络不好的地方，请稍后重试 如多次失败，请点击查看
+        <text>更多解决方案</text>
+      </navigator>
+    </popup>
+    <popup ref="position" bgColor="#FFF8DC" class="get_out" width="630">
+      <image
+        @click="$refs.position.close()"
+        class="icon_close"
+        src="https://static.roi-cloud.com/base/icon_close.png"
+        mode=""
+      >
+      </image>
+      <view class="p_bowl">
+        <image
+          class="img_bowl"
+          src="https://static.roi-cloud.com/base/icon_bowl.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-2"
+          src="https://static.roi-cloud.com/base/p_dice.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-1"
+          src="https://static.roi-cloud.com/base/p_dice-2.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-4"
+          src="https://static.roi-cloud.com/base/icon_dice-4.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-5"
+          src="https://static.roi-cloud.com/base/icon_dice-5.png"
+          mode=""
+        ></image>
+      </view>
+      <image
+        class="icon_dice"
+        src="https://static.roi-cloud.com/base/p_dice.png"
+        mode=""
+      ></image>
+      <image
+        class="icon_dice-3"
+        src="https://static.roi-cloud.com/base/icon_dice-3.png"
+        mode=""
+      ></image>
+      <image
+        class="icon_sad"
+        src="https://static.roi-cloud.com/base/icon_fail.png"
+        mode=""
+      ></image>
+      <!-- <view class="m_title">
+				<text>本游戏人数已经达到上限</text>
+			</view> -->
+      <view class="s_title">
+        <text>{{ positionMsg }}</text>
+      </view>
+      <view class="btn_know" @click="$refs.position.close()">我知道</view>
+      <view style="height: 24px"></view>
+    </popup>
+    <popup ref="location" bgColor="#FFF8DC" class="get_out" width="630">
+      <image
+        @click="$refs.location.close()"
+        class="icon_close"
+        src="https://static.roi-cloud.com/base/icon_close.png"
+        mode=""
+      >
+      </image>
+      <view class="p_bowl">
+        <image
+          class="img_bowl"
+          src="https://static.roi-cloud.com/base/icon_bowl.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-2"
+          src="https://static.roi-cloud.com/base/p_dice.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-1"
+          src="https://static.roi-cloud.com/base/p_dice-2.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-4"
+          src="https://static.roi-cloud.com/base/icon_dice-4.png"
+          mode=""
+        ></image>
+        <image
+          class="icon_dice-5"
+          src="https://static.roi-cloud.com/base/icon_dice-5.png"
+          mode=""
+        ></image>
+      </view>
+      <image
+        class="icon_dice"
+        src="https://static.roi-cloud.com/base/p_dice.png"
+        mode=""
+      ></image>
+      <image
+        class="icon_dice-3"
+        src="https://static.roi-cloud.com/base/icon_dice-3.png"
+        mode=""
+      ></image>
+      <image
+        class="icon_sad"
+        src="https://static.roi-cloud.com/base/icon_fail.png"
+        mode=""
+      ></image>
+      <view class="m_title">
+        <text>无法进行博饼游戏</text>
+      </view>
+      <view class="s_title">
+        <text>很抱歉，因为无法获取您当前的地理位置，不能进行博饼游戏。</text>
+      </view>
+      <view class="btn_know" @click="openLocationSetting">我知道</view>
+      <navigator
+        hover-class="none"
+        url="/pages/webView/webView?src=https://mp.weixin.qq.com/s/-vyXSDr_h-OTVsZfkZRf6w"
+        class="bttom_tips"
+      >
+        如您正在手机网络不好的地方，请稍后重试 如多次失败，请点击查看
+        <text>更多解决方案</text>
+      </navigator>
+    </popup>
+    <uni-popup :maskClick="false" type="dialog" ref="dialog">
+      <view class="phone-wrap">
+        <view class="phone-container">
+          <image
+            @click="onClose"
+            src="https://static.roi-cloud.com/base/close.png"
+            class="phone-close"
+          />
+          <view class="phone-title">
+            <text>请留个备用手机号</text>
+          </view>
+          <view class="phone-subtitle">
+            <text>作为兑奖备用联系方式，我们会保护你的隐私</text>
+          </view>
+          <view class="phone-input-wrap">
+            <input
+              :value="phone"
+              cursor-spacing="10"
+              @input="changePhone"
+              class="phone-input"
+              placeholder="填写手机号"
+            />
+          </view>
+          <view v-if="phoneError" class="phone-error-msg"
+            ><text>{{ phoneError }}</text></view
+          >
+          <view class="phone-input-wrap">
+            <input
+              :value="verifyCode"
+              cursor-spacing="10"
+              @input="changeVerifyCode"
+              maxlength="6"
+              class="phone-code-input"
+              placeholder="填写验证码"
+            />
+            <view
+              :class="[
+                'phone-code-button',
+                { 'phone-code-button-disabled': verifyCodeTime !== 0 },
+              ]"
+              @click="sendCode"
+              ><text>{{ verifyCodeText }}</text></view
+            >
+          </view>
+          <view v-if="codeError" class="phone-error-msg"
+            ><text>{{ codeError }}</text></view
+          >
+
+          <view v-if="agreeError" class="agree-error-msg"
+            ><text>{{ agreeError }}</text></view
+          >
+          <view
+            :class="[
+              'phone-button',
+              { 'button-disabled': !phone || !verifyCode },
+            ]"
+            @click="savePhone"
+          >
+            <text>保存</text>
+          </view>
+        </view>
+      </view>
+    </uni-popup>
+  </view>
+</template>
+
+<script>
+import '@/static/css/game.scss'
+import Modal from '@/components/Modal.vue'
+import startsWith from 'lodash/startsWith'
+import { validPhone, relativePath } from '@/utils/tool.js'
+import popup from '@/components/popup/popup.vue'
+import navbar from '@/components/Navbar.vue'
+import moment from 'moment'
+export default {
+  components: {
+    popup,
+    navbar,
+  },
+  data() {
+    return {
+      timer: null,
+      playLoading: false,
+      getGift: 2,
+      canClose: false,
+      navColor: 'transparent',
+      currentScoreItem: 1,
+      currentHelpItem: 1,
+      level: 1, //中奖登记
+      navbarHeight: 0, //navbar高度
+      userPlayInfo: {}, //用户玩的次数
+      user_info: null,
+      gameInfo: {}, //游戏信息
+      userRank: {}, //用户排名
+      gameResult: {
+        gameResult: [],
+        level: 0,
+      },
+      helpFaileMsg: '您的助力次数已用完',
+      helper: {
+        page: 1,
+        pageSize: 10,
+        list: [],
+      },
+      setting: {
+        SHARE: {
+          STATUS: 1,
+        },
+      }, //游戏配置
+      pointsImages: [
+        '/static/images/icon_dice-3.png',
+        '/static/images/icon_dice-5.png',
+        '/static/images/icon_dice-3.png',
+        '/static/images/icon_dice-1.png',
+        '/static/images/icon_dice-5.png',
+        '/static/images/icon_dice-6.png',
+      ],
+      awardLevel: {
+        6: '状元',
+        5: '对堂（榜眼）',
+        4: '三红（探花）',
+        3: '四进（进士）',
+        2: '二举（举人）',
+        1: '一秀（秀才）',
+        0: '皆无',
+      },
+      bgmPlay: false,
+      logining: false,
+      canGetUserProfile: false,
+      gameId: '',
+      helperInfo: {}, //助力人信息
+      loadOptions: {},
+      kingofKingsList: [
+        {
+          info: {
+            prizeNote: 'notetete',
+            range: 'rangerangerange',
+            prizeName: 'prizeNameprizeNameprizeName',
+          },
+          list: [
+            {
+              nickName: 'nickName nickName ',
+              score: '100',
+            },
+          ],
+        },
+      ],
+      advertList: [],
+      scoreDetailList: [], //积分明细
+      exchangeList: [], //兑换明细
+      otherKingList: [],
+      playAnimation: false,
+      show: false,
+      helpLoading: false,
+      helperTop: 0,
+      hasMore: true,
+      loadImagePath: '',
+      showItem: 1,
+      Audio: null,
+      context: null,
+      sharePath: 'https://static.roi-cloud.com/base/share_bg.png',
+      kingPrize: null,
+      phone: '',
+      verifyCode: '',
+      verifyCodeText: '发送验证码',
+      verifyCodeTime: 0,
+      codeError: '',
+      timer: null,
+      verifyCodeResult: {},
+    }
+  },
+  onShow() {
+    this.getData()
+  },
+  onReady() {
+    this.context = uni.createCanvasContext('shareCanvas', this)
+  },
+  onLoad(options) {
+    if (options.scene) {
+      let params = unescape(options.scene).split(',')
+      options.userId = params[1]
+      options.gameId = params[0]
+      console.log(params, options)
+    }
+    if (options.gameId) {
+      this.$storage.set('gameId', options.gameId)
+      this.gameId = options.gameId
+    }
+    let src = 'https://static.roi-cloud.com/base/bosound_0916.mp3'
+    //实例化声音
+    this.Audio = uni.createInnerAudioContext()
+    this.Audio.src = src //音频地址
+    this.user_info = this.$storage.getUser()
+    this.loadOptions = options
+    if (options.userId) {
+      verifyGameHelp({
+        gameId: options.gameId,
+        hash: options.hash,
+        userId: options.userId,
+        type: options.type || 0,
+      }).then((res) => {
+        this.helperInfo = res
+        this.$refs.assistance.show()
+      })
+    }
+    this.navbarHeight =
+      getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
+  },
+  onPageScroll(e) {
+    if (e.scrollTop > 0) {
+      this.navColor = '#65b636'
+    } else {
+      this.navColor = 'transparent'
+    }
+  },
+  onHide() {
+    this.$refs.help.close()
+    this.currentHelpItem = 1
+  },
+  methods: {
+    changeVerifyCode: function (e) {
+      this.verifyCode = e.detail.value
+    },
+    savePhone: function () {
+      if (!this.phone) {
+        this.phoneError = '请填写手机号'
+        return false
+      } else if (!validPhone(this.phone)) {
+        this.phoneError = '手机号格式错误'
+        return false
+      } else {
+        this.phoneError = ''
+      }
+      if (!this.verifyCode) {
+        this.codeError = '请填写验证码'
+        return false
+      } else {
+        this.codeError = ''
+      }
+      let params = {
+        phone: this.phone,
+        verifyCode: this.verifyCode,
+        time: this.verifyCodeResult.time,
+        hash: this.verifyCodeResult.hash,
+      }
+      this.$loading.show()
+      updateUserPhone(params)
+        .then((response) => {
+          clearInterval(this.timer)
+          this.user_info = {
+            ...this.user_info,
+            phone: this.phone,
+          }
+          // let user = this.$storage.getUser();
+          // this.$storage.setUser({
+          // 	...user,
+          // 	phone: this.phone
+          // });
+          this.$refs.dialog.close()
+          this.$loading.hide()
+        })
+        .catch((error) => {
+          this.$loading.hide()
+          this.$toast.error(error.msg || '短信验证码验证失败')
+        })
+    },
+    changePhone: function (e) {
+      this.phone = e.detail.value
+    },
+    sendCode: function () {
+      if (this.verifyCodeTime === 0) {
+        if (!this.phone) {
+          this.phoneError = '请填写手机号'
+          return false
+        } else if (!validPhone(this.phone)) {
+          this.phoneError = '手机号格式错误'
+          return false
+        } else {
+          this.phoneError = ''
+        }
+        let params = {
+          phone: this.phone,
+        }
+        smsBindUserVerifyCode(params).then((response) => {
+          this.verifyCodeResult = response
+          let code = 60
+          this.verifyCodeTime = code
+          this.verifyCodeText = code
+          this.timer = setInterval(() => {
+            code = code - 1
+            this.verifyCodeTime = code
+            if (code <= 0) {
+              this.verifyCodeTime = 0
+              this.verifyCodeText = '重新发送'
+              clearInterval(this.timer)
+            } else {
+              this.verifyCodeText = code
+            }
+          }, 1000)
+        })
+      }
+    },
+    onClose: function () {
+      clearInterval(this.timer)
+      this.$refs.dialog.close()
+    },
+    checkPhone() {
+      this.$loading.show()
+      userInfo().then((res) => {
+        this.$loading.hide()
+        if (res.phone) {
+          this.$refs.over_popup.close()
+        } else {
+          this.phone = ''
+          this.verifyCode = ''
+          this.verifyCodeText = '发送验证码'
+          this.verifyCodeTime = 0
+          this.phoneError = ''
+          this.codeError = ''
+          this.agreeError = ''
+          this.$refs.dialog.open()
+        }
+      })
+    },
+    getAdvertList() {
+      let params = {}
+      if (this.gameId) {
+        params.gameId = this.gameId
+      }
+      apiGetAdvert(params).then((res) => {
+        this.advertList = res
+      })
+    },
+    onHelper: function () {
+      this.helpTop = 0
+      this.hasMore = true
+      this.show = true
+      this.popShow('help')
+    },
+    getKingOfKingPrize() {
+      apiKingOfKingPrize({
+        gameId: this.gameId,
+      }).then((res) => {
+        this.kingPrize = res
+        this.$refs.assistance.hide()
+        this.$refs.over_popup.show()
+      })
+    },
+    closeHelp: function () {
+      this.$refs.help.close()
+    },
+    helpMeListMore() {
+      if (!this.helpLoading && this.hasMore) {
+        this.getHelperList(this.helper.page + 1)
+      }
+    },
+    helpScroll: function (e) {
+      this.helpTop = e.detail.scrollTop
+    },
+    closeThisPage() {
+      uni.switchTab({
+        url: '/pages/sponsor/sponsor',
+      })
+    },
+    cancelLogin() {
+      this.$refs.login_popup.close()
+    },
+    openProtocol() {
+      uni.downloadFile({
+        url: 'https://static.roi-cloud.com/base/protocol.pdf',
+        success(res) {
+          let filePath = res.tempFilePath
+          uni.openDocument({
+            filePath: filePath,
+            fileType: 'pdf',
+            success(res) {
+              // console.log("打开文档成功");
+            },
+            fail(res) {
+              console.log(res)
+            },
+            complete() {},
+          })
+        },
+      })
+    },
+    getData() {
+      //   apiGetMinSetting().then((res) => {
+      //     this.setting = res
+      //     this.gameId = this.$storage.get('gameId')
+      //     if (JSON.stringify(this.$storage.getUser()) == '{}') {
+      //       // this.$refs.login_popup.open('bottom')
+      //       this.getAdvertList()
+      //     } else if (this.gameId == '') {
+      //       this.$refs.login_popup.close()
+      //       this.$storage.set('gameId', res.DEFAULT.GAME_ID)
+      //       this.gameId = res.DEFAULT.GAME_ID
+      //       this.initData()
+      //     } else {
+      //       this.initData()
+      //     }
+      //   })
+    },
+    // 初始化
+    initData() {
+      this.$refs.login_popup.close()
+      this.user_info = this.$storage.getUser()
+      this.getUserPlayInfo()
+      this.getGameInfo()
+      this.getAdvertList()
+      // 助力记录
+      this.getHelperList(1)
+    },
+    openLocationSetting() {
+      uni.openSetting({
+        success: (res) => {
+          if (res.authSetting['scope.userLocation']) {
+            this.$refs.location.hide()
+          }
+        },
+        fail(err) {},
+      })
+    },
+    onVip: function () {
+      uni.navigateTo({
+        url: '/pages/vip/vip',
+      })
+    },
+    cancel: function () {
+      this.$refs.popup.close()
+    },
+    changeItem(type) {
+      this.currentScoreItem = type
+    },
+    toCreate() {
+      statisticsAllGameList().then((res) => {
+        let list = res.list
+        let _this = this
+        if (list.length > 0) {
+          this.$storage.set('gameId', res.list[0].gameId)
+          this.gameId = res.list[0].gameId
+          this.initData()
+        } else {
+          uni.showModal({
+            content: '请先创建游戏',
+            confirmText: '确定',
+            success: function (res) {
+              if (res.confirm) {
+                uni.navigateTo({
+                  url: '/pages/sponsor/sponsorSetting',
+                })
+              } else {
+                _this.closeThisPage()
+              }
+            },
+          })
+        }
+      })
+    },
+    toPage(e) {
+      if (JSON.stringify(this.$storage.getUser()) == '{}') {
+        this.$refs.login_popup.open()
+      } else {
+        uni.navigateTo({
+          url: e.currentTarget.dataset.url,
+        })
+      }
+    },
+    getImageInfo(url) {
+      return new Promise((reslove, reject) => {
+        uni.getImageInfo({
+          src: url,
+          success: (res) => {
+            reslove(res)
+          },
+          fail(error) {
+            reject(error)
+          },
+        })
+      })
+    },
+    createNewImg: async function (gameInfo) {
+      let res = await this.getImageInfo(
+        'https://static.roi-cloud.com/base/share_bg.png'
+      )
+      await this.context.drawImage(res.path, 0, 0, 260, 208)
+      if (gameInfo.logoInfo && gameInfo.logoInfo.img) {
+        let logoInfo = await this.getImageInfo(gameInfo.logoInfo.img)
+        this.context.drawImage(
+          logoInfo.path,
+          10,
+          10,
+          100,
+          (100 / logoInfo.width) * logoInfo.height
+        )
+      }
+      await this.context.draw()
+      setTimeout(() => {
+        uni.canvasToTempFilePath({
+          canvasId: 'shareCanvas',
+          success: (toImage) => {
+            this.sharePath = toImage.tempFilePath
+          },
+          fail: function () {
+            //TODO
+          },
+        })
+      }, 300)
+    },
+    getAward() {
+      this.$loading.show()
+      gameAward({
+        gameId: this.gameId,
+      }).then((res) => {
+        for (let index in res.list) {
+          res.list[index].playTime = moment(
+            res.list[index].playTime * 1000
+          ).format('YYYY.MM.DD')
+        }
+        this.scoreDetailList = res.list
+        this.$loading.hide()
+      })
+      this.$loading.show()
+      exchangeGame({
+        gameId: this.gameId,
+      }).then((res) => {
+        for (let index in res.list) {
+          res.list[index].verify_time = moment(
+            res.list[index].verifyTime * 1000
+          ).format('YYYY.MM.DD')
+        }
+        this.exchangeList = res.list
+        this.$loading.hide()
+      })
+    },
+    checkLogin() {
+      let flag = true
+      if (JSON.stringify(this.user_info) == '{}') {
+        this.$refs.login_popup.open('bottom')
+        flag = false
+      }
+      return flag
+    },
+    gameHelp() {
+      let params = {
+        gameId: this.gameId,
+        userId: this.loadOptions.userId,
+        hash: this.loadOptions.hash,
+      }
+      if (JSON.stringify(this.user_info) == '{}') {
+        this.toLogin()
+      } else {
+        addGameHelp(params)
+          .then((res) => {
+            this.getUserPlayInfo()
+            this.getHelperList(1)
+            this.getAward()
+            this.$refs.assistance.hide()
+            this.$refs.help_other.show()
+          })
+          .catch((error) => {
+            this.$refs.assistance.hide()
+            this.helpFaileMsg = error.msg
+            this.$refs.help_other_faile.show()
+          })
+      }
+    },
+    changeHelpTypeList(type) {
+      this.hasMore = true
+      this.currentHelpItem = type
+      // this.helpTop = 0;
+      this.getHelperList(1, true, type)
+    },
+    play() {
+      uni.getNetworkType({
+        success: (res) => {
+          if (res.networkType === 'none') {
+            this.$refs.network.show()
+          } else {
+            if (this.playLoading) {
+              return
+            }
+            this.playLoading = true
+            if (JSON.stringify(this.$storage.getUser()) == '{}') {
+              this.playLoading = false
+              this.toLogin()
+            } else {
+              if (this.$storage.get('getLocationTime') == '') {
+                this.getSetting()
+                return
+              } else {
+                let get_time = this.$storage.get('getLocationTime').get_time
+                let now = new Date().getTime()
+                if ((now - get_time) / 1000 / 60 / 60 > 3) {
+                  this.getSetting()
+                  return
+                }
+                this.addPlay()
+              }
+            }
+          }
+        },
+      })
+    },
+    playSound() {
+      this.Audio.seek(0.1)
+      this.Audio.play() //执行播放
+    },
+    toLogin() {
+      this.$refs.login_popup.open('bottom')
+    },
+    addPlay() {
+      try {
+        if (this.userPlayInfo.playTimes - this.userPlayInfo.playedTimes == 0) {
+          this.playLoading = false
+          this.$refs.share.show()
+          // this.$refs.award.show()
+          this.$loading.hide()
+          return
+        }
+        this.$loading.show()
+        this.playLoading = true
+        addUserGameRecord({
+          agreeType: 1,
+          gameId: this.gameId,
+        })
+          .then((res) => {
+            let arr = res.gameResult.split(',')
+            this.pointsImages = []
+            for (let index in arr) {
+              this.pointsImages.push(
+                '/static/images/icon_dice-' + arr[index] + '.png'
+              )
+            }
+            this.gameResult = res
+            this.$loading.hide()
+            this.playSound()
+            this.playAnimation = true
+            this.timer = setTimeout(() => {
+              clearTimeout(this.timer)
+              this.$refs.award.show()
+              this.getUserPlayInfo()
+              this.getGameInfo()
+              setTimeout(() => {
+                this.playLoading = false
+              }, 500)
+              this.playAnimation = false
+            }, 1200)
+          })
+          .catch((error) => {
+            this.$loading.hide()
+            /* 超过人数 */
+            if (startsWith(error.msg, '该游戏人数已经达到上限')) {
+              this.$refs.tip.show()
+            } else if (startsWith(error.msg, '该游戏指定参与范围')) {
+              this.positionMsg = error.msg
+              this.$refs.position.show()
+            } else if (startsWith(error.msg, '请授权位置进行博饼')) {
+              this.$refs.location.show()
+            } else {
+              this.$toast.error(error.msg)
+            }
+            this.playLoading = false
+          })
+        uni.requestSubscribeMessage({
+          tmplIds: [
+            '7d-RFgHEirGnN77ZbgGZU5vGfHIUeBpX8hwM8GCEXbM',
+            'mVo4jCV2RqAOb4nZdBjCOfXyTbQs5L3F04XBbEVJroc',
+          ],
+          success: (subscribeRes) => {},
+          fail: (res) => {
+            console.log(res)
+          },
+        })
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    updateLocation(res) {
+      res.get_time = new Date().getTime()
+      this.$storage.set('getLocationTime', res)
+      this.$loading.show()
+      apiSetUserLocation({
+        longitude: res.longitude,
+        latitude: res.latitude,
+      }).then((res) => {
+        this.playLoading = false
+        this.addPlay()
+        this.$loading.hide()
+      })
+    },
+    getSetting() {
+      const that = this
+      uni.getSetting({
+        success: (res) => {
+          if (res.authSetting['scope.userLocation']) {
+            uni.getLocation({
+              type: 'gcj02',
+              altitude: true,
+              success(res) {
+                that.updateLocation(res)
+              },
+            })
+          } else {
+            that.getAuthorize()
+          }
+        },
+      })
+    },
+    // 用户授权
+    getAuthorize() {
+      const that = this
+      uni.authorize({
+        scope: 'scope.userLocation',
+        success(res) {
+          uni.getLocation({
+            type: 'gcj02',
+            altitude: true,
+            success(res) {
+              console.log(3)
+              that.updateLocation(res)
+            },
+          })
+        },
+        // 授权失败
+        fail: (err) => {
+          console.log(4)
+          this.playLoading = false
+          this.$refs.location.show()
+        },
+      })
+    },
+    closeThisPage() {
+      uni.switchTab({
+        url: '/pages/sponsor/sponsor',
+      })
+    },
+    popShow(ref) {
+      if (this.checkLogin()) {
+        this.$refs[ref].show()
+      }
+    },
+    getUserScore() {
+      this.$loading.show()
+      gameKingOfKingsRankScore({
+        gameId: this.gameId,
+      }).then((res) => {
+        this.userRank = res
+        this.$loading.hide()
+      })
+    },
+    getRankScore() {
+      gameKingOfKingsList({
+        gameId: this.gameId,
+      }).then((kingList) => {
+        this.kingRankList = kingList
+        for (let index in kingList) {
+          kingList[index].no_num = parseInt(index) + 1
+        }
+        gameKingofKingsPrizeList({
+          gameId: this.gameId,
+        }).then((res1) => {
+          let kingofKingsList = []
+          let num = 1
+          for (let index in res1) {
+            let item = {
+              info: res1[index],
+              range:
+                res1[index].prizeNum == 1
+                  ? '第' + num + '名'
+                  : '第' + num + '～' + (num + res1[index].prizeNum - 1) + '名',
+              list: kingList.slice(0, res1[index].prizeNum),
+            }
+            num += res1[index].prizeNum
+            kingList.splice(0, res1[index].prizeNum)
+            kingofKingsList.push(item)
+          }
+          this.kingofKingsList = kingofKingsList
+          this.otherKingList = kingList
+        })
+      })
+    },
+    getUserProfile(e) {
+      if (this.logining == true) {
+        return
+      }
+      // 推荐使用uni.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
+      // 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
+      this.logining = true
+      uni.getUserProfile({
+        desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+        success: (res) => {
+          console.log(res)
+          let params = {
+            avatarUrl: res.userInfo.avatarUrl,
+            nickName: res.userInfo.nickName,
+          }
+          this.$loading.show()
+          uni.login({
+            success: (result) => {
+              this.wxLogin({
+                code: result.code,
+                ...params,
+              })
+            },
+            fail: () => {
+              this.logining = false
+            },
+          })
+        },
+        fail: (res) => {
+          this.logining = false
+        },
+      })
+    },
+    getHelperList(page) {
+      this.$loading.show()
+      this.helpLoading = true
+      userHelpRecordList({
+        gameId: this.gameId,
+        type: this.currentHelpItem,
+        pageSize: this.helper.pageSize,
+        page: page,
+      })
+        .then((res) => {
+          let list = res.list || []
+          if (list.length < this.helper.pageSize) {
+            this.hasMore = false
+          }
+          if (page !== 1) {
+            list = [...this.helper.list, ...list]
+          }
+          this.helper = {
+            ...this.helper,
+            list: list,
+            page: page,
+          }
+          this.helpLoading = false
+          this.$loading.hide()
+        })
+        .catch(() => {
+          this.helpLoading = false
+          this.$loading.hide()
+        })
+    },
+    onGameManager: function () {
+      this.$refs.popup.open()
+    },
+    wxLogin(wxData) {
+      login(wxData)
+        .then((res) => {
+          this.logining = false
+          this.user_info = res
+          this.$storage.setUser(res)
+          this.$loading.hide()
+          this.canClose = true
+          this.getData()
+        })
+        .catch((res) => {
+          this.logining = false
+          loading.hide()
+        })
+    },
+    getUserPlayInfo() {
+      userGame({
+        gameId: this.gameId,
+      }).then((res) => {
+        this.userPlayInfo = res
+      })
+    },
+    getGameInfo() {
+      apiGetGameInfo({
+        gameId: this.gameId,
+      })
+        .then((res) => {
+          res.startTime = moment(res.startTime * 1000).format('MM月DD日 HH:mm')
+          res.overChance = moment(res.redeemEndTime * 1000).format(
+            'MM月DD日 HH:mm'
+          )
+          res.endTime = moment(res.endTime * 1000).format('MM月DD日 HH:mm')
+          this.gameInfo = res
+          if (res.isSvip == 1 && this.user_info) {
+            // 用户排名
+            this.getUserScore()
+          }
+          this.createNewImg(res)
+          if (res.isSvip == 1) {
+            // 王中王排名
+            this.getRankScore()
+          }
+          this.getAward() //获取中奖明细
+          // 游戏待设置
+          if (res.status == 'game_creat') {
+            uni.showModal({
+              content: '游戏待设置',
+              confirmText: '确定',
+              showCancel: false,
+              success: (res) => {
+                if (res.confirm) {
+                  this.closeThisPage()
+                }
+              },
+            })
+          }
+          // 游戏下架
+          if (res.status == 'game_off') {
+            this.$refs.get_out.show()
+          }
+
+          // 游戏结束
+
+          if (res.status == 'game_end' && res.isSvip == 1 && this.user_info) {
+            this.getKingOfKingPrize()
+          } else if (res.status == 'game_end') {
+            this.$refs.assistance.hide()
+            this.$refs.over_popup.show()
+          }
+        })
+        .catch((error) => {
+          this.toCreate()
+        })
+    },
+    getTime: function (time, format = 'YYYY-MM-DD') {
+      return time ? moment.unix(time).format(format) : ''
+    },
+  },
+  onShareAppMessage(e) {
+    let rank = e.target && e.target.dataset ? e.target.dataset.rank : ''
+    let type = 0
+    if (rank == 1) {
+      // 王中王排行分享
+      type = 1
+    } else if (this.gameResult.level == 0) {
+      // 未中奖
+      type = 4
+    } else if (this.gameInfo.gameType == 2) {
+      type = 2
+    } else if (this.gameInfo.gameType == 1) {
+      type = 3
+    }
+    return {
+      title: `${
+        this.gameInfo.gameName ? this.gameInfo.gameName : '一起云博饼'
+      }`,
+      imageUrl: this.sharePath,
+      path: `/pages/index/index?gameId=${this.gameId}&hash=${this.userPlayInfo.hash}&userId=${this.userPlayInfo.userId}&recordId=${this.gameResult.recordId}&type=${type}`,
+    }
+  },
+}
+</script>
+
+<style lang="scss">
+.diy_logo {
+  width: 150px;
+  height: 35px;
+}
+
+#shareCanvas {
+  position: fixed;
+  top: -9999999999999px;
+  background: #fff;
+  width: 260px;
+  height: 198px;
+  z-index: 999;
+}
+
+@keyframes diceAnimate {
+  0% {
+    opacity: 1;
+    transform: translate(0, -600%) rotate(0deg) scale(0.8);
+  }
+
+  40% {
+    opacity: 1;
+    transform: translate(0, 0%) rotate(360deg) scale(1);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate(16px, -100%) rotate(520deg);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translate(-16px, -50%) rotate(600deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0%) rotate(720deg);
+  }
+}
+
+.ad_wrap {
+  width: 580upx;
+  height: 140upx;
+  margin: 40upx auto;
+  overflow: hidden;
+  background: linear-gradient(137deg, #95ffdc 0%, #ff8944 99%, #ff8944 100%);
+  border-radius: 20upx;
+
+  swiper,
+  image,
+  .swiper-item {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@keyframes diceAnimate1 {
+  0% {
+    opacity: 1;
+    transform: translate(0, -600%) rotate(0deg) scale(0.8);
+  }
+
+  40% {
+    opacity: 1;
+    transform: translate(0, 0%) rotate(360deg) scale(1);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate(-20px, -100%) rotate(520deg);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translate(19px, -50%) rotate(600deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0px, 0%) rotate(720deg);
+  }
+}
+
+.contactPoup {
+  padding: 40upx;
+  text-align: center;
+
+  image {
+    padding: 40upx;
+    width: 400upx;
+    height: 400upx;
+  }
+}
+
+.no_data {
+  padding: 40upx 0;
+  text-align: center;
+  color: #aaa;
+  font-size: 30upx;
+}
+
+.bottom-button-wrap {
+  position: fixed;
+  background: #e6e6e6;
+  z-index: 10;
+  width: 100%;
+  height: 50px;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+
+  .bottom-button-container {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+  }
+
+  .bottom-setting-wrap {
+    display: flex;
+    flex-direction: column;
+    font-size: 10px;
+    color: #666;
+    align-items: center;
+
+    .bottom-setting-icon {
+      width: 22px;
+      height: 22px;
+      margin: 0 0 4px;
+    }
+  }
+
+  .bottom-button-action {
+    display: flex;
+
+    .bottom-button-edit {
+      text-align: center;
+      padding: 4px 12px;
+      border: 1px solid #e83d3d;
+      color: #e83d3d;
+      font-size: 14px;
+      margin: 0 12px 0 0;
+      border-radius: 20px;
+    }
+
+    .bottom-button-share {
+      background-color: #e83d3d;
+      text-align: center;
+      padding: 4px 16px;
+      color: #fff;
+      font-size: 14px;
+      border-radius: 20px;
+    }
+  }
+}
+
+@keyframes diceRotate {
+  0% {
+    transform: rotate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: rotate(360deg, 360deg, 360deg);
+  }
+}
+
+.login_poup {
+  padding: 54upx 40upx;
+  background: #fff;
+  border-radius: 24upx 24upx 0px 0px;
+
+  .login_title {
+    font-size: 32upx;
+    font-weight: 600;
+  }
+
+  .sub_title {
+    font-size: 30upx;
+    font-weight: 400;
+    margin-top: 24upx;
+  }
+
+  .logint_desc {
+    font-weight: 400;
+    color: #b2b2b2;
+    margin-top: 12upx;
+    font-size: 26upx;
+  }
+
+  .agreement {
+    margin-top: 82upx;
+    color: #b2b2b2;
+
+    .protocol {
+      margin-left: 30upx;
+    }
+  }
+
+  .btns {
+    display: flex;
+    justify-content: space-around;
+
+    .def_btn {
+      width: 240upx;
+      height: 80upx;
+      line-height: 80upx;
+      color: #07c160;
+      margin-top: 90upx;
+      border-radius: 8upx;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.05);
+
+      &.active {
+        color: #fff;
+        margin-left: 32upx;
+        background: #07c160;
+      }
+    }
+  }
+}
+
+.login_content {
+  padding: 40upx;
+
+  text-align: center;
+}
+
+.confirm_login {
+  padding: 20upx;
+  color: #e83d3d;
+  border-top: 1upx solid #f2f2f2;
+  text-align: center;
+}
+
+.share_img_wrap {
+  text-align: center;
+
+  image {
+    width: 424upx;
+    height: 444upx;
+    margin-top: 20upx;
+  }
+}
+
+.gift_swiper {
+  width: 690upx;
+  height: 167upx;
+  margin: 0 auto;
+  overflow: hidden;
+  background: linear-gradient(137deg, #95ffdc 0%, #ff8944 99%, #ff8944 100%);
+  border-radius: 24upx;
+
+  swiper,
+  image,
+  .swiper-item {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.over_popup {
+  .over_header {
+    height: 186upx;
+    background: url(https://static.roi-cloud.com/base/over_bg.png) no-repeat
+      100%;
+    background-position: top;
+    background-size: 100% 100%;
+
+    .over_title {
+      heihgt: 118upx;
+      text-align: center;
+      line-height: 118upx;
+      color: #fff;
+      position: relative;
+      text-align: center;
+
+      .icon_close {
+        width: 40upx;
+        height: 40upx;
+        position: absolute;
+        right: 40upx;
+        top: 40upx;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  .o_avatar {
+    width: 122upx;
+    height: 122upx;
+    border-radius: 50%;
+    margin: -61upx auto 0;
+    background: #eee;
+    overflow: hidden;
+  }
+
+  .o_username {
+    text-align: center;
+    margin-top: 12upx;
+    font-weight: 600;
+    font-size: 30upx;
+  }
+
+  .o_rank {
+    font-size: 30upx;
+    margin-top: 26upx;
+    text-align: center;
+    font-weight: 400;
+
+    text {
+      font-weight: 600;
+    }
+  }
+
+  .svip_end_tips {
+    width: 100%;
+    margin: 40upx auto 0;
+    text-align: center;
+    font-size: 24upx;
+  }
+
+  .icon_gift_box {
+    width: 286upx;
+    margin: 0 auto;
+
+    image {
+      width: 100%;
+      height: 326upx;
+    }
+
+    .gift_box_tips {
+      width: 242upx;
+      text-align: center;
+      margin: -68upx auto 0;
+      font-size: 24upx;
+    }
+  }
+
+  .get_goods_wrap {
+    padding: 20upx;
+    display: flex;
+    margin: 30upx 30upx 0;
+    border-radius: 16upx;
+    background: #fffcf1;
+    box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.06);
+
+    .get_img {
+      width: 112upx;
+      height: 112upx;
+      background: #eee;
+      border-radius: 16upx;
+    }
+
+    .get_right {
+      width: 1upx;
+      flex: 1;
+      margin-left: 30upx;
+      padding: 12upx 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .get_level {
+        font-size: 24upx;
+        width: 140upx;
+        height: 42upx;
+        color: #fff;
+        background: #ff7948;
+        line-height: 42upx;
+        border-radius: 42upx;
+        text-align: center;
+      }
+
+      .get_title {
+        width: 90%;
+        font-size: 28upx;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .get_tip {
+    width: 434upx;
+    font-size: 24upx;
+    text-align: center;
+    margin: 86upx auto 0;
+  }
+
+  .get_btn {
+    width: 406upx;
+    height: 80upx;
+    text-align: center;
+    color: #fff;
+    margin: 44upx auto 72upx;
+    font-size: 34upx;
+    font-weight: 600;
+    line-height: 80upx;
+    background: linear-gradient(180deg, #ff7657 0%, #e93e3d 100%);
+    box-shadow: 0 10upx 20upx 0 #f96650;
+    border-radius: 51upx;
+  }
+}
+
+.get_out {
+  position: relative;
+  text-align: center;
+
+  .icon_close {
+    width: 40upx;
+    height: 40upx;
+    position: absolute;
+    right: 40upx;
+    top: 40upx;
+  }
+
+  .icon_dice-3 {
+    position: absolute;
+    top: 104upx;
+    right: -28upx;
+    transform: rotate(-30deg);
+    width: 70upx;
+    height: 70upx;
+  }
+
+  .icon_sad {
+    width: 104upx;
+    height: 104upx;
+    margin: -18upx auto 0;
+  }
+
+  .m_title {
+    margin-top: 24upx;
+    font-size: 34upx;
+    font-weight: 600;
+    color: #333333;
+  }
+
+  .s_title {
+    width: 428upx;
+    font-weight: 400;
+    color: #333333;
+    margin: 8upx auto 0;
+    font-size: 28upx;
+  }
+
+  .btn_know {
+    width: 406upx;
+    height: 80upx;
+    color: #fff;
+    line-height: 80upx;
+    margin: 80upx auto 0;
+    background: linear-gradient(180deg, #ff7657 0%, #e93e3d 100%);
+    box-shadow: 0 10upx 20upx 0 #f96650;
+    border-radius: 51upx;
+  }
+
+  .bttom_tips {
+    width: 372upx;
+    margin: 40upx auto 70upx;
+    line-height: 40upx;
+    font-size: 24upx;
+    font-weight: 400;
+    color: #333333;
+
+    text {
+      color: red;
+      margin-left: 10upx;
+    }
+  }
+
+  .p_bowl {
+    width: 400upx;
+    height: 400upx;
+    margin: -64upx auto 0;
+    position: relative;
+
+    .img_bowl {
+      width: 100%;
+      height: 100%;
+    }
+
+    .icon_dice-1 {
+      position: absolute;
+      top: 142upx;
+      left: 84upx;
+      width: 106upx;
+      height: 106upx;
+    }
+
+    .icon_dice-2 {
+      position: absolute;
+      top: 64upx;
+      left: 128upx;
+      width: 106upx;
+      height: 106upx;
+    }
+
+    .icon_dice-5 {
+      position: absolute;
+      top: 144upx;
+      left: 228upx;
+      width: 70upx;
+      transform: rotate(-15deg);
+      height: 70upx;
+    }
+
+    .icon_dice-4 {
+      position: absolute;
+      top: 204upx;
+      left: 178upx;
+      width: 70upx;
+      height: 70upx;
+    }
+  }
+}
+
+.mt50 {
+  margin-top: 50upx !important;
+}
+
+.mt100 {
+  margin-top: 100upx !important;
+}
+
+.p_bowl {
+  width: 400upx;
+  height: 400upx;
+  margin: -64upx auto 0;
+  position: relative;
+
+  .img_bowl {
+    width: 100%;
+    height: 100%;
+  }
+
+  .icon_dice-1 {
+    position: absolute;
+    top: 142upx;
+    left: 84upx;
+    width: 106upx;
+    height: 106upx;
+  }
+
+  .icon_dice-2 {
+    position: absolute;
+    top: 64upx;
+    left: 128upx;
+    width: 106upx;
+    height: 106upx;
+  }
+
+  .icon_dice-5 {
+    position: absolute;
+    top: 144upx;
+    left: 228upx;
+    width: 70upx;
+    transform: rotate(-15deg);
+    height: 70upx;
+  }
+
+  .icon_dice-4 {
+    position: absolute;
+    top: 204upx;
+    left: 178upx;
+    width: 70upx;
+    height: 70upx;
+  }
+}
+
+.icon_dice {
+  position: absolute;
+  top: -44upx;
+  left: 24upx;
+  width: 106upx;
+  height: 106upx;
+}
+
+.assistance_pop,
+.help_other,
+.help_other_faile {
+  text-align: center;
+
+  .avatar,
+  .help_status_icon {
+    width: 160upx;
+    height: 160upx;
+    border-radius: 50%;
+    margin: -80upx auto 28upx;
+    background: #eee;
+    overflow: hidden;
+    border: 4upx solid #fff;
+
+    image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .help_m_title {
+    font-weight: 600;
+    color: #333333;
+    margin-top: 38upx;
+    font-size: 34upx;
+  }
+
+  .help_sub_title {
+    color: #999999;
+    margin-top: 10upx;
+  }
+
+  .username {
+    margin-top: 76upx;
+    color: #333;
+    font-size: 32upx;
+    margin-bottom: 38upx;
+  }
+
+  .ass_m_title {
+    font-weight: 600;
+    color: #333333;
+    font-size: 34upx;
+  }
+
+  .play_btn {
+    width: 338upx;
+    margin: 22upx auto 20upx;
+    background: #ff4343;
+    height: 88upx;
+    line-height: 88upx;
+    border-radius: 88upx;
+    color: #fff;
+    margin-top: 22upx;
+    text-align: center;
+  }
+
+  .g_rank_no {
+    font-size: 64upx;
+    font-weight: 600;
+    color: #333333;
+    text-align: center;
+    padding: 20upx 0 40upx;
+  }
+
+  .g_img {
+    .goods_wrap {
+      display: flex;
+      margin: 40upx 30upx;
+      padding: 20upx;
+      background: #fff;
+      box-shadow: 0 10upx 40upx 0 rgba(0, 0, 0, 0.06);
+      border-radius: 16px;
+
+      image {
+        width: 112upx;
+        height: 112upx;
+        border-radius: 16upx;
+        margin-right: 30upx;
+        border: 2upx solid #f0f0f0;
+      }
+
+      .prizeName {
+        font-size: 28upx;
+        font-weight: 400;
+        color: #333333;
+        line-height: 58upx;
+        width: 1upx;
+        flex: 1;
+        text-overflow: -o-ellipsis-lastline;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+}
+
+.pop_share_btn {
+  background: none;
+  width: 112upx;
+  margin: 0 auto;
+  padding: 50upx 0;
+
+  &:after {
+    border: none;
+  }
+
+  image {
+    width: 112upx;
+    height: 112upx;
+  }
+
+  .share_text {
+    font-size: 24upx;
+    color: #999999;
+  }
+}
+
+.score_menu,
+.help_menu {
+  display: flex;
+  margin: 0 30upx;
+  height: 80upx;
+  color: $uni-color-primary;
+  line-height: 80upx;
+  border: 1upx solid $uni-color-primary;
+  border-radius: 16upx;
+  overflow: hidden;
+
+  .score_item,
+  .help_item {
+    flex: 1;
+    text-align: center;
+
+    &.active {
+      color: #fff;
+      background-color: $uni-color-primary;
+    }
+  }
+}
+
+.score_list {
+  margin-top: 18upx;
+  padding: 0 30upx;
+  max-height: 500upx;
+  overflow-y: scroll;
+
+  .score_list_item {
+    display: flex;
+    height: 108upx;
+    line-height: 108upx;
+    justify-content: space-between;
+
+    .item_left {
+      width: 60%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item_right {
+      color: #666666;
+      font-size: 24upx;
+
+      .t_blod {
+        margin-right: 40upx;
+        font-weight: bold;
+        font-size: 28upx;
+        color: #333333;
+      }
+    }
+  }
+}
+
+.bg_level-6 {
+  width: 100%;
+  height: 186upx;
+  margin-top: -126upx;
+
+  image {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.p_title {
+  height: 120upx;
+  font-weight: 600;
+  line-height: 120upx;
+  text-align: center;
+  font-size: 34upx;
+  position: relative;
+
+  .icon_close {
+    height: 40upx;
+    width: 40upx;
+    position: absolute;
+    right: 40upx;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.help_tip {
+  margin: 28upx 30upx 0;
+  color: #999999;
+  font-size: 12px;
+
+  image {
+    width: 30upx;
+    height: 30upx;
+  }
+}
+
+.dice_result {
+  display: flex;
+  margin: 46upx 30upx 0;
+  align-items: center;
+  justify-content: space-between;
+
+  .dice_item {
+    width: 80upx;
+    height: 80upx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.award_title {
+  padding: 30upx 0;
+  font-weight: 600;
+  font-size: 34upx;
+  text-align: center;
+}
+
+.goods_wrap {
+  display: flex;
+  margin: 0 30upx;
+  padding: 20upx;
+  background: #fffcf1;
+  box-shadow: 0 10upx 40upx 0 rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+
+  image {
+    width: 112upx;
+    height: 112upx;
+    border-radius: 16upx;
+    margin-right: 30upx;
+    border: 2upx solid #f0f0f0;
+  }
+
+  .prizeName {
+    font-size: 28upx;
+    font-weight: 400;
+    color: #333333;
+    line-height: 58upx;
+    width: 1upx;
+    flex: 1;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}
+
+.integral {
+  margin: 60upx 0 60upx;
+  font-size: 36upx;
+  color: #333333;
+  font-weight: bold;
+  text-align: center;
+}
+
+.again {
+  font-size: 30upx;
+  height: 88upx;
+  line-height: 88upx;
+  text-align: center;
+  background: #ff4343;
+  color: #fff;
+  width: 290upx;
+  margin: 0 auto 54upx;
+  border-radius: 88upx;
+}
+
+.help_tips {
+  display: flex;
+  color: #999999;
+  margin-top: 24upx;
+  font-size: 24upx;
+  padding-bottom: 24upx;
+  align-items: center;
+  justify-content: center;
+
+  image {
+    width: 24upx;
+    height: 24upx;
+    margin-left: 10upx;
+  }
+}
+
+.bo_center {
+  color: #ff4343;
+  font-size: 24upx;
+  text-align: center;
+  padding: 20upx 0 50upx;
+}
+
+.award_level {
+  width: 266upx;
+  height: 128upx;
+  margin: 0 auto;
+
+  image {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.icon_cry {
+  width: 182upx;
+  height: 156upx;
+  margin: 0 auto;
+
+  image {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.help_list {
+  height: 250px;
+  overflow-y: auto;
+  padding: 0 30upx;
+  box-sizing: border-box;
+
+  .help_list_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 108upx;
+    line-height: 108upx;
+    color: #666666;
+    font-size: 24upx;
+
+    .ml10 {
+      margin-left: 10upx;
+    }
+
+    .help_left {
+      display: flex;
+      align-items: center;
+
+      .avatar {
+        width: 60upx;
+        height: 60upx;
+        margin-right: 10upx;
+        border-radius: 50%;
+        background: #eee;
+        overflow: hidden;
+
+        image {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .username {
+        color: #333333;
+        margin-left: 10upx;
+      }
+    }
+  }
+}
+
+page {
+  background-color: #fdccb9;
+}
+
+#main {
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  .tips {
+    color: #fff;
+    text-align: center;
+    font-size: 24upx;
+    margin: 18upx 0 8upx;
+  }
+
+  .bowl_title {
+    width: 580upx;
+    height: 350upx;
+    margin: 0 auto;
+    position: relative;
+
+    image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .bowl {
+    width: 100%;
+    height: 738upx;
+    position: relative;
+
+    .rule {
+      height: 56upx;
+      line-height: 56upx;
+      padding: 0 30upx;
+      color: #fff;
+      position: absolute;
+      right: 36upx;
+      top: 20upx;
+      font-size: 24upx;
+      border-radius: 56upx;
+      background: rgba($color: #000000, $alpha: 0.3);
+    }
+
+    .dice_wrap {
+      position: absolute;
+      width: 68%;
+      height: 57%;
+      top: 21%;
+      left: 14%;
+
+      .dice {
+        width: 70upx;
+        height: 70upx;
+        transform: rotate(360deg);
+
+        &.playAnimation {
+          opacity: 0;
+          animation: diceAnimate 0.4s forwards linear;
+          transform: translate(0, -800%) rotate(0deg) scale(0.8);
+        }
+
+        &.playAnimation:nth-child(1) {
+          animation-delay: 0.2s;
+        }
+
+        &:nth-child(1) {
+          position: absolute;
+          left: 160upx;
+          top: 113upx;
+          animation-delay: 0.2s;
+        }
+
+        &.playAnimation:nth-child(2) {
+          animation-delay: 0.3s;
+          animation: diceAnimate1 0.4s forwards linear;
+        }
+
+        &:nth-child(2) {
+          position: absolute;
+          left: 310upx;
+          top: 110upx;
+        }
+
+        &.playAnimation:nth-child(3) {
+          animation-delay: 0.2s;
+        }
+
+        &:nth-child(3) {
+          position: absolute;
+          left: 120upx;
+          top: 240upx;
+        }
+
+        &.playAnimation:nth-child(4) {
+          animation-delay: 0.1s;
+          animation: diceAnimate1 0.6s forwards linear;
+        }
+
+        &:nth-child(4) {
+          position: absolute;
+          left: 210upx;
+          top: 330upx;
+        }
+
+        &.playAnimation:nth-child(5) {
+          animation-delay: 0.3s;
+        }
+
+        &:nth-child(5) {
+          position: absolute;
+          left: 350upx;
+          top: 250upx;
+        }
+
+        &.playAnimation:nth-child(6) {
+          animation-delay: 0.1s;
+        }
+
+        &:nth-child(6) {
+          position: absolute;
+          left: 240upx;
+          top: 230upx;
+        }
+      }
+    }
+
+    .icon_bowl {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .gift_wrap {
+    position: absolute;
+    right: 10upx;
+    width: 106upx;
+    top: -30upx;
+    z-index: 99;
+
+    .icon_gift {
+      width: 134upx;
+      height: 146upx;
+      position: absolute;
+      left: 50%;
+      top: -46%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .shadow {
+      width: 106upx;
+      height: 106upx;
+      line-height: 150upx;
+      color: #fff;
+      font-size: 20upx;
+      text-align: center;
+      background: linear-gradient(180deg, #c872d7 0%, #a031d6 100%);
+      border-radius: 21upx;
+    }
+  }
+
+  .chance {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    justify-content: center;
+    margin-top: -40upx;
+
+    .number {
+      background: #b13737;
+      padding: 0 10upx;
+      height: 48upx;
+      margin: 0 14upx;
+      line-height: 48upx;
+      border-radius: 8upx;
+      color: #fff;
+    }
+  }
+
+  .de_btn {
+    width: 406upx;
+    height: 80upx;
+    border-radius: 50upx;
+    margin: 0 auto;
+    margin-top: 40upx;
+    font-weight: 600;
+    line-height: 80upx;
+    text-align: center;
+    font-size: 34rpx;
+    color: #976f1d;
+  }
+  .zl_btn {
+    border: 2px solid #976f1d;
+  }
+  .btn_primary {
+    color: #976f1d;
+    background: linear-gradient(180deg, #fff6b1 0%, #ffcf79 100%);
+    box-shadow: 0px 0px 20rpx #979797;
+  }
+
+  .record_wrap {
+    display: flex;
+    color: #976f1d;
+    align-items: center;
+    justify-content: center;
+    margin: 46upx auto;
+    font-size: 32upx;
+
+    .line {
+      width: 1upx;
+      height: 30upx;
+      margin: 0 30px;
+      background-color: #d8d8d8;
+    }
+  }
+
+  .swiper_wrap {
+    margin: 16upx 30upx;
+    background: rgba($color: #000000, $alpha: 0.35);
+    color: #fff;
+    box-sizing: border-box;
+    position: relative;
+    border-radius: 60upx;
+  }
+
+  .rank_wrap {
+    position: relative;
+
+    .rule {
+      position: absolute;
+      right: 30upx;
+      top: 0;
+      height: 56upx;
+      line-height: 56upx;
+      padding: 0 30upx;
+      color: #fff;
+      border-radius: 56upx;
+      border: 1upx solid #fff;
+    }
+
+    .rank_time {
+      height: 52upx;
+      line-height: 52upx;
+      border-radius: 52upx;
+      text-align: center;
+      margin: 28upx 100upx 32upx;
+      background: #bd1e1e;
+      font-weight: 400;
+      color: #ffffff;
+    }
+
+    .my_rank {
+      margin: 0 30upx 24upx;
+      border-radius: 36upx;
+      padding: 40upx 0;
+      background: rgba($color: #fff, $alpha: 0.92);
+    }
+
+    .rank_list {
+      margin-top: 20upx;
+
+      .rank_box {
+        padding: 20upx;
+        background: #fcebeb;
+        margin-bottom: 30upx;
+        border-radius: 36upx;
+        display: flex;
+        font-size: 24upx;
+
+        .gift_image {
+          width: 108upx;
+          height: 108upx;
+          border-radius: 16upx;
+          background: #aaa;
+        }
+
+        .gift_right {
+          display: flex;
+          margin-left: 26upx;
+          flex-direction: column;
+          justify-content: space-around;
+        }
+
+        .gift_title {
+          display: flex;
+
+          .gift_level {
+            padding: 0 30upx;
+            height: 42upx;
+            line-height: 42upx;
+            color: #fff;
+            font-size: 26upx;
+            background: #ff7948;
+            border-radius: 42upx;
+          }
+
+          .no_number {
+            margin-left: 24upx;
+          }
+        }
+      }
+
+      .border_top {
+        margin: 0 30upx;
+        border-top: 1upx solid #f25656;
+      }
+
+      .mlr30 {
+        margin: 0 30upx;
+      }
+
+      .box_item {
+        display: flex;
+        color: #fff;
+        font-size: 28upx;
+        align-items: center;
+        padding: 24upx 0;
+        justify-content: space-between;
+
+        .box_item_left {
+          display: flex;
+          align-items: center;
+
+          .no_icon {
+            width: 40upx;
+            height: 36upx;
+            text-align: center;
+            margin-right: 10upx;
+          }
+
+          .avatar {
+            width: 64upx;
+            height: 64upx;
+            border-radius: 50%;
+            margin-right: 44upx;
+          }
+        }
+      }
+    }
+
+    .my_rank_top {
+      display: flex;
+    }
+
+    .share_btn {
+      height: 80upx;
+      margin: 42upx 142upx 0;
+      line-height: 80upx;
+      background: linear-gradient(180deg, #d584e7 0%, #aa4dcb 100%);
+      box-shadow: 0 10upx 20upx 0 #bc65d7;
+      border-radius: 51upx;
+      align-items: center;
+      display: flex;
+      color: #fff;
+      font-weight: 600;
+      font-size: 34upx;
+      justify-content: center;
+
+      .icon_wechat {
+        width: 34upx;
+        height: 34upx;
+        margin-right: 10upx;
+      }
+    }
+
+    .rank_avatar {
+      width: 90upx;
+      height: 90upx;
+      padding: 0 40upx;
+      border-right: 1upx solid #cecece;
+
+      image {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+    }
+
+    .my_rank_title {
+      font-size: 24upx;
+      font-weight: 400;
+      color: #666666;
+      line-height: 34upx;
+    }
+
+    .my_rank_item {
+      flex: 1;
+      text-align: center;
+
+      .rank_item_number {
+        color: #333333;
+        font-size: 46upx;
+      }
+    }
+
+    .rank_title {
+      margin-top: 66rpx;
+      color: #fff;
+      font-weight: 600;
+      font-size: 44upx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .icon_rangk {
+        width: 60upx;
+        height: 60upx;
+        margin-right: 20upx;
+        border-radius: 50%;
+        background: url(https://static.roi-cloud.com/base/icon_rank.png);
+        background-size: 200%;
+        background-position: center;
+      }
+    }
+  }
+}
+</style>
