@@ -9,11 +9,11 @@
 "use strict";
 /* WEBPACK VAR INJECTION */(function(createApp) {__webpack_require__(/*! uni-pages */ 5);var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));
 var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 6));
-var _storage = _interopRequireDefault(__webpack_require__(/*! @/utils/storage.js */ 30));
-var _toast = _interopRequireDefault(__webpack_require__(/*! @/utils/toast.js */ 31));
-var _loading = _interopRequireDefault(__webpack_require__(/*! @/utils/loading.js */ 32));
-var _simple = _interopRequireDefault(__webpack_require__(/*! @/rest/simple.js */ 259));
-var _umtrackWx = _interopRequireDefault(__webpack_require__(/*! umtrack-wx */ 263));
+var _storage = _interopRequireDefault(__webpack_require__(/*! @/utils/storage.js */ 12));
+var _toast = _interopRequireDefault(__webpack_require__(/*! @/utils/toast.js */ 13));
+var _loading = _interopRequireDefault(__webpack_require__(/*! @/utils/loading.js */ 14));
+var _simple = _interopRequireDefault(__webpack_require__(/*! @/rest/simple.js */ 15));
+var _umtrackWx = _interopRequireDefault(__webpack_require__(/*! umtrack-wx */ 18));
 
 
 
@@ -39,7 +39,7 @@ var _umtrackWx = _interopRequireDefault(__webpack_require__(/*! umtrack-wx */ 26
 
 
 
-__webpack_require__(/*! @/static/css/common.scss */ 264);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}_umtrackWx.default.init({ appKey: '61306df804a0b741437b659e', //由友盟分配的APP_KEY
+__webpack_require__(/*! @/static/css/common.scss */ 19);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}_umtrackWx.default.init({ appKey: '61306df804a0b741437b659e', //由友盟分配的APP_KEY
   // 使用Openid进行统计，此项为false时将使用友盟+uuid进行用户统计。
   // 使用Openid来统计微信小程序的用户，会使统计的指标更为准确，对系统准确性要求高的应用推荐使用Openid。
   useOpenid: false, // 使用openid进行统计时，是否授权友盟自动获取Openid，

@@ -8738,25 +8738,7 @@ function normalizeComponent (
 
 
 /***/ }),
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */
+/* 12 */
 /*!***********************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/utils/storage.js ***!
   \***********************************************************************/
@@ -8853,7 +8835,7 @@ var clearVipGame = function clearVipGame() {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 31 */
+/* 13 */
 /*!*********************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/utils/toast.js ***!
   \*********************************************************************/
@@ -8886,7 +8868,7 @@ var error = function error(title) {var duration = arguments.length > 1 && argume
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 32 */
+/* 14 */
 /*!***********************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/utils/loading.js ***!
   \***********************************************************************/
@@ -8911,1299 +8893,506 @@ var hide = function hide() {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */
-/*!**********************************************************************************************************!*\
-  !*** C:/Users/zheng/Documents/HBuilderProjects/game/uni_modules/uni-icons/components/uni-icons/icons.js ***!
-  \**********************************************************************************************************/
+/* 15 */
+/*!*********************************************************************!*\
+  !*** C:/Users/zheng/Documents/HBuilderProjects/game/rest/simple.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  "id": "2852637",
-  "name": "uniui图标库",
-  "font_family": "uniicons",
-  "css_prefix_text": "uniui-",
-  "description": "",
-  "glyphs": [
-  {
-    "icon_id": "25027049",
-    "name": "yanse",
-    "font_class": "color",
-    "unicode": "e6cf",
-    "unicode_decimal": 59087 },
-
-  {
-    "icon_id": "25027048",
-    "name": "wallet",
-    "font_class": "wallet",
-    "unicode": "e6b1",
-    "unicode_decimal": 59057 },
-
-  {
-    "icon_id": "25015720",
-    "name": "settings-filled",
-    "font_class": "settings-filled",
-    "unicode": "e6ce",
-    "unicode_decimal": 59086 },
-
-  {
-    "icon_id": "25015434",
-    "name": "shimingrenzheng-filled",
-    "font_class": "auth-filled",
-    "unicode": "e6cc",
-    "unicode_decimal": 59084 },
-
-  {
-    "icon_id": "24934246",
-    "name": "shop-filled",
-    "font_class": "shop-filled",
-    "unicode": "e6cd",
-    "unicode_decimal": 59085 },
-
-  {
-    "icon_id": "24934159",
-    "name": "staff-filled-01",
-    "font_class": "staff-filled",
-    "unicode": "e6cb",
-    "unicode_decimal": 59083 },
-
-  {
-    "icon_id": "24932461",
-    "name": "VIP-filled",
-    "font_class": "vip-filled",
-    "unicode": "e6c6",
-    "unicode_decimal": 59078 },
-
-  {
-    "icon_id": "24932462",
-    "name": "plus_circle_fill",
-    "font_class": "plus-filled",
-    "unicode": "e6c7",
-    "unicode_decimal": 59079 },
-
-  {
-    "icon_id": "24932463",
-    "name": "folder_add-filled",
-    "font_class": "folder-add-filled",
-    "unicode": "e6c8",
-    "unicode_decimal": 59080 },
-
-  {
-    "icon_id": "24932464",
-    "name": "yanse-filled",
-    "font_class": "color-filled",
-    "unicode": "e6c9",
-    "unicode_decimal": 59081 },
-
-  {
-    "icon_id": "24932465",
-    "name": "tune-filled",
-    "font_class": "tune-filled",
-    "unicode": "e6ca",
-    "unicode_decimal": 59082 },
-
-  {
-    "icon_id": "24932455",
-    "name": "a-rilidaka-filled",
-    "font_class": "calendar-filled",
-    "unicode": "e6c0",
-    "unicode_decimal": 59072 },
-
-  {
-    "icon_id": "24932456",
-    "name": "notification-filled",
-    "font_class": "notification-filled",
-    "unicode": "e6c1",
-    "unicode_decimal": 59073 },
-
-  {
-    "icon_id": "24932457",
-    "name": "wallet-filled",
-    "font_class": "wallet-filled",
-    "unicode": "e6c2",
-    "unicode_decimal": 59074 },
-
-  {
-    "icon_id": "24932458",
-    "name": "paihangbang-filled",
-    "font_class": "medal-filled",
-    "unicode": "e6c3",
-    "unicode_decimal": 59075 },
-
-  {
-    "icon_id": "24932459",
-    "name": "gift-filled",
-    "font_class": "gift-filled",
-    "unicode": "e6c4",
-    "unicode_decimal": 59076 },
-
-  {
-    "icon_id": "24932460",
-    "name": "fire-filled",
-    "font_class": "fire-filled",
-    "unicode": "e6c5",
-    "unicode_decimal": 59077 },
-
-  {
-    "icon_id": "24928001",
-    "name": "refreshempty",
-    "font_class": "refreshempty",
-    "unicode": "e6bf",
-    "unicode_decimal": 59071 },
-
-  {
-    "icon_id": "24926853",
-    "name": "location-ellipse",
-    "font_class": "location-filled",
-    "unicode": "e6af",
-    "unicode_decimal": 59055 },
-
-  {
-    "icon_id": "24926735",
-    "name": "person-filled",
-    "font_class": "person-filled",
-    "unicode": "e69d",
-    "unicode_decimal": 59037 },
-
-  {
-    "icon_id": "24926703",
-    "name": "personadd-filled",
-    "font_class": "personadd-filled",
-    "unicode": "e698",
-    "unicode_decimal": 59032 },
-
-  {
-    "icon_id": "24923351",
-    "name": "back",
-    "font_class": "back",
-    "unicode": "e6b9",
-    "unicode_decimal": 59065 },
-
-  {
-    "icon_id": "24923352",
-    "name": "forward",
-    "font_class": "forward",
-    "unicode": "e6ba",
-    "unicode_decimal": 59066 },
-
-  {
-    "icon_id": "24923353",
-    "name": "arrowthinright",
-    "font_class": "arrow-right",
-    "unicode": "e6bb",
-    "unicode_decimal": 59067 },
-
-  {
-    "icon_id": "24923354",
-    "name": "arrowthinleft",
-    "font_class": "arrow-left",
-    "unicode": "e6bc",
-    "unicode_decimal": 59068 },
-
-  {
-    "icon_id": "24923355",
-    "name": "arrowthinup",
-    "font_class": "arrow-up",
-    "unicode": "e6bd",
-    "unicode_decimal": 59069 },
-
-  {
-    "icon_id": "24923356",
-    "name": "arrowthindown",
-    "font_class": "arrow-down",
-    "unicode": "e6be",
-    "unicode_decimal": 59070 },
-
-  {
-    "icon_id": "24923349",
-    "name": "arrowdown",
-    "font_class": "bottom",
-    "unicode": "e6b8",
-    "unicode_decimal": 59064 },
-
-  {
-    "icon_id": "24923346",
-    "name": "arrowright",
-    "font_class": "right",
-    "unicode": "e6b5",
-    "unicode_decimal": 59061 },
-
-  {
-    "icon_id": "24923347",
-    "name": "arrowup",
-    "font_class": "top",
-    "unicode": "e6b6",
-    "unicode_decimal": 59062 },
-
-  {
-    "icon_id": "24923348",
-    "name": "arrowleft",
-    "font_class": "left",
-    "unicode": "e6b7",
-    "unicode_decimal": 59063 },
-
-  {
-    "icon_id": "24923334",
-    "name": "eye",
-    "font_class": "eye",
-    "unicode": "e651",
-    "unicode_decimal": 58961 },
-
-  {
-    "icon_id": "24923335",
-    "name": "eye-filled",
-    "font_class": "eye-filled",
-    "unicode": "e66a",
-    "unicode_decimal": 58986 },
-
-  {
-    "icon_id": "24923336",
-    "name": "eye-slash",
-    "font_class": "eye-slash",
-    "unicode": "e6b3",
-    "unicode_decimal": 59059 },
-
-  {
-    "icon_id": "24923337",
-    "name": "eye-slash-filled",
-    "font_class": "eye-slash-filled",
-    "unicode": "e6b4",
-    "unicode_decimal": 59060 },
-
-  {
-    "icon_id": "24923305",
-    "name": "info-filled",
-    "font_class": "info-filled",
-    "unicode": "e649",
-    "unicode_decimal": 58953 },
-
-  {
-    "icon_id": "24923299",
-    "name": "reload-01",
-    "font_class": "reload",
-    "unicode": "e6b2",
-    "unicode_decimal": 59058 },
-
-  {
-    "icon_id": "24923195",
-    "name": "mic_slash_fill",
-    "font_class": "micoff-filled",
-    "unicode": "e6b0",
-    "unicode_decimal": 59056 },
-
-  {
-    "icon_id": "24923165",
-    "name": "map-pin-ellipse",
-    "font_class": "map-pin-ellipse",
-    "unicode": "e6ac",
-    "unicode_decimal": 59052 },
-
-  {
-    "icon_id": "24923166",
-    "name": "map-pin",
-    "font_class": "map-pin",
-    "unicode": "e6ad",
-    "unicode_decimal": 59053 },
-
-  {
-    "icon_id": "24923167",
-    "name": "location",
-    "font_class": "location",
-    "unicode": "e6ae",
-    "unicode_decimal": 59054 },
-
-  {
-    "icon_id": "24923064",
-    "name": "starhalf",
-    "font_class": "starhalf",
-    "unicode": "e683",
-    "unicode_decimal": 59011 },
-
-  {
-    "icon_id": "24923065",
-    "name": "star",
-    "font_class": "star",
-    "unicode": "e688",
-    "unicode_decimal": 59016 },
-
-  {
-    "icon_id": "24923066",
-    "name": "star-filled",
-    "font_class": "star-filled",
-    "unicode": "e68f",
-    "unicode_decimal": 59023 },
-
-  {
-    "icon_id": "24899646",
-    "name": "a-rilidaka",
-    "font_class": "calendar",
-    "unicode": "e6a0",
-    "unicode_decimal": 59040 },
-
-  {
-    "icon_id": "24899647",
-    "name": "fire",
-    "font_class": "fire",
-    "unicode": "e6a1",
-    "unicode_decimal": 59041 },
-
-  {
-    "icon_id": "24899648",
-    "name": "paihangbang",
-    "font_class": "medal",
-    "unicode": "e6a2",
-    "unicode_decimal": 59042 },
-
-  {
-    "icon_id": "24899649",
-    "name": "font",
-    "font_class": "font",
-    "unicode": "e6a3",
-    "unicode_decimal": 59043 },
-
-  {
-    "icon_id": "24899650",
-    "name": "gift",
-    "font_class": "gift",
-    "unicode": "e6a4",
-    "unicode_decimal": 59044 },
-
-  {
-    "icon_id": "24899651",
-    "name": "link",
-    "font_class": "link",
-    "unicode": "e6a5",
-    "unicode_decimal": 59045 },
-
-  {
-    "icon_id": "24899652",
-    "name": "notification",
-    "font_class": "notification",
-    "unicode": "e6a6",
-    "unicode_decimal": 59046 },
-
-  {
-    "icon_id": "24899653",
-    "name": "staff",
-    "font_class": "staff",
-    "unicode": "e6a7",
-    "unicode_decimal": 59047 },
-
-  {
-    "icon_id": "24899654",
-    "name": "VIP",
-    "font_class": "vip",
-    "unicode": "e6a8",
-    "unicode_decimal": 59048 },
-
-  {
-    "icon_id": "24899655",
-    "name": "folder_add",
-    "font_class": "folder-add",
-    "unicode": "e6a9",
-    "unicode_decimal": 59049 },
-
-  {
-    "icon_id": "24899656",
-    "name": "tune",
-    "font_class": "tune",
-    "unicode": "e6aa",
-    "unicode_decimal": 59050 },
-
-  {
-    "icon_id": "24899657",
-    "name": "shimingrenzheng",
-    "font_class": "auth",
-    "unicode": "e6ab",
-    "unicode_decimal": 59051 },
-
-  {
-    "icon_id": "24899565",
-    "name": "person",
-    "font_class": "person",
-    "unicode": "e699",
-    "unicode_decimal": 59033 },
-
-  {
-    "icon_id": "24899566",
-    "name": "email-filled",
-    "font_class": "email-filled",
-    "unicode": "e69a",
-    "unicode_decimal": 59034 },
-
-  {
-    "icon_id": "24899567",
-    "name": "phone-filled",
-    "font_class": "phone-filled",
-    "unicode": "e69b",
-    "unicode_decimal": 59035 },
-
-  {
-    "icon_id": "24899568",
-    "name": "phone",
-    "font_class": "phone",
-    "unicode": "e69c",
-    "unicode_decimal": 59036 },
-
-  {
-    "icon_id": "24899570",
-    "name": "email",
-    "font_class": "email",
-    "unicode": "e69e",
-    "unicode_decimal": 59038 },
-
-  {
-    "icon_id": "24899571",
-    "name": "personadd",
-    "font_class": "personadd",
-    "unicode": "e69f",
-    "unicode_decimal": 59039 },
-
-  {
-    "icon_id": "24899558",
-    "name": "chatboxes-filled",
-    "font_class": "chatboxes-filled",
-    "unicode": "e692",
-    "unicode_decimal": 59026 },
-
-  {
-    "icon_id": "24899559",
-    "name": "contact",
-    "font_class": "contact",
-    "unicode": "e693",
-    "unicode_decimal": 59027 },
-
-  {
-    "icon_id": "24899560",
-    "name": "chatbubble-filled",
-    "font_class": "chatbubble-filled",
-    "unicode": "e694",
-    "unicode_decimal": 59028 },
-
-  {
-    "icon_id": "24899561",
-    "name": "contact-filled",
-    "font_class": "contact-filled",
-    "unicode": "e695",
-    "unicode_decimal": 59029 },
-
-  {
-    "icon_id": "24899562",
-    "name": "chatboxes",
-    "font_class": "chatboxes",
-    "unicode": "e696",
-    "unicode_decimal": 59030 },
-
-  {
-    "icon_id": "24899563",
-    "name": "chatbubble",
-    "font_class": "chatbubble",
-    "unicode": "e697",
-    "unicode_decimal": 59031 },
-
-  {
-    "icon_id": "24881290",
-    "name": "upload-filled",
-    "font_class": "upload-filled",
-    "unicode": "e68e",
-    "unicode_decimal": 59022 },
-
-  {
-    "icon_id": "24881292",
-    "name": "upload",
-    "font_class": "upload",
-    "unicode": "e690",
-    "unicode_decimal": 59024 },
-
-  {
-    "icon_id": "24881293",
-    "name": "weixin",
-    "font_class": "weixin",
-    "unicode": "e691",
-    "unicode_decimal": 59025 },
-
-  {
-    "icon_id": "24881274",
-    "name": "compose",
-    "font_class": "compose",
-    "unicode": "e67f",
-    "unicode_decimal": 59007 },
-
-  {
-    "icon_id": "24881275",
-    "name": "qq",
-    "font_class": "qq",
-    "unicode": "e680",
-    "unicode_decimal": 59008 },
-
-  {
-    "icon_id": "24881276",
-    "name": "download-filled",
-    "font_class": "download-filled",
-    "unicode": "e681",
-    "unicode_decimal": 59009 },
-
-  {
-    "icon_id": "24881277",
-    "name": "pengyouquan",
-    "font_class": "pyq",
-    "unicode": "e682",
-    "unicode_decimal": 59010 },
-
-  {
-    "icon_id": "24881279",
-    "name": "sound",
-    "font_class": "sound",
-    "unicode": "e684",
-    "unicode_decimal": 59012 },
-
-  {
-    "icon_id": "24881280",
-    "name": "trash-filled",
-    "font_class": "trash-filled",
-    "unicode": "e685",
-    "unicode_decimal": 59013 },
-
-  {
-    "icon_id": "24881281",
-    "name": "sound-filled",
-    "font_class": "sound-filled",
-    "unicode": "e686",
-    "unicode_decimal": 59014 },
-
-  {
-    "icon_id": "24881282",
-    "name": "trash",
-    "font_class": "trash",
-    "unicode": "e687",
-    "unicode_decimal": 59015 },
-
-  {
-    "icon_id": "24881284",
-    "name": "videocam-filled",
-    "font_class": "videocam-filled",
-    "unicode": "e689",
-    "unicode_decimal": 59017 },
-
-  {
-    "icon_id": "24881285",
-    "name": "spinner-cycle",
-    "font_class": "spinner-cycle",
-    "unicode": "e68a",
-    "unicode_decimal": 59018 },
-
-  {
-    "icon_id": "24881286",
-    "name": "weibo",
-    "font_class": "weibo",
-    "unicode": "e68b",
-    "unicode_decimal": 59019 },
-
-  {
-    "icon_id": "24881288",
-    "name": "videocam",
-    "font_class": "videocam",
-    "unicode": "e68c",
-    "unicode_decimal": 59020 },
-
-  {
-    "icon_id": "24881289",
-    "name": "download",
-    "font_class": "download",
-    "unicode": "e68d",
-    "unicode_decimal": 59021 },
-
-  {
-    "icon_id": "24879601",
-    "name": "help",
-    "font_class": "help",
-    "unicode": "e679",
-    "unicode_decimal": 59001 },
-
-  {
-    "icon_id": "24879602",
-    "name": "navigate-filled",
-    "font_class": "navigate-filled",
-    "unicode": "e67a",
-    "unicode_decimal": 59002 },
-
-  {
-    "icon_id": "24879603",
-    "name": "plusempty",
-    "font_class": "plusempty",
-    "unicode": "e67b",
-    "unicode_decimal": 59003 },
-
-  {
-    "icon_id": "24879604",
-    "name": "smallcircle",
-    "font_class": "smallcircle",
-    "unicode": "e67c",
-    "unicode_decimal": 59004 },
-
-  {
-    "icon_id": "24879605",
-    "name": "minus-filled",
-    "font_class": "minus-filled",
-    "unicode": "e67d",
-    "unicode_decimal": 59005 },
-
-  {
-    "icon_id": "24879606",
-    "name": "micoff",
-    "font_class": "micoff",
-    "unicode": "e67e",
-    "unicode_decimal": 59006 },
-
-  {
-    "icon_id": "24879588",
-    "name": "closeempty",
-    "font_class": "closeempty",
-    "unicode": "e66c",
-    "unicode_decimal": 58988 },
-
-  {
-    "icon_id": "24879589",
-    "name": "clear",
-    "font_class": "clear",
-    "unicode": "e66d",
-    "unicode_decimal": 58989 },
-
-  {
-    "icon_id": "24879590",
-    "name": "navigate",
-    "font_class": "navigate",
-    "unicode": "e66e",
-    "unicode_decimal": 58990 },
-
-  {
-    "icon_id": "24879591",
-    "name": "minus",
-    "font_class": "minus",
-    "unicode": "e66f",
-    "unicode_decimal": 58991 },
-
-  {
-    "icon_id": "24879592",
-    "name": "image",
-    "font_class": "image",
-    "unicode": "e670",
-    "unicode_decimal": 58992 },
-
-  {
-    "icon_id": "24879593",
-    "name": "mic",
-    "font_class": "mic",
-    "unicode": "e671",
-    "unicode_decimal": 58993 },
-
-  {
-    "icon_id": "24879594",
-    "name": "paperplane",
-    "font_class": "paperplane",
-    "unicode": "e672",
-    "unicode_decimal": 58994 },
-
-  {
-    "icon_id": "24879595",
-    "name": "close",
-    "font_class": "close",
-    "unicode": "e673",
-    "unicode_decimal": 58995 },
-
-  {
-    "icon_id": "24879596",
-    "name": "help-filled",
-    "font_class": "help-filled",
-    "unicode": "e674",
-    "unicode_decimal": 58996 },
-
-  {
-    "icon_id": "24879597",
-    "name": "plus-filled",
-    "font_class": "paperplane-filled",
-    "unicode": "e675",
-    "unicode_decimal": 58997 },
-
-  {
-    "icon_id": "24879598",
-    "name": "plus",
-    "font_class": "plus",
-    "unicode": "e676",
-    "unicode_decimal": 58998 },
-
-  {
-    "icon_id": "24879599",
-    "name": "mic-filled",
-    "font_class": "mic-filled",
-    "unicode": "e677",
-    "unicode_decimal": 58999 },
-
-  {
-    "icon_id": "24879600",
-    "name": "image-filled",
-    "font_class": "image-filled",
-    "unicode": "e678",
-    "unicode_decimal": 59000 },
-
-  {
-    "icon_id": "24855900",
-    "name": "locked-filled",
-    "font_class": "locked-filled",
-    "unicode": "e668",
-    "unicode_decimal": 58984 },
-
-  {
-    "icon_id": "24855901",
-    "name": "info",
-    "font_class": "info",
-    "unicode": "e669",
-    "unicode_decimal": 58985 },
-
-  {
-    "icon_id": "24855903",
-    "name": "locked",
-    "font_class": "locked",
-    "unicode": "e66b",
-    "unicode_decimal": 58987 },
-
-  {
-    "icon_id": "24855884",
-    "name": "camera-filled",
-    "font_class": "camera-filled",
-    "unicode": "e658",
-    "unicode_decimal": 58968 },
-
-  {
-    "icon_id": "24855885",
-    "name": "chat-filled",
-    "font_class": "chat-filled",
-    "unicode": "e659",
-    "unicode_decimal": 58969 },
-
-  {
-    "icon_id": "24855886",
-    "name": "camera",
-    "font_class": "camera",
-    "unicode": "e65a",
-    "unicode_decimal": 58970 },
-
-  {
-    "icon_id": "24855887",
-    "name": "circle",
-    "font_class": "circle",
-    "unicode": "e65b",
-    "unicode_decimal": 58971 },
-
-  {
-    "icon_id": "24855888",
-    "name": "checkmarkempty",
-    "font_class": "checkmarkempty",
-    "unicode": "e65c",
-    "unicode_decimal": 58972 },
-
-  {
-    "icon_id": "24855889",
-    "name": "chat",
-    "font_class": "chat",
-    "unicode": "e65d",
-    "unicode_decimal": 58973 },
-
-  {
-    "icon_id": "24855890",
-    "name": "circle-filled",
-    "font_class": "circle-filled",
-    "unicode": "e65e",
-    "unicode_decimal": 58974 },
-
-  {
-    "icon_id": "24855891",
-    "name": "flag",
-    "font_class": "flag",
-    "unicode": "e65f",
-    "unicode_decimal": 58975 },
-
-  {
-    "icon_id": "24855892",
-    "name": "flag-filled",
-    "font_class": "flag-filled",
-    "unicode": "e660",
-    "unicode_decimal": 58976 },
-
-  {
-    "icon_id": "24855893",
-    "name": "gear-filled",
-    "font_class": "gear-filled",
-    "unicode": "e661",
-    "unicode_decimal": 58977 },
-
-  {
-    "icon_id": "24855894",
-    "name": "home",
-    "font_class": "home",
-    "unicode": "e662",
-    "unicode_decimal": 58978 },
-
-  {
-    "icon_id": "24855895",
-    "name": "home-filled",
-    "font_class": "home-filled",
-    "unicode": "e663",
-    "unicode_decimal": 58979 },
-
-  {
-    "icon_id": "24855896",
-    "name": "gear",
-    "font_class": "gear",
-    "unicode": "e664",
-    "unicode_decimal": 58980 },
-
-  {
-    "icon_id": "24855897",
-    "name": "smallcircle-filled",
-    "font_class": "smallcircle-filled",
-    "unicode": "e665",
-    "unicode_decimal": 58981 },
-
-  {
-    "icon_id": "24855898",
-    "name": "map-filled",
-    "font_class": "map-filled",
-    "unicode": "e666",
-    "unicode_decimal": 58982 },
-
-  {
-    "icon_id": "24855899",
-    "name": "map",
-    "font_class": "map",
-    "unicode": "e667",
-    "unicode_decimal": 58983 },
-
-  {
-    "icon_id": "24855825",
-    "name": "refresh-filled",
-    "font_class": "refresh-filled",
-    "unicode": "e656",
-    "unicode_decimal": 58966 },
-
-  {
-    "icon_id": "24855826",
-    "name": "refresh",
-    "font_class": "refresh",
-    "unicode": "e657",
-    "unicode_decimal": 58967 },
-
-  {
-    "icon_id": "24855808",
-    "name": "cloud-upload",
-    "font_class": "cloud-upload",
-    "unicode": "e645",
-    "unicode_decimal": 58949 },
-
-  {
-    "icon_id": "24855809",
-    "name": "cloud-download-filled",
-    "font_class": "cloud-download-filled",
-    "unicode": "e646",
-    "unicode_decimal": 58950 },
-
-  {
-    "icon_id": "24855810",
-    "name": "cloud-download",
-    "font_class": "cloud-download",
-    "unicode": "e647",
-    "unicode_decimal": 58951 },
-
-  {
-    "icon_id": "24855811",
-    "name": "cloud-upload-filled",
-    "font_class": "cloud-upload-filled",
-    "unicode": "e648",
-    "unicode_decimal": 58952 },
-
-  {
-    "icon_id": "24855813",
-    "name": "redo",
-    "font_class": "redo",
-    "unicode": "e64a",
-    "unicode_decimal": 58954 },
-
-  {
-    "icon_id": "24855814",
-    "name": "images-filled",
-    "font_class": "images-filled",
-    "unicode": "e64b",
-    "unicode_decimal": 58955 },
-
-  {
-    "icon_id": "24855815",
-    "name": "undo-filled",
-    "font_class": "undo-filled",
-    "unicode": "e64c",
-    "unicode_decimal": 58956 },
-
-  {
-    "icon_id": "24855816",
-    "name": "more",
-    "font_class": "more",
-    "unicode": "e64d",
-    "unicode_decimal": 58957 },
-
-  {
-    "icon_id": "24855817",
-    "name": "more-filled",
-    "font_class": "more-filled",
-    "unicode": "e64e",
-    "unicode_decimal": 58958 },
-
-  {
-    "icon_id": "24855818",
-    "name": "undo",
-    "font_class": "undo",
-    "unicode": "e64f",
-    "unicode_decimal": 58959 },
-
-  {
-    "icon_id": "24855819",
-    "name": "images",
-    "font_class": "images",
-    "unicode": "e650",
-    "unicode_decimal": 58960 },
-
-  {
-    "icon_id": "24855821",
-    "name": "paperclip",
-    "font_class": "paperclip",
-    "unicode": "e652",
-    "unicode_decimal": 58962 },
-
-  {
-    "icon_id": "24855822",
-    "name": "settings",
-    "font_class": "settings",
-    "unicode": "e653",
-    "unicode_decimal": 58963 },
-
-  {
-    "icon_id": "24855823",
-    "name": "search",
-    "font_class": "search",
-    "unicode": "e654",
-    "unicode_decimal": 58964 },
-
-  {
-    "icon_id": "24855824",
-    "name": "redo-filled",
-    "font_class": "redo-filled",
-    "unicode": "e655",
-    "unicode_decimal": 58965 },
-
-  {
-    "icon_id": "24841702",
-    "name": "list",
-    "font_class": "list",
-    "unicode": "e644",
-    "unicode_decimal": 58948 },
-
-  {
-    "icon_id": "24841489",
-    "name": "mail-open-filled",
-    "font_class": "mail-open-filled",
-    "unicode": "e63a",
-    "unicode_decimal": 58938 },
-
-  {
-    "icon_id": "24841491",
-    "name": "hand-thumbsdown-filled",
-    "font_class": "hand-down-filled",
-    "unicode": "e63c",
-    "unicode_decimal": 58940 },
-
-  {
-    "icon_id": "24841492",
-    "name": "hand-thumbsdown",
-    "font_class": "hand-down",
-    "unicode": "e63d",
-    "unicode_decimal": 58941 },
-
-  {
-    "icon_id": "24841493",
-    "name": "hand-thumbsup-filled",
-    "font_class": "hand-up-filled",
-    "unicode": "e63e",
-    "unicode_decimal": 58942 },
-
-  {
-    "icon_id": "24841494",
-    "name": "hand-thumbsup",
-    "font_class": "hand-up",
-    "unicode": "e63f",
-    "unicode_decimal": 58943 },
-
-  {
-    "icon_id": "24841496",
-    "name": "heart-filled",
-    "font_class": "heart-filled",
-    "unicode": "e641",
-    "unicode_decimal": 58945 },
-
-  {
-    "icon_id": "24841498",
-    "name": "mail-open",
-    "font_class": "mail-open",
-    "unicode": "e643",
-    "unicode_decimal": 58947 },
-
-  {
-    "icon_id": "24841488",
-    "name": "heart",
-    "font_class": "heart",
-    "unicode": "e639",
-    "unicode_decimal": 58937 },
-
-  {
-    "icon_id": "24839963",
-    "name": "loop",
-    "font_class": "loop",
-    "unicode": "e633",
-    "unicode_decimal": 58931 },
-
-  {
-    "icon_id": "24839866",
-    "name": "pulldown",
-    "font_class": "pulldown",
-    "unicode": "e632",
-    "unicode_decimal": 58930 },
-
-  {
-    "icon_id": "24813798",
-    "name": "scan",
-    "font_class": "scan",
-    "unicode": "e62a",
-    "unicode_decimal": 58922 },
-
-  {
-    "icon_id": "24813786",
-    "name": "bars",
-    "font_class": "bars",
-    "unicode": "e627",
-    "unicode_decimal": 58919 },
-
-  {
-    "icon_id": "24813788",
-    "name": "cart-filled",
-    "font_class": "cart-filled",
-    "unicode": "e629",
-    "unicode_decimal": 58921 },
-
-  {
-    "icon_id": "24813790",
-    "name": "checkbox",
-    "font_class": "checkbox",
-    "unicode": "e62b",
-    "unicode_decimal": 58923 },
-
-  {
-    "icon_id": "24813791",
-    "name": "checkbox-filled",
-    "font_class": "checkbox-filled",
-    "unicode": "e62c",
-    "unicode_decimal": 58924 },
-
-  {
-    "icon_id": "24813794",
-    "name": "shop",
-    "font_class": "shop",
-    "unicode": "e62f",
-    "unicode_decimal": 58927 },
-
-  {
-    "icon_id": "24813795",
-    "name": "headphones",
-    "font_class": "headphones",
-    "unicode": "e630",
-    "unicode_decimal": 58928 },
-
-  {
-    "icon_id": "24813796",
-    "name": "cart",
-    "font_class": "cart",
-    "unicode": "e631",
-    "unicode_decimal": 58929 }] };exports.default = _default;
-
-/***/ }),
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */
-/*!******************************************************************************************************************************!*\
-  !*** C:/Users/zheng/Documents/HBuilderProjects/game/uni_modules/uni-transition/components/uni-transition/createAnimation.js ***!
-  \******************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.createAnimation = createAnimation;function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;} // const defaultOption = {
-// 	duration: 300,
-// 	timingFunction: 'linear',
-// 	delay: 0,
-// 	transformOrigin: '50% 50% 0'
-// }
-var
-
-
-MPAnimation = /*#__PURE__*/function () {
-  function MPAnimation(options, _this) {_classCallCheck(this, MPAnimation);
-    this.options = options;
-    this.animation = uni.createAnimation(options);
-    this.currentStepAnimates = {};
-    this.next = 0;
-    this.$ = _this;
-
-  }_createClass(MPAnimation, [{ key: "_nvuePushAnimates", value: function _nvuePushAnimates(
-
-    type, args) {
-      var aniObj = this.currentStepAnimates[this.next];
-      var styles = {};
-      if (!aniObj) {
-        styles = {
-          styles: {},
-          config: {} };
-
-      } else {
-        styles = aniObj;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _types = __webpack_require__(/*! ./types.js */ 16);
+var api = _interopRequireWildcard(__webpack_require__(/*! ./config.js */ 17));
+var _storage = _interopRequireDefault(__webpack_require__(/*! @/utils/storage.js */ 12));
+var _toast = _interopRequireDefault(__webpack_require__(/*! @/utils/toast.js */ 13));
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));var _this = void 0;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _getRequireWildcardCache() {if (typeof WeakMap !== "function") return null;var cache = new WeakMap();_getRequireWildcardCache = function _getRequireWildcardCache() {return cache;};return cache;}function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;}if (obj === null || typeof obj !== "object" && typeof obj !== "function") {return { default: obj };}var cache = _getRequireWildcardCache();if (cache && cache.has(obj)) {return cache.get(obj);}var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) {var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {Object.defineProperty(newObj, key, desc);} else {newObj[key] = obj[key];}}}newObj.default = obj;if (cache) {cache.set(obj, newObj);}return newObj;}
+
+var accountFlag = true;
+
+var restResult = function restResult(type, url) {var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};var extra = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};var showTips = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
+  var user = _storage.default.getUser();
+  if (user.user_token) {
+    params.user_token = user.user_token;
+  }
+  return fetchResponse(type, url, params, extra, showTips);
+};
+
+var fetchResponse = function fetchResponse(type, url, params, extra, showTips) {
+  var fullUrl = api.BASE_URL + url;
+  switch (type) {
+    case _types.GET_LIST:
+      return getRequest(type, fullUrl, params, showTips);
+    case _types.GET:
+      return getRequest(type, fullUrl, params, showTips);
+    case _types.POST:
+      return postRequest(type, fullUrl, params, showTips);
+    case _types.FILE:
+      fullUrl = api.QINIU_UPLOAD_URL;
+      return fileRequest(type, fullUrl, params, extra, showTips);
+    default:
+      throw new Error("unsupport type ".concat(type));}
+
+};
+
+var getRequest = function getRequest(type, url, params, showTips) {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: url,
+      data: params,
+      method: "GET",
+      dataType: "json",
+      success: function success(response) {
+        formatResponse(response, type, resolve, reject, showTips);
+      },
+      fail: function fail(error) {
+        //fetchError(error);
+        reject(error);
+      } });
+
+  });
+};
+
+var postRequest = function postRequest(type, url, params, showTips) {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: url,
+      data: params,
+      header: {
+        "content-type": "application/x-www-form-urlencoded" },
+
+      method: "POST",
+      dataType: "json",
+      success: function success(response) {
+        formatResponse(response, type, resolve, reject, showTips);
+      },
+      fail: function fail(error) {
+        //fetchError(error);
+        reject(error);
+      } });
+
+  });
+};
+
+var fileRequest = function fileRequest(type, url, params, extra, showTips) {
+  return new Promise(function (resolve, reject) {
+    uni.uploadFile({
+      url: url,
+      formData: params,
+      filePath: extra.filePath,
+      name: extra.name,
+      header: {
+        "Content-Type": "multipart/form-data" },
+
+      success: function success(response) {
+        return formatResponse(response, type, resolve, reject, showTips);
+      },
+      fail: function fail(error) {
+        //fetchError(error);
+        reject(error);
+      } });
+
+  });
+};
+
+var formatResponse = function formatResponse(response, type, resolve, reject, showTips) {
+  if (response.statusCode) {var
+    data = response.data;
+    if (response.statusCode == 200) {
+      switch (type) {
+        case _types.GET_LIST:
+          resolve(data.result);
+        case _types.GET:
+          resolve(data.result);
+        case _types.POST:
+          resolve(data.result);
+        case _types.FILE:
+          data = typeof data === "string" ? JSON.parse(data) : data;
+          resolve(data.result);
+        default:
+          resolve(data);}
+
+    } else if (response.statusCode == 400) {
+      if (showTips) {
+        setTimeout(function () {
+          uni.hideLoading();
+          uni.showToast({
+            title: response.data.msg || '出错啦～',
+            icon: 'none' });
+
+        }, 600);
       }
-      if (animateTypes1.includes(type)) {
-        if (!styles.styles.transform) {
-          styles.styles.transform = '';
-        }
-        var unit = '';
-        if (type === 'rotate') {
-          unit = 'deg';
-        }
-        styles.styles.transform += "".concat(type, "(").concat(args + unit, ") ");
-      } else {
-        styles.styles[type] = "".concat(args);
+
+      reject(data);
+    } else if (response.statusCode == 403005) {
+      if (accountFlag) {
+        uni.hideLoading();
+        accountFlag = false;
+        _this.$storage.clearUser();
+        uni.showToast({
+          title: response.data.msg || '出错啦～',
+          icon: 'none' });
+
       }
-      this.currentStepAnimates[this.next] = styles;
-    } }, { key: "_animateRun", value: function _animateRun()
-    {var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      var ref = this.$.$refs['ani'].ref;
-      if (!ref) return;
-      return new Promise(function (resolve, reject) {
-        nvueAnimation.transition(ref, _objectSpread({
-          styles: styles },
-        config),
-        function (res) {
-          resolve();
-        });
-      });
-    } }, { key: "_nvueNextAnimate", value: function _nvueNextAnimate(
+      reject(data);
+    } else {
+      if (showTips) {
+        setTimeout(function () {
+          uni.hideLoading();
+          uni.showToast({
+            title: response.data.msg || '出错啦～',
+            icon: 'none' });
 
-    animates) {var _this2 = this;var step = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;var fn = arguments.length > 2 ? arguments[2] : undefined;
-      var obj = animates[step];
-      if (obj) {var
-
-        styles =
-
-        obj.styles,config = obj.config;
-        this._animateRun(styles, config).then(function () {
-          step += 1;
-          _this2._nvueNextAnimate(animates, step, fn);
-        });
-      } else {
-        this.currentStepAnimates = {};
-        typeof fn === 'function' && fn();
-        this.isEnd = true;
+        }, 600);
       }
-    } }, { key: "step", value: function step()
+      reject(data);
+    }
+  } else {
+    reject('服务器出现错误');
+  }
+};var _default =
 
-    {var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      this.animation.step(config);
-
-
-
-
-
-
-      return this;
-    } }, { key: "run", value: function run(
-
-    fn) {
-
-      this.$.animationData = this.animation.export();
-      this.$.timer = setTimeout(function () {
-        typeof fn === 'function' && fn();
-      }, this.$.durationTime);
-
-
-
-
-
-
-
-
-    } }]);return MPAnimation;}();
-
-
-
-var animateTypes1 = ['matrix', 'matrix3d', 'rotate', 'rotate3d', 'rotateX', 'rotateY', 'rotateZ', 'scale', 'scale3d',
-'scaleX', 'scaleY', 'scaleZ', 'skew', 'skewX', 'skewY', 'translate', 'translate3d', 'translateX', 'translateY',
-'translateZ'];
-
-var animateTypes2 = ['opacity', 'backgroundColor'];
-var animateTypes3 = ['width', 'height', 'left', 'right', 'top', 'bottom'];
-animateTypes1.concat(animateTypes2, animateTypes3).forEach(function (type) {
-  MPAnimation.prototype[type] = function () {var _this$animation;
-
-    (_this$animation = this.animation)[type].apply(_this$animation, arguments);
-
-
-
-
-    return this;
-  };
-});
-
-function createAnimation(option, _this) {
-  if (!_this) return;
-  clearTimeout(_this.timer);
-  return new MPAnimation(option, _this);
-}
+{
+  restResult: restResult };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */
+/* 16 */
+/*!********************************************************************!*\
+  !*** C:/Users/zheng/Documents/HBuilderProjects/game/rest/types.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.FILE = exports.POST = exports.GET = exports.GET_LIST = void 0;var GET_LIST = 'GET_LIST';exports.GET_LIST = GET_LIST;
+var GET = 'GET';exports.GET = GET;
+var POST = 'POST';exports.POST = POST;
+var FILE = 'FILE';exports.FILE = FILE;
+
+/***/ }),
+/* 17 */
+/*!*********************************************************************!*\
+  !*** C:/Users/zheng/Documents/HBuilderProjects/game/rest/config.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.SET_USER_LOCATION = exports.GET_MIN_SETTING = exports.GET_GAME_INFO = exports.AUDIT_IMAGE_RESULT = exports.AUDIT_CONTENT_RESULT = exports.REFUND_BILL = exports.ADD_REFUND_BILL = exports.REFUND_BILL_LIST = exports.UPDATE_PROPRIETARY_INFOMATION = exports.PROPRIETARY_INFOMATION_LIST = exports.PRIZE = exports.PRIZE_LIST = exports.PAY_GAME_PRODUCT = exports.ADD_GAME_PRODUCT = exports.GAME_PRODUCT = exports.GAME_PRODUCT_LIST = exports.VERIFY_GAME_HELP = exports.ADD_GAME_HELP = exports.ADD_EXCHANGE_GAME_PRIZE = exports.EXCHANGE_GAME_PRIZE = exports.EXCHANGE_GAME_PRIZE_LIST = exports.ADD_GAME_PRIZE_VERIFY = exports.UPDATE_GAME_PRIZE = exports.DELETE_GAME_PRIZE = exports.ADD_GAME_PRIZE = exports.GAME_PRIZE_LIST = exports.STATISTICS_GAME_LIST = exports.STATISTICS_ALL_GAME = exports.STATISTICS_WIN_GAME = exports.STATISTICS_GAME = exports.STATISTICS_ALL_GAME_LIST = exports.UPDATE_GAME_SETTING = exports.ADD_GAME_SETTING = exports.GAME_SETTING = exports.UPDATE_GAME_REGION = exports.UPDATE_GAME_PRIZE_METHOD = exports.UPDATE_GAME_RESULT = exports.GAME_WIN_RESULT = exports.GAME_RECENT_SETTING = exports.GAME_RECENT_SETTING_LIST = exports.GAME = exports.GAME_LSIT = exports.PROGRESS_GAME_LIST = exports.CREATE_GAME_PHONE = exports.CLOSE_GAME = exports.ADD_GAME = exports.DELETE_GAME_CONTACT = exports.UPDATE_GAME_CONTACT = exports.ADD_GAME_CONTACT = exports.GAME_CONTACT = exports.GAME_CONTACT_LIST = exports.GAME_BACKGROUND = exports.GAME_BACKGROUND_LIST = exports.GAME_BACKGROUNDS = exports.GAME_AWARD = exports.GAME_RULE = exports.GAME_RULE_LIST = exports.EXCHANGE_GAME = exports.DELETE_GAME_RULE = exports.GAME_KING_OF_KINGS_RANK_SCORE = exports.GAME_KING_OF_KINGS_Prize_LIST = exports.GAME_KING_OF_KINGS_LIST = exports.USER_HELP_RECORD = exports.USER_HELP_RECORD_LSIT = exports.ADD_USER_GAME_RECORD = exports.USER_GAME_RECORD = exports.USER_GAME_RECORD_LIST = exports.USER_GAME = exports.ADD_USER_GAME = exports.SET_TOP_ADVERT = exports.COPY_ADVERT = exports.BATCH_DELETE_ADVERT = exports.UPDATE_ADVERT = exports.ADD_ADVERT = exports.ADVERT_LIST = exports.ORDER = exports.ORDER_LIST = exports.DELETE_USER_CONTACT = exports.UPDATE_USER_CONTACT = exports.ADD_USER_CONTACT = exports.USER_CONTACT_LIST = exports.UPDATE_USER_PHONE = exports.UPDATE_USER_PASSWORD = exports.UPDATE_USER_AVATAR = exports.UPDATE_USER_INFO = exports.USER_INFO = exports.FIEL_UPLOAD = exports.UPLOAD_TOKEN = exports.LOGOUT = exports.LOGIN = exports.WECHAT_MINI_OPEN_ID = exports.CHECK_VERIFY = exports.CHECK_MAIL_VERIFY = exports.SMS_VERIFY_CODE = exports.SMS_BIND_USER_VERIFY_CODE = exports.GAME_AREA = exports.AREA_LIST = exports.QIU_DOMAIN_URL = exports.QINIU_UPLOAD_URL = exports.BASE_URL = void 0;exports.GET_MINI_QRCODE = exports.KING_OF_KING_PRIZE = exports.SHARE_QRCODE = exports.PRIZE_GAME_LIST = exports.GET_GAME_PRIZE_SETTING = exports.GAME_ADVERT = void 0; // 基础地址
+// export const BASE_URL = 'https://bobing.roi-cloud.com';
+// 测试
+var BASE_URL = 'https://bbtest.roi-cloud.com';exports.BASE_URL = BASE_URL;
+
+var QINIU_UPLOAD_URL = 'https://up.qiniup.com';exports.QINIU_UPLOAD_URL = QINIU_UPLOAD_URL;
+
+var QIU_DOMAIN_URL = 'https://static.roi-cloud.com';
+
+// 地址
+exports.QIU_DOMAIN_URL = QIU_DOMAIN_URL;
+var AREA_LIST = '/Api/Common/Area/getArea';exports.AREA_LIST = AREA_LIST;
+
+var GAME_AREA = '/Api/Common/Game/Game/getGameArea';
+
+
+// commmon 发送验证码
+exports.GAME_AREA = GAME_AREA;
+var SMS_BIND_USER_VERIFY_CODE = '/Api/Common/VerifyCode/smsBindUserVerifyCode';exports.SMS_BIND_USER_VERIFY_CODE = SMS_BIND_USER_VERIFY_CODE;
+
+var SMS_VERIFY_CODE = '/Api/Common/VerifyCode/smsVerifyCode';
+
+// 登录注册
+exports.SMS_VERIFY_CODE = SMS_VERIFY_CODE;
+var CHECK_MAIL_VERIFY = '/Api/user/auth/checkMailVerify';exports.CHECK_MAIL_VERIFY = CHECK_MAIL_VERIFY;
+
+var CHECK_VERIFY = '/Api/user/auth/checkVerify';exports.CHECK_VERIFY = CHECK_VERIFY;
+
+var WECHAT_MINI_OPEN_ID = '/Api/User/Auth/getWechatMiniOpenId';exports.WECHAT_MINI_OPEN_ID = WECHAT_MINI_OPEN_ID;
+
+var LOGIN = '/Api/User/Auth/loginByWechatMiniCode';exports.LOGIN = LOGIN;
+
+var LOGOUT = '/Api/user/auth/logout';
+
+
+// 文件上传
+exports.LOGOUT = LOGOUT;
+var UPLOAD_TOKEN = '/Api/User/FileUpload/getAppUploadToken';exports.UPLOAD_TOKEN = UPLOAD_TOKEN;
+
+var FIEL_UPLOAD = '/Api/User/FileUpload/upload';
+
+// 用户信息
+exports.FIEL_UPLOAD = FIEL_UPLOAD;var USER_INFO = '/Api/User/User/UserInfo/getInfo';exports.USER_INFO = USER_INFO;
+
+var UPDATE_USER_INFO = '/Api/User/User/UserInfo/updateAccount';exports.UPDATE_USER_INFO = UPDATE_USER_INFO;
+
+var UPDATE_USER_AVATAR = '/Api/User/User/UserInfo/updateAvatar';exports.UPDATE_USER_AVATAR = UPDATE_USER_AVATAR;
+
+var UPDATE_USER_PASSWORD = '/Api/User/User/UserInfo/updatePassword';exports.UPDATE_USER_PASSWORD = UPDATE_USER_PASSWORD;
+
+var UPDATE_USER_PHONE = '/Api/User/User/UserInfo/updatePhone';
+
+// 用户联系方式
+exports.UPDATE_USER_PHONE = UPDATE_USER_PHONE;var USER_CONTACT_LIST = '/Api/User/User/UserContactWay/getList';exports.USER_CONTACT_LIST = USER_CONTACT_LIST;
+
+var ADD_USER_CONTACT = '/Api/User/User/UserContactWay/add';exports.ADD_USER_CONTACT = ADD_USER_CONTACT;
+
+var UPDATE_USER_CONTACT = '/Api/User/User/UserContactWay/update';exports.UPDATE_USER_CONTACT = UPDATE_USER_CONTACT;
+
+var DELETE_USER_CONTACT = '/Api/User/User/UserContactWay/delete';
+
+// 付费订单
+exports.DELETE_USER_CONTACT = DELETE_USER_CONTACT;
+var ORDER_LIST = '/Api/User/Game/GamePayOrder/getList';exports.ORDER_LIST = ORDER_LIST;
+
+var ORDER = '/Api/User/Game/GamePayOrder/getOne';
+
+// 自定义广告
+exports.ORDER = ORDER;
+var ADVERT_LIST = '/Api/User/Game/Advert/GameAdvert/getList';exports.ADVERT_LIST = ADVERT_LIST;
+
+var ADD_ADVERT = '/Api/User/Game/Advert/GameAdvert/add';exports.ADD_ADVERT = ADD_ADVERT;
+
+var UPDATE_ADVERT = '/Api/User/Game/Advert/GameAdvert/update';exports.UPDATE_ADVERT = UPDATE_ADVERT;
+
+var BATCH_DELETE_ADVERT = '/Api/User/Game/Advert/GameAdvert/batchDelete';exports.BATCH_DELETE_ADVERT = BATCH_DELETE_ADVERT;
+
+var COPY_ADVERT = '/Api/User/Game/Advert/GameAdvert/copy';exports.COPY_ADVERT = COPY_ADVERT;
+
+var SET_TOP_ADVERT = '/Api/User/Game/Advert/GameAdvert/updateTop';
+
+// 游戏数据
+exports.SET_TOP_ADVERT = SET_TOP_ADVERT;
+var ADD_USER_GAME = '/Api/User/User/UserPlayGame/add';exports.ADD_USER_GAME = ADD_USER_GAME;
+
+var USER_GAME = '/Api/User/User/UserPlayGame/getOne';
+
+// 游戏记录
+exports.USER_GAME = USER_GAME;
+var USER_GAME_RECORD_LIST = '/Api/User/User/UserPlayGameRecord/getList';exports.USER_GAME_RECORD_LIST = USER_GAME_RECORD_LIST;
+
+var USER_GAME_RECORD = '/Api/User/User/UserPlayGameRecord/getOne';exports.USER_GAME_RECORD = USER_GAME_RECORD;
+
+var ADD_USER_GAME_RECORD = '/Api/User/User/UserPlayGameRecord/add';
+
+// 用户主力记录
+exports.ADD_USER_GAME_RECORD = ADD_USER_GAME_RECORD;
+var USER_HELP_RECORD_LSIT = '/Api/User/User/UserHelpRecord/getList';exports.USER_HELP_RECORD_LSIT = USER_HELP_RECORD_LSIT;
+
+var USER_HELP_RECORD = '/Api/User/User/UserHelpRecord/getOne';
+
+// 王中王排行榜
+exports.USER_HELP_RECORD = USER_HELP_RECORD;
+var GAME_KING_OF_KINGS_LIST = '/Api/Common/Game/Game/getKingOfKingsPointsList';exports.GAME_KING_OF_KINGS_LIST = GAME_KING_OF_KINGS_LIST;
+var GAME_KING_OF_KINGS_Prize_LIST = '/Api/Common/Game/Game/getKingOfKingsPrizeList';exports.GAME_KING_OF_KINGS_Prize_LIST = GAME_KING_OF_KINGS_Prize_LIST;
+
+var GAME_KING_OF_KINGS_RANK_SCORE = '/Api/User/Game/KingOfKings/KingOfKings/getRankScore';
+
+// 游戏规则
+exports.GAME_KING_OF_KINGS_RANK_SCORE = GAME_KING_OF_KINGS_RANK_SCORE;
+var DELETE_GAME_RULE = '/Api/User/Game/Rule/Rule/delete';exports.DELETE_GAME_RULE = DELETE_GAME_RULE;
+
+var EXCHANGE_GAME = '/Api/User/Game/Points/Points/getExchange';exports.EXCHANGE_GAME = EXCHANGE_GAME;
+
+var GAME_RULE_LIST = '/Api/User/Game/Rule/Rule/getList';exports.GAME_RULE_LIST = GAME_RULE_LIST;
+
+var GAME_RULE = '/Api/User/Game/Rule/Rule/getOne';exports.GAME_RULE = GAME_RULE;
+
+var GAME_AWARD = '/Api/User/Game/Points/Points/getWin';
+
+// 游戏背景图片
+exports.GAME_AWARD = GAME_AWARD;
+var GAME_BACKGROUNDS = '/Api/User/Game/GameBackground/getAll';exports.GAME_BACKGROUNDS = GAME_BACKGROUNDS;
+
+var GAME_BACKGROUND_LIST = '/Api/User/Game/GameBackground/getList';exports.GAME_BACKGROUND_LIST = GAME_BACKGROUND_LIST;
+
+var GAME_BACKGROUND = '/Api/User/Game/GameBackground/getOne';
+
+// 游戏联系方式设置
+exports.GAME_BACKGROUND = GAME_BACKGROUND;
+var GAME_CONTACT_LIST = '/Api/User/Game/Contact/ContactWay/getList';exports.GAME_CONTACT_LIST = GAME_CONTACT_LIST;
+
+var GAME_CONTACT = '/Api/User/Game/Contact/ContactWay/getOne';exports.GAME_CONTACT = GAME_CONTACT;
+
+var ADD_GAME_CONTACT = '/Api/User/Game/Contact/ContactWay/add';exports.ADD_GAME_CONTACT = ADD_GAME_CONTACT;
+
+var UPDATE_GAME_CONTACT = '/Api/User/Game/Contact/ContactWay/update';exports.UPDATE_GAME_CONTACT = UPDATE_GAME_CONTACT;
+
+var DELETE_GAME_CONTACT = '/Api/User/Game/Contact/ContactWay/delete';
+
+// 游戏管理
+exports.DELETE_GAME_CONTACT = DELETE_GAME_CONTACT;
+var ADD_GAME = '/Api/User/Game/Operate/Game/add';exports.ADD_GAME = ADD_GAME;
+
+var CLOSE_GAME = '/Api/User/Game/Operate/Game/close';exports.CLOSE_GAME = CLOSE_GAME;
+
+var CREATE_GAME_PHONE = '/Api/User/Game/Operate/Game/createGameSetPhone';exports.CREATE_GAME_PHONE = CREATE_GAME_PHONE;
+
+var PROGRESS_GAME_LIST = '/Api/User/Game/Operate/Game/getGameInProgressList';exports.PROGRESS_GAME_LIST = PROGRESS_GAME_LIST;
+
+var GAME_LSIT = '/Api/User/Game/Operate/Game/getList';exports.GAME_LSIT = GAME_LSIT;
+
+var GAME = '/Api/User/Game/Operate/Game/getOne';exports.GAME = GAME;
+
+var GAME_RECENT_SETTING_LIST = '/Api/User/Game/Operate/Game/getRecentGameList';exports.GAME_RECENT_SETTING_LIST = GAME_RECENT_SETTING_LIST;
+
+var GAME_RECENT_SETTING = '/Api/User/Game/Operate/Game/getRecentGamePrizeSetting';exports.GAME_RECENT_SETTING = GAME_RECENT_SETTING;
+
+var GAME_WIN_RESULT = '/Api/User/Game/Operate/Game/getWinResult';exports.GAME_WIN_RESULT = GAME_WIN_RESULT;
+
+var UPDATE_GAME_RESULT = '/Api/User/Game/Operate/Game/update';exports.UPDATE_GAME_RESULT = UPDATE_GAME_RESULT;
+
+var UPDATE_GAME_PRIZE_METHOD = '/Api/User/Game/Operate/Game/updatePrizeMethod';exports.UPDATE_GAME_PRIZE_METHOD = UPDATE_GAME_PRIZE_METHOD;
+
+var UPDATE_GAME_REGION = '/Api/User/Game/Operate/Game/updateRegion';
+
+// 游戏概率
+exports.UPDATE_GAME_REGION = UPDATE_GAME_REGION;
+var GAME_SETTING = '/Api/User/Game/Operate/GameSetting/getOne';exports.GAME_SETTING = GAME_SETTING;
+
+var ADD_GAME_SETTING = '/Api/User/Game/Operate/GameSetting/add';exports.ADD_GAME_SETTING = ADD_GAME_SETTING;
+
+var UPDATE_GAME_SETTING = '/Api/User/Game/Operate/GameSetting/update';
+
+// 游戏统计
+exports.UPDATE_GAME_SETTING = UPDATE_GAME_SETTING;
+var STATISTICS_ALL_GAME_LIST = '/Api/User/Statistics/Game/allGameList';exports.STATISTICS_ALL_GAME_LIST = STATISTICS_ALL_GAME_LIST;
+
+var STATISTICS_GAME = '/Api/User/Statistics/Game/countMyGame';exports.STATISTICS_GAME = STATISTICS_GAME;
+
+var STATISTICS_WIN_GAME = '/Api/User/Statistics/Game/countWinGame';exports.STATISTICS_WIN_GAME = STATISTICS_WIN_GAME;
+
+var STATISTICS_ALL_GAME = '/Api/User/Statistics/Game/countAllGame';exports.STATISTICS_ALL_GAME = STATISTICS_ALL_GAME;
+
+var STATISTICS_GAME_LIST = '/Api/User/Statistics/Game/myGameList';
+
+// 游戏奖品
+exports.STATISTICS_GAME_LIST = STATISTICS_GAME_LIST;
+var GAME_PRIZE_LIST = '/Api/User/Game/Prize/Setting/getList';exports.GAME_PRIZE_LIST = GAME_PRIZE_LIST;
+
+var ADD_GAME_PRIZE = '/Api/User/Game/Prize/Setting/add';exports.ADD_GAME_PRIZE = ADD_GAME_PRIZE;
+
+var DELETE_GAME_PRIZE = '/Api/User/Game/Prize/Setting/delete';exports.DELETE_GAME_PRIZE = DELETE_GAME_PRIZE;
+
+var UPDATE_GAME_PRIZE = '/Api/User/Game/Prize/Setting/update';
+
+// 游戏奖品核销
+exports.UPDATE_GAME_PRIZE = UPDATE_GAME_PRIZE;
+var ADD_GAME_PRIZE_VERIFY = '/Api/User/Game/Prize/Verify/add';
+
+// 游戏奖品兑换
+exports.ADD_GAME_PRIZE_VERIFY = ADD_GAME_PRIZE_VERIFY;
+var EXCHANGE_GAME_PRIZE_LIST = '/Api/User/Game/Prize/Exchange/getList';exports.EXCHANGE_GAME_PRIZE_LIST = EXCHANGE_GAME_PRIZE_LIST;
+
+var EXCHANGE_GAME_PRIZE = '/Api/User/Game/Prize/Exchange/getOne';exports.EXCHANGE_GAME_PRIZE = EXCHANGE_GAME_PRIZE;
+
+var ADD_EXCHANGE_GAME_PRIZE = '/Api/User/Game/Prize/Exchange/add';
+
+// 游戏助力
+exports.ADD_EXCHANGE_GAME_PRIZE = ADD_EXCHANGE_GAME_PRIZE;
+var ADD_GAME_HELP = '/Api/User/Game/Help/Help/add';
+
+// export const VERIFY_GAME_HELP = '/Api/User/Game/Help/Help/verify'
+exports.ADD_GAME_HELP = ADD_GAME_HELP;var VERIFY_GAME_HELP = '/Api/Common/Game/Game/verify';
+
+// 游戏付费产品查询
+exports.VERIFY_GAME_HELP = VERIFY_GAME_HELP;
+var GAME_PRODUCT_LIST = '/Api/User/Product/PaidProduct/getList';exports.GAME_PRODUCT_LIST = GAME_PRODUCT_LIST;
+
+var GAME_PRODUCT = '/Api/User/Product/PaidProduct/getOne';exports.GAME_PRODUCT = GAME_PRODUCT;
+
+var ADD_GAME_PRODUCT = '/Api/User/Product/PaidProduct/add';exports.ADD_GAME_PRODUCT = ADD_GAME_PRODUCT;
+
+var PAY_GAME_PRODUCT = '/Api/User/Product/PaidProduct/pay';
+
+// 奖品管理
+exports.PAY_GAME_PRODUCT = PAY_GAME_PRODUCT;
+var PRIZE_LIST = '/Api/User/User/UserPrize/getList';exports.PRIZE_LIST = PRIZE_LIST;
+
+var PRIZE = '/Api/User/User/UserPrize/getOne';
+
+// 商户专有信息设置
+exports.PRIZE = PRIZE;
+var PROPRIETARY_INFOMATION_LIST = '/Api/User/User/proprietaryInformation/getList';exports.PROPRIETARY_INFOMATION_LIST = PROPRIETARY_INFOMATION_LIST;
+
+var UPDATE_PROPRIETARY_INFOMATION = '/Api/User/User/proprietaryInformation/update';
+
+// 退款申请
+exports.UPDATE_PROPRIETARY_INFOMATION = UPDATE_PROPRIETARY_INFOMATION;
+var REFUND_BILL_LIST = '/Api/User/Bill/RefundBill/getList';exports.REFUND_BILL_LIST = REFUND_BILL_LIST;
+
+var ADD_REFUND_BILL = '/Api/User/Bill/RefundBill/add';exports.ADD_REFUND_BILL = ADD_REFUND_BILL;
+
+var REFUND_BILL = '/Api/User/Bill/RefundBill/getOne';
+
+// 阿里云内容审计
+exports.REFUND_BILL = REFUND_BILL;
+var AUDIT_CONTENT_RESULT = '/Api/User/Game/Audit/Audit/getContentResult';exports.AUDIT_CONTENT_RESULT = AUDIT_CONTENT_RESULT;
+
+var AUDIT_IMAGE_RESULT = '/Api/User/Game/Audit/Audit/getImageResult';
+
+// 获取游戏信息
+exports.AUDIT_IMAGE_RESULT = AUDIT_IMAGE_RESULT;
+var GET_GAME_INFO = '/Api/Common/Game/Game/getOne';exports.GET_GAME_INFO = GET_GAME_INFO;
+var GET_MIN_SETTING = '/Api/Common/SystemConfig/getMiniSetting';
+
+// 获取用户地址
+exports.GET_MIN_SETTING = GET_MIN_SETTING;var SET_USER_LOCATION = '/Api/User/User/UserInfo/setMap';
+
+
+// 广告
+exports.SET_USER_LOCATION = SET_USER_LOCATION;var GAME_ADVERT = '/Api/Common/Game/Game/getAdvert';exports.GAME_ADVERT = GAME_ADVERT;
+var GET_GAME_PRIZE_SETTING = '/Api/User/Game/Operate/Game/getGamePrizeSetting';
+
+// 中奖
+exports.GET_GAME_PRIZE_SETTING = GET_GAME_PRIZE_SETTING;
+var PRIZE_GAME_LIST = '/Api/User/User/UserPrize/getPrizeGameList';exports.PRIZE_GAME_LIST = PRIZE_GAME_LIST;
+
+var SHARE_QRCODE = '/Api/User/Game/Operate/Game/shareQrCode';exports.SHARE_QRCODE = SHARE_QRCODE;
+
+var KING_OF_KING_PRIZE = '/Api/User/Game/KingOfKings/KingOfKingsUserPrize/getOne';exports.KING_OF_KING_PRIZE = KING_OF_KING_PRIZE;
+
+var GET_MINI_QRCODE = '/Api/User/Game/Operate/Game/getGameMiniQrcode';exports.GET_MINI_QRCODE = GET_MINI_QRCODE;
+
+/***/ }),
+/* 18 */
+/*!*******************************************************************************************!*\
+  !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/umtrack-wx/lib/index.js ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var e = "[UMENG] -- ",t = function () {var t = null,n = !1;function i() {this.setDebug = function (e) {n = e;};this.d = function () {if (n) try {"string" == typeof arguments[0] && (arguments[0] = e + arguments[0]);console.debug.apply(console, arguments);} catch (e) {}};this.i = function () {try {if (n) try {"string" == typeof arguments[0] && (arguments[0] = e + arguments[0]);console.info.apply(console, arguments);} catch (e) {}} catch (e) {}};this.e = function () {if (n) try {"string" == typeof arguments[0] && (arguments[0] = e + arguments[0]);console.error.apply(console, arguments);} catch (e) {}};this.w = function () {if (n) try {"string" == typeof arguments[0] && (arguments[0] = e + arguments[0]);console.warn.apply(console, arguments);} catch (e) {}};this.v = function () {if (n) try {"string" == typeof arguments[0] && (arguments[0] = e + arguments[0]);console.log.apply(console, arguments);} catch (e) {}};this.t = function () {if (n) try {console.table.apply(console, arguments);} catch (e) {}};this.tip = function () {try {"string" == typeof arguments[0] && (arguments[0] = e + arguments[0]);console.log.apply(console, arguments);} catch (e) {}};this.tip_w = function (e) {try {console.log("%c [UMENG] -- " + e, "background:red; padding: 4px; padding-right: 8px; border-radius: 4px; color: #fff;");} catch (e) {}};this.err = function () {try {"string" == typeof arguments[0] && (arguments[0] = e + arguments[0]);console.error.apply(console, arguments);} catch (e) {}};this.repeat = function (e) {for (var t = e; t.length < 86;) {t += e;}return t;};}return function () {null === t && (t = new i());return t;};}(),n = function () {var e = null;function t() {var e = {};this.useOpenid = function () {return !!e.useOpenid;};this.useSwanid = function () {return !!e.useSwanid;};this.autoGetOpenid = function () {return !!e.autoGetOpenid;};this.appKey = function () {return e.appKey;};this.uploadUserInfo = function () {return e.uploadUserInfo;};this.enableVerify = function () {return e.enableVerify;};this.set = function (t) {e = t;};this.get = function () {return e;};this.setItem = function (t, n) {e[t] = n;};this.getItem = function (t) {return e[t];};}return function () {e || (e = new t());return e;};}();function i() {}i.prototype = { on: function on(e, t, n) {var i = this.e || (this.e = {});(i[e] || (i[e] = [])).push({ fn: t, ctx: n });return this;}, once: function once(e, t, n) {var i = this;function r() {i.off(e, r);t.apply(n, arguments);}r._ = t;return this.on(e, r, n);}, emit: function emit(e) {for (var t = [].slice.call(arguments, 1), n = ((this.e || (this.e = {}))[e] || []).slice(), i = 0, r = n.length; i < r; i++) {n[i].fn.apply(n[i].ctx, t);}return this;}, off: function off(e, t) {var n = this.e || (this.e = {}),i = n[e],r = [];if (i && t) for (var o = 0, s = i.length; o < s; o++) {i[o].fn !== t && i[o].fn._ !== t && r.push(i[o]);}r.length ? n[e] = r : delete n[e];return this;} };var r = new i();r.messageType = { CONFIG_LOADED: 0, UMA_LIB_INITED: 1 };var o = new (function () {function e() {}e.prototype.setStorage = function (e, t, n) {wx.setStorage({ key: e, data: t, success: function success() {"function" == typeof n && n(!0);}, fail: function fail() {"function" == typeof n && n(!1);} });};e.prototype.getStorage = function (e, n) {wx.getStorage({ key: e, success: function success(e) {"function" == typeof n && n(e.data);}, fail: function fail(i) {t().w(e + ": " + i.errMsg);"function" == typeof n && n();} });};e.prototype.removeStorage = function (e, t) {wx.removeStorage({ key: e, success: function success() {"function" == typeof t && t(!0);}, fail: function fail() {"function" == typeof t && t(!1);} });};e.prototype.getSystemInfo = function (e) {wx.getSystemInfo({ success: function success(t) {t.safeArea = t.safeArea || {};var n = "";t.host && "string" == typeof t.host.env && (n = t.host.env);var i = { model: t.model, brand: t.brand, pixelRatio: t.pixelRatio, screenWidth: t.screenWidth, screenHeight: t.screenHeight, fontSizeSetting: t.fontSizeSetting, platform: t.platform, platformVersion: t.version, platformSDKVersion: t.SDKVersion, language: t.language, deviceName: t.model, OSVersion: t.system, resolution: "", theme: t.theme, benchmarkLevel: t.benchmarkLevel, safeArea: { width: t.safeArea.width, height: t.safeArea.height, top: t.safeArea.top, left: t.safeArea.left, bottom: t.safeArea.bottom, right: t.safeArea.right }, statusBarHeight: t.statusBarHeight, host: n },r = t.system.split(" ");Array.isArray(r) && (i.OS = r[0]);var o = Math.round(t.screenWidth * t.pixelRatio),s = Math.round(t.screenHeight * t.pixelRatio);i.resolution = o > s ? o + "*" + s : s + "*" + o;"function" == typeof e && e(i);}, fail: function fail() {"function" == typeof e && e();} });};e.prototype.getDeviceInfo = function (e) {"function" == typeof e && e("");};e.prototype.checkNetworkAvailable = function (e) {wx.getNetworkType({ success: function success(t) {"function" == typeof e && e(t && "none" !== t.networkType);}, fail: function fail() {"function" == typeof e && e(!1);} });};e.prototype.getNetworkInfo = function (e) {wx.getNetworkType({ success: function success(t) {"function" == typeof e && e({ networkAvailable: "none" !== t.networkType, networkType: t.networkType });}, fail: function fail() {"function" == typeof e && e();} });};e.prototype.getDeviceId = function (e) {e("");};e.prototype.getAdvertisingId = function (e) {"function" == typeof e && e("");};e.prototype.onNetworkStatusChange = function (e) {wx.onNetworkStatusChange(function (t) {"function" == typeof e && e(t.isConnected);});};e.prototype.request = function (e) {var t = e.success,n = e.fail,i = !1,r = null;e.success = function (e) {if (!i) {r && clearTimeout(r);"function" == typeof t && t(e);}};e.fail = function () {if (!i) {r && clearTimeout(r);"function" == typeof n && n(!1);}};wx.request(e);r = setTimeout(function () {r && clearTimeout(r);i = !0;"function" == typeof n && n(i);}, e.timeout || 5e3);};e.prototype.getSdkType = function () {return "wxmp";};e.prototype.getPlatform = function () {return "wx";};e.prototype.getUserInfo = function (e) {e();};e.prototype.getAppInfoSync = function () {if (wx.getAccountInfoSync) {var e = wx.getAccountInfoSync(),t = e && e.miniProgram ? e.miniProgram : {};return { appId: t.appId, appEnv: t.envVersion, appVersion: t.version };}return {};};e.prototype.onShareAppMessage = function (e) {wx.onShareAppMessage(e);};e.prototype.shareAppMessage = function (e) {wx.shareAppMessage(e);};e.prototype.getLaunchOptionsSync = function () {var e = null;if (e) return e;if (!wx.getLaunchOptionsSync) return {};try {e = wx.getLaunchOptionsSync();} catch (t) {e = null;}return e || {};};return e;}())(),_s = function s(e, t) {return (_s = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (e, t) {e.__proto__ = t;} || function (e, t) {for (var n in t) {t.hasOwnProperty(n) && (e[n] = t[n]);}})(e, t);};function a(e, t) {_s(e, t);function n() {this.constructor = e;}e.prototype = null === t ? Object.create(t) : (n.prototype = t.prototype, new n());}var u = { SESSION_INTERVAL: 3e4, LOG_URL: "/wxm_logs", GET_OPENID_URL: "/uminiprogram_logs/wx/getuut", USERINFO_URL: "/uminiprogram_logs/comm/uif", ENDPOINT: "https://umini.shujupie.com", ENDPOINTB: "https://ulogs.umeng.com", DEVICE_INFO_KEY: "device_info", ADVERTISING_ID: "mobile_ad_id", ANDROID_ID: "android_id", CURRENT_SESSION: "current_session", SESSION_PAUSE_TIME: "session_pause_time", EVENT_SEND_DEFAULT_INTERVAL: 15e3, EVENT_LAST_SEND_TIME: "last_send_time", MAX_EVENTID_LENGTH: 128, MAX_PROPERTY_KEY_LENGTH: 256, MAX_PROPERTY_KEYS_COUNT: 100, REPORT_POLICY: "report_policy", REPORT_INTERVAL_TIME: "report_interval_time", REPORT_POLICY_START_SEND: "1", REPORT_POLICY_INTERVAL: "6", IMPRINT: "imprint", SEED_VERSION: "1.0.0", IMPL_VERSION: "2.7.1", ALIPAY_AVAILABLE_VERSION: "10.1.52", SHARE_PATH: "um_share_path", SHARES: "shares", REQUESTS: "requests", UUID: "um_uuid", UUID_SUFFIX: "ud", OPENID: "um_od", UNIONID: "um_unid", ALIPAYID: "um_alipayid", USERID: "um_userid", PROVIDER: "um_provider", SWANID: "um_swanid", ANONYMOUSID: "um_anonymousid", LAUNCH_OPTIONS: "LAUNCH_OPTIONS", UM_SSRC: "_um_ssrc", USER_INFO: "user_info", IS_ALIYUN: !1 };var c,f = { isNumber: function isNumber(e) {return !Number.isNaN(parseInt(e, 10));}, compareVersion: function compareVersion(e, t) {for (var n = String(e).split("."), i = String(t).split("."), r = 0; r < Math.max(n.length, i.length); r++) {var o = parseInt(n[r] || 0, 10),s = parseInt(i[r] || 0, 10);if (o > s) return 1;if (o < s) return -1;}return 0;}, getRandomStr: function getRandomStr(e) {for (var t = "", n = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"], i = 0; i < Number(e); i++) {t += n[Math.round(Math.random() * (n.length - 1))];}return t;}, clone: function clone(e) {return JSON.parse(JSON.stringify(e));}, startsWith: function startsWith(e, t) {return !(!e || !t || 0 === t.length || t.length > e.length) && e.substr(0, t.length) === t;}, endsWith: function endsWith(e, t) {return !(!t || 0 === e.length || t.length > e.length) && e.substring(e.length - t.length) === t;}, assign: function assign(e) {if (null == e) throw new TypeError("Cannot convert undefined or null to object");for (var t = Object(e), n = 1; n < arguments.length; n++) {var i = arguments[n];if (i) for (var r in i) {Object.prototype.hasOwnProperty.call(i, r) && (t[r] = i[r]);}}return t;}, deepEqual: function e(t, n) {if (t === n) return !0;if (t && "object" == typeof t && n && "object" == typeof n) {if (Object.keys(t).length !== Object.keys(n).length) return !1;for (var i in t) {if (Object.prototype.hasOwnProperty.call(n, i)) return !1;if (!e(t[i], n[i])) return !1;}return !0;}return !1;}, trimStart: function trimStart(e, t) {if (!e) return "";if ("string" == typeof t && t.length) {var n = new RegExp("^" + t + "*");e = e.replace(n, "");} else e = e.replace(/^s*/, "");return e;}, trimEnd: function trimEnd(e, t) {if (!e) return "";var n, i;if ("string" == typeof t && t.length) {n = new RegExp(t);i = e.length;for (; n.test(e.charAt(i));) {i -= 1;}return e.slice(0, i + 1);}n = /s/;i = e.length - 1;for (; n.test(e.charAt(i));) {i -= 1;}return e.slice(0, i + 1);}, isFunction: function isFunction(e) {return "function" == typeof e;} },p = function (e) {a(n, e);function n() {return null !== e && e.apply(this, arguments) || this;}n.prototype.getOpenIdAsync = function (e, n) {var i = this;wx.login({ success: function success(r) {r.code ? o.request({ url: u.ENDPOINT + u.GET_OPENID_URL, method: "GET", data: { key: e, code: r.code }, success: function success(e) {if (e && 200 === e.statusCode && e.data && e.data.data) {var t = e.data.data;i.setOpenid(t.oid);i.setUnionid(t.uid);return n && n(!0);}n && n();}, fail: function fail(e) {t().v("wx request failed...", e);n && n();} }) : n && n();}, fail: function fail() {n && n();} });};return n;}(function (e) {a(n, e);function n() {var t = null !== e && e.apply(this, arguments) || this;t._openid = "";t._unionid = "";t._useOpenid = !1;return t;}n.prototype.initID = function (e) {var n = this;n._idType = n._useOpenid ? "openid" : "uuid";t().v("id type: ", n._idType);o.getStorage(u.UNIONID, function (e) {n._unionid = e;});this._useOpenid ? o.getStorage(u.OPENID, function (t) {n._openid = t;e && e();}) : e && e();};n.prototype.setUseOpenid = function (e) {this._useOpenid = e;};n.prototype.setOpenid = function (e) {if (!this._openid && e) {this._openid = e;o.setStorage(u.OPENID, e);}};n.prototype.setUnionid = function (e) {if (!this._unionid && e) {this._unionid = e;o.setStorage(u.UNIONID, e);}};n.prototype.getIdTracking = function () {var t = e.prototype.getIdTracking.call(this);this._openid && (t.openid = this._openid);this._unionid && (t.unionid = this._unionid);this._userid && (t.userid = this._userid);return t;};n.prototype.getId = function () {return this._useOpenid ? this._openid : this._uuid;};return n;}(function () {function e() {this._uuid = "";this._userid = "";this._provider = "";this._idType = "";}e.prototype.createUUID = function () {return f.getRandomStr(10) + Date.now() + f.getRandomStr(7) + u.UUID_SUFFIX;};e.prototype.initUUID = function (e) {var t = this;o.getStorage(u.UUID, function (n) {if (n) t._uuid = n;else {t._uuid = t.createUUID();o.setStorage(u.UUID, t._uuid);}e && e(n);});};e.prototype.initUserid = function () {var e = this;o.getStorage(u.USERID, function (n) {if (!e._userid && n) {e._userid = n;t().v("userId is ", n);}});o.getStorage(u.PROVIDER, function (n) {if (!e._provider && n) {e._provider = n;t().v("provider is ", n);}});};e.prototype.init = function (e) {var t = this;t.initUUID(function () {t.initUserid();t.initID(e);});};e.prototype.setUserid = function (e, t) {if (!this._userid && e) {this._userid = e;this._provider = t;o.setStorage(u.USERID, e);o.setStorage(u.PROVIDER, t);}};e.prototype.getUserId = function () {return this._userid;};e.prototype.getProvider = function () {return this._provider;};e.prototype.getIdType = function () {return this._idType;};e.prototype.getIdTracking = function () {var e = {};this._uuid && (e.uuid = this._uuid);this._userid && (e.userid = this._userid);return e;};return e;}())),l = (c = null, function () {c || (c = new p());return c;}),h = function () {var e = null;function t() {var e = !1,t = null,n = [];this.addPageStart = function (n) {if (n && !e) {t = { ts: Date.now(), path: n, page_name: n };e = !0;}};this.addPageEnd = function (i) {if (e && i && t && i === t.page_name) {var r = Date.now() - t.ts;t.duration = Math.abs(r);n.push(t);t = null;e = !1;}};this.get = function () {return n;};this.getCurrentPage = function () {return t;};this.clear = function () {n.length = 0;};}return function () {e || (e = new t());return e;};}(),d = {};var g = function () {var e = null,n = [],i = "";function r() {return { add: function add(e, r) {t().v("share origin: %o", e);var o = { title: e && e.title, path: e && e.path && e.path.split("?")[0], _um_sts: Date.now() };o.path && o.path.length > 1 && f.startsWith(o.path, "/") && (o.path = f.trimStart(o.path, "/"));var s = e.path || "",a = l().getId();if (a) {var u = i.split(","),c = (u = u.filter(function (e) {return e.length > 0;})).indexOf(a);c >= 0 && (u = u.slice(0, c));u.length < 3 && u.push(a);var p = u.join(",");-1 !== s.indexOf("?") ? s += "&_um_ssrc=" + p : s += "?_um_ssrc=" + p;var h = Date.now();s += "&_um_sts=" + h;if (r) {var g = function (e) {var t = [];for (var n in e) {"_um_ssrc" !== n && "_um_sts" !== n && t.push(n + "=" + e[n]);}return t.join("&");}(d),v = g ? g + "&_um_ssrc=" + p + "&_um_sts=" + h : "_um_ssrc=" + p + "&_um_sts=" + h;e.query = e.query ? e.query + "&_um_ssrc=" + p + "&_um_sts=" + h : v;} else e.path = s;o._um_ssrc = p;o._um_sts = h;}n.push(o);t().v("share: %o", e);return e;}, setShareSource: function setShareSource(e) {i = e;}, clear: function clear() {n.length = 0;}, get: function get() {return n;} };}return function () {e || (e = new r());return e;};}(),v = function v(e) {if (e) try {return JSON.stringify(e);} catch (e) {}return "";},_ = function _(e) {if (e) try {return JSON.parse(e);} catch (e) {}return null;},y = function () {var e = null,t = "",i = null,r = !1;function s() {this.load = function (e) {if (i) {o.removeStorage(t);e();} else {t = "um_cache_" + n().appKey();o.getStorage(t, function (n) {i = _(n) || {};r = !0;o.removeStorage(t);e();});}};this.save = function () {i && o.setStorage(t, v(i));};this.set = function (e, t) {i && (i[e] = t);};this.get = function (e) {return (i || {})[e];};this.remove = function (e) {i && i[e] && delete i[e];};this.getAll = function () {return i;};this.clear = function () {i = null;};this.has = function (e) {return !!this.get(e);};this.isLoaded = function () {return r;};}return function () {e || (e = new s());return e;};}(),m = function () {var e,n,i = [],r = [];function o() {if (i.length) {var e = y().get("ekvs");if (function (e) {var t = 0;for (var n in e) {Array.isArray(e[n]) && (t += e[n].length);}return t;}(e) + i.length <= 1e4) {e = s(e, i);y().set("ekvs", e);}}}function s(e, t) {var i = (e = e || {})[n];Array.isArray(i) && i.length ? e[n] = i.concat(t) : e[n] = [].concat(t);return e;}return function () {e || (e = { addEvent: function addEvent(e) {if (n) {i.unshift(e);if (i.length > 1) {o();i.length = 0;}} else {t().w("session id is null: ", n);r.unshift(e);}}, setSessionId: function setSessionId(e) {n = e;t().v("setSessionId: ", n);if (Array.isArray(r) && r.length && n) {for (var i = 0; i < r.length; i++) {this.addEvent(r[i]);}r.length = 0;}}, getEkvs: function getEkvs() {var e = y().get("ekvs");i && i.length && (e = s(e, i));return e;}, clear: function clear() {y().remove("ekvs");i.length = 0;} });return e;};}(),S = "2g",I = "3g",A = "4g",O = "half_session",E = "close_session",N = "ekv",T = ["access", "access_subtype"],w = function () {var e = null;function t() {var e = !1,t = {};function i(e) {var i = y().get(u.IMPRINT);i && (t.imprint = i);t.device_type = "Phone";t.sdk_version = u.IMPL_VERSION;t.appkey = n().appKey();o.getDeviceInfo(function (e) {t.device_info = e || "";});var r = o.getAppInfoSync();t.appid = r.appId;t.app_env = r.appEnv;t.app_version = r.appVersion;o.getSystemInfo(function (n) {o.getNetworkInfo(function (i) {var r = function (e, t) {var n = {};(e = e || {}).safeArea = e.safeArea || {};var i = (t = t || {}).networkType;"none" === i && (i = "unknown");var r = e.model || "",s = e.platform || "",a = e.brand || "",u = a.toLowerCase();n.sdk_type = o.getSdkType();n.platform = o.getPlatform();n.platform_sdk_version = e.platformSDKVersion;n.platform_version = e.platformVersion;n.resolution = e.resolution;n.pixel_ratio = e.pixelRatio;n.os = s;n.font_size_setting = e.fontSizeSetting;n.device_model = r;n.device_brand = a;n.device_manufacturer = u;n.device_manuid = r;n.device_name = r;n.os_version = e.OSVersion;n.language = e.language;n.theme = e.theme;n.benchmark_level = e.benchmarkLevel;n.status_bar_height = e.statusBarHeight;n.safe_area_top = e.safeArea.top;n.safe_area_left = e.safeArea.left;n.safe_area_right = e.safeArea.right;n.safe_area_bottom = e.safeArea.bottom;n.safe_area_height = e.safeArea.height;n.safe_area_width = e.safeArea.width;n.storage = e.storage;n.screen_width = e.screenWidth;n.screen_height = e.screenHeight;n.host = e.host;switch (i = i ? i.toLowerCase() : "") {case A:n.access_subtype = "LTE";n.access = "4G";break;case I:n.access_subtype = "CDMA";n.access = "3G";break;case S:n.access_subtype = "GRPS";n.access = "2G";break;default:n.access = i;delete n.access_subtype;}return n;}(n, i);f.assign(t, r);e && e();});});}return { init: function init() {i(function () {e = !0;});}, isLoaded: function isLoaded() {return e;}, get: function get() {return t;}, getRealtimeFields: function getRealtimeFields() {var e = {};T.forEach(function (n) {e[n] = t[n];});return e;}, setIdTracking: function setIdTracking(e) {this.setItem("id_tracking", e);}, setIdType: function setIdType(e) {this.setItem("id_type", e);}, setAppVersion: function setAppVersion(e) {this.setItem("app_version", e);}, setSuperProperty: function setSuperProperty(e) {t.sp || (t.sp = {});t.sp.isv = e;}, getSuperProperty: function getSuperProperty() {return t && t.sp ? t.sp.isv : "";}, setItem: function setItem(e, n) {t[e] = n;}, getItem: function getItem(e) {return t[e];} };}return { instance: function instance() {e || (e = t());return e;} };}(),k = function () {var e = null,n = null,i = null;function r() {return { resume: function resume(e) {var r = !1;i || (i = y().get(u.CURRENT_SESSION));var s = new Date();n = s.getTime();if (!i || !i.end_time || n - i.end_time > u.SESSION_INTERVAL) {r = !0;!function (e) {try {var n = (i || {}).options || {},r = f.assign({}, function (e) {var n = {};for (var i in e) {0 === i.indexOf("_um_") && (n[i] = e[i]);}t().v("query: ", e);t().v("_um_params: ", n);return n;}(e.query));r.path = e.path || n.path;r.scene = e.scene ? o.getPlatform() + "_" + e.scene : n.scene;var s = e.referrerInfo;s && (r.referrerAppId = s.appId);t().v("session options: ", r);var a = r[u.UM_SSRC];a && g().setShareSource(a);var c = Date.now();i = { id: f.getRandomStr(10) + c, start_time: c, options: r };} catch (e) {t().e("生成新session失败: ", e);}}(e);t().v("开始新的session(%s): ", i.id, i);} else t().v("延续上一次session(%s): %s ", i.id, s.toLocaleTimeString(), i);return r;}, pause: function pause() {!function () {if (i) {var e = new Date();i.end_time = e.getTime();"number" != typeof i.duration && (i.duration = 0);i.duration = i.end_time - n;y().set(u.CURRENT_SESSION, i);t().v("退出会话(%s): %s ", i.id, e.toLocaleTimeString(), i);}}();}, getCurrentSessionId: function getCurrentSessionId() {return (i || {}).id;}, getCurrentSession: function getCurrentSession() {return i;}, cloneCurrentSession: function cloneCurrentSession() {return f.clone(i);} };}return function () {e || (e = r());return e;};}();function b(e) {var t = null;switch (e) {case O:t = function () {var e = null,t = k().cloneCurrentSession();t && (e = { header: { st: "1" }, analytics: { sessions: [t] } });return e;}();break;case E:t = function () {var e = null,t = {},n = k().cloneCurrentSession();if (n) {var i = h().get(),r = g().get();Array.isArray(i) && i.length && (n.pages = f.clone(i));Array.isArray(r) && r.length && (n.shares = f.clone(r));h().clear();g().clear();t.sessions = [n];}var o = m().getEkvs();if (o) {t.ekvs = f.clone(o);m().clear();}(t.sessions || t.ekvs) && (e = { analytics: t });return e;}();break;case N:t = function () {var e = null,t = m().getEkvs();if (t) {e = { analytics: { ekvs: f.clone(t) } };m().clear();}return e;}();}return t;}var D = { sessions: "sn", ekvs: "e", active_user: "active_user" },U = { sdk_type: "sdt", access: "ac", access_subtype: "acs", device_model: "dm", language: "lang", device_type: "dt", device_manufacturer: "dmf", device_name: "dn", platform_version: "pv", id_type: "it", font_size_setting: "fss", os_version: "ov", device_manuid: "did", platform_sdk_version: "psv", device_brand: "db", appkey: "ak", _id: "id", id_tracking: "itr", imprint: "imp", sdk_version: "sv", resolution: "rl", testToken: "ttn", theme: "t5", benchmark_level: "bml", screen_width: "sw", screen_height: "sh", status_bar_height: "sbh", safe_area_top: "sat", safe_area_left: "sal", safe_area_right: "sar", safe_area_bottom: "sab", safe_area_height: "sah", safe_area_width: "saw", pixel_ratio: "pr", storage: "s7", host: "hs" },P = { uuid: "ud", unionid: "und", openid: "od", anonymousid: "nd", alipay_id: "ad", device_id: "dd", userid: "puid" };function R(e, t) {var n = C(e, t);e && e.id_tracking && (n[t.id_tracking || "id_tracking"] = C(e.id_tracking, P));return n;}function C(e, t) {var n = {};for (var i in e) {t[i] ? n[t[i]] = e[i] : n[i] = e[i];}return n;}function L(e, t) {var n = {};if (e) for (var i in e) {e[i] && (n[t[i]] = e[i]);}return n;}var M = "";function x() {return M;}var V = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",j = function (e) {for (var t = {}, n = 0, i = e.length; n < i; n++) {t[e.charAt(n)] = n;}return t;}(V),F = String.fromCharCode,G = function G(e) {if (e.length < 2) {return (t = e.charCodeAt(0)) < 128 ? e : t < 2048 ? F(192 | t >>> 6) + F(128 | 63 & t) : F(224 | t >>> 12 & 15) + F(128 | t >>> 6 & 63) + F(128 | 63 & t);}var t = 65536 + 1024 * (e.charCodeAt(0) - 55296) + (e.charCodeAt(1) - 56320);return F(240 | t >>> 18 & 7) + F(128 | t >>> 12 & 63) + F(128 | t >>> 6 & 63) + F(128 | 63 & t);},q = /[\uD800-\uDBFF][\uDC00-\uDFFFF]|[^\x00-\x7F]/g,K = function K(e) {var t = [0, 2, 1][e.length % 3],n = e.charCodeAt(0) << 16 | (e.length > 1 ? e.charCodeAt(1) : 0) << 8 | (e.length > 2 ? e.charCodeAt(2) : 0);return [V.charAt(n >>> 18), V.charAt(n >>> 12 & 63), t >= 2 ? "=" : V.charAt(n >>> 6 & 63), t >= 1 ? "=" : V.charAt(63 & n)].join("");},H = function H(e) {return function (e) {return e.replace(q, G);}(e).replace(/[\s\S]{1,3}/g, K);},Y = new RegExp(["[À-ß][-¿]", "[à-ï][-¿]{2}", "[ð-÷][-¿]{3}"].join("|"), "g"),J = function J(e) {switch (e.length) {case 4:var t = ((7 & e.charCodeAt(0)) << 18 | (63 & e.charCodeAt(1)) << 12 | (63 & e.charCodeAt(2)) << 6 | 63 & e.charCodeAt(3)) - 65536;return F(55296 + (t >>> 10)) + F(56320 + (1023 & t));case 3:return F((15 & e.charCodeAt(0)) << 12 | (63 & e.charCodeAt(1)) << 6 | 63 & e.charCodeAt(2));default:return F((31 & e.charCodeAt(0)) << 6 | 63 & e.charCodeAt(1));}},B = function B(e) {var t = e.length,n = t % 4,i = (t > 0 ? j[e.charAt(0)] << 18 : 0) | (t > 1 ? j[e.charAt(1)] << 12 : 0) | (t > 2 ? j[e.charAt(2)] << 6 : 0) | (t > 3 ? j[e.charAt(3)] : 0),r = [F(i >>> 16), F(i >>> 8 & 255), F(255 & i)];r.length -= [0, 0, 2, 1][n];return r.join("");},X = function X(e) {return function (e) {return e.replace(/[\s\S]{1,4}/g, B);}(e).replace(Y, J);},W = function W(e, t) {return t ? H(String(e)).replace(/[+\/]/g, function (e) {return "+" == e ? "-" : "_";}).replace(/=/g, "") : H(String(e));},z = function z(e) {return X(String(e).replace(/[-_]/g, function (e) {return "-" == e ? "+" : "/";}).replace(/[^A-Za-z0-9\+\/]/g, ""));};var Q = new function () {var e = "",t = this;this.set = function (t) {e = t;};this.get = function () {return e;};this.getImpObj = function () {return _(z(e));};this.getItem = function (e) {var n = t.getImpObj();return n && n[e] || "";};this.load = function () {e = y().get(u.IMPRINT);};this.save = function () {e && y().set(u.IMPRINT, e);};}();function Z(e, n, i, r) {w.instance().setIdType(l().getIdType());w.instance().setIdTracking(l().getIdTracking());var s = l().getUserId();s && e.analytics && (e.analytics.active_user = { puid: s, provider: l().getProvider() });var a = f.clone(w.instance().get());e.header = f.assign(a, e.header, { ts: Date.now(), testToken: x(), traceId: f.getRandomStr(10) + Date.now() + f.getRandomStr(9) });var c,p = function (e) {return { h: R(e.header, U), a: L(e.analytics, D) };}(e),h = v(p),d = { url: u.ENDPOINT + u.LOG_URL, method: "POST", data: W(h), success: function success(r) {var o = r.code || r.status || r.statusCode;if (200 === o || 413 === o) {t().i("数据发送成功: ", e, h);!function (e) {if (e) {w.instance().setItem(u.IMPRINT, e);Q.set(e);Q.save();t().v("imprint: ", Q.getImpObj());Q.getItem("ttn_invalid") && (M = "");}}((r.data || {}).imprint);"function" == typeof n && n(r);} else {t().w("数据发送失败: ", h);"function" == typeof i && i();}}, fail: function fail(e) {t().w("超时: ", h);"function" == typeof i && i();}, complete: function complete() {"function" == typeof r && r();} };o.request(f.assign(d, { header: { "Content-Type": c = o.getSdkType() + "/json", "Msg-Type": c } }));}function $(e) {var t = e,n = [];this.enqueue = function (e) {"number" == typeof t && this.size() >= t && this.dequeue();n.push(e);};this.dequeue = function () {return n.shift();};this.front = function () {return n[0];};this.isEmpty = function () {return 0 === n.length;};this.clear = function () {n.length = 0;};this.size = function () {return n.length;};this.items = function () {return n;};this.print = function () {console.log(n.toString());};}var ee = function () {var e = null,n = !1,i = [],r = new $(50);function o(e, t, n) {if (w.instance().isLoaded()) {t = t || {};var i = b(e);if (i) {var s = w.instance().getRealtimeFields();i.header = f.assign({}, i.header, s);i.noCache = t.noCache;r.enqueue(i);}"function" == typeof n && n();} else setTimeout(function () {o(e, t, n);}, 100);}function s(e) {var t = r.front();if (t) Z(t, function () {r.dequeue();s(e);}, function () {var t = r.dequeue();t && !t.noCache && i.push(t);s(e);});else {!function () {i.forEach(function (e) {r.enqueue(e);});i.length = 0;}();e();}}function a(e) {if (l().getId()) {if (n) t().i("队列正在发送中");else {n = !0;s(function () {n = !1;"function" == typeof e && e();});}} else {t().i("获取id标识失败，暂缓发送");"function" == typeof e && e();}}function c() {this.send = function (e, t, n) {e ? this.add(e, t, function () {a(n);}) : a(n);};this.add = function (e, t, n) {o(e, t, n);};this.load = function () {var e = y().get(u.REQUESTS);e && e.length && e.forEach(function (e) {r.enqueue(e);});y().remove(u.REQUESTS);};this.save = function () {y().set(u.REQUESTS, f.clone(r.items()));r.clear();};}return function () {e || (e = new c());return e;};}(),te = function () {var e = null,i = null;function r() {this.setUserInfo = function (e) {i = e;};this.update = function () {e(i) || o.getUserInfo(function (t) {e(t);});};function e(e) {if (e && "object" == typeof e) {var i = y().get(u.USER_INFO);i && f.deepEqual(e, i) || function (e, i) {var r = n().appKey(),s = o.getSdkType(),a = l().getId(),c = l().getIdType();if (!(r && s && a && c)) return;var f = { ak: n().appKey(), sdt: o.getSdkType(), uin: e.nickName, uia: e.avatar || e.avatarUrl, uig: e.gender, uit: e.country, uip: e.province, uic: e.city, uil: e.language, id: l().getId(), it: l().getIdType(), age: e.age, cln: e.constellation },p = JSON.stringify(f);p = W(p);o.request({ url: u.ENDPOINT + u.USERINFO_URL, method: "POST", header: { "content-type": "application/x-www-form-urlencoded" }, data: "ui=" + p, success: function success(n) {t().v("用户信息上传成功: ", e);i && i(n && n.data && 200 === n.data.code);}, fail: function fail() {t().e("用户信息上传失败: ", e);i && i(!1);} });}(e, function (t) {t && y().set(u.USER_INFO, e);});return !0;}return !1;}}return function () {e || (e = new r());return e;};}();function ne(e, t) {this.id = e;this.ts = Date.now();var n = typeof t;if ("string" === n && t) this[e] = t;else if ("object" === n) for (var i in t) {({}).hasOwnProperty.call(t, i) && (this[i] = t[i]);}}function ie() {var e = !1,i = !1,r = 0;this.init = function (i) {t().v("sdk version: " + u.IMPL_VERSION);e ? t().v("Lib重复实例化") : y().load(function () {t().v("cache初始化成功: ", y().getAll());!function () {l().setUseOpenid && l().setUseOpenid(n().useOpenid());l().init(function () {w.instance().init();t().v("Header初始化成功");});}();e = !0;"function" == typeof i && i();t().tip("SDK集成成功");});};this.resume = function (r) {if (e && !i) {t().v("showOptions: ", r);var o;i = !0;n().enableVerify() && r && r.query && (o = r.query._ttn, M = o || M);this._resume(r);}};this._resume = function (e) {ee().load();var i = k().resume(e),r = k().getCurrentSessionId();m().setSessionId(r);i && ee().add(O, {}, function () {l().setUseOpenid && l().setUseOpenid(n().useOpenid());if (n().useOpenid() && n().autoGetOpenid() && !l().getId()) {t().v("get id async");o(10, 3e3);} else {t().v("session auto send");ee().send();}});function o(e, i) {l().getId() || e <= 0 || l().getOpenIdAsync(n().appKey(), function (n) {if (n) {t().v("获取id成功");ee().send();} else {t().v("获取openid失败,启动重试,剩余可用次数", e - 1);setTimeout(function () {o(e - 1, i);}, i);}});}};this.pause = function (o) {if (e) {i = !1;r = 0;k().pause();n().uploadUserInfo() && te().update();ee().send(E, {}, function () {ee().save();y().save();t().v("cache save success");"function" == typeof o && o();});}};this.setOpenid = function (e) {t().v("setOpenId: %s", e);l().setOpenid(e);ee().send();};this.setUnionid = function (e) {t().v("setUnionid: %s", e);l().setUnionid(e);};this.setUserid = function (e, n) {t().v("setUserid: %s", e, n);l().setUserid(e, n);};this.setUserInfo = function (e) {t().v("setUserInfo: %s", e);te().setUserInfo(e);};this.setAnonymousid = function (e) {t().v("setAnonymousId: %s", e);l().setAnonymousid(e);ee().send();};this.setAppVersion = function (e) {e && "string" != typeof e ? t().w("setAppVersion方法只接受字符串类型参数") : w.instance().setAppVersion(e);};this.setAlipayUserid = function (e) {if (e && "string" != typeof e) t().w("setAlipayUserid方法只接受字符串类型参数");else {t().v("setAlipayUserid: %s", e);l().setAlipayUserid(e);}};this.setDeviceId = function (e) {if ("string" == typeof e) {l().setDeviceId(e);return e;}};this.setSuperProperty = function (e) {if (e && "string" != typeof e) t().w("超级属性只支持字符串类型");else {var n = this;if (w.instance().getSuperProperty() !== e) {w.instance().setSuperProperty(e);n.pause(function () {n.resume();});}}};this.trackEvent = function (n, i) {if (e) {t().v("event: ", n, i);if (function (e, n) {if (!e || "string" != typeof e) {t().e('please check trackEvent id. id should be "string" and not null');return !1;}var i = ["id", "ts", "du"],r = {};i.forEach(function (e) {r[e] = 1;});if (r[e]) {t().e("eventId不能与以下保留字冲突: " + i.join(","));return !1;}if (e.length > u.MAX_EVENTID_LENGTH) {t().e("The maximum length of event id shall not exceed " + u.MAX_EVENTID_LENGTH);return !1;}if (n && ("object" != typeof n || Array.isArray(n)) && "string" != typeof n) {t().e("please check trackEvent properties. properties should be string or object(not include Array)");return !1;}if ("object" == typeof n) {var o = 0;for (var s in n) {if ({}.hasOwnProperty.call(n, s)) {if (s.length > u.MAX_PROPERTY_KEY_LENGTH) {t().e("The maximum length of property key shall not exceed " + u.MAX_PROPERTY_KEY_LENGTH);return !1;}if (o >= u.MAX_PROPERTY_KEYS_COUNT) {t().e("The maximum count of properties shall not exceed " + u.MAX_PROPERTY_KEYS_COUNT);return !1;}if (r[s]) {t().e("属性中的key不能与以下保留字冲突: " + i.join(","));return !1;}o += 1;}}}return !0;}(n, i)) {var o = new ne(n, i);m().addEvent(o);var s = !!x(),a = s ? 0 : u.EVENT_SEND_DEFAULT_INTERVAL,c = Date.now();if (function (e, t) {return "number" != typeof r || "number" != typeof t || r <= 0 || e - r > t;}(c, a)) {r = c;ee().send(N, { noCache: s }, function () {});}}}};this.trackShare = function (n) {if (e) try {if (o.getSdkType().indexOf("game") > -1) {n = g().add(n, !0);t().v("shareQuery: ", n);} else {n = g().add(n, !1);t().v("sharePath: ", n.path);}} catch (e) {t().v("shareAppMessage: ", e);}return n;};this.trackPageStart = function (t) {e && h().addPageStart(t);};this.trackPageEnd = function (t) {e && h().addPageEnd(t);};this.onShareAppMessage = function (e) {var t = this;o.onShareAppMessage(function () {return t.trackShare(e());});};this.shareAppMessage = function (e) {this.trackShare(e);o.shareAppMessage(e);};}var re = [];function oe() {}oe.prototype = { createMethod: function createMethod(e, n, i) {try {e[n] = i && i[n] ? function () {return i[n].apply(i, arguments);} : function () {re.push([n, [].slice.call(arguments)]);};} catch (e) {t().v("create method errror: ", e);}}, installApi: function installApi(e, n) {try {var i,r,o = "resume,pause,trackEvent,trackPageStart,trackPageEnd,trackShare,setUserid,setOpenid,setUnionid,setSuperProperty,setUserInfo".split(",");for (i = 0, r = o.length; i < r; i++) {this.createMethod(e, o[i], n);}if (n) for (i = 0, r = re.length; i < r; i++) {var s = re[i];try {n[s[0]].apply(n, s[1]);} catch (e) {t().v("impl[v[0]].apply error: ", s[0], e);}}} catch (e) {t().v("install api errror: ", e);}} };var se = [u.ENDPOINT, u.ENDPOINTB];function ae(e, n) {var i, r;0 === e || 1 === e && n ? i = u.ENDPOINT : 2 === e && n ? i = u.ENDPOINTB : n && (i = se[e]);if (e >= se.length || n) {n && (r = i, u.ENDPOINT = r);n && t().v("命中可用服务", i);!n && t().tip_w("未命中可用服务");return !1;}o.request({ url: u.ENDPOINT + "/uminiprogram_logs/ckdh", success: function success(t) {200 === (t.code || t.status || t.statusCode) && t.data && 200 === t.data.code ? ae(e + 1, !0) : ae(e + 1, !1);}, fail: function fail() {ae(e + 1, !1);} });}({ init: function init(e) {u.ENDPOINTB && setTimeout(function () {ae(0, !1);}, e);} }).init(3e3);var ue = new oe(),ce = { _inited: !1, _log: t(), preinit: function preinit(e) {if (e && "object" == typeof e) for (var t in e) {u[t] = e[t];}return u;}, use: function use(e, t) {e && f.isFunction(e.install) ? e.install(ce, t) : f.isFunction(e) && e(ce, t);return ce;}, messager: r, init: function init(e) {if (this._inited) t().v("已经实例过，请避免重复初始化");else if (e) {if (e.appKey) {"boolean" != typeof e.useOpenid && (e.useOpenid = !0);n().set(e);t().setDebug(e.debug);this._inited = !0;var i = this;r.emit(r.messageType.CONFIG_LOADED, e);try {var o = new ie();t().v("成功创建Lib对象");o.init(function () {t().v("Lib对象初始化成功");ue.installApi(i, o);t().v("安装Lib接口成功");r.emit(r.messageType.UMA_LIB_INITED, e);});} catch (e) {t().w("创建Lib对象异常: " + e);}} else t().err("请确保传入正确的appkey");} else t().err("请正确设置相关信息！");} };try {ue.installApi(ce, null);} catch (e) {t().w("uma赋值异常: ", e);}var fe = "https://ucc.umeng.com/v1/mini/fetch",pe = "https://pslog.umeng.com/mini_ablog",le = "2.7.1",he = "none",de = {},ge = Array.isArray;de.isArray = ge || function (e) {return "[object Array]" === toString.call(e);};de.isObject = function (e) {return e === Object(e) && !de.isArray(e);};de.isEmptyObject = function (e) {if (de.isObject(e)) {for (var t in e) {if (hasOwnProperty.call(e, t)) return !1;}return !0;}return !1;};de.isUndefined = function (e) {return void 0 === e;};de.isString = function (e) {return "[object String]" === toString.call(e);};de.isDate = function (e) {return "[object Date]" === toString.call(e);};de.isNumber = function (e) {return "[object Number]" === toString.call(e);};de.each = function (e, t, n) {if (null != e) {var i = {},r = Array.prototype.forEach;if (r && e.forEach === r) e.forEach(t, n);else if (e.length === +e.length) {for (var o = 0, s = e.length; o < s; o++) {if (o in e && t.call(n, e[o], o, e) === i) return;}} else for (var a in e) {if (hasOwnProperty.call(e, a) && t.call(n, e[a], a, e) === i) return;}}};de.buildQuery = function (e, t) {var n,i,r = [];void 0 === t && (t = "&");de.each(e, function (e, t) {n = encodeURIComponent(e.toString());i = encodeURIComponent(t);r[r.length] = i + "=" + n;});return r.join(t);};de.JSONDecode = function (e) {if (e) {try {return JSON.parse(e);} catch (e) {console.error("JSONDecode error", e);}return null;}};de.JSONEncode = function (e) {try {return JSON.stringify(e);} catch (e) {console.error("JSONEncode error", e);}};var ve = Object.create(null);function _e(e) {t().v("开始构建 fetch body");o.getSystemInfo(function (t) {o.getNetworkInfo(function (i) {var r = (i = i || {}).networkType;r = r === he ? "unknown" : r.toUpperCase();ve.access = r;!function (e, t) {var i = e.brand || "";ve.deviceType = "Phone";ve.sdkVersion = le;ve.appkey = n().appKey();ve.sdkType = o.getSdkType();ve.umid = l().getId();if (e) {ve.language = e.language || "";ve.os = e.OS;ve.osVersion = e.OSVersion;ve.deviceName = e.deviceName;ve.platformVersion = e.platformVersion;ve.platformSdkVersion = e.platformSDKVersion;ve.deviceBrand = i;var r = e.resolution.split("*");if (de.isArray(r)) {ve.resolutionHeight = Number(r[0]);ve.resolutionWidth = Number(r[1]);}}!function (e) {if (e) {ve.installTime = e.install_datetime && Date.parse(e.install_datetime);ve.scene = e.install_scene;ve.channel = e.install_channel;ve.campaign = e.install_campaign;}}(Q.getImpObj());t && t(ve);}(t, e);});});}var ye = Object.create(null),me = null,Se = !1,Ie = { minFetchIntervalSeconds: 43200 };function Ae(e) {e && de.each(e, function (e) {ye[e.k] = e;});}function Oe() {var e = this;this.STORAGE_NAME = null;r.once(r.messageType.CONFIG_LOADED, function (n) {t().v("云配初始化开始...");e.init(n);});}Oe.prototype = { setDefaultValues: function setDefaultValues(e) {Se && de.isObject(e) && de.each(e, function (e, t) {ye[t] && ye[t].v || (ye[t] = { v: e });});}, getValue: function getValue(e) {t().v("从配置项中读取 value, 当前配置为: ", ye);t().v("待读取的 key : ", e);try {if (!Se) return;var i = ye[e] || {};t().v("读取相应配置ing..., 结果为: ", i);if (de.isNumber(i.e) && de.isNumber(i.g)) {t().v("读取到相应配置, 开始数据上报...");!function (e) {var i = { appkey: n().appKey(), sdkType: o.getSdkType(), expId: e && e.e, groupId: e && e.g, clientTs: Date.now(), key: e && e.k, value: e && e.v, umid: l().getId() };try {o.request({ url: pe, method: "POST", data: [i], success: function success(e) {e && 200 === e.statusCode ? t().v("上传数据成功", i) : t().w("ablog 请求成功, 返回结果异常 ", e);}, fail: function fail(e) {t().w("ablog 请求数据错误 ", i, e);} });} catch (e) {t().w("urequest 调用错误", e);}}(i);}return i.v;} catch (n) {t().w("getValue error, key: ", e);}}, active: function active(e) {try {if (!Se) return;var n, i;e && e.params && (n = e.params);e && e.callback && (i = e.callback);t().v("激活配置项: ", n);if (n) {t().v("本地已缓存的配置项: ", ye);Ae(n);t().v("合并后的配置项: ", ye);i && i(ye);t().v("active 结束");} else {t().v("配置项为空!! 读取本地配置...");o.getStorage(this.STORAGE_NAME, function (e) {if (e) {Ae((e = de.JSONDecode(e) || {}).params);t().v("当前本地配置项为: ", ye);i && i(ye);t().v("active 结束");} else t().v("当前本地配置项为空, 退出激活");});}} catch (e) {t().w("SDK active 错误", e);}}, init: function init(e) {if (e.appKey) {me = e.appKey;this.STORAGE_NAME = "um_remote_config_{{" + me + "}}";}if (me) {if (Se) t().w("SDK 已经初始化, 请避免重复初始化");else {Se = !0;this.setOptions(e);this.active();}} else t().err("请检查您的小程序 appKey, appKey 不能为空");}, setOptions: function setOptions(e) {if (de.isObject(e)) {var t = e.minFetchIntervalSeconds;de.isNumber(t) && (Ie.minFetchIntervalSeconds = Math.max(t, 5));}}, fetch: function fetch(e) {if (Se && this.STORAGE_NAME) {var n, i;e && e.active && (n = e.active);e && e.callback && (i = e.callback);var r = this;o.getStorage(this.STORAGE_NAME, function (e) {t().v("开始读缓存 data is ", e);if ((e = de.JSONDecode(e) || {}).params && e.ts && Date.now() - e.ts < 1e3 * Ie.minFetchIntervalSeconds) {t().v("缓存数据存在, 并且本次触发时间距离上次fetch触发时间未超过 fetch 时间间隔, 无需 fetch");i && i(e.params);} else _e(function (e) {t().v("缓存数据不存在, 构建 fetch body :", e);try {o.request({ url: fe, method: "POST", data: e, success: function success(e) {if (e && 200 === e.statusCode && e.data && e.data.cc) {t().v("fetch 请求成功, 响应数据: ", e.data);var s = Object.create(null);de.each(e.data.cc, function (e) {s[e.k] = e;});var a = { ts: Date.now(), params: s };t().v("开始缓存 fetch 请求的云配置结果...");o.setStorage(r.STORAGE_NAME, de.JSONEncode(a), function (e) {t().v("缓存云配置成功, 缓存数据为: ", a);t().v("缓存云配置成功, 成功消息为: ", e);t().v("云配拉取数据是否自动激活: ", n);if (e && n) {t().v("激活云配置...");r.active({ params: s, callback: i });}});} else {t().w("fetch 请求成功,返回结果异常 ", e.data);i && i();}}, fail: function fail(n) {t().w("fetch请求数据错误 ", e, n);i && i();} });} catch (e) {t().w("urequest调用错误", e);}});});}} };var Ee = { install: function install(e, t) {e.rc || (e.rc = new Oe());e.messager.once(e.messager.messageType.CONFIG_LOADED, function () {e._log.v("plugin rc installed");});return e.rc;} },Ne = !1,Te = { install: function install(e, t) {e.wxpluginwraper || (e.wxpluginwraper = function (t) {if (!Ne) {t.onAppShow && t.onAppShow(function (t) {e.resume(t);});t.onAppHide && t.onAppHide(function (t) {e.pause(t);});Ne = !0;}});} },we = "",ke = {};function be(e) {e && (we = e);}function De(e, t) {if (e.onShareAppMessage) {var n = e.onShareAppMessage;e.onShareAppMessage = function (e) {var i = n.call(this, e) || {},r = function (e, t) {if (!e) return "";var n = [];for (var i in t) {"_um_ssrc" !== i && "_um_sts" !== i && n.push(i + "=" + t[i]);}var r = n.join("&");return r ? e + "?" + r : e;}(we, ke[we]);!i.path && r && (i.path = r);var o = t.trackShare.call(this, i);return void 0 === o ? i : o;};}}function Ue(e, t, n) {var i = e[t];e[t] = function (e) {n.call(this, e);i && i.call(this, e);};}function Pe(e) {try {ce.resume(e, !0);} catch (e) {t().v("onAppShow: ", e);}}function Re() {try {ce.pause();} catch (e) {t().v("onAppHide: ", e);}}function Ce() {try {be(this.route);ce.trackPageStart(this.route);} catch (e) {t().v("onPageShow: ", e);}}function Le(e) {try {be(this.route);e && (n = this.route, i = e, n && (ke[n] = i));t().v("Page onLoad: ", this.route, e);} catch (e) {t().v("onPageLoad: ", e);}var n, i;}function Me() {try {ce.trackPageEnd(this.route);} catch (e) {t().v("onPageHide: ", e);}}try {var xe = App;App = function App(e) {Ue(e, "onLaunch", function () {!function (e) {try {ce.init(e);} catch (e) {t().v("onAppLaunch: ", e);}}(e.umengConfig);});Ue(e, "onShow", Pe);Ue(e, "onHide", Re);xe(e);};} catch (e) {t().w("App重写异常");}try {var Ve = Page;Page = function Page(e) {Ue(e, "onShow", Ce);Ue(e, "onHide", Me);Ue(e, "onUnload", Me);Ue(e, "onLoad", Le);De(e, ce);Ve(e);};} catch (e) {t().w("Page重写异常");}try {var je = Component;Component = function Component(e) {try {e.methods = e.methods || {};var t = e.methods;Ue(t, "onShow", Ce);Ue(t, "onHide", Me);Ue(t, "onUnload", Me);Ue(t, "onLoad", Le);De(t, ce);je(e);} catch (t) {je(e);}};} catch (e) {t().w("Component重写异常");}var Fe = ce.init;ce.init = function (e) {if (e && e.useOpenid) {t().tip_w(t().repeat("!"));t().tip_w("openid已开启，请确保使用setOpenid设置openid或通过设置autoGetOpenid为true，并在友盟后台设置secret由友盟帮您获取");t().tip_w(t().repeat("!"));}Fe.call(ce, e);};ce.use(Ee);ce.use(Te);wx.uma = ce;module.exports = ce;
+
+/***/ }),
+/* 19 */
+/*!*****************************************************************************!*\
+  !*** C:/Users/zheng/Documents/HBuilderProjects/game/static/css/common.scss ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+    if(false) { var cssReload; }
+  
+
+/***/ }),
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 57);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 27);
 
 /***/ }),
-/* 57 */
+/* 27 */
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -10234,7 +9423,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 58);
+module.exports = __webpack_require__(/*! ./runtime */ 28);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -10250,7 +9439,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 58 */
+/* 28 */
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -10981,17 +10170,36 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 59 */
+/* 29 */
+/*!***************************************************************************!*\
+  !*** C:/Users/zheng/Documents/HBuilderProjects/game/static/css/game.scss ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+    if(false) { var cssReload; }
+  
+
+/***/ }),
+/* 30 */,
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */
 /*!*******************************************!*\
   !*** ./node_modules/lodash/startsWith.js ***!
   \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseClamp = __webpack_require__(/*! ./_baseClamp */ 60),
-    baseToString = __webpack_require__(/*! ./_baseToString */ 61),
-    toInteger = __webpack_require__(/*! ./toInteger */ 72),
-    toString = __webpack_require__(/*! ./toString */ 76);
+var baseClamp = __webpack_require__(/*! ./_baseClamp */ 38),
+    baseToString = __webpack_require__(/*! ./_baseToString */ 39),
+    toInteger = __webpack_require__(/*! ./toInteger */ 50),
+    toString = __webpack_require__(/*! ./toString */ 54);
 
 /**
  * Checks if `string` starts with the given target string.
@@ -11030,7 +10238,7 @@ module.exports = startsWith;
 
 
 /***/ }),
-/* 60 */
+/* 38 */
 /*!*******************************************!*\
   !*** ./node_modules/lodash/_baseClamp.js ***!
   \*******************************************/
@@ -11062,17 +10270,17 @@ module.exports = baseClamp;
 
 
 /***/ }),
-/* 61 */
+/* 39 */
 /*!**********************************************!*\
   !*** ./node_modules/lodash/_baseToString.js ***!
   \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(/*! ./_Symbol */ 62),
-    arrayMap = __webpack_require__(/*! ./_arrayMap */ 65),
-    isArray = __webpack_require__(/*! ./isArray */ 66),
-    isSymbol = __webpack_require__(/*! ./isSymbol */ 67);
+var Symbol = __webpack_require__(/*! ./_Symbol */ 40),
+    arrayMap = __webpack_require__(/*! ./_arrayMap */ 43),
+    isArray = __webpack_require__(/*! ./isArray */ 44),
+    isSymbol = __webpack_require__(/*! ./isSymbol */ 45);
 
 /** Used as references for various `Number` constants. */
 var INFINITY = 1 / 0;
@@ -11109,14 +10317,14 @@ module.exports = baseToString;
 
 
 /***/ }),
-/* 62 */
+/* 40 */
 /*!****************************************!*\
   !*** ./node_modules/lodash/_Symbol.js ***!
   \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var root = __webpack_require__(/*! ./_root */ 63);
+var root = __webpack_require__(/*! ./_root */ 41);
 
 /** Built-in value references. */
 var Symbol = root.Symbol;
@@ -11125,14 +10333,14 @@ module.exports = Symbol;
 
 
 /***/ }),
-/* 63 */
+/* 41 */
 /*!**************************************!*\
   !*** ./node_modules/lodash/_root.js ***!
   \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ 64);
+var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ 42);
 
 /** Detect free variable `self`. */
 var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -11144,7 +10352,7 @@ module.exports = root;
 
 
 /***/ }),
-/* 64 */
+/* 42 */
 /*!********************************************!*\
   !*** ./node_modules/lodash/_freeGlobal.js ***!
   \********************************************/
@@ -11159,7 +10367,7 @@ module.exports = freeGlobal;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-/* 65 */
+/* 43 */
 /*!******************************************!*\
   !*** ./node_modules/lodash/_arrayMap.js ***!
   \******************************************/
@@ -11190,7 +10398,7 @@ module.exports = arrayMap;
 
 
 /***/ }),
-/* 66 */
+/* 44 */
 /*!****************************************!*\
   !*** ./node_modules/lodash/isArray.js ***!
   \****************************************/
@@ -11226,15 +10434,15 @@ module.exports = isArray;
 
 
 /***/ }),
-/* 67 */
+/* 45 */
 /*!*****************************************!*\
   !*** ./node_modules/lodash/isSymbol.js ***!
   \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ 68),
-    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 71);
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ 46),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 49);
 
 /** `Object#toString` result references. */
 var symbolTag = '[object Symbol]';
@@ -11265,16 +10473,16 @@ module.exports = isSymbol;
 
 
 /***/ }),
-/* 68 */
+/* 46 */
 /*!********************************************!*\
   !*** ./node_modules/lodash/_baseGetTag.js ***!
   \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(/*! ./_Symbol */ 62),
-    getRawTag = __webpack_require__(/*! ./_getRawTag */ 69),
-    objectToString = __webpack_require__(/*! ./_objectToString */ 70);
+var Symbol = __webpack_require__(/*! ./_Symbol */ 40),
+    getRawTag = __webpack_require__(/*! ./_getRawTag */ 47),
+    objectToString = __webpack_require__(/*! ./_objectToString */ 48);
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
@@ -11303,14 +10511,14 @@ module.exports = baseGetTag;
 
 
 /***/ }),
-/* 69 */
+/* 47 */
 /*!*******************************************!*\
   !*** ./node_modules/lodash/_getRawTag.js ***!
   \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(/*! ./_Symbol */ 62);
+var Symbol = __webpack_require__(/*! ./_Symbol */ 40);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -11359,7 +10567,7 @@ module.exports = getRawTag;
 
 
 /***/ }),
-/* 70 */
+/* 48 */
 /*!************************************************!*\
   !*** ./node_modules/lodash/_objectToString.js ***!
   \************************************************/
@@ -11391,7 +10599,7 @@ module.exports = objectToString;
 
 
 /***/ }),
-/* 71 */
+/* 49 */
 /*!*********************************************!*\
   !*** ./node_modules/lodash/isObjectLike.js ***!
   \*********************************************/
@@ -11430,14 +10638,14 @@ module.exports = isObjectLike;
 
 
 /***/ }),
-/* 72 */
+/* 50 */
 /*!******************************************!*\
   !*** ./node_modules/lodash/toInteger.js ***!
   \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toFinite = __webpack_require__(/*! ./toFinite */ 73);
+var toFinite = __webpack_require__(/*! ./toFinite */ 51);
 
 /**
  * Converts `value` to an integer.
@@ -11476,14 +10684,14 @@ module.exports = toInteger;
 
 
 /***/ }),
-/* 73 */
+/* 51 */
 /*!*****************************************!*\
   !*** ./node_modules/lodash/toFinite.js ***!
   \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toNumber = __webpack_require__(/*! ./toNumber */ 74);
+var toNumber = __webpack_require__(/*! ./toNumber */ 52);
 
 /** Used as references for various `Number` constants. */
 var INFINITY = 1 / 0,
@@ -11528,15 +10736,15 @@ module.exports = toFinite;
 
 
 /***/ }),
-/* 74 */
+/* 52 */
 /*!*****************************************!*\
   !*** ./node_modules/lodash/toNumber.js ***!
   \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(/*! ./isObject */ 75),
-    isSymbol = __webpack_require__(/*! ./isSymbol */ 67);
+var isObject = __webpack_require__(/*! ./isObject */ 53),
+    isSymbol = __webpack_require__(/*! ./isSymbol */ 45);
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -11604,7 +10812,7 @@ module.exports = toNumber;
 
 
 /***/ }),
-/* 75 */
+/* 53 */
 /*!*****************************************!*\
   !*** ./node_modules/lodash/isObject.js ***!
   \*****************************************/
@@ -11645,14 +10853,14 @@ module.exports = isObject;
 
 
 /***/ }),
-/* 76 */
+/* 54 */
 /*!*****************************************!*\
   !*** ./node_modules/lodash/toString.js ***!
   \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseToString = __webpack_require__(/*! ./_baseToString */ 61);
+var baseToString = __webpack_require__(/*! ./_baseToString */ 39);
 
 /**
  * Converts `value` to a string. An empty string is returned for `null`
@@ -11683,7 +10891,7 @@ module.exports = toString;
 
 
 /***/ }),
-/* 77 */
+/* 55 */
 /*!********************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/utils/tool.js ***!
   \********************************************************************/
@@ -11691,9 +10899,9 @@ module.exports = toString;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.validPhone = exports.toDecimal = exports.relativePath = void 0;var _split = _interopRequireDefault(__webpack_require__(/*! lodash/split */ 78));
-var _join = _interopRequireDefault(__webpack_require__(/*! lodash/join */ 96));
-var _round = _interopRequireDefault(__webpack_require__(/*! lodash/round */ 97));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.validPhone = exports.toDecimal = exports.relativePath = void 0;var _split = _interopRequireDefault(__webpack_require__(/*! lodash/split */ 56));
+var _join = _interopRequireDefault(__webpack_require__(/*! lodash/join */ 74));
+var _round = _interopRequireDefault(__webpack_require__(/*! lodash/round */ 75));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var relativePath = function relativePath(path) {
   var list = (0, _split.default)(path, ',');
@@ -11730,20 +10938,20 @@ var validPhone = function validPhone(phone) {
 };exports.validPhone = validPhone;
 
 /***/ }),
-/* 78 */
+/* 56 */
 /*!**************************************!*\
   !*** ./node_modules/lodash/split.js ***!
   \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseToString = __webpack_require__(/*! ./_baseToString */ 61),
-    castSlice = __webpack_require__(/*! ./_castSlice */ 79),
-    hasUnicode = __webpack_require__(/*! ./_hasUnicode */ 81),
-    isIterateeCall = __webpack_require__(/*! ./_isIterateeCall */ 82),
-    isRegExp = __webpack_require__(/*! ./isRegExp */ 88),
-    stringToArray = __webpack_require__(/*! ./_stringToArray */ 93),
-    toString = __webpack_require__(/*! ./toString */ 76);
+var baseToString = __webpack_require__(/*! ./_baseToString */ 39),
+    castSlice = __webpack_require__(/*! ./_castSlice */ 57),
+    hasUnicode = __webpack_require__(/*! ./_hasUnicode */ 59),
+    isIterateeCall = __webpack_require__(/*! ./_isIterateeCall */ 60),
+    isRegExp = __webpack_require__(/*! ./isRegExp */ 66),
+    stringToArray = __webpack_require__(/*! ./_stringToArray */ 71),
+    toString = __webpack_require__(/*! ./toString */ 54);
 
 /** Used as references for the maximum length and index of an array. */
 var MAX_ARRAY_LENGTH = 4294967295;
@@ -11792,14 +11000,14 @@ module.exports = split;
 
 
 /***/ }),
-/* 79 */
+/* 57 */
 /*!*******************************************!*\
   !*** ./node_modules/lodash/_castSlice.js ***!
   \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseSlice = __webpack_require__(/*! ./_baseSlice */ 80);
+var baseSlice = __webpack_require__(/*! ./_baseSlice */ 58);
 
 /**
  * Casts `array` to a slice if it's needed.
@@ -11820,7 +11028,7 @@ module.exports = castSlice;
 
 
 /***/ }),
-/* 80 */
+/* 58 */
 /*!*******************************************!*\
   !*** ./node_modules/lodash/_baseSlice.js ***!
   \*******************************************/
@@ -11861,7 +11069,7 @@ module.exports = baseSlice;
 
 
 /***/ }),
-/* 81 */
+/* 59 */
 /*!********************************************!*\
   !*** ./node_modules/lodash/_hasUnicode.js ***!
   \********************************************/
@@ -11897,17 +11105,17 @@ module.exports = hasUnicode;
 
 
 /***/ }),
-/* 82 */
+/* 60 */
 /*!************************************************!*\
   !*** ./node_modules/lodash/_isIterateeCall.js ***!
   \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var eq = __webpack_require__(/*! ./eq */ 83),
-    isArrayLike = __webpack_require__(/*! ./isArrayLike */ 84),
-    isIndex = __webpack_require__(/*! ./_isIndex */ 87),
-    isObject = __webpack_require__(/*! ./isObject */ 75);
+var eq = __webpack_require__(/*! ./eq */ 61),
+    isArrayLike = __webpack_require__(/*! ./isArrayLike */ 62),
+    isIndex = __webpack_require__(/*! ./_isIndex */ 65),
+    isObject = __webpack_require__(/*! ./isObject */ 53);
 
 /**
  * Checks if the given arguments are from an iteratee call.
@@ -11937,7 +11145,7 @@ module.exports = isIterateeCall;
 
 
 /***/ }),
-/* 83 */
+/* 61 */
 /*!***********************************!*\
   !*** ./node_modules/lodash/eq.js ***!
   \***********************************/
@@ -11984,15 +11192,15 @@ module.exports = eq;
 
 
 /***/ }),
-/* 84 */
+/* 62 */
 /*!********************************************!*\
   !*** ./node_modules/lodash/isArrayLike.js ***!
   \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isFunction = __webpack_require__(/*! ./isFunction */ 85),
-    isLength = __webpack_require__(/*! ./isLength */ 86);
+var isFunction = __webpack_require__(/*! ./isFunction */ 63),
+    isLength = __webpack_require__(/*! ./isLength */ 64);
 
 /**
  * Checks if `value` is array-like. A value is considered array-like if it's
@@ -12027,15 +11235,15 @@ module.exports = isArrayLike;
 
 
 /***/ }),
-/* 85 */
+/* 63 */
 /*!*******************************************!*\
   !*** ./node_modules/lodash/isFunction.js ***!
   \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ 68),
-    isObject = __webpack_require__(/*! ./isObject */ 75);
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ 46),
+    isObject = __webpack_require__(/*! ./isObject */ 53);
 
 /** `Object#toString` result references. */
 var asyncTag = '[object AsyncFunction]',
@@ -12074,7 +11282,7 @@ module.exports = isFunction;
 
 
 /***/ }),
-/* 86 */
+/* 64 */
 /*!*****************************************!*\
   !*** ./node_modules/lodash/isLength.js ***!
   \*****************************************/
@@ -12119,7 +11327,7 @@ module.exports = isLength;
 
 
 /***/ }),
-/* 87 */
+/* 65 */
 /*!*****************************************!*\
   !*** ./node_modules/lodash/_isIndex.js ***!
   \*****************************************/
@@ -12154,16 +11362,16 @@ module.exports = isIndex;
 
 
 /***/ }),
-/* 88 */
+/* 66 */
 /*!*****************************************!*\
   !*** ./node_modules/lodash/isRegExp.js ***!
   \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsRegExp = __webpack_require__(/*! ./_baseIsRegExp */ 89),
-    baseUnary = __webpack_require__(/*! ./_baseUnary */ 90),
-    nodeUtil = __webpack_require__(/*! ./_nodeUtil */ 91);
+var baseIsRegExp = __webpack_require__(/*! ./_baseIsRegExp */ 67),
+    baseUnary = __webpack_require__(/*! ./_baseUnary */ 68),
+    nodeUtil = __webpack_require__(/*! ./_nodeUtil */ 69);
 
 /* Node.js helper references. */
 var nodeIsRegExp = nodeUtil && nodeUtil.isRegExp;
@@ -12191,15 +11399,15 @@ module.exports = isRegExp;
 
 
 /***/ }),
-/* 89 */
+/* 67 */
 /*!**********************************************!*\
   !*** ./node_modules/lodash/_baseIsRegExp.js ***!
   \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ 68),
-    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 71);
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ 46),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 49);
 
 /** `Object#toString` result references. */
 var regexpTag = '[object RegExp]';
@@ -12219,7 +11427,7 @@ module.exports = baseIsRegExp;
 
 
 /***/ }),
-/* 90 */
+/* 68 */
 /*!*******************************************!*\
   !*** ./node_modules/lodash/_baseUnary.js ***!
   \*******************************************/
@@ -12243,14 +11451,14 @@ module.exports = baseUnary;
 
 
 /***/ }),
-/* 91 */
+/* 69 */
 /*!******************************************!*\
   !*** ./node_modules/lodash/_nodeUtil.js ***!
   \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ 64);
+/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ 42);
 
 /** Detect free variable `exports`. */
 var freeExports =  true && exports && !exports.nodeType && exports;
@@ -12281,10 +11489,10 @@ var nodeUtil = (function() {
 
 module.exports = nodeUtil;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ 92)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ 70)(module)))
 
 /***/ }),
-/* 92 */
+/* 70 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -12316,16 +11524,16 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 93 */
+/* 71 */
 /*!***********************************************!*\
   !*** ./node_modules/lodash/_stringToArray.js ***!
   \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var asciiToArray = __webpack_require__(/*! ./_asciiToArray */ 94),
-    hasUnicode = __webpack_require__(/*! ./_hasUnicode */ 81),
-    unicodeToArray = __webpack_require__(/*! ./_unicodeToArray */ 95);
+var asciiToArray = __webpack_require__(/*! ./_asciiToArray */ 72),
+    hasUnicode = __webpack_require__(/*! ./_hasUnicode */ 59),
+    unicodeToArray = __webpack_require__(/*! ./_unicodeToArray */ 73);
 
 /**
  * Converts `string` to an array.
@@ -12344,7 +11552,7 @@ module.exports = stringToArray;
 
 
 /***/ }),
-/* 94 */
+/* 72 */
 /*!**********************************************!*\
   !*** ./node_modules/lodash/_asciiToArray.js ***!
   \**********************************************/
@@ -12366,7 +11574,7 @@ module.exports = asciiToArray;
 
 
 /***/ }),
-/* 95 */
+/* 73 */
 /*!************************************************!*\
   !*** ./node_modules/lodash/_unicodeToArray.js ***!
   \************************************************/
@@ -12416,7 +11624,7 @@ module.exports = unicodeToArray;
 
 
 /***/ }),
-/* 96 */
+/* 74 */
 /*!*************************************!*\
   !*** ./node_modules/lodash/join.js ***!
   \*************************************/
@@ -12452,14 +11660,14 @@ module.exports = join;
 
 
 /***/ }),
-/* 97 */
+/* 75 */
 /*!**************************************!*\
   !*** ./node_modules/lodash/round.js ***!
   \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var createRound = __webpack_require__(/*! ./_createRound */ 98);
+var createRound = __webpack_require__(/*! ./_createRound */ 76);
 
 /**
  * Computes `number` rounded to `precision`.
@@ -12488,17 +11696,17 @@ module.exports = round;
 
 
 /***/ }),
-/* 98 */
+/* 76 */
 /*!*********************************************!*\
   !*** ./node_modules/lodash/_createRound.js ***!
   \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var root = __webpack_require__(/*! ./_root */ 63),
-    toInteger = __webpack_require__(/*! ./toInteger */ 72),
-    toNumber = __webpack_require__(/*! ./toNumber */ 74),
-    toString = __webpack_require__(/*! ./toString */ 76);
+var root = __webpack_require__(/*! ./_root */ 41),
+    toInteger = __webpack_require__(/*! ./toInteger */ 50),
+    toNumber = __webpack_require__(/*! ./toNumber */ 52),
+    toString = __webpack_require__(/*! ./toString */ 54);
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeIsFinite = root.isFinite,
@@ -12533,7 +11741,7 @@ module.exports = createRound;
 
 
 /***/ }),
-/* 99 */
+/* 77 */
 /*!************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/moment.js ***!
   \************************************************************************************/
@@ -14630,7 +13838,7 @@ module.exports = createRound;
       try {
         oldLocale = globalLocale._abbr;
         aliasedRequire = require;
-        __webpack_require__(100)("./" + name);
+        __webpack_require__(78)("./" + name);
         getSetGlobalLocale(oldLocale);
       } catch (e) {
         // mark as not found to avoid repeating expensive file require call causing high CPU
@@ -18209,10 +17417,10 @@ module.exports = createRound;
   return hooks;
 
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! (webpack)/buildin/module.js */ 92)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! (webpack)/buildin/module.js */ 70)(module)))
 
 /***/ }),
-/* 100 */
+/* 78 */
 /*!***********************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale sync ^\.\/.*$ ***!
   \***********************************************************************************************/
@@ -18220,276 +17428,276 @@ module.exports = createRound;
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 101,
-	"./af.js": 101,
-	"./ar": 102,
-	"./ar-dz": 103,
-	"./ar-dz.js": 103,
-	"./ar-kw": 104,
-	"./ar-kw.js": 104,
-	"./ar-ly": 105,
-	"./ar-ly.js": 105,
-	"./ar-ma": 106,
-	"./ar-ma.js": 106,
-	"./ar-sa": 107,
-	"./ar-sa.js": 107,
-	"./ar-tn": 108,
-	"./ar-tn.js": 108,
-	"./ar.js": 102,
-	"./az": 109,
-	"./az.js": 109,
-	"./be": 110,
-	"./be.js": 110,
-	"./bg": 111,
-	"./bg.js": 111,
-	"./bm": 112,
-	"./bm.js": 112,
-	"./bn": 113,
-	"./bn-bd": 114,
-	"./bn-bd.js": 114,
-	"./bn.js": 113,
-	"./bo": 115,
-	"./bo.js": 115,
-	"./br": 116,
-	"./br.js": 116,
-	"./bs": 117,
-	"./bs.js": 117,
-	"./ca": 118,
-	"./ca.js": 118,
-	"./cs": 119,
-	"./cs.js": 119,
-	"./cv": 120,
-	"./cv.js": 120,
-	"./cy": 121,
-	"./cy.js": 121,
-	"./da": 122,
-	"./da.js": 122,
-	"./de": 123,
-	"./de-at": 124,
-	"./de-at.js": 124,
-	"./de-ch": 125,
-	"./de-ch.js": 125,
-	"./de.js": 123,
-	"./dv": 126,
-	"./dv.js": 126,
-	"./el": 127,
-	"./el.js": 127,
-	"./en-au": 128,
-	"./en-au.js": 128,
-	"./en-ca": 129,
-	"./en-ca.js": 129,
-	"./en-gb": 130,
-	"./en-gb.js": 130,
-	"./en-ie": 131,
-	"./en-ie.js": 131,
-	"./en-il": 132,
-	"./en-il.js": 132,
-	"./en-in": 133,
-	"./en-in.js": 133,
-	"./en-nz": 134,
-	"./en-nz.js": 134,
-	"./en-sg": 135,
-	"./en-sg.js": 135,
-	"./eo": 136,
-	"./eo.js": 136,
-	"./es": 137,
-	"./es-do": 138,
-	"./es-do.js": 138,
-	"./es-mx": 139,
-	"./es-mx.js": 139,
-	"./es-us": 140,
-	"./es-us.js": 140,
-	"./es.js": 137,
-	"./et": 141,
-	"./et.js": 141,
-	"./eu": 142,
-	"./eu.js": 142,
-	"./fa": 143,
-	"./fa.js": 143,
-	"./fi": 144,
-	"./fi.js": 144,
-	"./fil": 145,
-	"./fil.js": 145,
-	"./fo": 146,
-	"./fo.js": 146,
-	"./fr": 147,
-	"./fr-ca": 148,
-	"./fr-ca.js": 148,
-	"./fr-ch": 149,
-	"./fr-ch.js": 149,
-	"./fr.js": 147,
-	"./fy": 150,
-	"./fy.js": 150,
-	"./ga": 151,
-	"./ga.js": 151,
-	"./gd": 152,
-	"./gd.js": 152,
-	"./gl": 153,
-	"./gl.js": 153,
-	"./gom-deva": 154,
-	"./gom-deva.js": 154,
-	"./gom-latn": 155,
-	"./gom-latn.js": 155,
-	"./gu": 156,
-	"./gu.js": 156,
-	"./he": 157,
-	"./he.js": 157,
-	"./hi": 158,
-	"./hi.js": 158,
-	"./hr": 159,
-	"./hr.js": 159,
-	"./hu": 160,
-	"./hu.js": 160,
-	"./hy-am": 161,
-	"./hy-am.js": 161,
-	"./id": 162,
-	"./id.js": 162,
-	"./is": 163,
-	"./is.js": 163,
-	"./it": 164,
-	"./it-ch": 165,
-	"./it-ch.js": 165,
-	"./it.js": 164,
-	"./ja": 166,
-	"./ja.js": 166,
-	"./jv": 167,
-	"./jv.js": 167,
-	"./ka": 168,
-	"./ka.js": 168,
-	"./kk": 169,
-	"./kk.js": 169,
-	"./km": 170,
-	"./km.js": 170,
-	"./kn": 171,
-	"./kn.js": 171,
-	"./ko": 172,
-	"./ko.js": 172,
-	"./ku": 173,
-	"./ku.js": 173,
-	"./ky": 174,
-	"./ky.js": 174,
-	"./lb": 175,
-	"./lb.js": 175,
-	"./lo": 176,
-	"./lo.js": 176,
-	"./lt": 177,
-	"./lt.js": 177,
-	"./lv": 178,
-	"./lv.js": 178,
-	"./me": 179,
-	"./me.js": 179,
-	"./mi": 180,
-	"./mi.js": 180,
-	"./mk": 181,
-	"./mk.js": 181,
-	"./ml": 182,
-	"./ml.js": 182,
-	"./mn": 183,
-	"./mn.js": 183,
-	"./mr": 184,
-	"./mr.js": 184,
-	"./ms": 185,
-	"./ms-my": 186,
-	"./ms-my.js": 186,
-	"./ms.js": 185,
-	"./mt": 187,
-	"./mt.js": 187,
-	"./my": 188,
-	"./my.js": 188,
-	"./nb": 189,
-	"./nb.js": 189,
-	"./ne": 190,
-	"./ne.js": 190,
-	"./nl": 191,
-	"./nl-be": 192,
-	"./nl-be.js": 192,
-	"./nl.js": 191,
-	"./nn": 193,
-	"./nn.js": 193,
-	"./oc-lnc": 194,
-	"./oc-lnc.js": 194,
-	"./pa-in": 195,
-	"./pa-in.js": 195,
-	"./pl": 196,
-	"./pl.js": 196,
-	"./pt": 197,
-	"./pt-br": 198,
-	"./pt-br.js": 198,
-	"./pt.js": 197,
-	"./ro": 199,
-	"./ro.js": 199,
-	"./ru": 200,
-	"./ru.js": 200,
-	"./sd": 201,
-	"./sd.js": 201,
-	"./se": 202,
-	"./se.js": 202,
-	"./si": 203,
-	"./si.js": 203,
-	"./sk": 204,
-	"./sk.js": 204,
-	"./sl": 205,
-	"./sl.js": 205,
-	"./sq": 206,
-	"./sq.js": 206,
-	"./sr": 207,
-	"./sr-cyrl": 208,
-	"./sr-cyrl.js": 208,
-	"./sr.js": 207,
-	"./ss": 209,
-	"./ss.js": 209,
-	"./sv": 210,
-	"./sv.js": 210,
-	"./sw": 211,
-	"./sw.js": 211,
-	"./ta": 212,
-	"./ta.js": 212,
-	"./te": 213,
-	"./te.js": 213,
-	"./tet": 214,
-	"./tet.js": 214,
-	"./tg": 215,
-	"./tg.js": 215,
-	"./th": 216,
-	"./th.js": 216,
-	"./tk": 217,
-	"./tk.js": 217,
-	"./tl-ph": 218,
-	"./tl-ph.js": 218,
-	"./tlh": 219,
-	"./tlh.js": 219,
-	"./tr": 220,
-	"./tr.js": 220,
-	"./tzl": 221,
-	"./tzl.js": 221,
-	"./tzm": 222,
-	"./tzm-latn": 223,
-	"./tzm-latn.js": 223,
-	"./tzm.js": 222,
-	"./ug-cn": 224,
-	"./ug-cn.js": 224,
-	"./uk": 225,
-	"./uk.js": 225,
-	"./ur": 226,
-	"./ur.js": 226,
-	"./uz": 227,
-	"./uz-latn": 228,
-	"./uz-latn.js": 228,
-	"./uz.js": 227,
-	"./vi": 229,
-	"./vi.js": 229,
-	"./x-pseudo": 230,
-	"./x-pseudo.js": 230,
-	"./yo": 231,
-	"./yo.js": 231,
-	"./zh-cn": 232,
-	"./zh-cn.js": 232,
-	"./zh-hk": 233,
-	"./zh-hk.js": 233,
-	"./zh-mo": 234,
-	"./zh-mo.js": 234,
-	"./zh-tw": 235,
-	"./zh-tw.js": 235
+	"./af": 79,
+	"./af.js": 79,
+	"./ar": 80,
+	"./ar-dz": 81,
+	"./ar-dz.js": 81,
+	"./ar-kw": 82,
+	"./ar-kw.js": 82,
+	"./ar-ly": 83,
+	"./ar-ly.js": 83,
+	"./ar-ma": 84,
+	"./ar-ma.js": 84,
+	"./ar-sa": 85,
+	"./ar-sa.js": 85,
+	"./ar-tn": 86,
+	"./ar-tn.js": 86,
+	"./ar.js": 80,
+	"./az": 87,
+	"./az.js": 87,
+	"./be": 88,
+	"./be.js": 88,
+	"./bg": 89,
+	"./bg.js": 89,
+	"./bm": 90,
+	"./bm.js": 90,
+	"./bn": 91,
+	"./bn-bd": 92,
+	"./bn-bd.js": 92,
+	"./bn.js": 91,
+	"./bo": 93,
+	"./bo.js": 93,
+	"./br": 94,
+	"./br.js": 94,
+	"./bs": 95,
+	"./bs.js": 95,
+	"./ca": 96,
+	"./ca.js": 96,
+	"./cs": 97,
+	"./cs.js": 97,
+	"./cv": 98,
+	"./cv.js": 98,
+	"./cy": 99,
+	"./cy.js": 99,
+	"./da": 100,
+	"./da.js": 100,
+	"./de": 101,
+	"./de-at": 102,
+	"./de-at.js": 102,
+	"./de-ch": 103,
+	"./de-ch.js": 103,
+	"./de.js": 101,
+	"./dv": 104,
+	"./dv.js": 104,
+	"./el": 105,
+	"./el.js": 105,
+	"./en-au": 106,
+	"./en-au.js": 106,
+	"./en-ca": 107,
+	"./en-ca.js": 107,
+	"./en-gb": 108,
+	"./en-gb.js": 108,
+	"./en-ie": 109,
+	"./en-ie.js": 109,
+	"./en-il": 110,
+	"./en-il.js": 110,
+	"./en-in": 111,
+	"./en-in.js": 111,
+	"./en-nz": 112,
+	"./en-nz.js": 112,
+	"./en-sg": 113,
+	"./en-sg.js": 113,
+	"./eo": 114,
+	"./eo.js": 114,
+	"./es": 115,
+	"./es-do": 116,
+	"./es-do.js": 116,
+	"./es-mx": 117,
+	"./es-mx.js": 117,
+	"./es-us": 118,
+	"./es-us.js": 118,
+	"./es.js": 115,
+	"./et": 119,
+	"./et.js": 119,
+	"./eu": 120,
+	"./eu.js": 120,
+	"./fa": 121,
+	"./fa.js": 121,
+	"./fi": 122,
+	"./fi.js": 122,
+	"./fil": 123,
+	"./fil.js": 123,
+	"./fo": 124,
+	"./fo.js": 124,
+	"./fr": 125,
+	"./fr-ca": 126,
+	"./fr-ca.js": 126,
+	"./fr-ch": 127,
+	"./fr-ch.js": 127,
+	"./fr.js": 125,
+	"./fy": 128,
+	"./fy.js": 128,
+	"./ga": 129,
+	"./ga.js": 129,
+	"./gd": 130,
+	"./gd.js": 130,
+	"./gl": 131,
+	"./gl.js": 131,
+	"./gom-deva": 132,
+	"./gom-deva.js": 132,
+	"./gom-latn": 133,
+	"./gom-latn.js": 133,
+	"./gu": 134,
+	"./gu.js": 134,
+	"./he": 135,
+	"./he.js": 135,
+	"./hi": 136,
+	"./hi.js": 136,
+	"./hr": 137,
+	"./hr.js": 137,
+	"./hu": 138,
+	"./hu.js": 138,
+	"./hy-am": 139,
+	"./hy-am.js": 139,
+	"./id": 140,
+	"./id.js": 140,
+	"./is": 141,
+	"./is.js": 141,
+	"./it": 142,
+	"./it-ch": 143,
+	"./it-ch.js": 143,
+	"./it.js": 142,
+	"./ja": 144,
+	"./ja.js": 144,
+	"./jv": 145,
+	"./jv.js": 145,
+	"./ka": 146,
+	"./ka.js": 146,
+	"./kk": 147,
+	"./kk.js": 147,
+	"./km": 148,
+	"./km.js": 148,
+	"./kn": 149,
+	"./kn.js": 149,
+	"./ko": 150,
+	"./ko.js": 150,
+	"./ku": 151,
+	"./ku.js": 151,
+	"./ky": 152,
+	"./ky.js": 152,
+	"./lb": 153,
+	"./lb.js": 153,
+	"./lo": 154,
+	"./lo.js": 154,
+	"./lt": 155,
+	"./lt.js": 155,
+	"./lv": 156,
+	"./lv.js": 156,
+	"./me": 157,
+	"./me.js": 157,
+	"./mi": 158,
+	"./mi.js": 158,
+	"./mk": 159,
+	"./mk.js": 159,
+	"./ml": 160,
+	"./ml.js": 160,
+	"./mn": 161,
+	"./mn.js": 161,
+	"./mr": 162,
+	"./mr.js": 162,
+	"./ms": 163,
+	"./ms-my": 164,
+	"./ms-my.js": 164,
+	"./ms.js": 163,
+	"./mt": 165,
+	"./mt.js": 165,
+	"./my": 166,
+	"./my.js": 166,
+	"./nb": 167,
+	"./nb.js": 167,
+	"./ne": 168,
+	"./ne.js": 168,
+	"./nl": 169,
+	"./nl-be": 170,
+	"./nl-be.js": 170,
+	"./nl.js": 169,
+	"./nn": 171,
+	"./nn.js": 171,
+	"./oc-lnc": 172,
+	"./oc-lnc.js": 172,
+	"./pa-in": 173,
+	"./pa-in.js": 173,
+	"./pl": 174,
+	"./pl.js": 174,
+	"./pt": 175,
+	"./pt-br": 176,
+	"./pt-br.js": 176,
+	"./pt.js": 175,
+	"./ro": 177,
+	"./ro.js": 177,
+	"./ru": 178,
+	"./ru.js": 178,
+	"./sd": 179,
+	"./sd.js": 179,
+	"./se": 180,
+	"./se.js": 180,
+	"./si": 181,
+	"./si.js": 181,
+	"./sk": 182,
+	"./sk.js": 182,
+	"./sl": 183,
+	"./sl.js": 183,
+	"./sq": 184,
+	"./sq.js": 184,
+	"./sr": 185,
+	"./sr-cyrl": 186,
+	"./sr-cyrl.js": 186,
+	"./sr.js": 185,
+	"./ss": 187,
+	"./ss.js": 187,
+	"./sv": 188,
+	"./sv.js": 188,
+	"./sw": 189,
+	"./sw.js": 189,
+	"./ta": 190,
+	"./ta.js": 190,
+	"./te": 191,
+	"./te.js": 191,
+	"./tet": 192,
+	"./tet.js": 192,
+	"./tg": 193,
+	"./tg.js": 193,
+	"./th": 194,
+	"./th.js": 194,
+	"./tk": 195,
+	"./tk.js": 195,
+	"./tl-ph": 196,
+	"./tl-ph.js": 196,
+	"./tlh": 197,
+	"./tlh.js": 197,
+	"./tr": 198,
+	"./tr.js": 198,
+	"./tzl": 199,
+	"./tzl.js": 199,
+	"./tzm": 200,
+	"./tzm-latn": 201,
+	"./tzm-latn.js": 201,
+	"./tzm.js": 200,
+	"./ug-cn": 202,
+	"./ug-cn.js": 202,
+	"./uk": 203,
+	"./uk.js": 203,
+	"./ur": 204,
+	"./ur.js": 204,
+	"./uz": 205,
+	"./uz-latn": 206,
+	"./uz-latn.js": 206,
+	"./uz.js": 205,
+	"./vi": 207,
+	"./vi.js": 207,
+	"./x-pseudo": 208,
+	"./x-pseudo.js": 208,
+	"./yo": 209,
+	"./yo.js": 209,
+	"./zh-cn": 210,
+	"./zh-cn.js": 210,
+	"./zh-hk": 211,
+	"./zh-hk.js": 211,
+	"./zh-mo": 212,
+	"./zh-mo.js": 212,
+	"./zh-tw": 213,
+	"./zh-tw.js": 213
 };
 
 
@@ -18510,10 +17718,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 100;
+webpackContext.id = 78;
 
 /***/ }),
-/* 101 */
+/* 79 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/af.js ***!
   \***************************************************************************************/
@@ -18525,7 +17733,7 @@ webpackContext.id = 100;
 //! author : Werner Mollentze : https://github.com/wernerm
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -18602,7 +17810,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 102 */
+/* 80 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ar.js ***!
   \***************************************************************************************/
@@ -18616,7 +17824,7 @@ webpackContext.id = 100;
 //! author : forabi https://github.com/forabi
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -18809,7 +18017,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 103 */
+/* 81 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ar-dz.js ***!
   \******************************************************************************************/
@@ -18825,7 +18033,7 @@ webpackContext.id = 100;
 //! author : Noureddine LOUAHEDJ : https://github.com/noureddinem
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -18983,7 +18191,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 104 */
+/* 82 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ar-kw.js ***!
   \******************************************************************************************/
@@ -18995,7 +18203,7 @@ webpackContext.id = 100;
 //! author : Nusret Parlak: https://github.com/nusretparlak
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -19055,7 +18263,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 105 */
+/* 83 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ar-ly.js ***!
   \******************************************************************************************/
@@ -19067,7 +18275,7 @@ webpackContext.id = 100;
 //! author : Ali Hmer: https://github.com/kikoanis
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -19244,7 +18452,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 106 */
+/* 84 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ar-ma.js ***!
   \******************************************************************************************/
@@ -19257,7 +18465,7 @@ webpackContext.id = 100;
 //! author : Abdel Said : https://github.com/abdelsaid
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -19317,7 +18525,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 107 */
+/* 85 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ar-sa.js ***!
   \******************************************************************************************/
@@ -19329,7 +18537,7 @@ webpackContext.id = 100;
 //! author : Suhail Alkowaileet : https://github.com/xsoh
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -19439,7 +18647,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 108 */
+/* 86 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ar-tn.js ***!
   \******************************************************************************************/
@@ -19451,7 +18659,7 @@ webpackContext.id = 100;
 //! author : Nader Toukabri : https://github.com/naderio
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -19511,7 +18719,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 109 */
+/* 87 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/az.js ***!
   \***************************************************************************************/
@@ -19523,7 +18731,7 @@ webpackContext.id = 100;
 //! author : topchiyev : https://github.com/topchiyev
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -19630,7 +18838,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 110 */
+/* 88 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/be.js ***!
   \***************************************************************************************/
@@ -19644,7 +18852,7 @@ webpackContext.id = 100;
 //! Author : Menelion Elensúle : https://github.com/Oire
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -19789,7 +18997,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 111 */
+/* 89 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/bg.js ***!
   \***************************************************************************************/
@@ -19801,7 +19009,7 @@ webpackContext.id = 100;
 //! author : Krasen Borisov : https://github.com/kraz
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -19894,7 +19102,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 112 */
+/* 90 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/bm.js ***!
   \***************************************************************************************/
@@ -19906,7 +19114,7 @@ webpackContext.id = 100;
 //! author : Estelle Comment : https://github.com/estellecomment
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -19963,7 +19171,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 113 */
+/* 91 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/bn.js ***!
   \***************************************************************************************/
@@ -19975,7 +19183,7 @@ webpackContext.id = 100;
 //! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -20099,7 +19307,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 114 */
+/* 92 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/bn-bd.js ***!
   \******************************************************************************************/
@@ -20111,7 +19319,7 @@ webpackContext.id = 100;
 //! author : Asraf Hossain Patoary : https://github.com/ashwoolford
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -20245,7 +19453,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 115 */
+/* 93 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/bo.js ***!
   \***************************************************************************************/
@@ -20257,7 +19465,7 @@ webpackContext.id = 100;
 //! author : Thupten N. Chakrishar : https://github.com/vajradog
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -20385,7 +19593,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 116 */
+/* 94 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/br.js ***!
   \***************************************************************************************/
@@ -20397,7 +19605,7 @@ webpackContext.id = 100;
 //! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -20568,7 +19776,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 117 */
+/* 95 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/bs.js ***!
   \***************************************************************************************/
@@ -20581,7 +19789,7 @@ webpackContext.id = 100;
 //! based on (hr) translation by Bojan Marković
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -20735,7 +19943,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 118 */
+/* 96 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ca.js ***!
   \***************************************************************************************/
@@ -20747,7 +19955,7 @@ webpackContext.id = 100;
 //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -20850,7 +20058,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 119 */
+/* 97 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/cs.js ***!
   \***************************************************************************************/
@@ -20862,7 +20070,7 @@ webpackContext.id = 100;
 //! author : petrbela : https://github.com/petrbela
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -21039,7 +20247,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 120 */
+/* 98 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/cv.js ***!
   \***************************************************************************************/
@@ -21051,7 +20259,7 @@ webpackContext.id = 100;
 //! author : Anatoly Mironov : https://github.com/mirontoli
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -21119,7 +20327,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 121 */
+/* 99 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/cy.js ***!
   \***************************************************************************************/
@@ -21132,7 +20340,7 @@ webpackContext.id = 100;
 //! author : https://github.com/ryangreaves
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -21234,7 +20442,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 122 */
+/* 100 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/da.js ***!
   \***************************************************************************************/
@@ -21246,7 +20454,7 @@ webpackContext.id = 100;
 //! author : Ulrik Nielsen : https://github.com/mrbase
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -21305,7 +20513,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 123 */
+/* 101 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/de.js ***!
   \***************************************************************************************/
@@ -21319,7 +20527,7 @@ webpackContext.id = 100;
 //! author : Mikolaj Dadela : https://github.com/mik01aj
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -21401,7 +20609,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 124 */
+/* 102 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/de-at.js ***!
   \******************************************************************************************/
@@ -21416,7 +20624,7 @@ webpackContext.id = 100;
 //! author : Mikolaj Dadela : https://github.com/mik01aj
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -21498,7 +20706,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 125 */
+/* 103 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/de-ch.js ***!
   \******************************************************************************************/
@@ -21510,7 +20718,7 @@ webpackContext.id = 100;
 //! author : sschueller : https://github.com/sschueller
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -21592,7 +20800,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 126 */
+/* 104 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/dv.js ***!
   \***************************************************************************************/
@@ -21604,7 +20812,7 @@ webpackContext.id = 100;
 //! author : Jawish Hameed : https://github.com/jawish
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -21700,7 +20908,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 127 */
+/* 105 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/el.js ***!
   \***************************************************************************************/
@@ -21712,7 +20920,7 @@ webpackContext.id = 100;
 //! author : Aggelos Karalias : https://github.com/mehiel
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -21822,7 +21030,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 128 */
+/* 106 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/en-au.js ***!
   \******************************************************************************************/
@@ -21834,7 +21042,7 @@ webpackContext.id = 100;
 //! author : Jared Morse : https://github.com/jarcoal
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -21908,7 +21116,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 129 */
+/* 107 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/en-ca.js ***!
   \******************************************************************************************/
@@ -21920,7 +21128,7 @@ webpackContext.id = 100;
 //! author : Jonathan Abourbih : https://github.com/jonbca
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -21990,7 +21198,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 130 */
+/* 108 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/en-gb.js ***!
   \******************************************************************************************/
@@ -22002,7 +21210,7 @@ webpackContext.id = 100;
 //! author : Chris Gedrim : https://github.com/chrisgedrim
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -22076,7 +21284,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 131 */
+/* 109 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/en-ie.js ***!
   \******************************************************************************************/
@@ -22088,7 +21296,7 @@ webpackContext.id = 100;
 //! author : Chris Cartlidge : https://github.com/chriscartlidge
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -22162,7 +21370,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 132 */
+/* 110 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/en-il.js ***!
   \******************************************************************************************/
@@ -22174,7 +21382,7 @@ webpackContext.id = 100;
 //! author : Chris Gedrim : https://github.com/chrisgedrim
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -22244,7 +21452,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 133 */
+/* 111 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/en-in.js ***!
   \******************************************************************************************/
@@ -22256,7 +21464,7 @@ webpackContext.id = 100;
 //! author : Jatin Agrawal : https://github.com/jatinag22
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -22330,7 +21538,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 134 */
+/* 112 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/en-nz.js ***!
   \******************************************************************************************/
@@ -22342,7 +21550,7 @@ webpackContext.id = 100;
 //! author : Luke McGregor : https://github.com/lukemcgregor
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -22416,7 +21624,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 135 */
+/* 113 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/en-sg.js ***!
   \******************************************************************************************/
@@ -22428,7 +21636,7 @@ webpackContext.id = 100;
 //! author : Matthew Castrillon-Madrigal : https://github.com/techdimension
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -22502,7 +21710,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 136 */
+/* 114 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/eo.js ***!
   \***************************************************************************************/
@@ -22517,7 +21725,7 @@ webpackContext.id = 100;
 //! comment : Vivakvo corrected the translation by colindean and miestasmia
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -22588,7 +21796,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 137 */
+/* 115 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/es.js ***!
   \***************************************************************************************/
@@ -22600,7 +21808,7 @@ webpackContext.id = 100;
 //! author : Julio Napurí : https://github.com/julionc
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -22712,7 +21920,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 138 */
+/* 116 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/es-do.js ***!
   \******************************************************************************************/
@@ -22723,7 +21931,7 @@ webpackContext.id = 100;
 //! locale : Spanish (Dominican Republic) [es-do]
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -22834,7 +22042,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 139 */
+/* 117 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/es-mx.js ***!
   \******************************************************************************************/
@@ -22846,7 +22054,7 @@ webpackContext.id = 100;
 //! author : JC Franco : https://github.com/jcfranco
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -22958,7 +22166,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 140 */
+/* 118 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/es-us.js ***!
   \******************************************************************************************/
@@ -22971,7 +22179,7 @@ webpackContext.id = 100;
 //! author : chrisrodz : https://github.com/chrisrodz
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -23082,7 +22290,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 141 */
+/* 119 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/et.js ***!
   \***************************************************************************************/
@@ -23095,7 +22303,7 @@ webpackContext.id = 100;
 //! improvements : Illimar Tambek : https://github.com/ragulka
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -23178,7 +22386,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 142 */
+/* 120 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/eu.js ***!
   \***************************************************************************************/
@@ -23190,7 +22398,7 @@ webpackContext.id = 100;
 //! author : Eneko Illarramendi : https://github.com/eillarra
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -23259,7 +22467,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 143 */
+/* 121 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/fa.js ***!
   \***************************************************************************************/
@@ -23271,7 +22479,7 @@ webpackContext.id = 100;
 //! author : Ebrahim Byagowi : https://github.com/ebraminio
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -23387,7 +22595,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 144 */
+/* 122 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/fi.js ***!
   \***************************************************************************************/
@@ -23399,7 +22607,7 @@ webpackContext.id = 100;
 //! author : Tarmo Aidantausta : https://github.com/bleadof
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -23526,7 +22734,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 145 */
+/* 123 */
 /*!****************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/fil.js ***!
   \****************************************************************************************/
@@ -23539,7 +22747,7 @@ webpackContext.id = 100;
 //! author : Matthew Co : https://github.com/matthewdeeco
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -23602,7 +22810,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 146 */
+/* 124 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/fo.js ***!
   \***************************************************************************************/
@@ -23615,7 +22823,7 @@ webpackContext.id = 100;
 //! author : Kristian Sakarisson : https://github.com/sakarisson
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -23676,7 +22884,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 147 */
+/* 125 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/fr.js ***!
   \***************************************************************************************/
@@ -23688,7 +22896,7 @@ webpackContext.id = 100;
 //! author : John Fischer : https://github.com/jfroffice
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -23798,7 +23006,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 148 */
+/* 126 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/fr-ca.js ***!
   \******************************************************************************************/
@@ -23810,7 +23018,7 @@ webpackContext.id = 100;
 //! author : Jonathan Abourbih : https://github.com/jonbca
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -23885,7 +23093,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 149 */
+/* 127 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/fr-ch.js ***!
   \******************************************************************************************/
@@ -23897,7 +23105,7 @@ webpackContext.id = 100;
 //! author : Gaspard Bucher : https://github.com/gaspard
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -23976,7 +23184,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 150 */
+/* 128 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/fy.js ***!
   \***************************************************************************************/
@@ -23988,7 +23196,7 @@ webpackContext.id = 100;
 //! author : Robin van der Vliet : https://github.com/robin0van0der0v
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -24071,7 +23279,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 151 */
+/* 129 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ga.js ***!
   \***************************************************************************************/
@@ -24083,7 +23291,7 @@ webpackContext.id = 100;
 //! author : André Silva : https://github.com/askpt
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -24184,7 +23392,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 152 */
+/* 130 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/gd.js ***!
   \***************************************************************************************/
@@ -24196,7 +23404,7 @@ webpackContext.id = 100;
 //! author : Jon Ashdown : https://github.com/jonashdown
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -24297,7 +23505,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 153 */
+/* 131 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/gl.js ***!
   \***************************************************************************************/
@@ -24309,7 +23517,7 @@ webpackContext.id = 100;
 //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -24389,7 +23597,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 154 */
+/* 132 */
 /*!*********************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/gom-deva.js ***!
   \*********************************************************************************************/
@@ -24401,7 +23609,7 @@ webpackContext.id = 100;
 //! author : The Discoverer : https://github.com/WikiDiscoverer
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -24531,7 +23739,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 155 */
+/* 133 */
 /*!*********************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/gom-latn.js ***!
   \*********************************************************************************************/
@@ -24543,7 +23751,7 @@ webpackContext.id = 100;
 //! author : The Discoverer : https://github.com/WikiDiscoverer
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -24673,7 +23881,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 156 */
+/* 134 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/gu.js ***!
   \***************************************************************************************/
@@ -24685,7 +23893,7 @@ webpackContext.id = 100;
 //! author : Kaushik Thanki : https://github.com/Kaushik1987
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -24812,7 +24020,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 157 */
+/* 135 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/he.js ***!
   \***************************************************************************************/
@@ -24826,7 +24034,7 @@ webpackContext.id = 100;
 //! author : Tal Ater : https://github.com/TalAter
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -24924,7 +24132,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 158 */
+/* 136 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/hi.js ***!
   \***************************************************************************************/
@@ -24936,7 +24144,7 @@ webpackContext.id = 100;
 //! author : Mayank Singhal : https://github.com/mayanksinghal
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -25106,7 +24314,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 159 */
+/* 137 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/hr.js ***!
   \***************************************************************************************/
@@ -25118,7 +24326,7 @@ webpackContext.id = 100;
 //! author : Bojan Marković : https://github.com/bmarkovic
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -25278,7 +24486,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 160 */
+/* 138 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/hu.js ***!
   \***************************************************************************************/
@@ -25291,7 +24499,7 @@ webpackContext.id = 100;
 //! author : Peter Viszt  : https://github.com/passatgt
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -25414,7 +24622,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 161 */
+/* 139 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/hy-am.js ***!
   \******************************************************************************************/
@@ -25426,7 +24634,7 @@ webpackContext.id = 100;
 //! author : Armendarabyan : https://github.com/armendarabyan
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -25524,7 +24732,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 162 */
+/* 140 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/id.js ***!
   \***************************************************************************************/
@@ -25537,7 +24745,7 @@ webpackContext.id = 100;
 //! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -25618,7 +24826,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 163 */
+/* 141 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/is.js ***!
   \***************************************************************************************/
@@ -25630,7 +24838,7 @@ webpackContext.id = 100;
 //! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -25775,7 +24983,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 164 */
+/* 142 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/it.js ***!
   \***************************************************************************************/
@@ -25789,7 +24997,7 @@ webpackContext.id = 100;
 //! author: Marco : https://github.com/Manfre98
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -25899,7 +25107,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 165 */
+/* 143 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/it-ch.js ***!
   \******************************************************************************************/
@@ -25911,7 +25119,7 @@ webpackContext.id = 100;
 //! author : xfh : https://github.com/xfh
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -25981,7 +25189,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 166 */
+/* 144 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ja.js ***!
   \***************************************************************************************/
@@ -25993,7 +25201,7 @@ webpackContext.id = 100;
 //! author : LI Long : https://github.com/baryon
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -26147,7 +25355,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 167 */
+/* 145 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/jv.js ***!
   \***************************************************************************************/
@@ -26160,7 +25368,7 @@ webpackContext.id = 100;
 //! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -26241,7 +25449,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 168 */
+/* 146 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ka.js ***!
   \***************************************************************************************/
@@ -26253,7 +25461,7 @@ webpackContext.id = 100;
 //! author : Irakli Janiashvili : https://github.com/IrakliJani
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -26351,7 +25559,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 169 */
+/* 147 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/kk.js ***!
   \***************************************************************************************/
@@ -26363,7 +25571,7 @@ webpackContext.id = 100;
 //! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -26451,7 +25659,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 170 */
+/* 148 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/km.js ***!
   \***************************************************************************************/
@@ -26463,7 +25671,7 @@ webpackContext.id = 100;
 //! author : Kruy Vanna : https://github.com/kruyvanna
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -26571,7 +25779,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 171 */
+/* 149 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/kn.js ***!
   \***************************************************************************************/
@@ -26583,7 +25791,7 @@ webpackContext.id = 100;
 //! author : Rajeev Naik : https://github.com/rajeevnaikte
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -26712,7 +25920,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 172 */
+/* 150 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ko.js ***!
   \***************************************************************************************/
@@ -26725,7 +25933,7 @@ webpackContext.id = 100;
 //! author : Jeeeyul Lee <jeeeyul@gmail.com>
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -26805,7 +26013,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 173 */
+/* 151 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ku.js ***!
   \***************************************************************************************/
@@ -26817,7 +26025,7 @@ webpackContext.id = 100;
 //! author : Shahram Mebashar : https://github.com/ShahramMebashar
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -26941,7 +26149,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 174 */
+/* 152 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ky.js ***!
   \***************************************************************************************/
@@ -26953,7 +26161,7 @@ webpackContext.id = 100;
 //! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -27043,7 +26251,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 175 */
+/* 153 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/lb.js ***!
   \***************************************************************************************/
@@ -27056,7 +26264,7 @@ webpackContext.id = 100;
 //! author : David Raison : https://github.com/kwisatz
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -27196,7 +26404,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 176 */
+/* 154 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/lo.js ***!
   \***************************************************************************************/
@@ -27208,7 +26416,7 @@ webpackContext.id = 100;
 //! author : Ryan Hart : https://github.com/ryanhart2
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -27279,7 +26487,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 177 */
+/* 155 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/lt.js ***!
   \***************************************************************************************/
@@ -27291,7 +26499,7 @@ webpackContext.id = 100;
 //! author : Mindaugas Mozūras : https://github.com/mmozuras
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -27420,7 +26628,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 178 */
+/* 156 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/lv.js ***!
   \***************************************************************************************/
@@ -27433,7 +26641,7 @@ webpackContext.id = 100;
 //! author : Jānis Elmeris : https://github.com/JanisE
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -27531,7 +26739,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 179 */
+/* 157 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/me.js ***!
   \***************************************************************************************/
@@ -27543,7 +26751,7 @@ webpackContext.id = 100;
 //! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -27667,7 +26875,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 180 */
+/* 158 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/mi.js ***!
   \***************************************************************************************/
@@ -27679,7 +26887,7 @@ webpackContext.id = 100;
 //! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -27744,7 +26952,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 181 */
+/* 159 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/mk.js ***!
   \***************************************************************************************/
@@ -27757,7 +26965,7 @@ webpackContext.id = 100;
 //! author : Sashko Todorov : https://github.com/bkyceh
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -27848,7 +27056,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 182 */
+/* 160 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ml.js ***!
   \***************************************************************************************/
@@ -27860,7 +27068,7 @@ webpackContext.id = 100;
 //! author : Floyd Pink : https://github.com/floydpink
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -27946,7 +27154,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 183 */
+/* 161 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/mn.js ***!
   \***************************************************************************************/
@@ -27958,7 +27166,7 @@ webpackContext.id = 100;
 //! author : Javkhlantugs Nyamdorj : https://github.com/javkhaanj7
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -28063,7 +27271,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 184 */
+/* 162 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/mr.js ***!
   \***************************************************************************************/
@@ -28076,7 +27284,7 @@ webpackContext.id = 100;
 //! author : Vivek Athalye : https://github.com/vnathalye
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -28283,7 +27491,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 185 */
+/* 163 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ms.js ***!
   \***************************************************************************************/
@@ -28295,7 +27503,7 @@ webpackContext.id = 100;
 //! author : Weldan Jamili : https://github.com/weldan
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -28376,7 +27584,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 186 */
+/* 164 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ms-my.js ***!
   \******************************************************************************************/
@@ -28389,7 +27597,7 @@ webpackContext.id = 100;
 //! author : Weldan Jamili : https://github.com/weldan
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -28470,7 +27678,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 187 */
+/* 165 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/mt.js ***!
   \***************************************************************************************/
@@ -28482,7 +27690,7 @@ webpackContext.id = 100;
 //! author : Alessandro Maruccia : https://github.com/alesma
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -28543,7 +27751,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 188 */
+/* 166 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/my.js ***!
   \***************************************************************************************/
@@ -28557,7 +27765,7 @@ webpackContext.id = 100;
 //! author : Tin Aung Lin : https://github.com/thanyawzinmin
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -28652,7 +27860,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 189 */
+/* 167 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/nb.js ***!
   \***************************************************************************************/
@@ -28666,7 +27874,7 @@ webpackContext.id = 100;
 //!           Stephen Ramthun : https://github.com/stephenramthun
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -28731,7 +27939,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 190 */
+/* 168 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ne.js ***!
   \***************************************************************************************/
@@ -28743,7 +27951,7 @@ webpackContext.id = 100;
 //! author : suvash : https://github.com/suvash
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -28869,7 +28077,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 191 */
+/* 169 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/nl.js ***!
   \***************************************************************************************/
@@ -28882,7 +28090,7 @@ webpackContext.id = 100;
 //! author : Jacob Middag : https://github.com/middagj
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -28991,7 +28199,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 192 */
+/* 170 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/nl-be.js ***!
   \******************************************************************************************/
@@ -29004,7 +28212,7 @@ webpackContext.id = 100;
 //! author : Jacob Middag : https://github.com/middagj
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -29111,7 +28319,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 193 */
+/* 171 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/nn.js ***!
   \***************************************************************************************/
@@ -29124,7 +28332,7 @@ webpackContext.id = 100;
 //!           Stephen Ramthun : https://github.com/stephenramthun
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -29189,7 +28397,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 194 */
+/* 172 */
 /*!*******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/oc-lnc.js ***!
   \*******************************************************************************************/
@@ -29201,7 +28409,7 @@ webpackContext.id = 100;
 //! author : Quentin PAGÈS : https://github.com/Quenty31
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -29290,7 +28498,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 195 */
+/* 173 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/pa-in.js ***!
   \******************************************************************************************/
@@ -29302,7 +28510,7 @@ webpackContext.id = 100;
 //! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -29429,7 +28637,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 196 */
+/* 174 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/pl.js ***!
   \***************************************************************************************/
@@ -29441,7 +28649,7 @@ webpackContext.id = 100;
 //! author : Rafal Hirsz : https://github.com/evoL
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -29586,7 +28794,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 197 */
+/* 175 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/pt.js ***!
   \***************************************************************************************/
@@ -29598,7 +28806,7 @@ webpackContext.id = 100;
 //! author : Jefferson : https://github.com/jalex79
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -29666,7 +28874,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 198 */
+/* 176 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/pt-br.js ***!
   \******************************************************************************************/
@@ -29678,7 +28886,7 @@ webpackContext.id = 100;
 //! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -29741,7 +28949,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 199 */
+/* 177 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ro.js ***!
   \***************************************************************************************/
@@ -29755,7 +28963,7 @@ webpackContext.id = 100;
 //! author : Emanuel Cepoi : https://github.com/cepem
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -29834,7 +29042,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 200 */
+/* 178 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ru.js ***!
   \***************************************************************************************/
@@ -29848,7 +29056,7 @@ webpackContext.id = 100;
 //! author : Коренберг Марк : https://github.com/socketpair
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -30058,7 +29266,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 201 */
+/* 179 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/sd.js ***!
   \***************************************************************************************/
@@ -30070,7 +29278,7 @@ webpackContext.id = 100;
 //! author : Narain Sagar : https://github.com/narainsagar
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -30157,7 +29365,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 202 */
+/* 180 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/se.js ***!
   \***************************************************************************************/
@@ -30169,7 +29377,7 @@ webpackContext.id = 100;
 //! authors : Bård Rolstad Henriksen : https://github.com/karamell
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -30232,7 +29440,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 203 */
+/* 181 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/si.js ***!
   \***************************************************************************************/
@@ -30244,7 +29452,7 @@ webpackContext.id = 100;
 //! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -30318,7 +29526,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 204 */
+/* 182 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/sk.js ***!
   \***************************************************************************************/
@@ -30331,7 +29539,7 @@ webpackContext.id = 100;
 //! based on work of petrbela : https://github.com/petrbela
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -30480,7 +29688,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 205 */
+/* 183 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/sl.js ***!
   \***************************************************************************************/
@@ -30492,7 +29700,7 @@ webpackContext.id = 100;
 //! author : Robert Sedovšek : https://github.com/sedovsek
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -30668,7 +29876,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 206 */
+/* 184 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/sq.js ***!
   \***************************************************************************************/
@@ -30682,7 +29890,7 @@ webpackContext.id = 100;
 //! author : Oerd Cukalla : https://github.com/oerd
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -30751,7 +29959,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 207 */
+/* 185 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/sr.js ***!
   \***************************************************************************************/
@@ -30764,7 +29972,7 @@ webpackContext.id = 100;
 //! author : Stefan Crnjaković <stefan@hotmail.rs> : https://github.com/crnjakovic
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -30887,7 +30095,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 208 */
+/* 186 */
 /*!********************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/sr-cyrl.js ***!
   \********************************************************************************************/
@@ -30900,7 +30108,7 @@ webpackContext.id = 100;
 //! author : Stefan Crnjaković <stefan@hotmail.rs> : https://github.com/crnjakovic
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -31021,7 +30229,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 209 */
+/* 187 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ss.js ***!
   \***************************************************************************************/
@@ -31033,7 +30241,7 @@ webpackContext.id = 100;
 //! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -31122,7 +30330,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 210 */
+/* 188 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/sv.js ***!
   \***************************************************************************************/
@@ -31134,7 +30342,7 @@ webpackContext.id = 100;
 //! author : Jens Alm : https://github.com/ulmus
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -31208,7 +30416,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 211 */
+/* 189 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/sw.js ***!
   \***************************************************************************************/
@@ -31220,7 +30428,7 @@ webpackContext.id = 100;
 //! author : Fahad Kassim : https://github.com/fadsel
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -31280,7 +30488,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 212 */
+/* 190 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ta.js ***!
   \***************************************************************************************/
@@ -31292,7 +30500,7 @@ webpackContext.id = 100;
 //! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -31427,7 +30635,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 213 */
+/* 191 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/te.js ***!
   \***************************************************************************************/
@@ -31439,7 +30647,7 @@ webpackContext.id = 100;
 //! author : Krishna Chaitanya Thota : https://github.com/kcthota
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -31531,7 +30739,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 214 */
+/* 192 */
 /*!****************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/tet.js ***!
   \****************************************************************************************/
@@ -31545,7 +30753,7 @@ webpackContext.id = 100;
 //! author : Sonia Simoes : https://github.com/soniasimoes
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -31617,7 +30825,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 215 */
+/* 193 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/tg.js ***!
   \***************************************************************************************/
@@ -31629,7 +30837,7 @@ webpackContext.id = 100;
 //! author : Orif N. Jr. : https://github.com/orif-jr
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -31751,7 +30959,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 216 */
+/* 194 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/th.js ***!
   \***************************************************************************************/
@@ -31763,7 +30971,7 @@ webpackContext.id = 100;
 //! author : Kridsada Thanabulpong : https://github.com/sirn
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -31833,7 +31041,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 217 */
+/* 195 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/tk.js ***!
   \***************************************************************************************/
@@ -31845,7 +31053,7 @@ webpackContext.id = 100;
 //! author : Atamyrat Abdyrahmanov : https://github.com/atamyratabdy
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -31942,7 +31150,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 218 */
+/* 196 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/tl-ph.js ***!
   \******************************************************************************************/
@@ -31954,7 +31162,7 @@ webpackContext.id = 100;
 //! author : Dan Hagman : https://github.com/hagmandan
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -32017,7 +31225,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 219 */
+/* 197 */
 /*!****************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/tlh.js ***!
   \****************************************************************************************/
@@ -32029,7 +31237,7 @@ webpackContext.id = 100;
 //! author : Dominika Kruk : https://github.com/amaranthrose
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -32160,7 +31368,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 220 */
+/* 198 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/tr.js ***!
   \***************************************************************************************/
@@ -32173,7 +31381,7 @@ webpackContext.id = 100;
 //!           Burak Yiğit Kaya: https://github.com/BYK
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -32284,7 +31492,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 221 */
+/* 199 */
 /*!****************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/tzl.js ***!
   \****************************************************************************************/
@@ -32297,7 +31505,7 @@ webpackContext.id = 100;
 //! author : Iustì Canun
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -32391,7 +31599,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 222 */
+/* 200 */
 /*!****************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/tzm.js ***!
   \****************************************************************************************/
@@ -32403,7 +31611,7 @@ webpackContext.id = 100;
 //! author : Abdel Said : https://github.com/abdelsaid
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -32462,7 +31670,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 223 */
+/* 201 */
 /*!*********************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/tzm-latn.js ***!
   \*********************************************************************************************/
@@ -32474,7 +31682,7 @@ webpackContext.id = 100;
 //! author : Abdel Said : https://github.com/abdelsaid
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -32533,7 +31741,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 224 */
+/* 202 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ug-cn.js ***!
   \******************************************************************************************/
@@ -32545,7 +31753,7 @@ webpackContext.id = 100;
 //! author: boyaq : https://github.com/boyaq
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -32661,7 +31869,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 225 */
+/* 203 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/uk.js ***!
   \***************************************************************************************/
@@ -32674,7 +31882,7 @@ webpackContext.id = 100;
 //! Author : Menelion Elensúle : https://github.com/Oire
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -32842,7 +32050,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 226 */
+/* 204 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/ur.js ***!
   \***************************************************************************************/
@@ -32855,7 +32063,7 @@ webpackContext.id = 100;
 //! author : Zack : https://github.com/ZackVision
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -32942,7 +32150,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 227 */
+/* 205 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/uz.js ***!
   \***************************************************************************************/
@@ -32954,7 +32162,7 @@ webpackContext.id = 100;
 //! author : Sardor Muminov : https://github.com/muminoff
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -33011,7 +32219,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 228 */
+/* 206 */
 /*!********************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/uz-latn.js ***!
   \********************************************************************************************/
@@ -33023,7 +32231,7 @@ webpackContext.id = 100;
 //! author : Rasulbek Mirzayev : github.com/Rasulbeeek
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -33082,7 +32290,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 229 */
+/* 207 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/vi.js ***!
   \***************************************************************************************/
@@ -33095,7 +32303,7 @@ webpackContext.id = 100;
 //! author : Chien Kira : https://github.com/chienkira
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -33179,7 +32387,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 230 */
+/* 208 */
 /*!*********************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/x-pseudo.js ***!
   \*********************************************************************************************/
@@ -33191,7 +32399,7 @@ webpackContext.id = 100;
 //! author : Andrew Hood : https://github.com/andrewhood125
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -33268,7 +32476,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 231 */
+/* 209 */
 /*!***************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/yo.js ***!
   \***************************************************************************************/
@@ -33280,7 +32488,7 @@ webpackContext.id = 100;
 //! author : Atolagbe Abisoye : https://github.com/andela-batolagbe
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -33339,7 +32547,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 232 */
+/* 210 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/zh-cn.js ***!
   \******************************************************************************************/
@@ -33353,7 +32561,7 @@ webpackContext.id = 100;
 //! author : uu109 : https://github.com/uu109
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -33477,7 +32685,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 233 */
+/* 211 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/zh-hk.js ***!
   \******************************************************************************************/
@@ -33492,7 +32700,7 @@ webpackContext.id = 100;
 //! author : Anthony : https://github.com/anthonylau
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -33596,7 +32804,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 234 */
+/* 212 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/zh-mo.js ***!
   \******************************************************************************************/
@@ -33610,7 +32818,7 @@ webpackContext.id = 100;
 //! author : Tan Yuanhong : https://github.com/le0tan
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -33714,7 +32922,7 @@ webpackContext.id = 100;
 });
 
 /***/ }),
-/* 235 */
+/* 213 */
 /*!******************************************************************************************!*\
   !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/moment/locale/zh-tw.js ***!
   \******************************************************************************************/
@@ -33727,7 +32935,7 @@ webpackContext.id = 100;
 //! author : Chris Lam : https://github.com/hehachris
 
 ;(function (global, factory) {
-   true ? factory(__webpack_require__(/*! ../moment */ 99)) :
+   true ? factory(__webpack_require__(/*! ../moment */ 77)) :
   undefined;
 })(this, function (moment) {'use strict';
 
@@ -33831,6 +33039,1149 @@ webpackContext.id = 100;
 });
 
 /***/ }),
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/zheng/Documents/HBuilderProjects/game/uni_modules/uni-icons/components/uni-icons/icons.js ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  "id": "2852637",
+  "name": "uniui图标库",
+  "font_family": "uniicons",
+  "css_prefix_text": "uniui-",
+  "description": "",
+  "glyphs": [
+  {
+    "icon_id": "25027049",
+    "name": "yanse",
+    "font_class": "color",
+    "unicode": "e6cf",
+    "unicode_decimal": 59087 },
+
+  {
+    "icon_id": "25027048",
+    "name": "wallet",
+    "font_class": "wallet",
+    "unicode": "e6b1",
+    "unicode_decimal": 59057 },
+
+  {
+    "icon_id": "25015720",
+    "name": "settings-filled",
+    "font_class": "settings-filled",
+    "unicode": "e6ce",
+    "unicode_decimal": 59086 },
+
+  {
+    "icon_id": "25015434",
+    "name": "shimingrenzheng-filled",
+    "font_class": "auth-filled",
+    "unicode": "e6cc",
+    "unicode_decimal": 59084 },
+
+  {
+    "icon_id": "24934246",
+    "name": "shop-filled",
+    "font_class": "shop-filled",
+    "unicode": "e6cd",
+    "unicode_decimal": 59085 },
+
+  {
+    "icon_id": "24934159",
+    "name": "staff-filled-01",
+    "font_class": "staff-filled",
+    "unicode": "e6cb",
+    "unicode_decimal": 59083 },
+
+  {
+    "icon_id": "24932461",
+    "name": "VIP-filled",
+    "font_class": "vip-filled",
+    "unicode": "e6c6",
+    "unicode_decimal": 59078 },
+
+  {
+    "icon_id": "24932462",
+    "name": "plus_circle_fill",
+    "font_class": "plus-filled",
+    "unicode": "e6c7",
+    "unicode_decimal": 59079 },
+
+  {
+    "icon_id": "24932463",
+    "name": "folder_add-filled",
+    "font_class": "folder-add-filled",
+    "unicode": "e6c8",
+    "unicode_decimal": 59080 },
+
+  {
+    "icon_id": "24932464",
+    "name": "yanse-filled",
+    "font_class": "color-filled",
+    "unicode": "e6c9",
+    "unicode_decimal": 59081 },
+
+  {
+    "icon_id": "24932465",
+    "name": "tune-filled",
+    "font_class": "tune-filled",
+    "unicode": "e6ca",
+    "unicode_decimal": 59082 },
+
+  {
+    "icon_id": "24932455",
+    "name": "a-rilidaka-filled",
+    "font_class": "calendar-filled",
+    "unicode": "e6c0",
+    "unicode_decimal": 59072 },
+
+  {
+    "icon_id": "24932456",
+    "name": "notification-filled",
+    "font_class": "notification-filled",
+    "unicode": "e6c1",
+    "unicode_decimal": 59073 },
+
+  {
+    "icon_id": "24932457",
+    "name": "wallet-filled",
+    "font_class": "wallet-filled",
+    "unicode": "e6c2",
+    "unicode_decimal": 59074 },
+
+  {
+    "icon_id": "24932458",
+    "name": "paihangbang-filled",
+    "font_class": "medal-filled",
+    "unicode": "e6c3",
+    "unicode_decimal": 59075 },
+
+  {
+    "icon_id": "24932459",
+    "name": "gift-filled",
+    "font_class": "gift-filled",
+    "unicode": "e6c4",
+    "unicode_decimal": 59076 },
+
+  {
+    "icon_id": "24932460",
+    "name": "fire-filled",
+    "font_class": "fire-filled",
+    "unicode": "e6c5",
+    "unicode_decimal": 59077 },
+
+  {
+    "icon_id": "24928001",
+    "name": "refreshempty",
+    "font_class": "refreshempty",
+    "unicode": "e6bf",
+    "unicode_decimal": 59071 },
+
+  {
+    "icon_id": "24926853",
+    "name": "location-ellipse",
+    "font_class": "location-filled",
+    "unicode": "e6af",
+    "unicode_decimal": 59055 },
+
+  {
+    "icon_id": "24926735",
+    "name": "person-filled",
+    "font_class": "person-filled",
+    "unicode": "e69d",
+    "unicode_decimal": 59037 },
+
+  {
+    "icon_id": "24926703",
+    "name": "personadd-filled",
+    "font_class": "personadd-filled",
+    "unicode": "e698",
+    "unicode_decimal": 59032 },
+
+  {
+    "icon_id": "24923351",
+    "name": "back",
+    "font_class": "back",
+    "unicode": "e6b9",
+    "unicode_decimal": 59065 },
+
+  {
+    "icon_id": "24923352",
+    "name": "forward",
+    "font_class": "forward",
+    "unicode": "e6ba",
+    "unicode_decimal": 59066 },
+
+  {
+    "icon_id": "24923353",
+    "name": "arrowthinright",
+    "font_class": "arrow-right",
+    "unicode": "e6bb",
+    "unicode_decimal": 59067 },
+
+  {
+    "icon_id": "24923354",
+    "name": "arrowthinleft",
+    "font_class": "arrow-left",
+    "unicode": "e6bc",
+    "unicode_decimal": 59068 },
+
+  {
+    "icon_id": "24923355",
+    "name": "arrowthinup",
+    "font_class": "arrow-up",
+    "unicode": "e6bd",
+    "unicode_decimal": 59069 },
+
+  {
+    "icon_id": "24923356",
+    "name": "arrowthindown",
+    "font_class": "arrow-down",
+    "unicode": "e6be",
+    "unicode_decimal": 59070 },
+
+  {
+    "icon_id": "24923349",
+    "name": "arrowdown",
+    "font_class": "bottom",
+    "unicode": "e6b8",
+    "unicode_decimal": 59064 },
+
+  {
+    "icon_id": "24923346",
+    "name": "arrowright",
+    "font_class": "right",
+    "unicode": "e6b5",
+    "unicode_decimal": 59061 },
+
+  {
+    "icon_id": "24923347",
+    "name": "arrowup",
+    "font_class": "top",
+    "unicode": "e6b6",
+    "unicode_decimal": 59062 },
+
+  {
+    "icon_id": "24923348",
+    "name": "arrowleft",
+    "font_class": "left",
+    "unicode": "e6b7",
+    "unicode_decimal": 59063 },
+
+  {
+    "icon_id": "24923334",
+    "name": "eye",
+    "font_class": "eye",
+    "unicode": "e651",
+    "unicode_decimal": 58961 },
+
+  {
+    "icon_id": "24923335",
+    "name": "eye-filled",
+    "font_class": "eye-filled",
+    "unicode": "e66a",
+    "unicode_decimal": 58986 },
+
+  {
+    "icon_id": "24923336",
+    "name": "eye-slash",
+    "font_class": "eye-slash",
+    "unicode": "e6b3",
+    "unicode_decimal": 59059 },
+
+  {
+    "icon_id": "24923337",
+    "name": "eye-slash-filled",
+    "font_class": "eye-slash-filled",
+    "unicode": "e6b4",
+    "unicode_decimal": 59060 },
+
+  {
+    "icon_id": "24923305",
+    "name": "info-filled",
+    "font_class": "info-filled",
+    "unicode": "e649",
+    "unicode_decimal": 58953 },
+
+  {
+    "icon_id": "24923299",
+    "name": "reload-01",
+    "font_class": "reload",
+    "unicode": "e6b2",
+    "unicode_decimal": 59058 },
+
+  {
+    "icon_id": "24923195",
+    "name": "mic_slash_fill",
+    "font_class": "micoff-filled",
+    "unicode": "e6b0",
+    "unicode_decimal": 59056 },
+
+  {
+    "icon_id": "24923165",
+    "name": "map-pin-ellipse",
+    "font_class": "map-pin-ellipse",
+    "unicode": "e6ac",
+    "unicode_decimal": 59052 },
+
+  {
+    "icon_id": "24923166",
+    "name": "map-pin",
+    "font_class": "map-pin",
+    "unicode": "e6ad",
+    "unicode_decimal": 59053 },
+
+  {
+    "icon_id": "24923167",
+    "name": "location",
+    "font_class": "location",
+    "unicode": "e6ae",
+    "unicode_decimal": 59054 },
+
+  {
+    "icon_id": "24923064",
+    "name": "starhalf",
+    "font_class": "starhalf",
+    "unicode": "e683",
+    "unicode_decimal": 59011 },
+
+  {
+    "icon_id": "24923065",
+    "name": "star",
+    "font_class": "star",
+    "unicode": "e688",
+    "unicode_decimal": 59016 },
+
+  {
+    "icon_id": "24923066",
+    "name": "star-filled",
+    "font_class": "star-filled",
+    "unicode": "e68f",
+    "unicode_decimal": 59023 },
+
+  {
+    "icon_id": "24899646",
+    "name": "a-rilidaka",
+    "font_class": "calendar",
+    "unicode": "e6a0",
+    "unicode_decimal": 59040 },
+
+  {
+    "icon_id": "24899647",
+    "name": "fire",
+    "font_class": "fire",
+    "unicode": "e6a1",
+    "unicode_decimal": 59041 },
+
+  {
+    "icon_id": "24899648",
+    "name": "paihangbang",
+    "font_class": "medal",
+    "unicode": "e6a2",
+    "unicode_decimal": 59042 },
+
+  {
+    "icon_id": "24899649",
+    "name": "font",
+    "font_class": "font",
+    "unicode": "e6a3",
+    "unicode_decimal": 59043 },
+
+  {
+    "icon_id": "24899650",
+    "name": "gift",
+    "font_class": "gift",
+    "unicode": "e6a4",
+    "unicode_decimal": 59044 },
+
+  {
+    "icon_id": "24899651",
+    "name": "link",
+    "font_class": "link",
+    "unicode": "e6a5",
+    "unicode_decimal": 59045 },
+
+  {
+    "icon_id": "24899652",
+    "name": "notification",
+    "font_class": "notification",
+    "unicode": "e6a6",
+    "unicode_decimal": 59046 },
+
+  {
+    "icon_id": "24899653",
+    "name": "staff",
+    "font_class": "staff",
+    "unicode": "e6a7",
+    "unicode_decimal": 59047 },
+
+  {
+    "icon_id": "24899654",
+    "name": "VIP",
+    "font_class": "vip",
+    "unicode": "e6a8",
+    "unicode_decimal": 59048 },
+
+  {
+    "icon_id": "24899655",
+    "name": "folder_add",
+    "font_class": "folder-add",
+    "unicode": "e6a9",
+    "unicode_decimal": 59049 },
+
+  {
+    "icon_id": "24899656",
+    "name": "tune",
+    "font_class": "tune",
+    "unicode": "e6aa",
+    "unicode_decimal": 59050 },
+
+  {
+    "icon_id": "24899657",
+    "name": "shimingrenzheng",
+    "font_class": "auth",
+    "unicode": "e6ab",
+    "unicode_decimal": 59051 },
+
+  {
+    "icon_id": "24899565",
+    "name": "person",
+    "font_class": "person",
+    "unicode": "e699",
+    "unicode_decimal": 59033 },
+
+  {
+    "icon_id": "24899566",
+    "name": "email-filled",
+    "font_class": "email-filled",
+    "unicode": "e69a",
+    "unicode_decimal": 59034 },
+
+  {
+    "icon_id": "24899567",
+    "name": "phone-filled",
+    "font_class": "phone-filled",
+    "unicode": "e69b",
+    "unicode_decimal": 59035 },
+
+  {
+    "icon_id": "24899568",
+    "name": "phone",
+    "font_class": "phone",
+    "unicode": "e69c",
+    "unicode_decimal": 59036 },
+
+  {
+    "icon_id": "24899570",
+    "name": "email",
+    "font_class": "email",
+    "unicode": "e69e",
+    "unicode_decimal": 59038 },
+
+  {
+    "icon_id": "24899571",
+    "name": "personadd",
+    "font_class": "personadd",
+    "unicode": "e69f",
+    "unicode_decimal": 59039 },
+
+  {
+    "icon_id": "24899558",
+    "name": "chatboxes-filled",
+    "font_class": "chatboxes-filled",
+    "unicode": "e692",
+    "unicode_decimal": 59026 },
+
+  {
+    "icon_id": "24899559",
+    "name": "contact",
+    "font_class": "contact",
+    "unicode": "e693",
+    "unicode_decimal": 59027 },
+
+  {
+    "icon_id": "24899560",
+    "name": "chatbubble-filled",
+    "font_class": "chatbubble-filled",
+    "unicode": "e694",
+    "unicode_decimal": 59028 },
+
+  {
+    "icon_id": "24899561",
+    "name": "contact-filled",
+    "font_class": "contact-filled",
+    "unicode": "e695",
+    "unicode_decimal": 59029 },
+
+  {
+    "icon_id": "24899562",
+    "name": "chatboxes",
+    "font_class": "chatboxes",
+    "unicode": "e696",
+    "unicode_decimal": 59030 },
+
+  {
+    "icon_id": "24899563",
+    "name": "chatbubble",
+    "font_class": "chatbubble",
+    "unicode": "e697",
+    "unicode_decimal": 59031 },
+
+  {
+    "icon_id": "24881290",
+    "name": "upload-filled",
+    "font_class": "upload-filled",
+    "unicode": "e68e",
+    "unicode_decimal": 59022 },
+
+  {
+    "icon_id": "24881292",
+    "name": "upload",
+    "font_class": "upload",
+    "unicode": "e690",
+    "unicode_decimal": 59024 },
+
+  {
+    "icon_id": "24881293",
+    "name": "weixin",
+    "font_class": "weixin",
+    "unicode": "e691",
+    "unicode_decimal": 59025 },
+
+  {
+    "icon_id": "24881274",
+    "name": "compose",
+    "font_class": "compose",
+    "unicode": "e67f",
+    "unicode_decimal": 59007 },
+
+  {
+    "icon_id": "24881275",
+    "name": "qq",
+    "font_class": "qq",
+    "unicode": "e680",
+    "unicode_decimal": 59008 },
+
+  {
+    "icon_id": "24881276",
+    "name": "download-filled",
+    "font_class": "download-filled",
+    "unicode": "e681",
+    "unicode_decimal": 59009 },
+
+  {
+    "icon_id": "24881277",
+    "name": "pengyouquan",
+    "font_class": "pyq",
+    "unicode": "e682",
+    "unicode_decimal": 59010 },
+
+  {
+    "icon_id": "24881279",
+    "name": "sound",
+    "font_class": "sound",
+    "unicode": "e684",
+    "unicode_decimal": 59012 },
+
+  {
+    "icon_id": "24881280",
+    "name": "trash-filled",
+    "font_class": "trash-filled",
+    "unicode": "e685",
+    "unicode_decimal": 59013 },
+
+  {
+    "icon_id": "24881281",
+    "name": "sound-filled",
+    "font_class": "sound-filled",
+    "unicode": "e686",
+    "unicode_decimal": 59014 },
+
+  {
+    "icon_id": "24881282",
+    "name": "trash",
+    "font_class": "trash",
+    "unicode": "e687",
+    "unicode_decimal": 59015 },
+
+  {
+    "icon_id": "24881284",
+    "name": "videocam-filled",
+    "font_class": "videocam-filled",
+    "unicode": "e689",
+    "unicode_decimal": 59017 },
+
+  {
+    "icon_id": "24881285",
+    "name": "spinner-cycle",
+    "font_class": "spinner-cycle",
+    "unicode": "e68a",
+    "unicode_decimal": 59018 },
+
+  {
+    "icon_id": "24881286",
+    "name": "weibo",
+    "font_class": "weibo",
+    "unicode": "e68b",
+    "unicode_decimal": 59019 },
+
+  {
+    "icon_id": "24881288",
+    "name": "videocam",
+    "font_class": "videocam",
+    "unicode": "e68c",
+    "unicode_decimal": 59020 },
+
+  {
+    "icon_id": "24881289",
+    "name": "download",
+    "font_class": "download",
+    "unicode": "e68d",
+    "unicode_decimal": 59021 },
+
+  {
+    "icon_id": "24879601",
+    "name": "help",
+    "font_class": "help",
+    "unicode": "e679",
+    "unicode_decimal": 59001 },
+
+  {
+    "icon_id": "24879602",
+    "name": "navigate-filled",
+    "font_class": "navigate-filled",
+    "unicode": "e67a",
+    "unicode_decimal": 59002 },
+
+  {
+    "icon_id": "24879603",
+    "name": "plusempty",
+    "font_class": "plusempty",
+    "unicode": "e67b",
+    "unicode_decimal": 59003 },
+
+  {
+    "icon_id": "24879604",
+    "name": "smallcircle",
+    "font_class": "smallcircle",
+    "unicode": "e67c",
+    "unicode_decimal": 59004 },
+
+  {
+    "icon_id": "24879605",
+    "name": "minus-filled",
+    "font_class": "minus-filled",
+    "unicode": "e67d",
+    "unicode_decimal": 59005 },
+
+  {
+    "icon_id": "24879606",
+    "name": "micoff",
+    "font_class": "micoff",
+    "unicode": "e67e",
+    "unicode_decimal": 59006 },
+
+  {
+    "icon_id": "24879588",
+    "name": "closeempty",
+    "font_class": "closeempty",
+    "unicode": "e66c",
+    "unicode_decimal": 58988 },
+
+  {
+    "icon_id": "24879589",
+    "name": "clear",
+    "font_class": "clear",
+    "unicode": "e66d",
+    "unicode_decimal": 58989 },
+
+  {
+    "icon_id": "24879590",
+    "name": "navigate",
+    "font_class": "navigate",
+    "unicode": "e66e",
+    "unicode_decimal": 58990 },
+
+  {
+    "icon_id": "24879591",
+    "name": "minus",
+    "font_class": "minus",
+    "unicode": "e66f",
+    "unicode_decimal": 58991 },
+
+  {
+    "icon_id": "24879592",
+    "name": "image",
+    "font_class": "image",
+    "unicode": "e670",
+    "unicode_decimal": 58992 },
+
+  {
+    "icon_id": "24879593",
+    "name": "mic",
+    "font_class": "mic",
+    "unicode": "e671",
+    "unicode_decimal": 58993 },
+
+  {
+    "icon_id": "24879594",
+    "name": "paperplane",
+    "font_class": "paperplane",
+    "unicode": "e672",
+    "unicode_decimal": 58994 },
+
+  {
+    "icon_id": "24879595",
+    "name": "close",
+    "font_class": "close",
+    "unicode": "e673",
+    "unicode_decimal": 58995 },
+
+  {
+    "icon_id": "24879596",
+    "name": "help-filled",
+    "font_class": "help-filled",
+    "unicode": "e674",
+    "unicode_decimal": 58996 },
+
+  {
+    "icon_id": "24879597",
+    "name": "plus-filled",
+    "font_class": "paperplane-filled",
+    "unicode": "e675",
+    "unicode_decimal": 58997 },
+
+  {
+    "icon_id": "24879598",
+    "name": "plus",
+    "font_class": "plus",
+    "unicode": "e676",
+    "unicode_decimal": 58998 },
+
+  {
+    "icon_id": "24879599",
+    "name": "mic-filled",
+    "font_class": "mic-filled",
+    "unicode": "e677",
+    "unicode_decimal": 58999 },
+
+  {
+    "icon_id": "24879600",
+    "name": "image-filled",
+    "font_class": "image-filled",
+    "unicode": "e678",
+    "unicode_decimal": 59000 },
+
+  {
+    "icon_id": "24855900",
+    "name": "locked-filled",
+    "font_class": "locked-filled",
+    "unicode": "e668",
+    "unicode_decimal": 58984 },
+
+  {
+    "icon_id": "24855901",
+    "name": "info",
+    "font_class": "info",
+    "unicode": "e669",
+    "unicode_decimal": 58985 },
+
+  {
+    "icon_id": "24855903",
+    "name": "locked",
+    "font_class": "locked",
+    "unicode": "e66b",
+    "unicode_decimal": 58987 },
+
+  {
+    "icon_id": "24855884",
+    "name": "camera-filled",
+    "font_class": "camera-filled",
+    "unicode": "e658",
+    "unicode_decimal": 58968 },
+
+  {
+    "icon_id": "24855885",
+    "name": "chat-filled",
+    "font_class": "chat-filled",
+    "unicode": "e659",
+    "unicode_decimal": 58969 },
+
+  {
+    "icon_id": "24855886",
+    "name": "camera",
+    "font_class": "camera",
+    "unicode": "e65a",
+    "unicode_decimal": 58970 },
+
+  {
+    "icon_id": "24855887",
+    "name": "circle",
+    "font_class": "circle",
+    "unicode": "e65b",
+    "unicode_decimal": 58971 },
+
+  {
+    "icon_id": "24855888",
+    "name": "checkmarkempty",
+    "font_class": "checkmarkempty",
+    "unicode": "e65c",
+    "unicode_decimal": 58972 },
+
+  {
+    "icon_id": "24855889",
+    "name": "chat",
+    "font_class": "chat",
+    "unicode": "e65d",
+    "unicode_decimal": 58973 },
+
+  {
+    "icon_id": "24855890",
+    "name": "circle-filled",
+    "font_class": "circle-filled",
+    "unicode": "e65e",
+    "unicode_decimal": 58974 },
+
+  {
+    "icon_id": "24855891",
+    "name": "flag",
+    "font_class": "flag",
+    "unicode": "e65f",
+    "unicode_decimal": 58975 },
+
+  {
+    "icon_id": "24855892",
+    "name": "flag-filled",
+    "font_class": "flag-filled",
+    "unicode": "e660",
+    "unicode_decimal": 58976 },
+
+  {
+    "icon_id": "24855893",
+    "name": "gear-filled",
+    "font_class": "gear-filled",
+    "unicode": "e661",
+    "unicode_decimal": 58977 },
+
+  {
+    "icon_id": "24855894",
+    "name": "home",
+    "font_class": "home",
+    "unicode": "e662",
+    "unicode_decimal": 58978 },
+
+  {
+    "icon_id": "24855895",
+    "name": "home-filled",
+    "font_class": "home-filled",
+    "unicode": "e663",
+    "unicode_decimal": 58979 },
+
+  {
+    "icon_id": "24855896",
+    "name": "gear",
+    "font_class": "gear",
+    "unicode": "e664",
+    "unicode_decimal": 58980 },
+
+  {
+    "icon_id": "24855897",
+    "name": "smallcircle-filled",
+    "font_class": "smallcircle-filled",
+    "unicode": "e665",
+    "unicode_decimal": 58981 },
+
+  {
+    "icon_id": "24855898",
+    "name": "map-filled",
+    "font_class": "map-filled",
+    "unicode": "e666",
+    "unicode_decimal": 58982 },
+
+  {
+    "icon_id": "24855899",
+    "name": "map",
+    "font_class": "map",
+    "unicode": "e667",
+    "unicode_decimal": 58983 },
+
+  {
+    "icon_id": "24855825",
+    "name": "refresh-filled",
+    "font_class": "refresh-filled",
+    "unicode": "e656",
+    "unicode_decimal": 58966 },
+
+  {
+    "icon_id": "24855826",
+    "name": "refresh",
+    "font_class": "refresh",
+    "unicode": "e657",
+    "unicode_decimal": 58967 },
+
+  {
+    "icon_id": "24855808",
+    "name": "cloud-upload",
+    "font_class": "cloud-upload",
+    "unicode": "e645",
+    "unicode_decimal": 58949 },
+
+  {
+    "icon_id": "24855809",
+    "name": "cloud-download-filled",
+    "font_class": "cloud-download-filled",
+    "unicode": "e646",
+    "unicode_decimal": 58950 },
+
+  {
+    "icon_id": "24855810",
+    "name": "cloud-download",
+    "font_class": "cloud-download",
+    "unicode": "e647",
+    "unicode_decimal": 58951 },
+
+  {
+    "icon_id": "24855811",
+    "name": "cloud-upload-filled",
+    "font_class": "cloud-upload-filled",
+    "unicode": "e648",
+    "unicode_decimal": 58952 },
+
+  {
+    "icon_id": "24855813",
+    "name": "redo",
+    "font_class": "redo",
+    "unicode": "e64a",
+    "unicode_decimal": 58954 },
+
+  {
+    "icon_id": "24855814",
+    "name": "images-filled",
+    "font_class": "images-filled",
+    "unicode": "e64b",
+    "unicode_decimal": 58955 },
+
+  {
+    "icon_id": "24855815",
+    "name": "undo-filled",
+    "font_class": "undo-filled",
+    "unicode": "e64c",
+    "unicode_decimal": 58956 },
+
+  {
+    "icon_id": "24855816",
+    "name": "more",
+    "font_class": "more",
+    "unicode": "e64d",
+    "unicode_decimal": 58957 },
+
+  {
+    "icon_id": "24855817",
+    "name": "more-filled",
+    "font_class": "more-filled",
+    "unicode": "e64e",
+    "unicode_decimal": 58958 },
+
+  {
+    "icon_id": "24855818",
+    "name": "undo",
+    "font_class": "undo",
+    "unicode": "e64f",
+    "unicode_decimal": 58959 },
+
+  {
+    "icon_id": "24855819",
+    "name": "images",
+    "font_class": "images",
+    "unicode": "e650",
+    "unicode_decimal": 58960 },
+
+  {
+    "icon_id": "24855821",
+    "name": "paperclip",
+    "font_class": "paperclip",
+    "unicode": "e652",
+    "unicode_decimal": 58962 },
+
+  {
+    "icon_id": "24855822",
+    "name": "settings",
+    "font_class": "settings",
+    "unicode": "e653",
+    "unicode_decimal": 58963 },
+
+  {
+    "icon_id": "24855823",
+    "name": "search",
+    "font_class": "search",
+    "unicode": "e654",
+    "unicode_decimal": 58964 },
+
+  {
+    "icon_id": "24855824",
+    "name": "redo-filled",
+    "font_class": "redo-filled",
+    "unicode": "e655",
+    "unicode_decimal": 58965 },
+
+  {
+    "icon_id": "24841702",
+    "name": "list",
+    "font_class": "list",
+    "unicode": "e644",
+    "unicode_decimal": 58948 },
+
+  {
+    "icon_id": "24841489",
+    "name": "mail-open-filled",
+    "font_class": "mail-open-filled",
+    "unicode": "e63a",
+    "unicode_decimal": 58938 },
+
+  {
+    "icon_id": "24841491",
+    "name": "hand-thumbsdown-filled",
+    "font_class": "hand-down-filled",
+    "unicode": "e63c",
+    "unicode_decimal": 58940 },
+
+  {
+    "icon_id": "24841492",
+    "name": "hand-thumbsdown",
+    "font_class": "hand-down",
+    "unicode": "e63d",
+    "unicode_decimal": 58941 },
+
+  {
+    "icon_id": "24841493",
+    "name": "hand-thumbsup-filled",
+    "font_class": "hand-up-filled",
+    "unicode": "e63e",
+    "unicode_decimal": 58942 },
+
+  {
+    "icon_id": "24841494",
+    "name": "hand-thumbsup",
+    "font_class": "hand-up",
+    "unicode": "e63f",
+    "unicode_decimal": 58943 },
+
+  {
+    "icon_id": "24841496",
+    "name": "heart-filled",
+    "font_class": "heart-filled",
+    "unicode": "e641",
+    "unicode_decimal": 58945 },
+
+  {
+    "icon_id": "24841498",
+    "name": "mail-open",
+    "font_class": "mail-open",
+    "unicode": "e643",
+    "unicode_decimal": 58947 },
+
+  {
+    "icon_id": "24841488",
+    "name": "heart",
+    "font_class": "heart",
+    "unicode": "e639",
+    "unicode_decimal": 58937 },
+
+  {
+    "icon_id": "24839963",
+    "name": "loop",
+    "font_class": "loop",
+    "unicode": "e633",
+    "unicode_decimal": 58931 },
+
+  {
+    "icon_id": "24839866",
+    "name": "pulldown",
+    "font_class": "pulldown",
+    "unicode": "e632",
+    "unicode_decimal": 58930 },
+
+  {
+    "icon_id": "24813798",
+    "name": "scan",
+    "font_class": "scan",
+    "unicode": "e62a",
+    "unicode_decimal": 58922 },
+
+  {
+    "icon_id": "24813786",
+    "name": "bars",
+    "font_class": "bars",
+    "unicode": "e627",
+    "unicode_decimal": 58919 },
+
+  {
+    "icon_id": "24813788",
+    "name": "cart-filled",
+    "font_class": "cart-filled",
+    "unicode": "e629",
+    "unicode_decimal": 58921 },
+
+  {
+    "icon_id": "24813790",
+    "name": "checkbox",
+    "font_class": "checkbox",
+    "unicode": "e62b",
+    "unicode_decimal": 58923 },
+
+  {
+    "icon_id": "24813791",
+    "name": "checkbox-filled",
+    "font_class": "checkbox-filled",
+    "unicode": "e62c",
+    "unicode_decimal": 58924 },
+
+  {
+    "icon_id": "24813794",
+    "name": "shop",
+    "font_class": "shop",
+    "unicode": "e62f",
+    "unicode_decimal": 58927 },
+
+  {
+    "icon_id": "24813795",
+    "name": "headphones",
+    "font_class": "headphones",
+    "unicode": "e630",
+    "unicode_decimal": 58928 },
+
+  {
+    "icon_id": "24813796",
+    "name": "cart",
+    "font_class": "cart",
+    "unicode": "e631",
+    "unicode_decimal": 58929 }] };exports.default = _default;
+
+/***/ }),
 /* 236 */,
 /* 237 */,
 /* 238 */,
@@ -33852,502 +34203,143 @@ webpackContext.id = 100;
 /* 254 */,
 /* 255 */,
 /* 256 */,
-/* 257 */,
-/* 258 */,
-/* 259 */
-/*!*********************************************************************!*\
-  !*** C:/Users/zheng/Documents/HBuilderProjects/game/rest/simple.js ***!
-  \*********************************************************************/
+/* 257 */
+/*!******************************************************************************************************************************!*\
+  !*** C:/Users/zheng/Documents/HBuilderProjects/game/uni_modules/uni-transition/components/uni-transition/createAnimation.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _types = __webpack_require__(/*! ./types.js */ 260);
-var api = _interopRequireWildcard(__webpack_require__(/*! ./config.js */ 261));
-var _storage = _interopRequireDefault(__webpack_require__(/*! @/utils/storage.js */ 30));
-var _toast = _interopRequireDefault(__webpack_require__(/*! @/utils/toast.js */ 31));
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));var _this = void 0;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _getRequireWildcardCache() {if (typeof WeakMap !== "function") return null;var cache = new WeakMap();_getRequireWildcardCache = function _getRequireWildcardCache() {return cache;};return cache;}function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;}if (obj === null || typeof obj !== "object" && typeof obj !== "function") {return { default: obj };}var cache = _getRequireWildcardCache();if (cache && cache.has(obj)) {return cache.get(obj);}var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) {var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {Object.defineProperty(newObj, key, desc);} else {newObj[key] = obj[key];}}}newObj.default = obj;if (cache) {cache.set(obj, newObj);}return newObj;}
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.createAnimation = createAnimation;function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;} // const defaultOption = {
+// 	duration: 300,
+// 	timingFunction: 'linear',
+// 	delay: 0,
+// 	transformOrigin: '50% 50% 0'
+// }
+var
 
-var accountFlag = true;
 
-var restResult = function restResult(type, url) {var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};var extra = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};var showTips = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
-  var user = _storage.default.getUser();
-  if (user.user_token) {
-    params.user_token = user.user_token;
-  }
-  return fetchResponse(type, url, params, extra, showTips);
-};
+MPAnimation = /*#__PURE__*/function () {
+  function MPAnimation(options, _this) {_classCallCheck(this, MPAnimation);
+    this.options = options;
+    this.animation = uni.createAnimation(options);
+    this.currentStepAnimates = {};
+    this.next = 0;
+    this.$ = _this;
 
-var fetchResponse = function fetchResponse(type, url, params, extra, showTips) {
-  var fullUrl = api.BASE_URL + url;
-  switch (type) {
-    case _types.GET_LIST:
-      return getRequest(type, fullUrl, params, showTips);
-    case _types.GET:
-      return getRequest(type, fullUrl, params, showTips);
-    case _types.POST:
-      return postRequest(type, fullUrl, params, showTips);
-    case _types.FILE:
-      fullUrl = api.QINIU_UPLOAD_URL;
-      return fileRequest(type, fullUrl, params, extra, showTips);
-    default:
-      throw new Error("unsupport type ".concat(type));}
+  }_createClass(MPAnimation, [{ key: "_nvuePushAnimates", value: function _nvuePushAnimates(
 
-};
+    type, args) {
+      var aniObj = this.currentStepAnimates[this.next];
+      var styles = {};
+      if (!aniObj) {
+        styles = {
+          styles: {},
+          config: {} };
 
-var getRequest = function getRequest(type, url, params, showTips) {
-  return new Promise(function (resolve, reject) {
-    uni.request({
-      url: url,
-      data: params,
-      method: "GET",
-      dataType: "json",
-      success: function success(response) {
-        formatResponse(response, type, resolve, reject, showTips);
-      },
-      fail: function fail(error) {
-        //fetchError(error);
-        reject(error);
-      } });
-
-  });
-};
-
-var postRequest = function postRequest(type, url, params, showTips) {
-  return new Promise(function (resolve, reject) {
-    uni.request({
-      url: url,
-      data: params,
-      header: {
-        "content-type": "application/x-www-form-urlencoded" },
-
-      method: "POST",
-      dataType: "json",
-      success: function success(response) {
-        formatResponse(response, type, resolve, reject, showTips);
-      },
-      fail: function fail(error) {
-        //fetchError(error);
-        reject(error);
-      } });
-
-  });
-};
-
-var fileRequest = function fileRequest(type, url, params, extra, showTips) {
-  return new Promise(function (resolve, reject) {
-    uni.uploadFile({
-      url: url,
-      formData: params,
-      filePath: extra.filePath,
-      name: extra.name,
-      header: {
-        "Content-Type": "multipart/form-data" },
-
-      success: function success(response) {
-        return formatResponse(response, type, resolve, reject, showTips);
-      },
-      fail: function fail(error) {
-        //fetchError(error);
-        reject(error);
-      } });
-
-  });
-};
-
-var formatResponse = function formatResponse(response, type, resolve, reject, showTips) {
-  if (response.statusCode) {var
-    data = response.data;
-    if (response.statusCode == 200) {
-      switch (type) {
-        case _types.GET_LIST:
-          resolve(data.result);
-        case _types.GET:
-          resolve(data.result);
-        case _types.POST:
-          resolve(data.result);
-        case _types.FILE:
-          data = typeof data === "string" ? JSON.parse(data) : data;
-          resolve(data.result);
-        default:
-          resolve(data);}
-
-    } else if (response.statusCode == 400) {
-      if (showTips) {
-        setTimeout(function () {
-          uni.hideLoading();
-          uni.showToast({
-            title: response.data.msg || '出错啦～',
-            icon: 'none' });
-
-        }, 600);
+      } else {
+        styles = aniObj;
       }
-
-      reject(data);
-    } else if (response.statusCode == 403005) {
-      if (accountFlag) {
-        uni.hideLoading();
-        accountFlag = false;
-        _this.$storage.clearUser();
-        uni.showToast({
-          title: response.data.msg || '出错啦～',
-          icon: 'none' });
-
+      if (animateTypes1.includes(type)) {
+        if (!styles.styles.transform) {
+          styles.styles.transform = '';
+        }
+        var unit = '';
+        if (type === 'rotate') {
+          unit = 'deg';
+        }
+        styles.styles.transform += "".concat(type, "(").concat(args + unit, ") ");
+      } else {
+        styles.styles[type] = "".concat(args);
       }
-      reject(data);
-    } else {
-      if (showTips) {
-        setTimeout(function () {
-          uni.hideLoading();
-          uni.showToast({
-            title: response.data.msg || '出错啦～',
-            icon: 'none' });
+      this.currentStepAnimates[this.next] = styles;
+    } }, { key: "_animateRun", value: function _animateRun()
+    {var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var ref = this.$.$refs['ani'].ref;
+      if (!ref) return;
+      return new Promise(function (resolve, reject) {
+        nvueAnimation.transition(ref, _objectSpread({
+          styles: styles },
+        config),
+        function (res) {
+          resolve();
+        });
+      });
+    } }, { key: "_nvueNextAnimate", value: function _nvueNextAnimate(
 
-        }, 600);
+    animates) {var _this2 = this;var step = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;var fn = arguments.length > 2 ? arguments[2] : undefined;
+      var obj = animates[step];
+      if (obj) {var
+
+        styles =
+
+        obj.styles,config = obj.config;
+        this._animateRun(styles, config).then(function () {
+          step += 1;
+          _this2._nvueNextAnimate(animates, step, fn);
+        });
+      } else {
+        this.currentStepAnimates = {};
+        typeof fn === 'function' && fn();
+        this.isEnd = true;
       }
-      reject(data);
-    }
-  } else {
-    reject('服务器出现错误');
-  }
-};var _default =
+    } }, { key: "step", value: function step()
 
-{
-  restResult: restResult };exports.default = _default;
+    {var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      this.animation.step(config);
+
+
+
+
+
+
+      return this;
+    } }, { key: "run", value: function run(
+
+    fn) {
+
+      this.$.animationData = this.animation.export();
+      this.$.timer = setTimeout(function () {
+        typeof fn === 'function' && fn();
+      }, this.$.durationTime);
+
+
+
+
+
+
+
+
+    } }]);return MPAnimation;}();
+
+
+
+var animateTypes1 = ['matrix', 'matrix3d', 'rotate', 'rotate3d', 'rotateX', 'rotateY', 'rotateZ', 'scale', 'scale3d',
+'scaleX', 'scaleY', 'scaleZ', 'skew', 'skewX', 'skewY', 'translate', 'translate3d', 'translateX', 'translateY',
+'translateZ'];
+
+var animateTypes2 = ['opacity', 'backgroundColor'];
+var animateTypes3 = ['width', 'height', 'left', 'right', 'top', 'bottom'];
+animateTypes1.concat(animateTypes2, animateTypes3).forEach(function (type) {
+  MPAnimation.prototype[type] = function () {var _this$animation;
+
+    (_this$animation = this.animation)[type].apply(_this$animation, arguments);
+
+
+
+
+    return this;
+  };
+});
+
+function createAnimation(option, _this) {
+  if (!_this) return;
+  clearTimeout(_this.timer);
+  return new MPAnimation(option, _this);
+}
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-/* 260 */
-/*!********************************************************************!*\
-  !*** C:/Users/zheng/Documents/HBuilderProjects/game/rest/types.js ***!
-  \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.FILE = exports.POST = exports.GET = exports.GET_LIST = void 0;var GET_LIST = 'GET_LIST';exports.GET_LIST = GET_LIST;
-var GET = 'GET';exports.GET = GET;
-var POST = 'POST';exports.POST = POST;
-var FILE = 'FILE';exports.FILE = FILE;
-
-/***/ }),
-/* 261 */
-/*!*********************************************************************!*\
-  !*** C:/Users/zheng/Documents/HBuilderProjects/game/rest/config.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.SET_USER_LOCATION = exports.GET_MIN_SETTING = exports.GET_GAME_INFO = exports.AUDIT_IMAGE_RESULT = exports.AUDIT_CONTENT_RESULT = exports.REFUND_BILL = exports.ADD_REFUND_BILL = exports.REFUND_BILL_LIST = exports.UPDATE_PROPRIETARY_INFOMATION = exports.PROPRIETARY_INFOMATION_LIST = exports.PRIZE = exports.PRIZE_LIST = exports.PAY_GAME_PRODUCT = exports.ADD_GAME_PRODUCT = exports.GAME_PRODUCT = exports.GAME_PRODUCT_LIST = exports.VERIFY_GAME_HELP = exports.ADD_GAME_HELP = exports.ADD_EXCHANGE_GAME_PRIZE = exports.EXCHANGE_GAME_PRIZE = exports.EXCHANGE_GAME_PRIZE_LIST = exports.ADD_GAME_PRIZE_VERIFY = exports.UPDATE_GAME_PRIZE = exports.DELETE_GAME_PRIZE = exports.ADD_GAME_PRIZE = exports.GAME_PRIZE_LIST = exports.STATISTICS_GAME_LIST = exports.STATISTICS_ALL_GAME = exports.STATISTICS_WIN_GAME = exports.STATISTICS_GAME = exports.STATISTICS_ALL_GAME_LIST = exports.UPDATE_GAME_SETTING = exports.ADD_GAME_SETTING = exports.GAME_SETTING = exports.UPDATE_GAME_REGION = exports.UPDATE_GAME_PRIZE_METHOD = exports.UPDATE_GAME_RESULT = exports.GAME_WIN_RESULT = exports.GAME_RECENT_SETTING = exports.GAME_RECENT_SETTING_LIST = exports.GAME = exports.GAME_LSIT = exports.PROGRESS_GAME_LIST = exports.CREATE_GAME_PHONE = exports.CLOSE_GAME = exports.ADD_GAME = exports.DELETE_GAME_CONTACT = exports.UPDATE_GAME_CONTACT = exports.ADD_GAME_CONTACT = exports.GAME_CONTACT = exports.GAME_CONTACT_LIST = exports.GAME_BACKGROUND = exports.GAME_BACKGROUND_LIST = exports.GAME_BACKGROUNDS = exports.GAME_AWARD = exports.GAME_RULE = exports.GAME_RULE_LIST = exports.EXCHANGE_GAME = exports.DELETE_GAME_RULE = exports.GAME_KING_OF_KINGS_RANK_SCORE = exports.GAME_KING_OF_KINGS_Prize_LIST = exports.GAME_KING_OF_KINGS_LIST = exports.USER_HELP_RECORD = exports.USER_HELP_RECORD_LSIT = exports.ADD_USER_GAME_RECORD = exports.USER_GAME_RECORD = exports.USER_GAME_RECORD_LIST = exports.USER_GAME = exports.ADD_USER_GAME = exports.SET_TOP_ADVERT = exports.COPY_ADVERT = exports.BATCH_DELETE_ADVERT = exports.UPDATE_ADVERT = exports.ADD_ADVERT = exports.ADVERT_LIST = exports.ORDER = exports.ORDER_LIST = exports.DELETE_USER_CONTACT = exports.UPDATE_USER_CONTACT = exports.ADD_USER_CONTACT = exports.USER_CONTACT_LIST = exports.UPDATE_USER_PHONE = exports.UPDATE_USER_PASSWORD = exports.UPDATE_USER_AVATAR = exports.UPDATE_USER_INFO = exports.USER_INFO = exports.FIEL_UPLOAD = exports.UPLOAD_TOKEN = exports.LOGOUT = exports.LOGIN = exports.WECHAT_MINI_OPEN_ID = exports.CHECK_VERIFY = exports.CHECK_MAIL_VERIFY = exports.SMS_VERIFY_CODE = exports.SMS_BIND_USER_VERIFY_CODE = exports.GAME_AREA = exports.AREA_LIST = exports.QIU_DOMAIN_URL = exports.QINIU_UPLOAD_URL = exports.BASE_URL = void 0;exports.GET_MINI_QRCODE = exports.KING_OF_KING_PRIZE = exports.SHARE_QRCODE = exports.PRIZE_GAME_LIST = exports.GET_GAME_PRIZE_SETTING = exports.GAME_ADVERT = void 0; // 基础地址
-// export const BASE_URL = 'https://bobing.roi-cloud.com';
-// 测试
-var BASE_URL = 'https://bbtest.roi-cloud.com';exports.BASE_URL = BASE_URL;
-
-var QINIU_UPLOAD_URL = 'https://up.qiniup.com';exports.QINIU_UPLOAD_URL = QINIU_UPLOAD_URL;
-
-var QIU_DOMAIN_URL = 'https://static.roi-cloud.com';
-
-// 地址
-exports.QIU_DOMAIN_URL = QIU_DOMAIN_URL;
-var AREA_LIST = '/Api/Common/Area/getArea';exports.AREA_LIST = AREA_LIST;
-
-var GAME_AREA = '/Api/Common/Game/Game/getGameArea';
-
-
-// commmon 发送验证码
-exports.GAME_AREA = GAME_AREA;
-var SMS_BIND_USER_VERIFY_CODE = '/Api/Common/VerifyCode/smsBindUserVerifyCode';exports.SMS_BIND_USER_VERIFY_CODE = SMS_BIND_USER_VERIFY_CODE;
-
-var SMS_VERIFY_CODE = '/Api/Common/VerifyCode/smsVerifyCode';
-
-// 登录注册
-exports.SMS_VERIFY_CODE = SMS_VERIFY_CODE;
-var CHECK_MAIL_VERIFY = '/Api/user/auth/checkMailVerify';exports.CHECK_MAIL_VERIFY = CHECK_MAIL_VERIFY;
-
-var CHECK_VERIFY = '/Api/user/auth/checkVerify';exports.CHECK_VERIFY = CHECK_VERIFY;
-
-var WECHAT_MINI_OPEN_ID = '/Api/User/Auth/getWechatMiniOpenId';exports.WECHAT_MINI_OPEN_ID = WECHAT_MINI_OPEN_ID;
-
-var LOGIN = '/Api/User/Auth/loginByWechatMiniCode';exports.LOGIN = LOGIN;
-
-var LOGOUT = '/Api/user/auth/logout';
-
-
-// 文件上传
-exports.LOGOUT = LOGOUT;
-var UPLOAD_TOKEN = '/Api/User/FileUpload/getAppUploadToken';exports.UPLOAD_TOKEN = UPLOAD_TOKEN;
-
-var FIEL_UPLOAD = '/Api/User/FileUpload/upload';
-
-// 用户信息
-exports.FIEL_UPLOAD = FIEL_UPLOAD;var USER_INFO = '/Api/User/User/UserInfo/getInfo';exports.USER_INFO = USER_INFO;
-
-var UPDATE_USER_INFO = '/Api/User/User/UserInfo/updateAccount';exports.UPDATE_USER_INFO = UPDATE_USER_INFO;
-
-var UPDATE_USER_AVATAR = '/Api/User/User/UserInfo/updateAvatar';exports.UPDATE_USER_AVATAR = UPDATE_USER_AVATAR;
-
-var UPDATE_USER_PASSWORD = '/Api/User/User/UserInfo/updatePassword';exports.UPDATE_USER_PASSWORD = UPDATE_USER_PASSWORD;
-
-var UPDATE_USER_PHONE = '/Api/User/User/UserInfo/updatePhone';
-
-// 用户联系方式
-exports.UPDATE_USER_PHONE = UPDATE_USER_PHONE;var USER_CONTACT_LIST = '/Api/User/User/UserContactWay/getList';exports.USER_CONTACT_LIST = USER_CONTACT_LIST;
-
-var ADD_USER_CONTACT = '/Api/User/User/UserContactWay/add';exports.ADD_USER_CONTACT = ADD_USER_CONTACT;
-
-var UPDATE_USER_CONTACT = '/Api/User/User/UserContactWay/update';exports.UPDATE_USER_CONTACT = UPDATE_USER_CONTACT;
-
-var DELETE_USER_CONTACT = '/Api/User/User/UserContactWay/delete';
-
-// 付费订单
-exports.DELETE_USER_CONTACT = DELETE_USER_CONTACT;
-var ORDER_LIST = '/Api/User/Game/GamePayOrder/getList';exports.ORDER_LIST = ORDER_LIST;
-
-var ORDER = '/Api/User/Game/GamePayOrder/getOne';
-
-// 自定义广告
-exports.ORDER = ORDER;
-var ADVERT_LIST = '/Api/User/Game/Advert/GameAdvert/getList';exports.ADVERT_LIST = ADVERT_LIST;
-
-var ADD_ADVERT = '/Api/User/Game/Advert/GameAdvert/add';exports.ADD_ADVERT = ADD_ADVERT;
-
-var UPDATE_ADVERT = '/Api/User/Game/Advert/GameAdvert/update';exports.UPDATE_ADVERT = UPDATE_ADVERT;
-
-var BATCH_DELETE_ADVERT = '/Api/User/Game/Advert/GameAdvert/batchDelete';exports.BATCH_DELETE_ADVERT = BATCH_DELETE_ADVERT;
-
-var COPY_ADVERT = '/Api/User/Game/Advert/GameAdvert/copy';exports.COPY_ADVERT = COPY_ADVERT;
-
-var SET_TOP_ADVERT = '/Api/User/Game/Advert/GameAdvert/updateTop';
-
-// 游戏数据
-exports.SET_TOP_ADVERT = SET_TOP_ADVERT;
-var ADD_USER_GAME = '/Api/User/User/UserPlayGame/add';exports.ADD_USER_GAME = ADD_USER_GAME;
-
-var USER_GAME = '/Api/User/User/UserPlayGame/getOne';
-
-// 游戏记录
-exports.USER_GAME = USER_GAME;
-var USER_GAME_RECORD_LIST = '/Api/User/User/UserPlayGameRecord/getList';exports.USER_GAME_RECORD_LIST = USER_GAME_RECORD_LIST;
-
-var USER_GAME_RECORD = '/Api/User/User/UserPlayGameRecord/getOne';exports.USER_GAME_RECORD = USER_GAME_RECORD;
-
-var ADD_USER_GAME_RECORD = '/Api/User/User/UserPlayGameRecord/add';
-
-// 用户主力记录
-exports.ADD_USER_GAME_RECORD = ADD_USER_GAME_RECORD;
-var USER_HELP_RECORD_LSIT = '/Api/User/User/UserHelpRecord/getList';exports.USER_HELP_RECORD_LSIT = USER_HELP_RECORD_LSIT;
-
-var USER_HELP_RECORD = '/Api/User/User/UserHelpRecord/getOne';
-
-// 王中王排行榜
-exports.USER_HELP_RECORD = USER_HELP_RECORD;
-var GAME_KING_OF_KINGS_LIST = '/Api/Common/Game/Game/getKingOfKingsPointsList';exports.GAME_KING_OF_KINGS_LIST = GAME_KING_OF_KINGS_LIST;
-var GAME_KING_OF_KINGS_Prize_LIST = '/Api/Common/Game/Game/getKingOfKingsPrizeList';exports.GAME_KING_OF_KINGS_Prize_LIST = GAME_KING_OF_KINGS_Prize_LIST;
-
-var GAME_KING_OF_KINGS_RANK_SCORE = '/Api/User/Game/KingOfKings/KingOfKings/getRankScore';
-
-// 游戏规则
-exports.GAME_KING_OF_KINGS_RANK_SCORE = GAME_KING_OF_KINGS_RANK_SCORE;
-var DELETE_GAME_RULE = '/Api/User/Game/Rule/Rule/delete';exports.DELETE_GAME_RULE = DELETE_GAME_RULE;
-
-var EXCHANGE_GAME = '/Api/User/Game/Points/Points/getExchange';exports.EXCHANGE_GAME = EXCHANGE_GAME;
-
-var GAME_RULE_LIST = '/Api/User/Game/Rule/Rule/getList';exports.GAME_RULE_LIST = GAME_RULE_LIST;
-
-var GAME_RULE = '/Api/User/Game/Rule/Rule/getOne';exports.GAME_RULE = GAME_RULE;
-
-var GAME_AWARD = '/Api/User/Game/Points/Points/getWin';
-
-// 游戏背景图片
-exports.GAME_AWARD = GAME_AWARD;
-var GAME_BACKGROUNDS = '/Api/User/Game/GameBackground/getAll';exports.GAME_BACKGROUNDS = GAME_BACKGROUNDS;
-
-var GAME_BACKGROUND_LIST = '/Api/User/Game/GameBackground/getList';exports.GAME_BACKGROUND_LIST = GAME_BACKGROUND_LIST;
-
-var GAME_BACKGROUND = '/Api/User/Game/GameBackground/getOne';
-
-// 游戏联系方式设置
-exports.GAME_BACKGROUND = GAME_BACKGROUND;
-var GAME_CONTACT_LIST = '/Api/User/Game/Contact/ContactWay/getList';exports.GAME_CONTACT_LIST = GAME_CONTACT_LIST;
-
-var GAME_CONTACT = '/Api/User/Game/Contact/ContactWay/getOne';exports.GAME_CONTACT = GAME_CONTACT;
-
-var ADD_GAME_CONTACT = '/Api/User/Game/Contact/ContactWay/add';exports.ADD_GAME_CONTACT = ADD_GAME_CONTACT;
-
-var UPDATE_GAME_CONTACT = '/Api/User/Game/Contact/ContactWay/update';exports.UPDATE_GAME_CONTACT = UPDATE_GAME_CONTACT;
-
-var DELETE_GAME_CONTACT = '/Api/User/Game/Contact/ContactWay/delete';
-
-// 游戏管理
-exports.DELETE_GAME_CONTACT = DELETE_GAME_CONTACT;
-var ADD_GAME = '/Api/User/Game/Operate/Game/add';exports.ADD_GAME = ADD_GAME;
-
-var CLOSE_GAME = '/Api/User/Game/Operate/Game/close';exports.CLOSE_GAME = CLOSE_GAME;
-
-var CREATE_GAME_PHONE = '/Api/User/Game/Operate/Game/createGameSetPhone';exports.CREATE_GAME_PHONE = CREATE_GAME_PHONE;
-
-var PROGRESS_GAME_LIST = '/Api/User/Game/Operate/Game/getGameInProgressList';exports.PROGRESS_GAME_LIST = PROGRESS_GAME_LIST;
-
-var GAME_LSIT = '/Api/User/Game/Operate/Game/getList';exports.GAME_LSIT = GAME_LSIT;
-
-var GAME = '/Api/User/Game/Operate/Game/getOne';exports.GAME = GAME;
-
-var GAME_RECENT_SETTING_LIST = '/Api/User/Game/Operate/Game/getRecentGameList';exports.GAME_RECENT_SETTING_LIST = GAME_RECENT_SETTING_LIST;
-
-var GAME_RECENT_SETTING = '/Api/User/Game/Operate/Game/getRecentGamePrizeSetting';exports.GAME_RECENT_SETTING = GAME_RECENT_SETTING;
-
-var GAME_WIN_RESULT = '/Api/User/Game/Operate/Game/getWinResult';exports.GAME_WIN_RESULT = GAME_WIN_RESULT;
-
-var UPDATE_GAME_RESULT = '/Api/User/Game/Operate/Game/update';exports.UPDATE_GAME_RESULT = UPDATE_GAME_RESULT;
-
-var UPDATE_GAME_PRIZE_METHOD = '/Api/User/Game/Operate/Game/updatePrizeMethod';exports.UPDATE_GAME_PRIZE_METHOD = UPDATE_GAME_PRIZE_METHOD;
-
-var UPDATE_GAME_REGION = '/Api/User/Game/Operate/Game/updateRegion';
-
-// 游戏概率
-exports.UPDATE_GAME_REGION = UPDATE_GAME_REGION;
-var GAME_SETTING = '/Api/User/Game/Operate/GameSetting/getOne';exports.GAME_SETTING = GAME_SETTING;
-
-var ADD_GAME_SETTING = '/Api/User/Game/Operate/GameSetting/add';exports.ADD_GAME_SETTING = ADD_GAME_SETTING;
-
-var UPDATE_GAME_SETTING = '/Api/User/Game/Operate/GameSetting/update';
-
-// 游戏统计
-exports.UPDATE_GAME_SETTING = UPDATE_GAME_SETTING;
-var STATISTICS_ALL_GAME_LIST = '/Api/User/Statistics/Game/allGameList';exports.STATISTICS_ALL_GAME_LIST = STATISTICS_ALL_GAME_LIST;
-
-var STATISTICS_GAME = '/Api/User/Statistics/Game/countMyGame';exports.STATISTICS_GAME = STATISTICS_GAME;
-
-var STATISTICS_WIN_GAME = '/Api/User/Statistics/Game/countWinGame';exports.STATISTICS_WIN_GAME = STATISTICS_WIN_GAME;
-
-var STATISTICS_ALL_GAME = '/Api/User/Statistics/Game/countAllGame';exports.STATISTICS_ALL_GAME = STATISTICS_ALL_GAME;
-
-var STATISTICS_GAME_LIST = '/Api/User/Statistics/Game/myGameList';
-
-// 游戏奖品
-exports.STATISTICS_GAME_LIST = STATISTICS_GAME_LIST;
-var GAME_PRIZE_LIST = '/Api/User/Game/Prize/Setting/getList';exports.GAME_PRIZE_LIST = GAME_PRIZE_LIST;
-
-var ADD_GAME_PRIZE = '/Api/User/Game/Prize/Setting/add';exports.ADD_GAME_PRIZE = ADD_GAME_PRIZE;
-
-var DELETE_GAME_PRIZE = '/Api/User/Game/Prize/Setting/delete';exports.DELETE_GAME_PRIZE = DELETE_GAME_PRIZE;
-
-var UPDATE_GAME_PRIZE = '/Api/User/Game/Prize/Setting/update';
-
-// 游戏奖品核销
-exports.UPDATE_GAME_PRIZE = UPDATE_GAME_PRIZE;
-var ADD_GAME_PRIZE_VERIFY = '/Api/User/Game/Prize/Verify/add';
-
-// 游戏奖品兑换
-exports.ADD_GAME_PRIZE_VERIFY = ADD_GAME_PRIZE_VERIFY;
-var EXCHANGE_GAME_PRIZE_LIST = '/Api/User/Game/Prize/Exchange/getList';exports.EXCHANGE_GAME_PRIZE_LIST = EXCHANGE_GAME_PRIZE_LIST;
-
-var EXCHANGE_GAME_PRIZE = '/Api/User/Game/Prize/Exchange/getOne';exports.EXCHANGE_GAME_PRIZE = EXCHANGE_GAME_PRIZE;
-
-var ADD_EXCHANGE_GAME_PRIZE = '/Api/User/Game/Prize/Exchange/add';
-
-// 游戏助力
-exports.ADD_EXCHANGE_GAME_PRIZE = ADD_EXCHANGE_GAME_PRIZE;
-var ADD_GAME_HELP = '/Api/User/Game/Help/Help/add';
-
-// export const VERIFY_GAME_HELP = '/Api/User/Game/Help/Help/verify'
-exports.ADD_GAME_HELP = ADD_GAME_HELP;var VERIFY_GAME_HELP = '/Api/Common/Game/Game/verify';
-
-// 游戏付费产品查询
-exports.VERIFY_GAME_HELP = VERIFY_GAME_HELP;
-var GAME_PRODUCT_LIST = '/Api/User/Product/PaidProduct/getList';exports.GAME_PRODUCT_LIST = GAME_PRODUCT_LIST;
-
-var GAME_PRODUCT = '/Api/User/Product/PaidProduct/getOne';exports.GAME_PRODUCT = GAME_PRODUCT;
-
-var ADD_GAME_PRODUCT = '/Api/User/Product/PaidProduct/add';exports.ADD_GAME_PRODUCT = ADD_GAME_PRODUCT;
-
-var PAY_GAME_PRODUCT = '/Api/User/Product/PaidProduct/pay';
-
-// 奖品管理
-exports.PAY_GAME_PRODUCT = PAY_GAME_PRODUCT;
-var PRIZE_LIST = '/Api/User/User/UserPrize/getList';exports.PRIZE_LIST = PRIZE_LIST;
-
-var PRIZE = '/Api/User/User/UserPrize/getOne';
-
-// 商户专有信息设置
-exports.PRIZE = PRIZE;
-var PROPRIETARY_INFOMATION_LIST = '/Api/User/User/proprietaryInformation/getList';exports.PROPRIETARY_INFOMATION_LIST = PROPRIETARY_INFOMATION_LIST;
-
-var UPDATE_PROPRIETARY_INFOMATION = '/Api/User/User/proprietaryInformation/update';
-
-// 退款申请
-exports.UPDATE_PROPRIETARY_INFOMATION = UPDATE_PROPRIETARY_INFOMATION;
-var REFUND_BILL_LIST = '/Api/User/Bill/RefundBill/getList';exports.REFUND_BILL_LIST = REFUND_BILL_LIST;
-
-var ADD_REFUND_BILL = '/Api/User/Bill/RefundBill/add';exports.ADD_REFUND_BILL = ADD_REFUND_BILL;
-
-var REFUND_BILL = '/Api/User/Bill/RefundBill/getOne';
-
-// 阿里云内容审计
-exports.REFUND_BILL = REFUND_BILL;
-var AUDIT_CONTENT_RESULT = '/Api/User/Game/Audit/Audit/getContentResult';exports.AUDIT_CONTENT_RESULT = AUDIT_CONTENT_RESULT;
-
-var AUDIT_IMAGE_RESULT = '/Api/User/Game/Audit/Audit/getImageResult';
-
-// 获取游戏信息
-exports.AUDIT_IMAGE_RESULT = AUDIT_IMAGE_RESULT;
-var GET_GAME_INFO = '/Api/Common/Game/Game/getOne';exports.GET_GAME_INFO = GET_GAME_INFO;
-var GET_MIN_SETTING = '/Api/Common/SystemConfig/getMiniSetting';
-
-// 获取用户地址
-exports.GET_MIN_SETTING = GET_MIN_SETTING;var SET_USER_LOCATION = '/Api/User/User/UserInfo/setMap';
-
-
-// 广告
-exports.SET_USER_LOCATION = SET_USER_LOCATION;var GAME_ADVERT = '/Api/Common/Game/Game/getAdvert';exports.GAME_ADVERT = GAME_ADVERT;
-var GET_GAME_PRIZE_SETTING = '/Api/User/Game/Operate/Game/getGamePrizeSetting';
-
-// 中奖
-exports.GET_GAME_PRIZE_SETTING = GET_GAME_PRIZE_SETTING;
-var PRIZE_GAME_LIST = '/Api/User/User/UserPrize/getPrizeGameList';exports.PRIZE_GAME_LIST = PRIZE_GAME_LIST;
-
-var SHARE_QRCODE = '/Api/User/Game/Operate/Game/shareQrCode';exports.SHARE_QRCODE = SHARE_QRCODE;
-
-var KING_OF_KING_PRIZE = '/Api/User/Game/KingOfKings/KingOfKingsUserPrize/getOne';exports.KING_OF_KING_PRIZE = KING_OF_KING_PRIZE;
-
-var GET_MINI_QRCODE = '/Api/User/Game/Operate/Game/getGameMiniQrcode';exports.GET_MINI_QRCODE = GET_MINI_QRCODE;
-
-/***/ }),
-/* 262 */,
-/* 263 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/zheng/Documents/HBuilderProjects/game/node_modules/umtrack-wx/lib/index.js ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var e = "[UMENG] -- ",t = function () {var t = null,n = !1;function i() {this.setDebug = function (e) {n = e;};this.d = function () {if (n) try {"string" == typeof arguments[0] && (arguments[0] = e + arguments[0]);console.debug.apply(console, arguments);} catch (e) {}};this.i = function () {try {if (n) try {"string" == typeof arguments[0] && (arguments[0] = e + arguments[0]);console.info.apply(console, arguments);} catch (e) {}} catch (e) {}};this.e = function () {if (n) try {"string" == typeof arguments[0] && (arguments[0] = e + arguments[0]);console.error.apply(console, arguments);} catch (e) {}};this.w = function () {if (n) try {"string" == typeof arguments[0] && (arguments[0] = e + arguments[0]);console.warn.apply(console, arguments);} catch (e) {}};this.v = function () {if (n) try {"string" == typeof arguments[0] && (arguments[0] = e + arguments[0]);console.log.apply(console, arguments);} catch (e) {}};this.t = function () {if (n) try {console.table.apply(console, arguments);} catch (e) {}};this.tip = function () {try {"string" == typeof arguments[0] && (arguments[0] = e + arguments[0]);console.log.apply(console, arguments);} catch (e) {}};this.tip_w = function (e) {try {console.log("%c [UMENG] -- " + e, "background:red; padding: 4px; padding-right: 8px; border-radius: 4px; color: #fff;");} catch (e) {}};this.err = function () {try {"string" == typeof arguments[0] && (arguments[0] = e + arguments[0]);console.error.apply(console, arguments);} catch (e) {}};this.repeat = function (e) {for (var t = e; t.length < 86;) {t += e;}return t;};}return function () {null === t && (t = new i());return t;};}(),n = function () {var e = null;function t() {var e = {};this.useOpenid = function () {return !!e.useOpenid;};this.useSwanid = function () {return !!e.useSwanid;};this.autoGetOpenid = function () {return !!e.autoGetOpenid;};this.appKey = function () {return e.appKey;};this.uploadUserInfo = function () {return e.uploadUserInfo;};this.enableVerify = function () {return e.enableVerify;};this.set = function (t) {e = t;};this.get = function () {return e;};this.setItem = function (t, n) {e[t] = n;};this.getItem = function (t) {return e[t];};}return function () {e || (e = new t());return e;};}();function i() {}i.prototype = { on: function on(e, t, n) {var i = this.e || (this.e = {});(i[e] || (i[e] = [])).push({ fn: t, ctx: n });return this;}, once: function once(e, t, n) {var i = this;function r() {i.off(e, r);t.apply(n, arguments);}r._ = t;return this.on(e, r, n);}, emit: function emit(e) {for (var t = [].slice.call(arguments, 1), n = ((this.e || (this.e = {}))[e] || []).slice(), i = 0, r = n.length; i < r; i++) {n[i].fn.apply(n[i].ctx, t);}return this;}, off: function off(e, t) {var n = this.e || (this.e = {}),i = n[e],r = [];if (i && t) for (var o = 0, s = i.length; o < s; o++) {i[o].fn !== t && i[o].fn._ !== t && r.push(i[o]);}r.length ? n[e] = r : delete n[e];return this;} };var r = new i();r.messageType = { CONFIG_LOADED: 0, UMA_LIB_INITED: 1 };var o = new (function () {function e() {}e.prototype.setStorage = function (e, t, n) {wx.setStorage({ key: e, data: t, success: function success() {"function" == typeof n && n(!0);}, fail: function fail() {"function" == typeof n && n(!1);} });};e.prototype.getStorage = function (e, n) {wx.getStorage({ key: e, success: function success(e) {"function" == typeof n && n(e.data);}, fail: function fail(i) {t().w(e + ": " + i.errMsg);"function" == typeof n && n();} });};e.prototype.removeStorage = function (e, t) {wx.removeStorage({ key: e, success: function success() {"function" == typeof t && t(!0);}, fail: function fail() {"function" == typeof t && t(!1);} });};e.prototype.getSystemInfo = function (e) {wx.getSystemInfo({ success: function success(t) {t.safeArea = t.safeArea || {};var n = "";t.host && "string" == typeof t.host.env && (n = t.host.env);var i = { model: t.model, brand: t.brand, pixelRatio: t.pixelRatio, screenWidth: t.screenWidth, screenHeight: t.screenHeight, fontSizeSetting: t.fontSizeSetting, platform: t.platform, platformVersion: t.version, platformSDKVersion: t.SDKVersion, language: t.language, deviceName: t.model, OSVersion: t.system, resolution: "", theme: t.theme, benchmarkLevel: t.benchmarkLevel, safeArea: { width: t.safeArea.width, height: t.safeArea.height, top: t.safeArea.top, left: t.safeArea.left, bottom: t.safeArea.bottom, right: t.safeArea.right }, statusBarHeight: t.statusBarHeight, host: n },r = t.system.split(" ");Array.isArray(r) && (i.OS = r[0]);var o = Math.round(t.screenWidth * t.pixelRatio),s = Math.round(t.screenHeight * t.pixelRatio);i.resolution = o > s ? o + "*" + s : s + "*" + o;"function" == typeof e && e(i);}, fail: function fail() {"function" == typeof e && e();} });};e.prototype.getDeviceInfo = function (e) {"function" == typeof e && e("");};e.prototype.checkNetworkAvailable = function (e) {wx.getNetworkType({ success: function success(t) {"function" == typeof e && e(t && "none" !== t.networkType);}, fail: function fail() {"function" == typeof e && e(!1);} });};e.prototype.getNetworkInfo = function (e) {wx.getNetworkType({ success: function success(t) {"function" == typeof e && e({ networkAvailable: "none" !== t.networkType, networkType: t.networkType });}, fail: function fail() {"function" == typeof e && e();} });};e.prototype.getDeviceId = function (e) {e("");};e.prototype.getAdvertisingId = function (e) {"function" == typeof e && e("");};e.prototype.onNetworkStatusChange = function (e) {wx.onNetworkStatusChange(function (t) {"function" == typeof e && e(t.isConnected);});};e.prototype.request = function (e) {var t = e.success,n = e.fail,i = !1,r = null;e.success = function (e) {if (!i) {r && clearTimeout(r);"function" == typeof t && t(e);}};e.fail = function () {if (!i) {r && clearTimeout(r);"function" == typeof n && n(!1);}};wx.request(e);r = setTimeout(function () {r && clearTimeout(r);i = !0;"function" == typeof n && n(i);}, e.timeout || 5e3);};e.prototype.getSdkType = function () {return "wxmp";};e.prototype.getPlatform = function () {return "wx";};e.prototype.getUserInfo = function (e) {e();};e.prototype.getAppInfoSync = function () {if (wx.getAccountInfoSync) {var e = wx.getAccountInfoSync(),t = e && e.miniProgram ? e.miniProgram : {};return { appId: t.appId, appEnv: t.envVersion, appVersion: t.version };}return {};};e.prototype.onShareAppMessage = function (e) {wx.onShareAppMessage(e);};e.prototype.shareAppMessage = function (e) {wx.shareAppMessage(e);};e.prototype.getLaunchOptionsSync = function () {var e = null;if (e) return e;if (!wx.getLaunchOptionsSync) return {};try {e = wx.getLaunchOptionsSync();} catch (t) {e = null;}return e || {};};return e;}())(),_s = function s(e, t) {return (_s = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (e, t) {e.__proto__ = t;} || function (e, t) {for (var n in t) {t.hasOwnProperty(n) && (e[n] = t[n]);}})(e, t);};function a(e, t) {_s(e, t);function n() {this.constructor = e;}e.prototype = null === t ? Object.create(t) : (n.prototype = t.prototype, new n());}var u = { SESSION_INTERVAL: 3e4, LOG_URL: "/wxm_logs", GET_OPENID_URL: "/uminiprogram_logs/wx/getuut", USERINFO_URL: "/uminiprogram_logs/comm/uif", ENDPOINT: "https://umini.shujupie.com", ENDPOINTB: "https://ulogs.umeng.com", DEVICE_INFO_KEY: "device_info", ADVERTISING_ID: "mobile_ad_id", ANDROID_ID: "android_id", CURRENT_SESSION: "current_session", SESSION_PAUSE_TIME: "session_pause_time", EVENT_SEND_DEFAULT_INTERVAL: 15e3, EVENT_LAST_SEND_TIME: "last_send_time", MAX_EVENTID_LENGTH: 128, MAX_PROPERTY_KEY_LENGTH: 256, MAX_PROPERTY_KEYS_COUNT: 100, REPORT_POLICY: "report_policy", REPORT_INTERVAL_TIME: "report_interval_time", REPORT_POLICY_START_SEND: "1", REPORT_POLICY_INTERVAL: "6", IMPRINT: "imprint", SEED_VERSION: "1.0.0", IMPL_VERSION: "2.7.1", ALIPAY_AVAILABLE_VERSION: "10.1.52", SHARE_PATH: "um_share_path", SHARES: "shares", REQUESTS: "requests", UUID: "um_uuid", UUID_SUFFIX: "ud", OPENID: "um_od", UNIONID: "um_unid", ALIPAYID: "um_alipayid", USERID: "um_userid", PROVIDER: "um_provider", SWANID: "um_swanid", ANONYMOUSID: "um_anonymousid", LAUNCH_OPTIONS: "LAUNCH_OPTIONS", UM_SSRC: "_um_ssrc", USER_INFO: "user_info", IS_ALIYUN: !1 };var c,f = { isNumber: function isNumber(e) {return !Number.isNaN(parseInt(e, 10));}, compareVersion: function compareVersion(e, t) {for (var n = String(e).split("."), i = String(t).split("."), r = 0; r < Math.max(n.length, i.length); r++) {var o = parseInt(n[r] || 0, 10),s = parseInt(i[r] || 0, 10);if (o > s) return 1;if (o < s) return -1;}return 0;}, getRandomStr: function getRandomStr(e) {for (var t = "", n = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"], i = 0; i < Number(e); i++) {t += n[Math.round(Math.random() * (n.length - 1))];}return t;}, clone: function clone(e) {return JSON.parse(JSON.stringify(e));}, startsWith: function startsWith(e, t) {return !(!e || !t || 0 === t.length || t.length > e.length) && e.substr(0, t.length) === t;}, endsWith: function endsWith(e, t) {return !(!t || 0 === e.length || t.length > e.length) && e.substring(e.length - t.length) === t;}, assign: function assign(e) {if (null == e) throw new TypeError("Cannot convert undefined or null to object");for (var t = Object(e), n = 1; n < arguments.length; n++) {var i = arguments[n];if (i) for (var r in i) {Object.prototype.hasOwnProperty.call(i, r) && (t[r] = i[r]);}}return t;}, deepEqual: function e(t, n) {if (t === n) return !0;if (t && "object" == typeof t && n && "object" == typeof n) {if (Object.keys(t).length !== Object.keys(n).length) return !1;for (var i in t) {if (Object.prototype.hasOwnProperty.call(n, i)) return !1;if (!e(t[i], n[i])) return !1;}return !0;}return !1;}, trimStart: function trimStart(e, t) {if (!e) return "";if ("string" == typeof t && t.length) {var n = new RegExp("^" + t + "*");e = e.replace(n, "");} else e = e.replace(/^s*/, "");return e;}, trimEnd: function trimEnd(e, t) {if (!e) return "";var n, i;if ("string" == typeof t && t.length) {n = new RegExp(t);i = e.length;for (; n.test(e.charAt(i));) {i -= 1;}return e.slice(0, i + 1);}n = /s/;i = e.length - 1;for (; n.test(e.charAt(i));) {i -= 1;}return e.slice(0, i + 1);}, isFunction: function isFunction(e) {return "function" == typeof e;} },p = function (e) {a(n, e);function n() {return null !== e && e.apply(this, arguments) || this;}n.prototype.getOpenIdAsync = function (e, n) {var i = this;wx.login({ success: function success(r) {r.code ? o.request({ url: u.ENDPOINT + u.GET_OPENID_URL, method: "GET", data: { key: e, code: r.code }, success: function success(e) {if (e && 200 === e.statusCode && e.data && e.data.data) {var t = e.data.data;i.setOpenid(t.oid);i.setUnionid(t.uid);return n && n(!0);}n && n();}, fail: function fail(e) {t().v("wx request failed...", e);n && n();} }) : n && n();}, fail: function fail() {n && n();} });};return n;}(function (e) {a(n, e);function n() {var t = null !== e && e.apply(this, arguments) || this;t._openid = "";t._unionid = "";t._useOpenid = !1;return t;}n.prototype.initID = function (e) {var n = this;n._idType = n._useOpenid ? "openid" : "uuid";t().v("id type: ", n._idType);o.getStorage(u.UNIONID, function (e) {n._unionid = e;});this._useOpenid ? o.getStorage(u.OPENID, function (t) {n._openid = t;e && e();}) : e && e();};n.prototype.setUseOpenid = function (e) {this._useOpenid = e;};n.prototype.setOpenid = function (e) {if (!this._openid && e) {this._openid = e;o.setStorage(u.OPENID, e);}};n.prototype.setUnionid = function (e) {if (!this._unionid && e) {this._unionid = e;o.setStorage(u.UNIONID, e);}};n.prototype.getIdTracking = function () {var t = e.prototype.getIdTracking.call(this);this._openid && (t.openid = this._openid);this._unionid && (t.unionid = this._unionid);this._userid && (t.userid = this._userid);return t;};n.prototype.getId = function () {return this._useOpenid ? this._openid : this._uuid;};return n;}(function () {function e() {this._uuid = "";this._userid = "";this._provider = "";this._idType = "";}e.prototype.createUUID = function () {return f.getRandomStr(10) + Date.now() + f.getRandomStr(7) + u.UUID_SUFFIX;};e.prototype.initUUID = function (e) {var t = this;o.getStorage(u.UUID, function (n) {if (n) t._uuid = n;else {t._uuid = t.createUUID();o.setStorage(u.UUID, t._uuid);}e && e(n);});};e.prototype.initUserid = function () {var e = this;o.getStorage(u.USERID, function (n) {if (!e._userid && n) {e._userid = n;t().v("userId is ", n);}});o.getStorage(u.PROVIDER, function (n) {if (!e._provider && n) {e._provider = n;t().v("provider is ", n);}});};e.prototype.init = function (e) {var t = this;t.initUUID(function () {t.initUserid();t.initID(e);});};e.prototype.setUserid = function (e, t) {if (!this._userid && e) {this._userid = e;this._provider = t;o.setStorage(u.USERID, e);o.setStorage(u.PROVIDER, t);}};e.prototype.getUserId = function () {return this._userid;};e.prototype.getProvider = function () {return this._provider;};e.prototype.getIdType = function () {return this._idType;};e.prototype.getIdTracking = function () {var e = {};this._uuid && (e.uuid = this._uuid);this._userid && (e.userid = this._userid);return e;};return e;}())),l = (c = null, function () {c || (c = new p());return c;}),h = function () {var e = null;function t() {var e = !1,t = null,n = [];this.addPageStart = function (n) {if (n && !e) {t = { ts: Date.now(), path: n, page_name: n };e = !0;}};this.addPageEnd = function (i) {if (e && i && t && i === t.page_name) {var r = Date.now() - t.ts;t.duration = Math.abs(r);n.push(t);t = null;e = !1;}};this.get = function () {return n;};this.getCurrentPage = function () {return t;};this.clear = function () {n.length = 0;};}return function () {e || (e = new t());return e;};}(),d = {};var g = function () {var e = null,n = [],i = "";function r() {return { add: function add(e, r) {t().v("share origin: %o", e);var o = { title: e && e.title, path: e && e.path && e.path.split("?")[0], _um_sts: Date.now() };o.path && o.path.length > 1 && f.startsWith(o.path, "/") && (o.path = f.trimStart(o.path, "/"));var s = e.path || "",a = l().getId();if (a) {var u = i.split(","),c = (u = u.filter(function (e) {return e.length > 0;})).indexOf(a);c >= 0 && (u = u.slice(0, c));u.length < 3 && u.push(a);var p = u.join(",");-1 !== s.indexOf("?") ? s += "&_um_ssrc=" + p : s += "?_um_ssrc=" + p;var h = Date.now();s += "&_um_sts=" + h;if (r) {var g = function (e) {var t = [];for (var n in e) {"_um_ssrc" !== n && "_um_sts" !== n && t.push(n + "=" + e[n]);}return t.join("&");}(d),v = g ? g + "&_um_ssrc=" + p + "&_um_sts=" + h : "_um_ssrc=" + p + "&_um_sts=" + h;e.query = e.query ? e.query + "&_um_ssrc=" + p + "&_um_sts=" + h : v;} else e.path = s;o._um_ssrc = p;o._um_sts = h;}n.push(o);t().v("share: %o", e);return e;}, setShareSource: function setShareSource(e) {i = e;}, clear: function clear() {n.length = 0;}, get: function get() {return n;} };}return function () {e || (e = new r());return e;};}(),v = function v(e) {if (e) try {return JSON.stringify(e);} catch (e) {}return "";},_ = function _(e) {if (e) try {return JSON.parse(e);} catch (e) {}return null;},y = function () {var e = null,t = "",i = null,r = !1;function s() {this.load = function (e) {if (i) {o.removeStorage(t);e();} else {t = "um_cache_" + n().appKey();o.getStorage(t, function (n) {i = _(n) || {};r = !0;o.removeStorage(t);e();});}};this.save = function () {i && o.setStorage(t, v(i));};this.set = function (e, t) {i && (i[e] = t);};this.get = function (e) {return (i || {})[e];};this.remove = function (e) {i && i[e] && delete i[e];};this.getAll = function () {return i;};this.clear = function () {i = null;};this.has = function (e) {return !!this.get(e);};this.isLoaded = function () {return r;};}return function () {e || (e = new s());return e;};}(),m = function () {var e,n,i = [],r = [];function o() {if (i.length) {var e = y().get("ekvs");if (function (e) {var t = 0;for (var n in e) {Array.isArray(e[n]) && (t += e[n].length);}return t;}(e) + i.length <= 1e4) {e = s(e, i);y().set("ekvs", e);}}}function s(e, t) {var i = (e = e || {})[n];Array.isArray(i) && i.length ? e[n] = i.concat(t) : e[n] = [].concat(t);return e;}return function () {e || (e = { addEvent: function addEvent(e) {if (n) {i.unshift(e);if (i.length > 1) {o();i.length = 0;}} else {t().w("session id is null: ", n);r.unshift(e);}}, setSessionId: function setSessionId(e) {n = e;t().v("setSessionId: ", n);if (Array.isArray(r) && r.length && n) {for (var i = 0; i < r.length; i++) {this.addEvent(r[i]);}r.length = 0;}}, getEkvs: function getEkvs() {var e = y().get("ekvs");i && i.length && (e = s(e, i));return e;}, clear: function clear() {y().remove("ekvs");i.length = 0;} });return e;};}(),S = "2g",I = "3g",A = "4g",O = "half_session",E = "close_session",N = "ekv",T = ["access", "access_subtype"],w = function () {var e = null;function t() {var e = !1,t = {};function i(e) {var i = y().get(u.IMPRINT);i && (t.imprint = i);t.device_type = "Phone";t.sdk_version = u.IMPL_VERSION;t.appkey = n().appKey();o.getDeviceInfo(function (e) {t.device_info = e || "";});var r = o.getAppInfoSync();t.appid = r.appId;t.app_env = r.appEnv;t.app_version = r.appVersion;o.getSystemInfo(function (n) {o.getNetworkInfo(function (i) {var r = function (e, t) {var n = {};(e = e || {}).safeArea = e.safeArea || {};var i = (t = t || {}).networkType;"none" === i && (i = "unknown");var r = e.model || "",s = e.platform || "",a = e.brand || "",u = a.toLowerCase();n.sdk_type = o.getSdkType();n.platform = o.getPlatform();n.platform_sdk_version = e.platformSDKVersion;n.platform_version = e.platformVersion;n.resolution = e.resolution;n.pixel_ratio = e.pixelRatio;n.os = s;n.font_size_setting = e.fontSizeSetting;n.device_model = r;n.device_brand = a;n.device_manufacturer = u;n.device_manuid = r;n.device_name = r;n.os_version = e.OSVersion;n.language = e.language;n.theme = e.theme;n.benchmark_level = e.benchmarkLevel;n.status_bar_height = e.statusBarHeight;n.safe_area_top = e.safeArea.top;n.safe_area_left = e.safeArea.left;n.safe_area_right = e.safeArea.right;n.safe_area_bottom = e.safeArea.bottom;n.safe_area_height = e.safeArea.height;n.safe_area_width = e.safeArea.width;n.storage = e.storage;n.screen_width = e.screenWidth;n.screen_height = e.screenHeight;n.host = e.host;switch (i = i ? i.toLowerCase() : "") {case A:n.access_subtype = "LTE";n.access = "4G";break;case I:n.access_subtype = "CDMA";n.access = "3G";break;case S:n.access_subtype = "GRPS";n.access = "2G";break;default:n.access = i;delete n.access_subtype;}return n;}(n, i);f.assign(t, r);e && e();});});}return { init: function init() {i(function () {e = !0;});}, isLoaded: function isLoaded() {return e;}, get: function get() {return t;}, getRealtimeFields: function getRealtimeFields() {var e = {};T.forEach(function (n) {e[n] = t[n];});return e;}, setIdTracking: function setIdTracking(e) {this.setItem("id_tracking", e);}, setIdType: function setIdType(e) {this.setItem("id_type", e);}, setAppVersion: function setAppVersion(e) {this.setItem("app_version", e);}, setSuperProperty: function setSuperProperty(e) {t.sp || (t.sp = {});t.sp.isv = e;}, getSuperProperty: function getSuperProperty() {return t && t.sp ? t.sp.isv : "";}, setItem: function setItem(e, n) {t[e] = n;}, getItem: function getItem(e) {return t[e];} };}return { instance: function instance() {e || (e = t());return e;} };}(),k = function () {var e = null,n = null,i = null;function r() {return { resume: function resume(e) {var r = !1;i || (i = y().get(u.CURRENT_SESSION));var s = new Date();n = s.getTime();if (!i || !i.end_time || n - i.end_time > u.SESSION_INTERVAL) {r = !0;!function (e) {try {var n = (i || {}).options || {},r = f.assign({}, function (e) {var n = {};for (var i in e) {0 === i.indexOf("_um_") && (n[i] = e[i]);}t().v("query: ", e);t().v("_um_params: ", n);return n;}(e.query));r.path = e.path || n.path;r.scene = e.scene ? o.getPlatform() + "_" + e.scene : n.scene;var s = e.referrerInfo;s && (r.referrerAppId = s.appId);t().v("session options: ", r);var a = r[u.UM_SSRC];a && g().setShareSource(a);var c = Date.now();i = { id: f.getRandomStr(10) + c, start_time: c, options: r };} catch (e) {t().e("生成新session失败: ", e);}}(e);t().v("开始新的session(%s): ", i.id, i);} else t().v("延续上一次session(%s): %s ", i.id, s.toLocaleTimeString(), i);return r;}, pause: function pause() {!function () {if (i) {var e = new Date();i.end_time = e.getTime();"number" != typeof i.duration && (i.duration = 0);i.duration = i.end_time - n;y().set(u.CURRENT_SESSION, i);t().v("退出会话(%s): %s ", i.id, e.toLocaleTimeString(), i);}}();}, getCurrentSessionId: function getCurrentSessionId() {return (i || {}).id;}, getCurrentSession: function getCurrentSession() {return i;}, cloneCurrentSession: function cloneCurrentSession() {return f.clone(i);} };}return function () {e || (e = r());return e;};}();function b(e) {var t = null;switch (e) {case O:t = function () {var e = null,t = k().cloneCurrentSession();t && (e = { header: { st: "1" }, analytics: { sessions: [t] } });return e;}();break;case E:t = function () {var e = null,t = {},n = k().cloneCurrentSession();if (n) {var i = h().get(),r = g().get();Array.isArray(i) && i.length && (n.pages = f.clone(i));Array.isArray(r) && r.length && (n.shares = f.clone(r));h().clear();g().clear();t.sessions = [n];}var o = m().getEkvs();if (o) {t.ekvs = f.clone(o);m().clear();}(t.sessions || t.ekvs) && (e = { analytics: t });return e;}();break;case N:t = function () {var e = null,t = m().getEkvs();if (t) {e = { analytics: { ekvs: f.clone(t) } };m().clear();}return e;}();}return t;}var D = { sessions: "sn", ekvs: "e", active_user: "active_user" },U = { sdk_type: "sdt", access: "ac", access_subtype: "acs", device_model: "dm", language: "lang", device_type: "dt", device_manufacturer: "dmf", device_name: "dn", platform_version: "pv", id_type: "it", font_size_setting: "fss", os_version: "ov", device_manuid: "did", platform_sdk_version: "psv", device_brand: "db", appkey: "ak", _id: "id", id_tracking: "itr", imprint: "imp", sdk_version: "sv", resolution: "rl", testToken: "ttn", theme: "t5", benchmark_level: "bml", screen_width: "sw", screen_height: "sh", status_bar_height: "sbh", safe_area_top: "sat", safe_area_left: "sal", safe_area_right: "sar", safe_area_bottom: "sab", safe_area_height: "sah", safe_area_width: "saw", pixel_ratio: "pr", storage: "s7", host: "hs" },P = { uuid: "ud", unionid: "und", openid: "od", anonymousid: "nd", alipay_id: "ad", device_id: "dd", userid: "puid" };function R(e, t) {var n = C(e, t);e && e.id_tracking && (n[t.id_tracking || "id_tracking"] = C(e.id_tracking, P));return n;}function C(e, t) {var n = {};for (var i in e) {t[i] ? n[t[i]] = e[i] : n[i] = e[i];}return n;}function L(e, t) {var n = {};if (e) for (var i in e) {e[i] && (n[t[i]] = e[i]);}return n;}var M = "";function x() {return M;}var V = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",j = function (e) {for (var t = {}, n = 0, i = e.length; n < i; n++) {t[e.charAt(n)] = n;}return t;}(V),F = String.fromCharCode,G = function G(e) {if (e.length < 2) {return (t = e.charCodeAt(0)) < 128 ? e : t < 2048 ? F(192 | t >>> 6) + F(128 | 63 & t) : F(224 | t >>> 12 & 15) + F(128 | t >>> 6 & 63) + F(128 | 63 & t);}var t = 65536 + 1024 * (e.charCodeAt(0) - 55296) + (e.charCodeAt(1) - 56320);return F(240 | t >>> 18 & 7) + F(128 | t >>> 12 & 63) + F(128 | t >>> 6 & 63) + F(128 | 63 & t);},q = /[\uD800-\uDBFF][\uDC00-\uDFFFF]|[^\x00-\x7F]/g,K = function K(e) {var t = [0, 2, 1][e.length % 3],n = e.charCodeAt(0) << 16 | (e.length > 1 ? e.charCodeAt(1) : 0) << 8 | (e.length > 2 ? e.charCodeAt(2) : 0);return [V.charAt(n >>> 18), V.charAt(n >>> 12 & 63), t >= 2 ? "=" : V.charAt(n >>> 6 & 63), t >= 1 ? "=" : V.charAt(63 & n)].join("");},H = function H(e) {return function (e) {return e.replace(q, G);}(e).replace(/[\s\S]{1,3}/g, K);},Y = new RegExp(["[À-ß][-¿]", "[à-ï][-¿]{2}", "[ð-÷][-¿]{3}"].join("|"), "g"),J = function J(e) {switch (e.length) {case 4:var t = ((7 & e.charCodeAt(0)) << 18 | (63 & e.charCodeAt(1)) << 12 | (63 & e.charCodeAt(2)) << 6 | 63 & e.charCodeAt(3)) - 65536;return F(55296 + (t >>> 10)) + F(56320 + (1023 & t));case 3:return F((15 & e.charCodeAt(0)) << 12 | (63 & e.charCodeAt(1)) << 6 | 63 & e.charCodeAt(2));default:return F((31 & e.charCodeAt(0)) << 6 | 63 & e.charCodeAt(1));}},B = function B(e) {var t = e.length,n = t % 4,i = (t > 0 ? j[e.charAt(0)] << 18 : 0) | (t > 1 ? j[e.charAt(1)] << 12 : 0) | (t > 2 ? j[e.charAt(2)] << 6 : 0) | (t > 3 ? j[e.charAt(3)] : 0),r = [F(i >>> 16), F(i >>> 8 & 255), F(255 & i)];r.length -= [0, 0, 2, 1][n];return r.join("");},X = function X(e) {return function (e) {return e.replace(/[\s\S]{1,4}/g, B);}(e).replace(Y, J);},W = function W(e, t) {return t ? H(String(e)).replace(/[+\/]/g, function (e) {return "+" == e ? "-" : "_";}).replace(/=/g, "") : H(String(e));},z = function z(e) {return X(String(e).replace(/[-_]/g, function (e) {return "-" == e ? "+" : "/";}).replace(/[^A-Za-z0-9\+\/]/g, ""));};var Q = new function () {var e = "",t = this;this.set = function (t) {e = t;};this.get = function () {return e;};this.getImpObj = function () {return _(z(e));};this.getItem = function (e) {var n = t.getImpObj();return n && n[e] || "";};this.load = function () {e = y().get(u.IMPRINT);};this.save = function () {e && y().set(u.IMPRINT, e);};}();function Z(e, n, i, r) {w.instance().setIdType(l().getIdType());w.instance().setIdTracking(l().getIdTracking());var s = l().getUserId();s && e.analytics && (e.analytics.active_user = { puid: s, provider: l().getProvider() });var a = f.clone(w.instance().get());e.header = f.assign(a, e.header, { ts: Date.now(), testToken: x(), traceId: f.getRandomStr(10) + Date.now() + f.getRandomStr(9) });var c,p = function (e) {return { h: R(e.header, U), a: L(e.analytics, D) };}(e),h = v(p),d = { url: u.ENDPOINT + u.LOG_URL, method: "POST", data: W(h), success: function success(r) {var o = r.code || r.status || r.statusCode;if (200 === o || 413 === o) {t().i("数据发送成功: ", e, h);!function (e) {if (e) {w.instance().setItem(u.IMPRINT, e);Q.set(e);Q.save();t().v("imprint: ", Q.getImpObj());Q.getItem("ttn_invalid") && (M = "");}}((r.data || {}).imprint);"function" == typeof n && n(r);} else {t().w("数据发送失败: ", h);"function" == typeof i && i();}}, fail: function fail(e) {t().w("超时: ", h);"function" == typeof i && i();}, complete: function complete() {"function" == typeof r && r();} };o.request(f.assign(d, { header: { "Content-Type": c = o.getSdkType() + "/json", "Msg-Type": c } }));}function $(e) {var t = e,n = [];this.enqueue = function (e) {"number" == typeof t && this.size() >= t && this.dequeue();n.push(e);};this.dequeue = function () {return n.shift();};this.front = function () {return n[0];};this.isEmpty = function () {return 0 === n.length;};this.clear = function () {n.length = 0;};this.size = function () {return n.length;};this.items = function () {return n;};this.print = function () {console.log(n.toString());};}var ee = function () {var e = null,n = !1,i = [],r = new $(50);function o(e, t, n) {if (w.instance().isLoaded()) {t = t || {};var i = b(e);if (i) {var s = w.instance().getRealtimeFields();i.header = f.assign({}, i.header, s);i.noCache = t.noCache;r.enqueue(i);}"function" == typeof n && n();} else setTimeout(function () {o(e, t, n);}, 100);}function s(e) {var t = r.front();if (t) Z(t, function () {r.dequeue();s(e);}, function () {var t = r.dequeue();t && !t.noCache && i.push(t);s(e);});else {!function () {i.forEach(function (e) {r.enqueue(e);});i.length = 0;}();e();}}function a(e) {if (l().getId()) {if (n) t().i("队列正在发送中");else {n = !0;s(function () {n = !1;"function" == typeof e && e();});}} else {t().i("获取id标识失败，暂缓发送");"function" == typeof e && e();}}function c() {this.send = function (e, t, n) {e ? this.add(e, t, function () {a(n);}) : a(n);};this.add = function (e, t, n) {o(e, t, n);};this.load = function () {var e = y().get(u.REQUESTS);e && e.length && e.forEach(function (e) {r.enqueue(e);});y().remove(u.REQUESTS);};this.save = function () {y().set(u.REQUESTS, f.clone(r.items()));r.clear();};}return function () {e || (e = new c());return e;};}(),te = function () {var e = null,i = null;function r() {this.setUserInfo = function (e) {i = e;};this.update = function () {e(i) || o.getUserInfo(function (t) {e(t);});};function e(e) {if (e && "object" == typeof e) {var i = y().get(u.USER_INFO);i && f.deepEqual(e, i) || function (e, i) {var r = n().appKey(),s = o.getSdkType(),a = l().getId(),c = l().getIdType();if (!(r && s && a && c)) return;var f = { ak: n().appKey(), sdt: o.getSdkType(), uin: e.nickName, uia: e.avatar || e.avatarUrl, uig: e.gender, uit: e.country, uip: e.province, uic: e.city, uil: e.language, id: l().getId(), it: l().getIdType(), age: e.age, cln: e.constellation },p = JSON.stringify(f);p = W(p);o.request({ url: u.ENDPOINT + u.USERINFO_URL, method: "POST", header: { "content-type": "application/x-www-form-urlencoded" }, data: "ui=" + p, success: function success(n) {t().v("用户信息上传成功: ", e);i && i(n && n.data && 200 === n.data.code);}, fail: function fail() {t().e("用户信息上传失败: ", e);i && i(!1);} });}(e, function (t) {t && y().set(u.USER_INFO, e);});return !0;}return !1;}}return function () {e || (e = new r());return e;};}();function ne(e, t) {this.id = e;this.ts = Date.now();var n = typeof t;if ("string" === n && t) this[e] = t;else if ("object" === n) for (var i in t) {({}).hasOwnProperty.call(t, i) && (this[i] = t[i]);}}function ie() {var e = !1,i = !1,r = 0;this.init = function (i) {t().v("sdk version: " + u.IMPL_VERSION);e ? t().v("Lib重复实例化") : y().load(function () {t().v("cache初始化成功: ", y().getAll());!function () {l().setUseOpenid && l().setUseOpenid(n().useOpenid());l().init(function () {w.instance().init();t().v("Header初始化成功");});}();e = !0;"function" == typeof i && i();t().tip("SDK集成成功");});};this.resume = function (r) {if (e && !i) {t().v("showOptions: ", r);var o;i = !0;n().enableVerify() && r && r.query && (o = r.query._ttn, M = o || M);this._resume(r);}};this._resume = function (e) {ee().load();var i = k().resume(e),r = k().getCurrentSessionId();m().setSessionId(r);i && ee().add(O, {}, function () {l().setUseOpenid && l().setUseOpenid(n().useOpenid());if (n().useOpenid() && n().autoGetOpenid() && !l().getId()) {t().v("get id async");o(10, 3e3);} else {t().v("session auto send");ee().send();}});function o(e, i) {l().getId() || e <= 0 || l().getOpenIdAsync(n().appKey(), function (n) {if (n) {t().v("获取id成功");ee().send();} else {t().v("获取openid失败,启动重试,剩余可用次数", e - 1);setTimeout(function () {o(e - 1, i);}, i);}});}};this.pause = function (o) {if (e) {i = !1;r = 0;k().pause();n().uploadUserInfo() && te().update();ee().send(E, {}, function () {ee().save();y().save();t().v("cache save success");"function" == typeof o && o();});}};this.setOpenid = function (e) {t().v("setOpenId: %s", e);l().setOpenid(e);ee().send();};this.setUnionid = function (e) {t().v("setUnionid: %s", e);l().setUnionid(e);};this.setUserid = function (e, n) {t().v("setUserid: %s", e, n);l().setUserid(e, n);};this.setUserInfo = function (e) {t().v("setUserInfo: %s", e);te().setUserInfo(e);};this.setAnonymousid = function (e) {t().v("setAnonymousId: %s", e);l().setAnonymousid(e);ee().send();};this.setAppVersion = function (e) {e && "string" != typeof e ? t().w("setAppVersion方法只接受字符串类型参数") : w.instance().setAppVersion(e);};this.setAlipayUserid = function (e) {if (e && "string" != typeof e) t().w("setAlipayUserid方法只接受字符串类型参数");else {t().v("setAlipayUserid: %s", e);l().setAlipayUserid(e);}};this.setDeviceId = function (e) {if ("string" == typeof e) {l().setDeviceId(e);return e;}};this.setSuperProperty = function (e) {if (e && "string" != typeof e) t().w("超级属性只支持字符串类型");else {var n = this;if (w.instance().getSuperProperty() !== e) {w.instance().setSuperProperty(e);n.pause(function () {n.resume();});}}};this.trackEvent = function (n, i) {if (e) {t().v("event: ", n, i);if (function (e, n) {if (!e || "string" != typeof e) {t().e('please check trackEvent id. id should be "string" and not null');return !1;}var i = ["id", "ts", "du"],r = {};i.forEach(function (e) {r[e] = 1;});if (r[e]) {t().e("eventId不能与以下保留字冲突: " + i.join(","));return !1;}if (e.length > u.MAX_EVENTID_LENGTH) {t().e("The maximum length of event id shall not exceed " + u.MAX_EVENTID_LENGTH);return !1;}if (n && ("object" != typeof n || Array.isArray(n)) && "string" != typeof n) {t().e("please check trackEvent properties. properties should be string or object(not include Array)");return !1;}if ("object" == typeof n) {var o = 0;for (var s in n) {if ({}.hasOwnProperty.call(n, s)) {if (s.length > u.MAX_PROPERTY_KEY_LENGTH) {t().e("The maximum length of property key shall not exceed " + u.MAX_PROPERTY_KEY_LENGTH);return !1;}if (o >= u.MAX_PROPERTY_KEYS_COUNT) {t().e("The maximum count of properties shall not exceed " + u.MAX_PROPERTY_KEYS_COUNT);return !1;}if (r[s]) {t().e("属性中的key不能与以下保留字冲突: " + i.join(","));return !1;}o += 1;}}}return !0;}(n, i)) {var o = new ne(n, i);m().addEvent(o);var s = !!x(),a = s ? 0 : u.EVENT_SEND_DEFAULT_INTERVAL,c = Date.now();if (function (e, t) {return "number" != typeof r || "number" != typeof t || r <= 0 || e - r > t;}(c, a)) {r = c;ee().send(N, { noCache: s }, function () {});}}}};this.trackShare = function (n) {if (e) try {if (o.getSdkType().indexOf("game") > -1) {n = g().add(n, !0);t().v("shareQuery: ", n);} else {n = g().add(n, !1);t().v("sharePath: ", n.path);}} catch (e) {t().v("shareAppMessage: ", e);}return n;};this.trackPageStart = function (t) {e && h().addPageStart(t);};this.trackPageEnd = function (t) {e && h().addPageEnd(t);};this.onShareAppMessage = function (e) {var t = this;o.onShareAppMessage(function () {return t.trackShare(e());});};this.shareAppMessage = function (e) {this.trackShare(e);o.shareAppMessage(e);};}var re = [];function oe() {}oe.prototype = { createMethod: function createMethod(e, n, i) {try {e[n] = i && i[n] ? function () {return i[n].apply(i, arguments);} : function () {re.push([n, [].slice.call(arguments)]);};} catch (e) {t().v("create method errror: ", e);}}, installApi: function installApi(e, n) {try {var i,r,o = "resume,pause,trackEvent,trackPageStart,trackPageEnd,trackShare,setUserid,setOpenid,setUnionid,setSuperProperty,setUserInfo".split(",");for (i = 0, r = o.length; i < r; i++) {this.createMethod(e, o[i], n);}if (n) for (i = 0, r = re.length; i < r; i++) {var s = re[i];try {n[s[0]].apply(n, s[1]);} catch (e) {t().v("impl[v[0]].apply error: ", s[0], e);}}} catch (e) {t().v("install api errror: ", e);}} };var se = [u.ENDPOINT, u.ENDPOINTB];function ae(e, n) {var i, r;0 === e || 1 === e && n ? i = u.ENDPOINT : 2 === e && n ? i = u.ENDPOINTB : n && (i = se[e]);if (e >= se.length || n) {n && (r = i, u.ENDPOINT = r);n && t().v("命中可用服务", i);!n && t().tip_w("未命中可用服务");return !1;}o.request({ url: u.ENDPOINT + "/uminiprogram_logs/ckdh", success: function success(t) {200 === (t.code || t.status || t.statusCode) && t.data && 200 === t.data.code ? ae(e + 1, !0) : ae(e + 1, !1);}, fail: function fail() {ae(e + 1, !1);} });}({ init: function init(e) {u.ENDPOINTB && setTimeout(function () {ae(0, !1);}, e);} }).init(3e3);var ue = new oe(),ce = { _inited: !1, _log: t(), preinit: function preinit(e) {if (e && "object" == typeof e) for (var t in e) {u[t] = e[t];}return u;}, use: function use(e, t) {e && f.isFunction(e.install) ? e.install(ce, t) : f.isFunction(e) && e(ce, t);return ce;}, messager: r, init: function init(e) {if (this._inited) t().v("已经实例过，请避免重复初始化");else if (e) {if (e.appKey) {"boolean" != typeof e.useOpenid && (e.useOpenid = !0);n().set(e);t().setDebug(e.debug);this._inited = !0;var i = this;r.emit(r.messageType.CONFIG_LOADED, e);try {var o = new ie();t().v("成功创建Lib对象");o.init(function () {t().v("Lib对象初始化成功");ue.installApi(i, o);t().v("安装Lib接口成功");r.emit(r.messageType.UMA_LIB_INITED, e);});} catch (e) {t().w("创建Lib对象异常: " + e);}} else t().err("请确保传入正确的appkey");} else t().err("请正确设置相关信息！");} };try {ue.installApi(ce, null);} catch (e) {t().w("uma赋值异常: ", e);}var fe = "https://ucc.umeng.com/v1/mini/fetch",pe = "https://pslog.umeng.com/mini_ablog",le = "2.7.1",he = "none",de = {},ge = Array.isArray;de.isArray = ge || function (e) {return "[object Array]" === toString.call(e);};de.isObject = function (e) {return e === Object(e) && !de.isArray(e);};de.isEmptyObject = function (e) {if (de.isObject(e)) {for (var t in e) {if (hasOwnProperty.call(e, t)) return !1;}return !0;}return !1;};de.isUndefined = function (e) {return void 0 === e;};de.isString = function (e) {return "[object String]" === toString.call(e);};de.isDate = function (e) {return "[object Date]" === toString.call(e);};de.isNumber = function (e) {return "[object Number]" === toString.call(e);};de.each = function (e, t, n) {if (null != e) {var i = {},r = Array.prototype.forEach;if (r && e.forEach === r) e.forEach(t, n);else if (e.length === +e.length) {for (var o = 0, s = e.length; o < s; o++) {if (o in e && t.call(n, e[o], o, e) === i) return;}} else for (var a in e) {if (hasOwnProperty.call(e, a) && t.call(n, e[a], a, e) === i) return;}}};de.buildQuery = function (e, t) {var n,i,r = [];void 0 === t && (t = "&");de.each(e, function (e, t) {n = encodeURIComponent(e.toString());i = encodeURIComponent(t);r[r.length] = i + "=" + n;});return r.join(t);};de.JSONDecode = function (e) {if (e) {try {return JSON.parse(e);} catch (e) {console.error("JSONDecode error", e);}return null;}};de.JSONEncode = function (e) {try {return JSON.stringify(e);} catch (e) {console.error("JSONEncode error", e);}};var ve = Object.create(null);function _e(e) {t().v("开始构建 fetch body");o.getSystemInfo(function (t) {o.getNetworkInfo(function (i) {var r = (i = i || {}).networkType;r = r === he ? "unknown" : r.toUpperCase();ve.access = r;!function (e, t) {var i = e.brand || "";ve.deviceType = "Phone";ve.sdkVersion = le;ve.appkey = n().appKey();ve.sdkType = o.getSdkType();ve.umid = l().getId();if (e) {ve.language = e.language || "";ve.os = e.OS;ve.osVersion = e.OSVersion;ve.deviceName = e.deviceName;ve.platformVersion = e.platformVersion;ve.platformSdkVersion = e.platformSDKVersion;ve.deviceBrand = i;var r = e.resolution.split("*");if (de.isArray(r)) {ve.resolutionHeight = Number(r[0]);ve.resolutionWidth = Number(r[1]);}}!function (e) {if (e) {ve.installTime = e.install_datetime && Date.parse(e.install_datetime);ve.scene = e.install_scene;ve.channel = e.install_channel;ve.campaign = e.install_campaign;}}(Q.getImpObj());t && t(ve);}(t, e);});});}var ye = Object.create(null),me = null,Se = !1,Ie = { minFetchIntervalSeconds: 43200 };function Ae(e) {e && de.each(e, function (e) {ye[e.k] = e;});}function Oe() {var e = this;this.STORAGE_NAME = null;r.once(r.messageType.CONFIG_LOADED, function (n) {t().v("云配初始化开始...");e.init(n);});}Oe.prototype = { setDefaultValues: function setDefaultValues(e) {Se && de.isObject(e) && de.each(e, function (e, t) {ye[t] && ye[t].v || (ye[t] = { v: e });});}, getValue: function getValue(e) {t().v("从配置项中读取 value, 当前配置为: ", ye);t().v("待读取的 key : ", e);try {if (!Se) return;var i = ye[e] || {};t().v("读取相应配置ing..., 结果为: ", i);if (de.isNumber(i.e) && de.isNumber(i.g)) {t().v("读取到相应配置, 开始数据上报...");!function (e) {var i = { appkey: n().appKey(), sdkType: o.getSdkType(), expId: e && e.e, groupId: e && e.g, clientTs: Date.now(), key: e && e.k, value: e && e.v, umid: l().getId() };try {o.request({ url: pe, method: "POST", data: [i], success: function success(e) {e && 200 === e.statusCode ? t().v("上传数据成功", i) : t().w("ablog 请求成功, 返回结果异常 ", e);}, fail: function fail(e) {t().w("ablog 请求数据错误 ", i, e);} });} catch (e) {t().w("urequest 调用错误", e);}}(i);}return i.v;} catch (n) {t().w("getValue error, key: ", e);}}, active: function active(e) {try {if (!Se) return;var n, i;e && e.params && (n = e.params);e && e.callback && (i = e.callback);t().v("激活配置项: ", n);if (n) {t().v("本地已缓存的配置项: ", ye);Ae(n);t().v("合并后的配置项: ", ye);i && i(ye);t().v("active 结束");} else {t().v("配置项为空!! 读取本地配置...");o.getStorage(this.STORAGE_NAME, function (e) {if (e) {Ae((e = de.JSONDecode(e) || {}).params);t().v("当前本地配置项为: ", ye);i && i(ye);t().v("active 结束");} else t().v("当前本地配置项为空, 退出激活");});}} catch (e) {t().w("SDK active 错误", e);}}, init: function init(e) {if (e.appKey) {me = e.appKey;this.STORAGE_NAME = "um_remote_config_{{" + me + "}}";}if (me) {if (Se) t().w("SDK 已经初始化, 请避免重复初始化");else {Se = !0;this.setOptions(e);this.active();}} else t().err("请检查您的小程序 appKey, appKey 不能为空");}, setOptions: function setOptions(e) {if (de.isObject(e)) {var t = e.minFetchIntervalSeconds;de.isNumber(t) && (Ie.minFetchIntervalSeconds = Math.max(t, 5));}}, fetch: function fetch(e) {if (Se && this.STORAGE_NAME) {var n, i;e && e.active && (n = e.active);e && e.callback && (i = e.callback);var r = this;o.getStorage(this.STORAGE_NAME, function (e) {t().v("开始读缓存 data is ", e);if ((e = de.JSONDecode(e) || {}).params && e.ts && Date.now() - e.ts < 1e3 * Ie.minFetchIntervalSeconds) {t().v("缓存数据存在, 并且本次触发时间距离上次fetch触发时间未超过 fetch 时间间隔, 无需 fetch");i && i(e.params);} else _e(function (e) {t().v("缓存数据不存在, 构建 fetch body :", e);try {o.request({ url: fe, method: "POST", data: e, success: function success(e) {if (e && 200 === e.statusCode && e.data && e.data.cc) {t().v("fetch 请求成功, 响应数据: ", e.data);var s = Object.create(null);de.each(e.data.cc, function (e) {s[e.k] = e;});var a = { ts: Date.now(), params: s };t().v("开始缓存 fetch 请求的云配置结果...");o.setStorage(r.STORAGE_NAME, de.JSONEncode(a), function (e) {t().v("缓存云配置成功, 缓存数据为: ", a);t().v("缓存云配置成功, 成功消息为: ", e);t().v("云配拉取数据是否自动激活: ", n);if (e && n) {t().v("激活云配置...");r.active({ params: s, callback: i });}});} else {t().w("fetch 请求成功,返回结果异常 ", e.data);i && i();}}, fail: function fail(n) {t().w("fetch请求数据错误 ", e, n);i && i();} });} catch (e) {t().w("urequest调用错误", e);}});});}} };var Ee = { install: function install(e, t) {e.rc || (e.rc = new Oe());e.messager.once(e.messager.messageType.CONFIG_LOADED, function () {e._log.v("plugin rc installed");});return e.rc;} },Ne = !1,Te = { install: function install(e, t) {e.wxpluginwraper || (e.wxpluginwraper = function (t) {if (!Ne) {t.onAppShow && t.onAppShow(function (t) {e.resume(t);});t.onAppHide && t.onAppHide(function (t) {e.pause(t);});Ne = !0;}});} },we = "",ke = {};function be(e) {e && (we = e);}function De(e, t) {if (e.onShareAppMessage) {var n = e.onShareAppMessage;e.onShareAppMessage = function (e) {var i = n.call(this, e) || {},r = function (e, t) {if (!e) return "";var n = [];for (var i in t) {"_um_ssrc" !== i && "_um_sts" !== i && n.push(i + "=" + t[i]);}var r = n.join("&");return r ? e + "?" + r : e;}(we, ke[we]);!i.path && r && (i.path = r);var o = t.trackShare.call(this, i);return void 0 === o ? i : o;};}}function Ue(e, t, n) {var i = e[t];e[t] = function (e) {n.call(this, e);i && i.call(this, e);};}function Pe(e) {try {ce.resume(e, !0);} catch (e) {t().v("onAppShow: ", e);}}function Re() {try {ce.pause();} catch (e) {t().v("onAppHide: ", e);}}function Ce() {try {be(this.route);ce.trackPageStart(this.route);} catch (e) {t().v("onPageShow: ", e);}}function Le(e) {try {be(this.route);e && (n = this.route, i = e, n && (ke[n] = i));t().v("Page onLoad: ", this.route, e);} catch (e) {t().v("onPageLoad: ", e);}var n, i;}function Me() {try {ce.trackPageEnd(this.route);} catch (e) {t().v("onPageHide: ", e);}}try {var xe = App;App = function App(e) {Ue(e, "onLaunch", function () {!function (e) {try {ce.init(e);} catch (e) {t().v("onAppLaunch: ", e);}}(e.umengConfig);});Ue(e, "onShow", Pe);Ue(e, "onHide", Re);xe(e);};} catch (e) {t().w("App重写异常");}try {var Ve = Page;Page = function Page(e) {Ue(e, "onShow", Ce);Ue(e, "onHide", Me);Ue(e, "onUnload", Me);Ue(e, "onLoad", Le);De(e, ce);Ve(e);};} catch (e) {t().w("Page重写异常");}try {var je = Component;Component = function Component(e) {try {e.methods = e.methods || {};var t = e.methods;Ue(t, "onShow", Ce);Ue(t, "onHide", Me);Ue(t, "onUnload", Me);Ue(t, "onLoad", Le);De(t, ce);je(e);} catch (t) {je(e);}};} catch (e) {t().w("Component重写异常");}var Fe = ce.init;ce.init = function (e) {if (e && e.useOpenid) {t().tip_w(t().repeat("!"));t().tip_w("openid已开启，请确保使用setOpenid设置openid或通过设置autoGetOpenid为true，并在友盟后台设置secret由友盟帮您获取");t().tip_w(t().repeat("!"));}Fe.call(ce, e);};ce.use(Ee);ce.use(Te);wx.uma = ce;module.exports = ce;
-
-/***/ }),
-/* 264 */
-/*!*****************************************************************************!*\
-  !*** C:/Users/zheng/Documents/HBuilderProjects/game/static/css/common.scss ***!
-  \*****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-    if(false) { var cssReload; }
-  
-
-/***/ }),
-/* 265 */
-/*!***************************************************************************!*\
-  !*** C:/Users/zheng/Documents/HBuilderProjects/game/static/css/game.scss ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-    if(false) { var cssReload; }
-  
 
 /***/ })
 ]]);
