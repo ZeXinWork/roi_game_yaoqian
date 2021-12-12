@@ -1,12 +1,11 @@
 {
-  "pages": [
-    {
-      "path": "pages/index/index",
-      "style": {
-        "navigationStyle": "custom"
-      }
-    },
-    {
+	"pages": [{
+			"path": "pages/index/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/conversion/conversion",
 			"style": {
 				"navigationBarTitleText": "",
@@ -14,7 +13,7 @@
 				"navigationStyle": "custom"
 			}
 		},
-    {
+		{
 			"path": "pages/prize/prize",
 			"style": {
 				"navigationBarTextStyle": "white",
@@ -23,7 +22,7 @@
 				"enablePullDownRefresh": false
 			}
 		},
-    {
+		{
 			"path": "pages/prize/accpect",
 			"style": {
 				"navigationBarTextStyle": "white",
@@ -31,28 +30,29 @@
 				"navigationBarTitleText": "奖品领取",
 				"enablePullDownRefresh": false
 			}
-    },
-    {
-      "path": "pages/my/detail",
-      "style": {
-        "navigationBarTitleText": "游戏列表",
-        "enablePullDownRefresh": false
-      }
-    },
-    {
-      "path": "pages/my/my",
-      "style": {
-        "navigationStyle": "custom"
-      }
-    }
-  ],
-  "globalStyle": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8",
-    "app-plus": {
-      "background": "#efeff4"
-    }
-  }
+		},
+		{
+			"path": "pages/my/detail",
+			"style": {
+				"navigationBarTitleText": "游戏列表",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#ff4b3b"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"background": "#efeff4"
+		}
+	}
 }

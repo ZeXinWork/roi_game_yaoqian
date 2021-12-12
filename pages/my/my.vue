@@ -2,8 +2,8 @@
 	<view class="user-wrap">
 		<view class="user-info-wrap">
 			<view class="user-info-container">
-				<view class="user-status-bar" :style="{ height: statusBarHeight + navBarHeight + 'px' }"></view>
-				<view class="user-info-body" :style="{ padding: statusBarHeight + navBarHeight + 'px 20px 0' }">
+
+				<view class="user-info-body" >
 					<view class="user-info" @click="updateUserInfo">
 						<image class="user-thumb" :src="user.avatar" />
 						<view class="user-info-text-wrap">
@@ -18,7 +18,7 @@
 				<view class="user-info-game-wrap_title">我的游戏</view>
 				<view class="user-info-game-wrap_content" v-for="item of gameList" :ikey='item.id'>
 					<image :src="item.img" mode="aspectFill" class="user-info-game-wrap_content_img"></image>
-					<view class="user-info-game-wrap_content_body" >
+					<view class="user-info-game-wrap_content_body">
 						<view class="user-info-game-wrap_content_body_header">
 							<view class="user-info-game-wrap_content_body_header_title">{{item.name}}</view>
 							<view class="user-info-game-wrap_content_body_header_status">
@@ -79,9 +79,9 @@
 				}
 				return list[status] || ''
 			},
-			handleMore(){
+			handleMore() {
 				uni.navigateTo({
-					url:'./detail'
+					url: './detail'
 				})
 			}
 		}
@@ -125,7 +125,7 @@
 			align-items: center;
 
 			.user-info-container {
-				height: 410rpx;
+				height: 300rpx;
 				border-radius: 0 0 24rpx 24rpx;
 				background: linear-gradient(to bottom right, #ff4c1a, #ff4a71);
 				width: 100%;
