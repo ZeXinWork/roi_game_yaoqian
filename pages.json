@@ -7,6 +7,32 @@
       }
     },
     {
+			"path": "pages/conversion/conversion",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+    {
+			"path": "pages/prize/prize",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#E83D3D",
+				"navigationBarTitleText": "我的奖品",
+				"enablePullDownRefresh": false
+			}
+		},
+    {
+			"path": "pages/prize/accpect",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#E83D3D",
+				"navigationBarTitleText": "奖品领取",
+				"enablePullDownRefresh": false
+			}
+    },
+    {
       "path": "pages/my/detail",
       "style": {
         "navigationBarTitleText": "游戏列表",
