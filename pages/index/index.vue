@@ -102,6 +102,32 @@
           <view class="de_btn btn_primary" @click="play">摇一摇</view>
         </view>
       </view>
+      <!-- <uni-popup ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
+        <view class="p_body">
+          <view class="p_body_mid">
+            <view class="p_body_mid_title">恭喜您抽到奖品啦</view>
+            <view class="p_body_mid_prize">
+              <view class="p_body_mid_prize_item">奖品1</view>
+              <view class="p_body_mid_prize_item">奖品2</view>
+            </view>
+          </view>
+          <view class="p_body_top">
+            <view class="p_body_top_red">
+              <image src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzExIiBoZWlnaHQ9IjEzMiIgdmlld0JveD0iMCAwIDMxMSAxMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTMxMC4wMSAwbC0uMDA1IDExNS43MThjMCA4LjgzNy03LjE2MyAxNi0xNiAxNmgtMjc4Yy04LjgzNiAwLTE2LTcuMTYzLTE2LTE2TDAgMGM0NS40NTkgMjAuMTU3IDk4LjQ0IDMxLjcxOCAxNTUuMDA1IDMxLjcxOCA1Ni41NjYgMCAxMDkuNTQ3LTExLjU2MSAxNTUuMDA1LTMxLjcxOHoiIGZpbGw9IiNFQTM1MkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg=="></image>
+            </view>
+            <view class="p_body_top_pink">
+              <image src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzExIiBoZWlnaHQ9IjE0MSIgdmlld0JveD0iMCAwIDMxMSAxNDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTMxMC4wMSAwbC0uMDA1IDEyNC43MThjMCA4LjgzNy03LjE2MyAxNi0xNiAxNmgtMjc4Yy04LjgzNiAwLTE2LTcuMTYzLTE2LTE2TDAgMGM0NS40NTkgMjAuMTU3IDk4LjQ0IDMxLjcxOCAxNTUuMDA1IDMxLjcxOCA1Ni41NjYgMCAxMDkuNTQ3LTExLjU2MSAxNTUuMDA1LTMxLjcxOHoiIGZpbGw9IiNGMUE0OUEiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg=="></image>
+            </view>
+            <view class="p_body_top_button">
+              这是个按钮
+            </view>
+          </view>
+        </view>
+        <view class="p_bottom">
+          <image @click="$refs.prizeDetail.close()" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode=""></image>
+        </view>
+		  </uni-popup> -->
+      <redEnvelope ref="redEnvelope"></redEnvelope>
 
       <view class="de_btn zl_btn" @click="popShow('share')">喊好友来博饼</view>
       <view class="record_wrap">
@@ -1182,11 +1208,13 @@ import startsWith from 'lodash/startsWith'
 import { validPhone, relativePath } from '@/utils/tool.js'
 import popup from '@/components/popup/popup.vue'
 import navbar from '@/components/Navbar.vue'
+import redEnvelope from './redEnvelope'
 import moment from 'moment'
 export default {
   components: {
     popup,
     navbar,
+    redEnvelope,
   },
   data() {
     return {
@@ -1569,13 +1597,18 @@ export default {
       })
     },
     toPage(e) {
-      if (JSON.stringify(this.$storage.getUser()) == '{}') {
-        this.$refs.login_popup.open()
-      } else {
-        uni.navigateTo({
+      // TODO: 暂时隐藏登陆逻辑
+      // if (JSON.stringify(this.$storage.getUser()) == '{}') {
+      //   this.$refs.login_popup.open()
+      // } else {
+      //   uni.navigateTo({
+      //     url: e.currentTarget.dataset.url,
+      //   })
+      // }
+      console.log(e.currentTarget.dataset.url)
+      uni.navigateTo({
           url: e.currentTarget.dataset.url,
         })
-      }
     },
     getImageInfo(url) {
       return new Promise((reslove, reject) => {
@@ -1683,35 +1716,38 @@ export default {
       this.getHelperList(1, true, type)
     },
     play() {
-      uni.getNetworkType({
-        success: (res) => {
-          if (res.networkType === 'none') {
-            this.$refs.network.show()
-          } else {
-            if (this.playLoading) {
-              return
-            }
-            this.playLoading = true
-            if (JSON.stringify(this.$storage.getUser()) == '{}') {
-              this.playLoading = false
-              this.toLogin()
-            } else {
-              if (this.$storage.get('getLocationTime') == '') {
-                this.getSetting()
-                return
-              } else {
-                let get_time = this.$storage.get('getLocationTime').get_time
-                let now = new Date().getTime()
-                if ((now - get_time) / 1000 / 60 / 60 > 3) {
-                  this.getSetting()
-                  return
-                }
-                this.addPlay()
-              }
-            }
-          }
-        },
-      })
+      // this.$refs.popup.open('center')
+      // this.$refs.prizeDetail.open()
+      console.log(this.$refs.redEnvelope.open())
+      // uni.getNetworkType({
+      //   success: (res) => {
+      //     if (res.networkType === 'none') {
+      //       this.$refs.network.show()
+      //     } else {
+      //       if (this.playLoading) {
+      //         return
+      //       }
+      //       this.playLoading = true
+      //       if (JSON.stringify(this.$storage.getUser()) == '{}') {
+      //         this.playLoading = false
+      //         this.toLogin()
+      //       } else {
+      //         if (this.$storage.get('getLocationTime') == '') {
+      //           this.getSetting()
+      //           return
+      //         } else {
+      //           let get_time = this.$storage.get('getLocationTime').get_time
+      //           let now = new Date().getTime()
+      //           if ((now - get_time) / 1000 / 60 / 60 > 3) {
+      //             this.getSetting()
+      //             return
+      //           }
+      //           this.addPlay()
+      //         }
+      //       }
+      //     }
+      //   },
+      // })
     },
     playSound() {
       this.Audio.seek(0.1)
@@ -2325,6 +2361,8 @@ export default {
     height: 100%;
   }
 }
+
+
 
 .over_popup {
   .over_header {
