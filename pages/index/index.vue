@@ -25,7 +25,7 @@
         paddingTop: navbarHeight + 'px',
         background: `url(${
           gameInfo.backgroundInfo.backgroundUrl ||
-          'https://static.roi-cloud.com/upload/20211210/60935669165852'
+          'https://static.roi-cloud.com/upload/20211211/60935669180404'
         }) no-repeat`,
         backgroundSize: '100%',
       }"
@@ -133,11 +133,10 @@
       <view class="record_wrap">
         <text @click="popShow('score')">积分明细</text>
         <view class="line"></view>
-        <text @click="onHelper">个人中心</text>
+        <text @click="onMy">个人中心</text>
         <view class="line"></view>
         <text @click="onHelper">助力记录</text>
       </view>
-
       <view class="gift_swiper" v-if="advertList[1].length > 0">
         <swiper
           :circular="true"
@@ -156,129 +155,111 @@
           </swiper-item>
         </swiper>
       </view>
-      <view class="rank_wrap">
-        <view class="rank_title">
-          <view class="icon_rangk"></view>
-          <text>排行榜</text>
-        </view>
-        <view
-          :data-url="'/pages/rule/rule?gameId=' + gameId"
-          class="rule"
-          @click="toPage"
-          >游戏规则</view
-        >
-        <view class="rank_time">
-          {{ gameInfo.startTime }} - {{ gameInfo.endTime }}
-        </view>
-        <view class="my_rank">
-          <view class="my_rank_top">
-            <view class="rank_avatar">
-              <image :src="user_info.avatar" mode=""></image>
-            </view>
-            <view class="my_rank_item">
-              <view class="my_rank_title">我的排行</view>
-              <view class="rank_item_number">{{ userRank.ranking || 0 }}</view>
-            </view>
-            <view class="my_rank_item">
-              <view class="my_rank_title">总博饼分</view>
-              <view class="rank_item_number">{{ userRank.score || 0 }}</view>
+      <view class="rank_ad_wrap">
+        <view class="rank_wrap">
+          <view class="rank_title">
+            <view class="rank_title_left"
+              ><view class="icon_rangk"></view>
+              <text>排行榜</text>
             </view>
           </view>
-          <button class="share_btn" open-type="share" data-rank="1">
-            <image
-              class="icon_wechat"
-              src="https://static.roi-cloud.com/base/icon_wechat.png"
-              mode=""
-            >
-            </image>
-            <text>晒排名 加次数</text>
-          </button>
-        </view>
-        <view class="rank_list">
-          <view
-            v-for="(item, index) in kingofKingsList"
-            :key="index"
-            class="mlr30"
-          >
-            <view class="rank_box">
-              <view class="gift_image">
+
+          <view class="rank_time">
+            {{ gameInfo.startTime }} - {{ gameInfo.endTime }}
+          </view>
+          <view class="my_rank">
+            <view class="my_rank_top">
+              <view class="rank_avatar">
                 <image
-                  :src="item.info.prizeImgInfo.img"
-                  mode="aspectFill"
+                  src="https://static.roi-cloud.com/upload/20211211/60935669170230"
+                  mode=""
                 ></image>
               </view>
-              <view class="gift_right">
-                <view class="gift_title">
-                  <view class="gift_level">{{ item.info.prizeNote }}</view>
-                  <view class="no_number">{{ item.range }}</view>
+              <view class="my_rank_item">
+                <view class="my_rank_title">我的排行</view>
+                <view class="rank_item_number">{{
+                  userRank.ranking || 0
+                }}</view>
+              </view>
+              <view class="my_rank_item">
+                <view class="my_rank_title">总博饼分</view>
+                <view class="rank_item_number">{{ userRank.score || 0 }}</view>
+              </view>
+            </view>
+            <button class="share_btn" open-type="share" data-rank="1">
+              <image
+                class="icon_wechat"
+                src="https://static.roi-cloud.com/base/icon_wechat.png"
+                mode=""
+              >
+              </image>
+              <text>晒排名 加次数</text>
+            </button>
+          </view>
+          <view class="rank_list">
+            <view
+              v-for="(item, index) in kingofKingsList"
+              :key="index"
+              class="mlr30"
+            >
+              <view class="rank_box">
+                <view class="gift_image">
+                  <image
+                    :src="item.info.prizeImgInfo.img"
+                    mode="aspectFill"
+                  ></image>
                 </view>
-                <view class="">{{ item.info.prizeName }}</view>
+                <view class="gift_right">
+                  <view class="gift_title">
+                    <view class="gift_level">{{ item.info.prizeNote }}</view>
+                    <view class="no_number">{{ item.range }}</view>
+                  </view>
+                  <view class="">{{ item.info.prizeName }}</view>
+                </view>
+              </view>
+              <view
+                class="box_item"
+                v-for="(user, userIndex) in item.list"
+                :key="item"
+              >
+                <view class="box_item_left">
+                  <image
+                    v-if="user.no_num < 4"
+                    class="no_icon"
+                    :src="
+                      'https://static.roi-cloud.com/base/icon_no_' +
+                      user.no_num +
+                      '.png'
+                    "
+                    mode="aspectFill"
+                  >
+                  </image>
+                  <view class="no_icon" v-else>{{ user.no_num }}</view>
+                  <image class="avatar" :src="user.avatar" mode=""></image>
+                  <text class="username">{{ user.nickName }}</text>
+                </view>
+                <text>{{ user.score }}</text>
               </view>
             </view>
-            <view
-              class="box_item"
-              v-for="(user, userIndex) in item.list"
-              :key="item"
-            >
-              <view class="box_item_left">
-                <image
-                  v-if="user.no_num < 4"
-                  class="no_icon"
-                  :src="
-                    'https://static.roi-cloud.com/base/icon_no_' +
-                    user.no_num +
-                    '.png'
-                  "
-                  mode="aspectFill"
-                >
-                </image>
-                <view class="no_icon" v-else>{{ user.no_num }}</view>
-                <image class="avatar" :src="user.avatar" mode=""></image>
-                <text class="username">{{ user.nickName }}</text>
+
+            <view class="border_top">
+              <view
+                class="box_item"
+                v-for="(user, userIndex) in otherKingList"
+                :key="userIndex"
+              >
+                <view class="box_item_left">
+                  <view class="no_icon">{{ user.no_num }}</view>
+                  <image class="avatar" :src="user.avatar" mode=""></image>
+                  <text class="username">{{ user.nickName }}</text>
+                </view>
+                <text>{{ user.score }}</text>
               </view>
-              <text>{{ user.score }}</text>
             </view>
           </view>
-
-          <view class="border_top">
-            <view
-              class="box_item"
-              v-for="(user, userIndex) in otherKingList"
-              :key="userIndex"
-            >
-              <view class="box_item_left">
-                <image
-                  v-if="user.no_num < 4"
-                  class="no_icon"
-                  :src="
-                    'https://static.roi-cloud.com/base/icon_no_' +
-                    user.no_num +
-                    '.png'
-                  "
-                  mode=""
-                >
-                </image>
-                <view class="no_icon" v-else>{{ user.no_num }}</view>
-                <image class="avatar" :src="user.avatar" mode=""></image>
-                <text class="username">{{ user.nickName }}</text>
-              </view>
-              <text>{{ user.score }}</text>
-            </view>
-          </view>
-
-          <!-- <view class="rank_box">
-						<view class="gift_image">
-						</view>
-						<view class="gift_right">
-							<view class="gift_title">
-								<view class="gift_level">二等奖</view>
-								<view class="no_number">第2名</view>
-							</view>
-							<view class="">蝉妈妈SVIP会员 6个月</view>
-						</view>
-					</view> -->
         </view>
       </view>
+
       <popup ref="share" width="650" bgColor="#FFF8DC">
         <view class="p_title"
           >多邀多得上不封顶
@@ -1228,8 +1209,8 @@ export default {
       level: 1, //中奖登记
       navbarHeight: 0, //navbar高度
       userPlayInfo: {}, //用户玩的次数
-      user_info: null,
-      gameInfo: {}, //游戏信息
+      user_info: '',
+      gameInfo: { startTime: '9月10日 14:00', endTime: '9月17日 22:00' }, //游戏信息
       userRank: {}, //用户排名
       gameResult: {
         gameResult: [],
@@ -1272,22 +1253,170 @@ export default {
       kingofKingsList: [
         {
           info: {
-            prizeNote: 'notetete',
-            range: 'rangerangerange',
-            prizeName: 'prizeNameprizeNameprizeName',
+            createTime: null,
+            kingsId: 1,
+            prizeDeliverWay: 1,
+            prizeId: 1,
+            prizeImgId: '781',
+            prizeImgInfo: {
+              createTime: null,
+              id: 781,
+              img: 'https://static.roi-cloud.com/prizeImg/20210913/16/29/613f0bf6a055772189.jpg',
+              isUse: 1,
+              status: 1,
+              type: 1,
+              userId: 9,
+            },
+            prizeLevel: 1,
+            prizeName: '保时捷麻将',
+            prizeNote: '一等奖',
+            prizeNum: 1,
+            prizeType: 1,
           },
           list: [
             {
-              nickName: 'nickName nickName ',
-              score: '100',
+              avatar:
+                'https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eovdHkwHiaC2k0pKVFHEoDI4EvhiaPn0fkE8fDfxuXNtlR598BTSiaWibaGmw4JiaxXzes8GiafE4co9icIw/132',
+              nickName: '旷世飞人',
+              no_num: 1,
+              score: '201170',
+              sort: 0,
+              userId: 3646,
             },
           ],
+          range: '第1名',
+        },
+        {
+          info: {
+            createTime: null,
+            kingsId: 1,
+            prizeDeliverWay: 1,
+            prizeId: 2,
+            prizeImgId: '782',
+            prizeImgInfo: {
+              createTime: null,
+              id: 782,
+              img: 'https://static.roi-cloud.com/prizeImg/20210914/21/34/微信图片_20210914104032.jpg',
+              isUse: 1,
+              status: 1,
+              type: 1,
+              userId: 9,
+            },
+            prizeLevel: 2,
+            prizeName: '阿斯顿马丁皮质卡包',
+            prizeNote: '二等奖',
+            prizeNum: 1,
+            prizeType: 1,
+          },
+          list: [
+            {
+              avatar:
+                'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
+              nickName: '想个简单的名字太难了',
+              no_num: 2,
+              score: '131290',
+              sort: 1,
+              userId: 11271,
+            },
+            {
+              avatar:
+                'https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqWuWOgK4hTUuVuOUOjKpv6r4OjYPic9nVibpu9CvtBZnic5Z74cFrqQxgyzicJo5GWhxA83NMhMo5IdQ/132',
+              nickName: 'Isabelle Williamson',
+              no_num: 3,
+              score: '111290',
+              sort: 1,
+              userId: 10271,
+            },
+            {
+              avatar:
+                'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
+              nickName: '想个简单的名字太难了',
+              no_num: 2,
+              score: '131290',
+              sort: 1,
+              userId: 11271,
+            },
+            {
+              avatar:
+                'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
+              nickName: '想个简单的名字太难了',
+              no_num: 2,
+              score: '131290',
+              sort: 1,
+              userId: 11271,
+            },
+          ],
+          range: '第2-4名',
         },
       ],
       advertList: [],
       scoreDetailList: [], //积分明细
       exchangeList: [], //兑换明细
-      otherKingList: [],
+      otherKingList: [
+        {
+          avatar:
+            'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
+          nickName: '想个简单的名字太难了',
+          no_num: 2,
+          score: '131290',
+          sort: 1,
+          userId: 11271,
+        },
+        {
+          avatar:
+            'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
+          nickName: '想个简单的名字太难了',
+          no_num: 2,
+          score: '131290',
+          sort: 1,
+          userId: 11271,
+        },
+        {
+          avatar:
+            'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
+          nickName: '想个简单的名字太难了',
+          no_num: 2,
+          score: '131290',
+          sort: 1,
+          userId: 11271,
+        },
+        {
+          avatar:
+            'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
+          nickName: '想个简单的名字太难了',
+          no_num: 2,
+          score: '131290',
+          sort: 1,
+          userId: 11271,
+        },
+        {
+          avatar:
+            'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
+          nickName: '想个简单的名字太难了',
+          no_num: 2,
+          score: '131290',
+          sort: 1,
+          userId: 11271,
+        },
+        {
+          avatar:
+            'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
+          nickName: '想个简单的名字太难了',
+          no_num: 2,
+          score: '131290',
+          sort: 1,
+          userId: 11271,
+        },
+        {
+          avatar:
+            'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
+          nickName: '想个简单的名字太难了',
+          no_num: 2,
+          score: '131290',
+          sort: 1,
+          userId: 11271,
+        },
+      ],
       playAnimation: false,
       show: false,
       helpLoading: false,
@@ -1345,13 +1474,7 @@ export default {
     this.navbarHeight =
       getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
   },
-  onPageScroll(e) {
-    if (e.scrollTop > 0) {
-      this.navColor = '#65b636'
-    } else {
-      this.navColor = 'transparent'
-    }
-  },
+
   onHide() {
     this.$refs.help.close()
     this.currentHelpItem = 1
@@ -1359,6 +1482,9 @@ export default {
   methods: {
     changeVerifyCode: function (e) {
       this.verifyCode = e.detail.value
+    },
+    onMy() {
+      uni.navigateTo({ url: '/pages/my/my' })
     },
     savePhone: function () {
       if (!this.phone) {
@@ -2111,33 +2237,6 @@ export default {
   z-index: 999;
 }
 
-@keyframes diceAnimate {
-  0% {
-    opacity: 1;
-    transform: translate(0, -600%) rotate(0deg) scale(0.8);
-  }
-
-  40% {
-    opacity: 1;
-    transform: translate(0, 0%) rotate(360deg) scale(1);
-  }
-
-  60% {
-    opacity: 1;
-    transform: translate(16px, -100%) rotate(520deg);
-  }
-
-  70% {
-    opacity: 1;
-    transform: translate(-16px, -50%) rotate(600deg);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translate(0, 0%) rotate(720deg);
-  }
-}
-
 .ad_wrap {
   width: 580upx;
   height: 140upx;
@@ -2151,33 +2250,6 @@ export default {
   .swiper-item {
     width: 100%;
     height: 100%;
-  }
-}
-
-@keyframes diceAnimate1 {
-  0% {
-    opacity: 1;
-    transform: translate(0, -600%) rotate(0deg) scale(0.8);
-  }
-
-  40% {
-    opacity: 1;
-    transform: translate(0, 0%) rotate(360deg) scale(1);
-  }
-
-  60% {
-    opacity: 1;
-    transform: translate(-20px, -100%) rotate(520deg);
-  }
-
-  70% {
-    opacity: 1;
-    transform: translate(19px, -50%) rotate(600deg);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translate(0px, 0%) rotate(720deg);
   }
 }
 
@@ -2255,16 +2327,6 @@ export default {
       font-size: 14px;
       border-radius: 20px;
     }
-  }
-}
-
-@keyframes diceRotate {
-  0% {
-    transform: rotate3d(0, 0, 0);
-  }
-
-  100% {
-    transform: rotate(360deg, 360deg, 360deg);
   }
 }
 
@@ -3071,11 +3133,9 @@ export default {
     }
   }
 }
-
 page {
-  background-color: #fdccb9;
+  background: #ff2626;
 }
-
 #main {
   min-height: 100vh;
   box-sizing: border-box;
@@ -3241,7 +3301,7 @@ page {
     align-items: center;
     color: #fff;
     justify-content: center;
-    margin-top: -40upx;
+    margin-top: 20upx;
 
     .number {
       background: #b13737;
@@ -3282,12 +3342,14 @@ page {
     justify-content: center;
     margin: 46upx auto;
     font-size: 32upx;
-
+    padding: 160rpx 0 70rpx 0;
+    box-sizing: border-box;
+    background-color: #fdccb9;
     .line {
       width: 1upx;
       height: 30upx;
       margin: 0 30px;
-      background-color: #d8d8d8;
+      background-color: #976f1d;
     }
   }
 
@@ -3299,10 +3361,17 @@ page {
     position: relative;
     border-radius: 60upx;
   }
-
+  .rank_ad_wrap {
+    box-sizing: border-box;
+    padding: 0 30rpx;
+  }
   .rank_wrap {
     position: relative;
-
+    background: #fff4da;
+    border-radius: 24rpx;
+    box-sizing: border-box;
+    margin: 0 10rpx;
+    padding: 30rpx 26rpx 80rpx 30rpx;
     .rule {
       position: absolute;
       right: 30upx;
@@ -3316,21 +3385,20 @@ page {
     }
 
     .rank_time {
-      height: 52upx;
-      line-height: 52upx;
+      height: 60rpx;
+      line-height: 60rpx;
       border-radius: 52upx;
       text-align: center;
-      margin: 28upx 100upx 32upx;
-      background: #bd1e1e;
-      font-weight: 400;
-      color: #ffffff;
+      background: #ffe2cb;
+      font-size: 24rpx;
+      width: 440rpx;
+      margin: 0 auto;
     }
 
     .my_rank {
-      margin: 0 30upx 24upx;
       border-radius: 36upx;
       padding: 40upx 0;
-      background: rgba($color: #fff, $alpha: 0.92);
+      background: #fff4da;
     }
 
     .rank_list {
@@ -3338,7 +3406,7 @@ page {
 
       .rank_box {
         padding: 20upx;
-        background: #fcebeb;
+        background: #ffd2ba;
         margin-bottom: 30upx;
         border-radius: 36upx;
         display: flex;
@@ -3388,7 +3456,7 @@ page {
 
       .box_item {
         display: flex;
-        color: #fff;
+        color: #333;
         font-size: 28upx;
         align-items: center;
         padding: 24upx 0;
@@ -3397,7 +3465,6 @@ page {
         .box_item_left {
           display: flex;
           align-items: center;
-
           .no_icon {
             width: 40upx;
             height: 36upx;
@@ -3421,10 +3488,10 @@ page {
 
     .share_btn {
       height: 80upx;
-      margin: 42upx 142upx 0;
+      margin: 42upx 0 0 102upx;
       line-height: 80upx;
-      background: linear-gradient(180deg, #d584e7 0%, #aa4dcb 100%);
-      box-shadow: 0 10upx 20upx 0 #bc65d7;
+      background: linear-gradient(180deg, #fd7d57 0%, #fe3c1b 100%);
+      box-shadow: 0 10upx 20upx 0 #fea190;
       border-radius: 51upx;
       align-items: center;
       display: flex;
@@ -3432,7 +3499,7 @@ page {
       font-weight: 600;
       font-size: 34upx;
       justify-content: center;
-
+      width: 400rpx;
       .icon_wechat {
         width: 34upx;
         height: 34upx;
@@ -3443,7 +3510,7 @@ page {
     .rank_avatar {
       width: 90upx;
       height: 90upx;
-      padding: 0 40upx;
+      padding-right: 40upx;
       border-right: 1upx solid #cecece;
 
       image {
@@ -3463,7 +3530,6 @@ page {
     .my_rank_item {
       flex: 1;
       text-align: center;
-
       .rank_item_number {
         color: #333333;
         font-size: 46upx;
@@ -3471,14 +3537,14 @@ page {
     }
 
     .rank_title {
-      margin-top: 66rpx;
-      color: #fff;
-      font-weight: 600;
-      font-size: 44upx;
+      color: #333;
+      font-weight: normal;
+      font-size: 34rpx;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-
+      width: 100%;
+      margin-bottom: 24rpx;
       .icon_rangk {
         width: 60upx;
         height: 60upx;
@@ -3487,6 +3553,13 @@ page {
         background: url(https://static.roi-cloud.com/base/icon_rank.png);
         background-size: 200%;
         background-position: center;
+      }
+      &_left {
+        display: flex;
+        align-items: center;
+        view {
+          margin-right: 20rpx;
+        }
       }
     }
   }

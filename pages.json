@@ -31,7 +31,20 @@
 				"navigationBarTitleText": "奖品领取",
 				"enablePullDownRefresh": false
 			}
-		}
+    },
+    {
+      "path": "pages/my/detail",
+      "style": {
+        "navigationBarTitleText": "游戏列表",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/my/my",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    }
   ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
