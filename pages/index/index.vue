@@ -27,7 +27,7 @@
           gameInfo.backgroundInfo.backgroundUrl ||
           'https://static.roi-cloud.com/upload/20211211/60935669180404'
         }) no-repeat`,
-        backgroundSize: '100%'
+        backgroundSize: '100%',
       }"
     >
       <view class="swiper_wrap">
@@ -107,7 +107,7 @@
       <view class="record_wrap">
         <text @click="popShow('score')">积分明细</text>
         <view class="line"></view>
-        <text @click="onHelper">个人中心</text>
+        <text @click="onMy">个人中心</text>
         <view class="line"></view>
         <text @click="onHelper">助力记录</text>
       </view>
@@ -223,7 +223,7 @@
                 :key="userIndex"
               >
                 <view class="box_item_left">
-                  <view class="no_icon" >{{ user.no_num }}</view>
+                  <view class="no_icon">{{ user.no_num }}</view>
                   <image class="avatar" :src="user.avatar" mode=""></image>
                   <text class="username">{{ user.nickName }}</text>
                 </view>
@@ -1454,6 +1454,9 @@ export default {
   methods: {
     changeVerifyCode: function (e) {
       this.verifyCode = e.detail.value
+    },
+    onMy() {
+      uni.navigateTo({ url: '/pages/my/my' })
     },
     savePhone: function () {
       if (!this.phone) {

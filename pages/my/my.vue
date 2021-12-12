@@ -2,8 +2,8 @@
 	<view class="user-wrap">
 		<view class="user-info-wrap">
 			<view class="user-info-container">
-				<view class="user-status-bar" :style="{height: statusBarHeight + navBarHeight + 'px'}"></view>
-				<view class="user-info-body" :style="{padding: statusBarHeight + navBarHeight + 'px 20px 0'}">
+				<view class="user-status-bar" :style="{ height: statusBarHeight + navBarHeight + 'px' }"></view>
+				<view class="user-info-body" :style="{ padding: statusBarHeight + navBarHeight + 'px 20px 0' }">
 					<view class="user-info" @click="updateUserInfo">
 						<image class="user-thumb" :src="user.avatar" />
 						<view class="user-info-text-wrap">
@@ -16,33 +16,36 @@
 			</view>
 			<view class="user-info-game-wrap">
 				<view class="user-info-game-wrap_title">我的游戏</view>
-				<view class='user-info-game-wrap_content'>
-					<image src="https://static.roi-cloud.com/upload/20211211/60935669192518" mode="aspectFill"
-						class="user-info-game-wrap_content_img"></image>
-					<view class="user-info-game-wrap_content_body">
+				<view class="user-info-game-wrap_content">
+					<image :src="item.img" mode="aspectFill" class="user-info-game-wrap_content_img"></image>
+					<view class="user-info-game-wrap_content_body" v-for="item of gameList" :ikey='item.id'>
 						<view class="user-info-game-wrap_content_body_header">
-							<view class="user-info-game-wrap_content_body_header_title">摇钱树</view>
+							<view class="user-info-game-wrap_content_body_header_title">{{item.name}}</view>
 							<view class="user-info-game-wrap_content_body_header_status">
-								<image src="https://static.roi-cloud.com/upload/20211211/60935669193851"
+								<image src="https://static.roi-cloud.com/upload/20211212/60935669153723"
 									mode="aspectFill"></image>
-								<text>进行中</text>
+								<text>{{getStatus(item.status)}}</text>
 							</view>
 						</view>
 						<view class="user-info-game-wrap_content_body_header_content">
-							<view class="user-info-game-wrap_content_body_content_open">
-								<image src="https://static.roi-cloud.com/upload/20211211/60935669200408"
+							<view class="user-info-game-wrap_content_body_content_open mb-8">
+								<image src="https://static.roi-cloud.com/upload/20211211/60935669193851"
 									mode="aspectFill"></image>
-								<text>开奖方式：即开即中</text>
+								<text>{{`开奖方式：${item.open}`}}</text>
 							</view>
 							<view class="user-info-game-wrap_content_body_content_open">
-								<image src="https://static.roi-cloud.com/upload/20211211/60935669200828"
+								<image src="https://static.roi-cloud.com/upload/20211212/60935669153633"
 									mode="aspectFill"></image>
-								<text>游戏时间：2021.12.01-2021.12.31</text>
+								<text>{{`游戏时间：${item.startTime}-${item.endTime}`}}</text>
 							</view>
 						</view>
 					</view>
 				</view>
+				<view class="more">
+					<text @click="handleMore">查看更多</text>
+				</view>
 			</view>
+
 		</view>
 	</view>
 </template>
@@ -55,18 +58,49 @@
 				navBarHeight: 45,
 				authorizeAble: false,
 				user: {},
-				winGameCount: 0,
-				allGameCount: 0,
-				gameCount: 0,
 				loading: false,
-				gameId: '',
-				advertList: {}
+				gameList: [{
+					img: "https://static.roi-cloud.com/upload/20211211/60935669192518",
+					name: "摇钱树",
+					status: 1,
+					open: "即开即中",
+					startTime: "2021.12.01",
+					endTime: "2021.12.31",
+					id: 1
+				}], //我的游戏列表
 			}
 		},
+		methods: {
+			getStatus(status) {
+				let list = {
+					1: '进行中',
+					2: '已完成',
+					3: '未开始',
+				}
+				return list[status] || ''
+			},
+			handleMore(){
+				uni.navigateTo({
+					url:'./detail'
+				})
+			}
+		}
 	}
 </script>
 
 <style lang="scss">
+	.mb-8 {
+		margin-bottom: 16rpx;
+
+	}
+
+	.more {
+		text-align: center;
+		font-size: 28rpx;
+		color: #8e8e8e;
+		margin-top: 74rpx;
+	}
+
 	.user-wrap {
 		height: 100vh;
 
@@ -93,7 +127,7 @@
 			.user-info-container {
 				height: 410rpx;
 				border-radius: 0 0 24rpx 24rpx;
-				background: linear-gradient(to bottom right, #FF4C1A, #FF4A71);
+				background: linear-gradient(to bottom right, #ff4c1a, #ff4a71);
 				width: 100%;
 
 				.user-status-bar {
@@ -101,7 +135,7 @@
 					top: 0;
 					left: 0;
 					right: 0;
-					background: linear-gradient(to bottom right, #FF4C1A, #FF4A71);
+					background: linear-gradient(to bottom right, #ff4c1a, #ff4a71);
 					z-index: 20;
 				}
 
@@ -124,14 +158,13 @@
 							display: flex;
 							flex-direction: column;
 							margin: 0 0 0 24rpx;
-							color: rgba(#FFFFFF, 0.8);
+							color: rgba(#ffffff, 0.8);
 							font-size: 24rpx;
 
 							.user-name {
 								font-weight: bold;
 								font-size: 36rpx;
 								color: #fff;
-
 							}
 						}
 					}
@@ -151,7 +184,6 @@
 					font-size: 30rpx;
 					box-sizing: border-box;
 					margin-bottom: 50rpx;
-
 				}
 
 				&_content {
@@ -178,7 +210,7 @@
 
 							&_title {
 								font-size: 40rpx;
-								color: #333
+								color: #333;
 							}
 
 							&_status {
@@ -195,6 +227,9 @@
 
 						&_content {
 							&_open {
+								display: flex;
+								align-items: center;
+
 								image {
 									width: 24rpx;
 									height: 24rpx;
@@ -239,7 +274,7 @@
 				}
 
 				.user-report-more {
-					color: #E83D3D;
+					color: #e83d3d;
 				}
 			}
 		}
@@ -266,13 +301,12 @@
 					margin: 0 0 6px;
 				}
 			}
-
 		}
 
 		.user-ad-wrap {
 			margin: 16px 16px 0;
 			border-radius: 12px;
-			background: linear-gradient(to right, #95FFDC, #FF8944, #FF8944);
+			background: linear-gradient(to right, #95ffdc, #ff8944, #ff8944);
 			height: 85px;
 			overflow: hidden;
 
