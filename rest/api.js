@@ -431,5 +431,10 @@ export const userLogin = (params) => {
 
 //手机号解密
 export const getPhone = (params) => {
-  return restResult(POSTBODY, api.USER_PHONE, params)
+	return restResult(POSTBODY, api.USER_PHONE, params)
+}
+
+//获取当前游戏信息
+export const gameInfo = (params) => {
+	return restResult(GET, api.GAME_INFO, params);
 }

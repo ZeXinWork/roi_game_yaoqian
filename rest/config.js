@@ -276,4 +276,7 @@ export const GET_MINI_QRCODE = '/Api/User/Game/Operate/Game/getGameMiniQrcode'
 export const USER_LOGIN = '/api/user/auth'
 
 //手机号登录
-export const USER_PHONE='/api/user/update'
+export const USER_PHONE = '/api/user/update'
+
+//当前游戏信息
+export const GAME_INFO = '/api/game/info'

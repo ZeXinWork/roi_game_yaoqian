@@ -725,7 +725,8 @@
 		getGameStatus
 	} from '@/utils/utils.js'
 	import {
-		userLogin
+		userLogin,
+		gameInfo
 	} from '@/rest/api.js'
 	export default {
 		components: {
@@ -948,6 +949,7 @@
 				codeError: '',
 				timer: null,
 				verifyCodeResult: {},
+				gameId: ''
 			}
 		},
 		onShow() {
@@ -957,11 +959,18 @@
 			this.context = uni.createCanvasContext('shareCanvas', this)
 		},
 		onLoad(options) {
+			const localGameId = this.$storage.get('gameId')
+			console.log(localGameId, "localGameIdlocalGameIdlocalGameIdlocalGameId")
+			if (localGameId) {
+				this.getGameInfo()
+				return
+			}
 			const _this = this
 			const gameId = options.gameId
+			this.gameId = gameId
+			this.$storage.set('gameId', gameId)
 			const status = Number(options.status)
 			const user = this.$storage.getUser()
-			console.log(user, "user")
 			if (gameId && !user.userId) {
 				uni.showModal({
 					title: "提示",
@@ -974,6 +983,7 @@
 					}
 				})
 			}
+
 			this.navbarHeight =
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 		},
@@ -1351,7 +1361,7 @@
 					success: (res) => {
 						if (res.networkType === 'none') {
 							this.$refs.network.show()
-				 	} else {
+						} else {
 							if (this.playLoading) {
 								return
 							}
@@ -1360,6 +1370,7 @@
 								this.playLoading = false
 								this.userLogin()
 							} else {
+								this.playLoading = false
 								this.$refs.redEnvelope.open()
 							}
 						}
@@ -1632,56 +1643,17 @@
 				})
 			},
 			getGameInfo() {
-				apiGetGameInfo({
-						gameId: this.gameId,
-					})
-					.then((res) => {
-						res.startTime = moment(res.startTime * 1000).format('MM月DD日 HH:mm')
-						res.overChance = moment(res.redeemEndTime * 1000).format(
-							'MM月DD日 HH:mm'
-						)
-						res.endTime = moment(res.endTime * 1000).format('MM月DD日 HH:mm')
-						this.gameInfo = res
-						if (res.isSvip == 1 && this.user_info) {
-							// 用户排名
-							this.getUserScore()
-						}
-						this.createNewImg(res)
-						if (res.isSvip == 1) {
-							// 王中王排名
-							this.getRankScore()
-						}
-						this.getAward() //获取中奖明细
-						// 游戏待设置
-						if (res.status == 'game_creat') {
-							uni.showModal({
-								content: '游戏待设置',
-								confirmText: '确定',
-								showCancel: false,
-								success: (res) => {
-									if (res.confirm) {
-										this.closeThisPage()
-									}
-								},
-							})
-						}
-						// 游戏下架
-						if (res.status == 'game_off') {
-							this.$refs.get_out.show()
-						}
+				console.log("调用sssssssssss")
+				const localGameId = this.$storage.get('gameId')
+				const params = {
+					game_id: localGameId ? localGameId : this.gameId,
+					template_id: '2021110901'
+				}
+				gameInfo(params).then(res => {
+					console.log(res, "ressss")
+				})
+				return
 
-						// 游戏结束
-
-						if (res.status == 'game_end' && res.isSvip == 1 && this.user_info) {
-							this.getKingOfKingPrize()
-						} else if (res.status == 'game_end') {
-							this.$refs.assistance.hide()
-							this.$refs.over_popup.show()
-						}
-					})
-					.catch((error) => {
-						this.toCreate()
-					})
 			},
 			getTime: function(time, format = 'YYYY-MM-DD') {
 				return time ? moment.unix(time).format(format) : ''
@@ -1696,6 +1668,7 @@
 						const params = {
 							avatarUrl: res.userInfo.avatarUrl,
 							nickName: res.userInfo.nickName,
+							platform: 'yaoyaoshu'
 						};
 						this.$loading.show();
 						uni.login({

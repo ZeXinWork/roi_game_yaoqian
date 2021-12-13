@@ -100,6 +100,7 @@
 					iv: e.detail.iv,
 					agreement_id: this.user.agreement_id,
 					privacy_clause_id: this.user.privacy_clause_id,
+					platform: 'yaoyaoshu'
 				}
 				getPhone(params)
 					.then((res) => {
