@@ -241,9 +241,7 @@ export const game = (params) => {
 	return restResult(GET, api.GAME, params);
 };
 
-export const gameResult = (params) => {
-	return restResult(GET, api.GAME_RESULT, params);
-};
+
 
 export const gameRecentSettingList = (params) => {
 	return restResult(GET, api.GAME_RECENT_SETTING_LIST, params);
@@ -442,4 +440,9 @@ export const gameInfo = (params) => {
 //获取当前游戏次数
 export const gameNumber = (params) => {
 	return restResult(GET, api.GAME_PLAY_NUMBER, params);
+}
+
+//获取游戏结果
+export const gameResult = (params) => {
+	return restResult(GET, api.GAME_RESULT, params);
 }

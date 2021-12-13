@@ -87,7 +87,7 @@
           <image @click="$refs.prizeDetail.close()" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode=""></image>
         </view>
 		  </uni-popup> -->
-			<redEnvelope ref="redEnvelope"></redEnvelope>
+			<redEnvelope ref="redEnvelope" :result="gameResult.result" :prize="gameResult.prize"></redEnvelope>
 
 			<view class="de_btn zl_btn" @click="popShow('share')">喊好友来博饼</view>
 			<view class="record_wrap">
@@ -723,7 +723,8 @@
 	import {
 		userLogin,
 		gameInfo,
-		gameNumber
+		gameNumber,
+		gameResult
 	} from '@/rest/api.js'
 	export default {
 		components: {
@@ -746,8 +747,8 @@
 				user_info: '',
 				userRank: {}, //用户排名
 				gameResult: {
-					gameResult: [],
-					level: 0,
+					prize: {},
+					result: 0,
 				},
 				helpFaileMsg: '您的助力次数已用完',
 				helper: {
@@ -944,7 +945,7 @@
 				verifyCodeResult: {},
 				gameId: '',
 				gameInfo: {},
-				playTime:""
+				playTime: ""
 			}
 		},
 		onShow() {
@@ -1367,9 +1368,8 @@
 							if (JSON.stringify(this.$storage.getUser()) == '{}') {
 								this.playLoading = false
 								this.userLogin()
-							} else {
-								this.playLoading = false
-								this.$refs.redEnvelope.open()
+							} else{	
+								this.getGameResult()
 							}
 						}
 					},
@@ -1657,11 +1657,30 @@
 
 
 			},
+			//获取游戏可玩次数
 			getPlayNumber() {
 				gameNumber({
 					game_id: this.gameId
 				}).then((res) => {
 					this.playTime = res.time
+				})
+			},
+			//获取游戏结果
+			getGameResult() {
+				gameResult({
+					game_id: this.gameId
+				}).then((res) => {
+					if (res.errno === '1') {
+						this.$refs.redEnvelope.open()
+					}
+					this.gameResult.result = res.result
+					if (res.result) {
+						this.gameResult.prize = res.prize
+					}
+					this.$refs.redEnvelope.open()
+					this.getPlayNumber()
+					this.playLoading = false
+					
 				})
 			},
 			getTime: function(time, format = 'YYYY-MM-DD') {
