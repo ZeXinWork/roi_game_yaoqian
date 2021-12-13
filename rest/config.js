@@ -200,7 +200,7 @@ export const ADD_GAME_PRIZE_VERIFY = '/Api/User/Game/Prize/Verify/add'
 
 // 游戏奖品兑换
 
-export const EXCHANGE_GAME_PRIZE_LIST = '/Api/User/Game/Prize/Exchange/getList'
+export const EXCHANGE_GAME_PRIZE_LIST = '/api/gameAward/index'
 
 export const EXCHANGE_GAME_PRIZE = '/Api/User/Game/Prize/Exchange/getOne'
 
@@ -225,7 +225,7 @@ export const PAY_GAME_PRODUCT = '/Api/User/Product/PaidProduct/pay'
 
 // 奖品管理
 
-export const PRIZE_LIST = '/Api/User/User/UserPrize/getList'
+export const PRIZE_LIST = '/api/user/prize'
 
 export const PRIZE = '/Api/User/User/UserPrize/getOne'
 
