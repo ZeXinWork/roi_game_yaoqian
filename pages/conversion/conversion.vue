@@ -21,7 +21,7 @@
 							<image :src="user_info.avatar" mode=""></image>
 						</view>
 						<view class="user_score">
-							<view class="">可兑博饼分</view>
+							<view class="">可兑积分</view>
 							<view class="number">{{ userPlayInfo.integral || 0 }}</view>
 						</view>
 					</view>
@@ -30,35 +30,35 @@
 			</view>
 			<view v-if="prizeList.length>0">
 				<view class="btn_part" @click="orderPrizeList">
-					<text>所需博饼积分</text>
+					<text>所需积分</text>
 					<uni-icons class="arrow" :type="points=='DESC'?'arrowup':'arrowdown'" color="#fff"></uni-icons>
 
 					<!-- <uni-icons v-if="points==DESC" class="arrow" type="arrowup" color="#fff"></uni-icons>
 					<uni-icons v-else class="arrow" type="arrowdown" color="#fff"></uni-icons> -->
 				</view>
 				<view v-for="item in prizeList" :key="item"
-					:class="['card','exchange_part',{'fade':Math.floor((item.prizeNum-item.deliverNum)/item.prizeNum*100)==0}]">
+					:class="['card','exchange_part',{'fade':Math.floor((item.left_num-item.prize_num+1)/item.prize_num*100)==0}]">
 					<view class="exchange_left" @click="showDetail(item)">
 						<view class="goods_info">
 							<view class="goods_img">
-								<image :src="item.prizeImageUrl" mode=""></image>
+								<image :src="item.prize_url" mode=""></image>
 							</view>
 							<view class="goods_title">
-								<text>{{ item.prizeName }}</text>
+								<text>{{ item.prize_name }}</text>
 							</view>
 						</view>
 						<view class="godds_progress">
 							<view class="progress">
 								<view class="line"
-									:style="{width:Math.floor((item.prizeNum-item.deliverNum)/item.prizeNum*100)+'%'}">
+									:style="{width:Math.floor((item.left_num-item.prize_num+1)/item.prize_num*100)+'%'}">
 								</view>
 							</view>
-							<text>剩余{{ Math.floor((item.prizeNum-item.deliverNum)/item.prizeNum*100) }}%</text>
+							<text>剩余{{ Math.floor((item.left_num-item.prize_num+1)/item.prize_num*100) }}%</text>
 						</view>
 					</view>
 					<view class="exchange_right">
-						<view class="score_title">需博饼分</view>
-						<view class="number">{{ item.prizeIntegral }}</view>
+						<view class="score_title">需积分</view>
+						<view class="number">{{ item.prize_point }}</view>
 						<view class="conversion_btn" @click="exchangePrisePoupShow(item)">兑换</view>
 					</view>
 				</view>
@@ -79,7 +79,7 @@
 		</view>
 		<popup ref="exchange" class="exchange_poup" width="640" left="56" top="336">
 			<view class="content">
-				是否确认使用 {{ exchangeGoddsInfo.prizeIntegral }} 博饼分 兑换 {{ exchangeGoddsInfo.prizeName }}
+				是否确认使用 {{ exchangeGoddsInfo.prize_point }} 积分 兑换 {{ exchangeGoddsInfo.prize_name }}
 			</view>
 			<view class="action_part">
 				<view class="action_btn" @click="$refs.exchange.hide()">取消</view>
@@ -89,9 +89,9 @@
 		<popup ref="finish" class="finish_poup" width="640" left="56" top="336">
 			<view class="finish_content">
 				<view class="title">兑换成功</view>
-				<view class="sub_title">使用 {{ exchangeGoddsInfo.prizeIntegral }} 博饼分兑换了</view>
-				<image class="goods_img" :src="exchangeGoddsInfo.prizeImageUrl" mode="aspectFit"></image>
-				<view class="goods_info">{{ exchangeGoddsInfo.prizeName }}</view>
+				<view class="sub_title">使用 {{ exchangeGoddsInfo.prize_point }} 积分兑换了</view>
+				<image class="goods_img" :src="exchangeGoddsInfo.prize_url" mode="aspectFit"></image>
+				<view class="goods_info">{{ exchangeGoddsInfo.prize_name }}</view>
 				<view class="btn active" @click="toGetAward">找商家领奖</view>
 				<view class="btn " @click="$refs.finish.hide()">继续兑换</view>
 			</view>
@@ -131,13 +131,13 @@
 				<image @click="$refs.prizeDetail.hide()" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode=""></image>
 			</view>
 			<view class="g_info">
-				<image :src="curr_show_item.prizeImageUrl" mode="aspectFill"></image>
+				<image :src="curr_show_item.prize_url" mode="aspectFill"></image>
 				<view class="g_info_name">
-					{{ curr_show_item.prizeName }}
+					{{ curr_show_item.prize_name }}
 				</view>
 			</view>
 			<view class="g_content">
-				<view class="m_content">{{ curr_show_item.prizeDetails || '暂无详细说明' }}</view>
+				<view class="m_content">{{ curr_show_item.prize_details || '暂无详细说明' }}</view>
 				<view class="g_btn" @click="$refs.prizeDetail.hide()">我知道了</view>
 			</view>
 		</popup>
@@ -224,8 +224,8 @@
 			};
 		},
 		onLoad(options) {
-			console.log(options)
 			this.gameId = options.gameId
+			this.gameId = '211210171117781994'
 			this.getPrizeList()
 			this.getUserInfo()
 			this.getGameInfo()
@@ -358,9 +358,11 @@
 					points: this.points
 				}
 				exchangeGamePrizeList(params).then(res => {
+					console.log(res)
 					this.$loading.hide()
-					if(params.page == 1) this.prizeList = res.list
-					else this.prizeList = [...this.prizeList,...res.list]
+					if(params.page == 1) this.prizeList = res
+					else this.prizeList = [...this.prizeList,...res]
+					console.log(this.prizeList)
 					if (res.pageCount == params.page) {
 						this.more = false
 					} else {
@@ -405,7 +407,7 @@
 				this.$loading.show()
 				addExchangeGamePrize({
 					gameId: this.gameId,
-					prizeId: this.exchangeGoddsInfo.prizeId
+					prizeId: this.exchangeGoddsInfo.prize_id
 				}).then(res => {
 					// this.getUserInfo()
 					this.getUserPlayInfo()
@@ -429,7 +431,7 @@
 			},
 			exchangePrisePoupShow(item) {
 				try{
-					if (item.prizeIntegral > this.userPlayInfo.integral) {
+					if (item.prize_point > this.userPlayInfo.integral) {
 						this.$toast.error('积分不足')
 					} else {
 						this.exchangeGoddsInfo = item

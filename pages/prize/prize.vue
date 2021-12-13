@@ -5,8 +5,8 @@
 		</view>
 		<view class="btns">
 			<view :class="['default_btn',{active:current==0}]" @click="changeType(0)">全部</view>
-			<view :class="['default_btn',{active:current==2}]" @click="changeType(2)">实物</view>
-			<view :class="['default_btn',{active:current==1}]" @click="changeType(1)">优惠券</view>
+			<view :class="['default_btn',{active:current==1}]" @click="changeType(1)">实物</view>
+			<view :class="['default_btn',{active:current==2}]" @click="changeType(2)">优惠券</view>
 		</view>
 		<view class="goods_list" v-if="userPrizeList.length>0">
 			<view v-for="item in userPrizeList" :class="['item_box',{item_gray:item.isVerify}]" :key="item">
@@ -77,12 +77,26 @@
 		data() {
 			return {
 				current: 0,
-				page: 1,
+				page: 0,
 				more: true,
 				gameId:'',
 				userPrizeList: [
 					{
 						"isVerify": false,
+						"prizeInfo": {
+							"prizeImageUrl": "https://static.roi-cloud.com/prizeImg/20210913/16/29/613f0bf6a055772189.jpg",
+							"prizeName":"保时捷麻将(兑奖区域:沈阳、南宁、柳州、昆明、西安、福州，厦门)"
+						},
+						"uid":"asdfghj",
+						"gameId": 1,
+						"gameInfo": {
+							"gameName": "建发汽车"        
+						},
+						"verify_time": "2021-01-01",
+						"verifyTime": "2021-01-01"
+					},
+					{
+						"isVerify": true,
 						"prizeInfo": {
 							"prizeImageUrl": "https://static.roi-cloud.com/prizeImg/20210913/16/29/613f0bf6a055772189.jpg",
 							"prizeName":"保时捷麻将(兑奖区域:沈阳、南宁、柳州、昆明、西安、福州，厦门)"
@@ -113,7 +127,7 @@
 			changeType(type) {
 				this.page = 1
 				this.current = type
-				this.getPrizeList(type)
+				this.getPrizeList(type-1)
 			},
 			showDetail(item){
 				this.curr_show_item = item
@@ -121,24 +135,24 @@
 			},
 			getPrizeList(type) {
 				let params = {
-					page: this.page,
-					pageSize: 20,
+					offset: this.page,
+					limit: 20,
 					gameId: this.gameId
 				}
-				type && (params.prizeType = type)
+				if (type != undefined && type >= 0) params.prizeType = type
 				this.$loading.show()
 				prizeList(params).then(res => {
-					for (let index in res.list) {
-						res.list[index].verify_time = moment(res.list[index].verifyTime * 1000).format(
-							'YYYY.MM.DD')
-					}
-					if(params.page==1) this.userPrizeList = res.list
-					else this.userPrizeList = [...this.userPrizeList,...res.list]
-					if (res.pageCount == this.page) {
-						this.more = false
-					}else{
-						this.more = true
-					}
+					// for (let index in res) {
+					// 	res[index].verify_time = moment(res[index].verifyTime * 1000).format(
+					// 		'YYYY.MM.DD')
+					// }
+					// if(params.offset==0) this.userPrizeList = res
+					// else this.userPrizeList = [...this.userPrizeList,...res]
+					// if (res.pageCount == this.page) {
+					// 	this.more = false
+					// }else{
+					// 	this.more = true
+					// }
 					this.$loading.hide()
 				})
 			},
