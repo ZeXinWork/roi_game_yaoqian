@@ -57,3 +57,19 @@ export const cleanObject = (object) => {
   })
   return result
 }
+
+/**
+ * 获取游戏状态
+ */
+export const getGameStatus = (status) => {
+	const orderStatus = {
+	  1: '待设置',
+	  2: '待开始',
+	  3: '进行中',
+	  4: '兑奖中',
+	  5: '领奖中',
+	  6: '已结束',
+	  7: '已下架',
+	}
+	return orderStatus[Number(status)] || ''
+}

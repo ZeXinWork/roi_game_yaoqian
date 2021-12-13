@@ -45,7 +45,16 @@
 				"navigationBarBackgroundColor": "#ff4b3b"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/phone/phone",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

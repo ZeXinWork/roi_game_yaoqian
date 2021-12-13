@@ -1,4 +1,10 @@
-import { GET, GET_LIST, POST, FILE } from './types.js';
+import {
+	GET,
+	GET_LIST,
+	POST,
+	FILE,
+	POSTBODY
+} from './types.js';
 import simple from './simple.js';
 import * as api from './config.js';
 
@@ -324,7 +330,7 @@ export const addExchangeGamePrize = (params) => {
 };
 
 export const addGameHelp = (params) => {
-	return restResult(POST, api.ADD_GAME_HELP, params,{},false);
+	return restResult(POST, api.ADD_GAME_HELP, params, {}, false);
 };
 
 export const verifyGameHelp = (params) => {
@@ -386,7 +392,7 @@ export const auditImageResult = (params) => {
 };
 
 export const apiGetGameInfo = (params) => {
-	return restResult(GET, api.GET_GAME_INFO, params,{},false);
+	return restResult(GET, api.GET_GAME_INFO, params, {}, false);
 };
 
 export const apiGetMinSetting = (params) => {
@@ -418,3 +424,12 @@ export const apiKingOfKingPrize = (params) => {
 export const apiGetMiniQrcode = (params) => {
 	return restResult(GET, api.GET_MINI_QRCODE, params);
 };
+
+export const userLogin = (params) => {
+	return restResult(POSTBODY, api.USER_LOGIN, params);
+}
+
+//手机号解密
+export const getPhone = (params) => {
+  return restResult(POSTBODY, api.USER_PHONE, params)
+}

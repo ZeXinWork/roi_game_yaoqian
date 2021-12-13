@@ -1,8 +1,8 @@
 // 基础地址
 // export const BASE_URL = 'https://bobing.roi-cloud.com';
 // 测试
-// export const BASE_URL = 'https://bbtest.roi-cloud.com';
 export const BASE_URL = 'https://game0.roi-cloud.com';
+
 export const QINIU_UPLOAD_URL = 'https://up.qiniup.com';
 
 export const QIU_DOMAIN_URL = 'https://static.roi-cloud.com';
@@ -52,7 +52,7 @@ export const UPDATE_USER_PHONE = '/Api/User/User/UserInfo/updatePhone'
 
 // 用户联系方式
 export const USER_CONTACT_LIST = '/Api/User/User/UserContactWay/getList'
-				
+
 export const ADD_USER_CONTACT = '/Api/User/User/UserContactWay/add'
 
 export const UPDATE_USER_CONTACT = '/Api/User/User/UserContactWay/update'
@@ -101,8 +101,8 @@ export const USER_HELP_RECORD = '/Api/User/User/UserHelpRecord/getOne'
 
 // 王中王排行榜
 
-export const GAME_KING_OF_KINGS_LIST= '/Api/Common/Game/Game/getKingOfKingsPointsList'
-export const GAME_KING_OF_KINGS_Prize_LIST= '/Api/Common/Game/Game/getKingOfKingsPrizeList'
+export const GAME_KING_OF_KINGS_LIST = '/Api/Common/Game/Game/getKingOfKingsPointsList'
+export const GAME_KING_OF_KINGS_Prize_LIST = '/Api/Common/Game/Game/getKingOfKingsPrizeList'
 
 export const GAME_KING_OF_KINGS_RANK_SCORE = '/Api/User/Game/KingOfKings/KingOfKings/getRankScore'
 
@@ -271,3 +271,9 @@ export const SHARE_QRCODE = '/Api/User/Game/Operate/Game/shareQrCode'
 export const KING_OF_KING_PRIZE = '/Api/User/Game/KingOfKings/KingOfKingsUserPrize/getOne'
 
 export const GET_MINI_QRCODE = '/Api/User/Game/Operate/Game/getGameMiniQrcode'
+
+//登录
+export const USER_LOGIN = '/api/user/auth'
+
+//手机号登录
+export const USER_PHONE='/api/user/update'
