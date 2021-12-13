@@ -438,3 +438,8 @@ export const getPhone = (params) => {
 export const gameInfo = (params) => {
 	return restResult(GET, api.GAME_INFO, params);
 }
+
+//获取当前游戏次数
+export const gameNumber = (params) => {
+	return restResult(GET, api.GAME_PLAY_NUMBER, params);
+}
