@@ -1,0 +1,80 @@
+.phone {
+  background: #fff;
+  box-sizing: border-box;
+  height: 100vh;
+  padding: 64rpx 30rpx 0 30rpx;
+  &__title {
+    display: flex;
+    align-items: center;
+    &__img {
+      border-radius: 50%;
+      width: 80rpx;
+      height: 80rpx;
+    }
+    &__text {
+      font-size: 36rpx;
+      margin-left: 32rpx;
+    }
+  }
+  &__desc__wrap {
+    color: #575757;
+    font-size: 22rpx;
+    margin: 48rpx 0;
+  }
+  &__content {
+    display: flex;
+    &__img {
+      width: 48rpx;
+      height: 48rpx;
+    }
+    &__text {
+      margin-left: 24rpx;
+      &__title {
+        font-size: 32rpx;
+        color: #444;
+      }
+      &__body {
+        color: #b7b7b7;
+        font-size: 22rpx;
+      }
+    }
+  }
+  &__service {
+    color: #575757;
+    font-size: 22rpx;
+  }
+  &__button {
+    border-radius: 40rpx;
+    margin-top: 80rpx;
+  }
+}
+.mt-24 {
+  margin: 48rpx 0;
+}
+.agreement-wrapper {
+  font-size: 30rpx;
+  display: flex;
+  height: 100rpx;
+  align-items: center;
+  padding-left: 100rpx;
+  &__text {
+    font-size: 22rpx;
+    color: #b3b2b2;
+  }
+}
+.cert-item {
+  box-shadow: inset 0px -0.5px 0px #eeeeee;
+  margin: 30rpx 0rpx;
+  &-xieyi {
+    color: #0059ff;
+  }
+  &-xieyi-checkbox {
+    box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    radio {
+    transform:scale(0.7);
+    }
+  }
+}
