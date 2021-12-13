@@ -961,7 +961,7 @@
 			const gameId = options.gameId
 			const status = Number(options.status)
 			const user = this.$storage.getUser()
-			console.log(user,"user")
+			console.log(user, "user")
 			if (gameId && !user.userId) {
 				uni.showModal({
 					title: "提示",
@@ -1347,38 +1347,24 @@
 				this.getHelperList(1, true, type)
 			},
 			play() {
-				// this.$refs.popup.open('center')
-				// this.$refs.prizeDetail.open()
-				console.log(this.$refs.redEnvelope.open())
-				// uni.getNetworkType({
-				//   success: (res) => {
-				//     if (res.networkType === 'none') {
-				//       this.$refs.network.show()
-				//     } else {
-				//       if (this.playLoading) {
-				//         return
-				//       }
-				//       this.playLoading = true
-				//       if (JSON.stringify(this.$storage.getUser()) == '{}') {
-				//         this.playLoading = false
-				//         this.toLogin()
-				//       } else {
-				//         if (this.$storage.get('getLocationTime') == '') {
-				//           this.getSetting()
-				//           return
-				//         } else {
-				//           let get_time = this.$storage.get('getLocationTime').get_time
-				//           let now = new Date().getTime()
-				//           if ((now - get_time) / 1000 / 60 / 60 > 3) {
-				//             this.getSetting()
-				//             return
-				//           }
-				//           this.addPlay()
-				//         }
-				//       }
-				//     }
-				//   },
-				// })
+				uni.getNetworkType({
+					success: (res) => {
+						if (res.networkType === 'none') {
+							this.$refs.network.show()
+				 	} else {
+							if (this.playLoading) {
+								return
+							}
+							this.playLoading = true
+							if (JSON.stringify(this.$storage.getUser()) == '{}') {
+								this.playLoading = false
+								this.userLogin()
+							} else {
+								this.$refs.redEnvelope.open()
+							}
+						}
+					},
+				})
 			},
 			playSound() {
 				this.Audio.seek(0.1)
