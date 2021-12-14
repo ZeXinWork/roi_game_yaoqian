@@ -2,7 +2,6 @@
 	<view class="user-wrap">
 		<view class="user-info-wrap">
 			<view class="user-info-container">
-
 				<view class="user-info-body">
 					<view class="user-info" @click="updateUserInfo">
 						<image class="user-thumb" :src="user.avatar" />
@@ -16,8 +15,8 @@
 			</view>
 			<view class="user-info-game-wrap">
 				<view class="user-info-game-wrap_title">我的游戏</view>
-				<view class="user-info-game-wrap_content" v-for="item of gameList" :ikey='item.id'>
-					<image :src="item.img" mode="aspectFill" class="user-info-game-wrap_content_img"></image>
+				<view class="user-info-game-wrap_content" v-for="item of gameList" :ikey='item.game_id'>
+					<image :src="item.logo_url" mode="aspectFill" class="user-info-game-wrap_content_img"></image>
 					<view class="user-info-game-wrap_content_body">
 						<view class="user-info-game-wrap_content_body_header">
 							<view class="user-info-game-wrap_content_body_header_title">{{item.name}}</view>
@@ -31,12 +30,12 @@
 							<view class="user-info-game-wrap_content_body_content_open mb-8">
 								<image src="https://static.roi-cloud.com/upload/20211211/60935669193851"
 									mode="aspectFill"></image>
-								<text>{{`开奖方式：${item.open}`}}</text>
+								<text>{{`开奖方式：${item.lottery_type===1?'即开即中':'积分兑换'}`}}</text>
 							</view>
 							<view class="user-info-game-wrap_content_body_content_open">
 								<image src="https://static.roi-cloud.com/upload/20211212/60935669153633"
 									mode="aspectFill"></image>
-								<text>{{`游戏时间：${item.startTime}-${item.endTime}`}}</text>
+								<text>{{`游戏时间：${item.game_start_time}-${item.game_end_time}`}}</text>
 							</view>
 						</view>
 					</view>
@@ -60,10 +59,36 @@
 </template>
 
 <script>
+	import {
+		getMyList
+	} from '@/rest/api.js'
+	import {
+		getGameStatus
+	} from '../../utils/utils.js'
 	export default {
 		onLoad() {
 			const user = this.$storage.getUser()
 			this.user = user
+			getMyList({
+				offset: 1,
+				limit: 3
+			}).then((res) => {
+				if (Array.isArray(res)) {
+					this.gameList = res
+				} else {
+					uni.showToast({
+						title: "出错啦",
+						icon: "error"
+					})
+				}
+
+			}).catch(err => {
+				uni.showToast({
+					title: "出错啦",
+					icon: "error"
+				})
+			})
+
 		},
 		data() {
 			return {
@@ -85,12 +110,8 @@
 		},
 		methods: {
 			getStatus(status) {
-				let list = {
-					1: '进行中',
-					2: '已完成',
-					3: '未开始',
-				}
-				return list[status] || ''
+				const res = getGameStatus(status)
+				return res
 			},
 			handleMore() {
 				uni.navigateTo({
@@ -283,6 +304,11 @@
 						}
 					}
 				}
+				&_content:not(:last-child) {
+					margin-bottom: 44rpx;
+				}
+				
+				
 			}
 		}
 

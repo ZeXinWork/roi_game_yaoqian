@@ -292,3 +292,9 @@ export const PRIZE_DETAIL = '/api/integrals/win'
 
 //兑奖明细
 export const CASH_DETAIL = '/api/integrals/expend'
+
+//获取我的游戏列表
+export const MY_GAME='/api/game/index'
+
+//获取我的游戏列表详情
+export const MY_GAME_LIST='/api/game/index'
