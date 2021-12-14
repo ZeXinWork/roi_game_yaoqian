@@ -330,7 +330,6 @@
 				}
 				codeMsg = JSON.stringify(codeMsg)
 				this.$refs.qrcode.crtQrCode(codeMsg)
-				console.log(options)
 				this.prizeInfo = {
 					prizeName: options.prizeName,
 					prizeLevel: 1
