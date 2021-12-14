@@ -50,7 +50,7 @@
 				<image :src="userInfo.avatar" mode=""></image>
 			</view>
 			<view class="username">{{ userInfo.nickname }}</view>
-			<view class="prize_level">{{ levelList[prizeInfo.prizeLevel] }}</view>
+			<view class="prize_level">{{ awardName }}</view>
 			<view class="goods_name">{{ prizeInfo.prizeName }}</view>
 			<view class="p_code_img">
 				<image :src="codeTempFilePath" mode="aspectFit"></image>
@@ -98,6 +98,7 @@
 					5: '对堂',
 					6: '状元'
 				},
+				awardName: '',
 				posterWidth: 358,
 				posterHeight: 540,
 				saveImageArr: [{
@@ -223,7 +224,7 @@
 					ctx.setFillStyle('#fff')
 					ctx.setTextAlign('center')
 					ctx.setFontSize(14)
-					ctx.fillText(this.levelList[this.prizeInfo.prizeLevel], this.posterWidth / 2, 152)
+					ctx.fillText(this.awardName, this.posterWidth / 2, 152)
 					ctx.setFontSize(16)
 					ctx.setFillStyle('#333')
 					ctx.fillText(this.prizeInfo.prizeName, this.posterWidth / 2, 184)
@@ -324,6 +325,7 @@
 				// 		this.$loading.hide()
 				// 	}, 1000)
 				// })
+				this.awardName = options.awardName
 				let codeMsg = {
 					gameId: options.gameId,
 					verifyCode: options.verifyCode
@@ -426,6 +428,7 @@
 				line-height: 62upx;
 				margin: 10upx auto;
 				border-radius: 16upx;
+				padding: 0rpx 10rpx;
 			}
 
 			.goods_name {

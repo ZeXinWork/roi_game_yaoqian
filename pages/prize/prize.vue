@@ -192,7 +192,7 @@
 			},
 			toReceive(item){
 				uni.navigateTo({
-					url: './accpect?uid='+item.user_prize_id+'&gameId='+item.game_id+'&verifyCode='+item.verify_code+'&prizeName='+item.prize_name,
+					url: './accpect?uid='+item.user_prize_id+'&gameId='+item.game_id+'&verifyCode='+item.verify_code+'&prizeName='+item.prize_name+'&awardName='+item.award_name,
 				})
 			}
 		}
