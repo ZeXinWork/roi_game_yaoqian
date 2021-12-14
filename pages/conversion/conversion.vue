@@ -22,7 +22,9 @@
 						</view>
 						<view class="user_score">
 							<view class="">可兑积分</view>
-							<view class="number">{{ userPlayInfo.integral || 0 }}</view>
+							<view class="number">{{ 
+								gameInfo.integral && gameInfo.integral.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,') || 0 
+								}}</view>
 						</view>
 					</view>
 					<navigator :url="'../prize/prize?gameId='+gameId" class="user_right">我的奖品</navigator>
@@ -372,9 +374,10 @@
 			},
 			getGameInfo() {
 				apiGetGameInfo({
-					gameId: this.gameId
+					game_id: this.gameId,
+					template_id: '2021110901'
 				}).then(res => {
-					res.redeemEndTime = moment(res.redeemEndTime * 1000).format('YYYY年MM月DD日')
+					res.redeemEndTime = moment(res.last_receive_time * 1000).format('YYYY年MM月DD日')
 					this.gameInfo = res
 				})
 			},
@@ -425,13 +428,14 @@
 				})
 			},
 			getUserInfo() {
-				userInfo().then(res => {
-					this.user_info = res
-				})
+				// userInfo().then(res => {
+				// 	this.user_info = res
+				// })
+				this.user_info = this.$storage.getUser()
 			},
 			exchangePrisePoupShow(item) {
 				try{
-					if (item.prize_point > this.userPlayInfo.integral) {
+					if (item.prize_point > this.gameInfo.integral) {
 						this.$toast.error('积分不足')
 					} else {
 						this.exchangeGoddsInfo = item

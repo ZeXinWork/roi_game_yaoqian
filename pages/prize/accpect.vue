@@ -16,21 +16,21 @@
 					<view class="username">{{ gameInfo.userCommonInfo.nickName }}</view>
 				</view>
 			</view>
-			<view class="code_content">
+			<!-- <view class="code_content">
 				<view class="m_title">联系商家领奖</view>
 				<view class="code_img">
 					<image :show-menu-by-longpress="true" :src="contactInfo.qrCodeUrl" mode=""></image>
 				</view>
 				<view class="code_tip">长按二维码，扫码领奖</view>
-			</view>
-			<!-- <view class="code_content" @longtap="saveImage">
+			</view> -->
+			<view class="code_content" @longtap="saveImage">
 				<view class="m_title">联系商家领奖</view>
 				<view class="code_img">
-					<image :src="contactInfo.qrCodeUrl" mode=""></image>
+					<image :show-menu-by-longpress="true" :src="contactInfo.qrCodeUrl" mode=""></image>
 				</view>
 				<view class="code_tip">长按二维码，保存图片到相册</view>
-			</view> -->
-		<!-- 	<view class="prize_item" @click="canvasToImage">
+			</view>
+			<view class="prize_item" @click="canvasToImage">
 				<view class="">
 					<view class="m_title">领奖码</view>
 					<view class="sub_title">点击保存领奖码</view>
@@ -39,7 +39,7 @@
 					<image class="icon_code" src="https://static.roi-cloud.com/base/icon_code.png" mode=""></image>
 					<image class="arrow_right" src="https://static.roi-cloud.com/base/arrow-right.png" mode=""></image>
 				</view>
-			</view> -->
+			</view>
 			<view class="tips">
 				<view class="m_title">温馨提示</view>
 				<view class="tips_content">若发起人要求你通过虚拟充值转账、提前支付运费等行为， 请注意核实活动信息是否真实可靠，谨慎对待，以免造成资金损失。</view>
@@ -118,6 +118,7 @@
 		onLoad(options) {
 			let that = this;
 			this.userInfo = this.$storage.getUser()
+			this.$refs.code.show()
 			this.gameId = options.gameId
 			this.initData(options)
 			this.getGameInfo()
@@ -317,7 +318,7 @@
 					codeMsg = JSON.stringify(codeMsg)
 					this.$refs.qrcode.crtQrCode(codeMsg)
 					setTimeout(() => {
-						// this.createPoster()
+						this.createPoster()
 						this.$loading.hide()
 					}, 1000)
 				})
