@@ -3,7 +3,7 @@
 		<navbar :params="{
         navColor: navColor,
         titleColor: '#fff',
-        title: gameInfo.logoInfo ? '' : '一起云博饼',
+        title: gameInfo.logo_url ? '' : `${gameInfo.name}`,
       }" class="">
 			<view v-if="gameInfo.logoInfo.img" class="diy_logo" :style="
           'background:url(' +
@@ -28,8 +28,8 @@
 			</view>
 			<view class="tips">
 				游戏时间：{{
-          gameInfo.startTime
-            ? gameInfo.startTime + ' - ' + gameInfo.endTime
+          gameInfo.game_start_time
+            ? gameInfo.game_start_time + ' - ' + gameInfo.game_end_time
             : '未开始'
         }}
 			</view>
@@ -53,15 +53,11 @@
 						<view class="shadow">兑换奖品</view>
 					</view>
 					<view class="chance">
-						您还有
+						您还能摇
 						<view class="number">
-							{{
-                userPlayInfo.playTimes - userPlayInfo.playedTimes < 0
-                  ? 0
-                  : userPlayInfo.playTimes - userPlayInfo.playedTimes || 0
-              }}
+							{{playTime}}
 						</view>
-						次博饼机会
+						次红包
 					</view>
 					<view class="de_btn btn_primary" @click="play">摇一摇</view>
 				</view>
@@ -91,7 +87,7 @@
           <image @click="$refs.prizeDetail.close()" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode=""></image>
         </view>
 		  </uni-popup> -->
-			<redEnvelope ref="redEnvelope"></redEnvelope>
+			<redEnvelope ref="redEnvelope" :result="gameResult.result" :prize="gameResult.prize"></redEnvelope>
 
 			<view class="de_btn zl_btn" @click="popShow('share')">喊好友来博饼</view>
 			<view class="record_wrap">
@@ -726,7 +722,9 @@
 	} from '@/utils/utils.js'
 	import {
 		userLogin,
-		gameInfo
+		gameInfo,
+		gameNumber,
+		gameResult
 	} from '@/rest/api.js'
 	export default {
 		components: {
@@ -747,14 +745,10 @@
 				navbarHeight: 0, //navbar高度
 				userPlayInfo: {}, //用户玩的次数
 				user_info: '',
-				gameInfo: {
-					startTime: '9月10日 14:00',
-					endTime: '9月17日 22:00'
-				}, //游戏信息
 				userRank: {}, //用户排名
 				gameResult: {
-					gameResult: [],
-					level: 0,
+					prize: {},
+					result: 0,
 				},
 				helpFaileMsg: '您的助力次数已用完',
 				helper: {
@@ -949,7 +943,9 @@
 				codeError: '',
 				timer: null,
 				verifyCodeResult: {},
-				gameId: ''
+				gameId: '',
+				gameInfo: {},
+				playTime: ""
 			}
 		},
 		onShow() {
@@ -959,10 +955,14 @@
 			this.context = uni.createCanvasContext('shareCanvas', this)
 		},
 		onLoad(options) {
-			const localGameId = this.$storage.get('gameId')
-			console.log(localGameId, "localGameIdlocalGameIdlocalGameIdlocalGameId")
+			this.navbarHeight =
+				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
+			let localGameId = this.$storage.get('gameId')
+			localGameId = '211206093256824726'
 			if (localGameId) {
-				this.getGameInfo()
+				this.gameId = localGameId
+				this.getGameInfo() //获取游戏信息
+				this.getPlayNumber() //获取游戏可玩次数
 				return
 			}
 			const _this = this
@@ -984,8 +984,7 @@
 				})
 			}
 
-			this.navbarHeight =
-				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
+
 		},
 
 		onHide() {
@@ -1369,9 +1368,8 @@
 							if (JSON.stringify(this.$storage.getUser()) == '{}') {
 								this.playLoading = false
 								this.userLogin()
-							} else {
-								this.playLoading = false
-								this.$refs.redEnvelope.open()
+							} else{	
+								this.getGameResult()
 							}
 						}
 					},
@@ -1643,17 +1641,47 @@
 				})
 			},
 			getGameInfo() {
-				console.log("调用sssssssssss")
-				const localGameId = this.$storage.get('gameId')
+				let localGameId = this.$storage.get('gameId')
+				localGameId = '211206093256824726'
 				const params = {
 					game_id: localGameId ? localGameId : this.gameId,
 					template_id: '2021110901'
 				}
 				gameInfo(params).then(res => {
-					console.log(res, "ressss")
+					this.gameInfo = res
+				}).catch(err => {
+					uni.showToast({
+						title: "出错啦"
+					})
 				})
-				return
 
+
+			},
+			//获取游戏可玩次数
+			getPlayNumber() {
+				gameNumber({
+					game_id: this.gameId
+				}).then((res) => {
+					this.playTime = res.time
+				})
+			},
+			//获取游戏结果
+			getGameResult() {
+				gameResult({
+					game_id: this.gameId
+				}).then((res) => {
+					if (res.errno === '1') {
+						this.$refs.redEnvelope.open()
+					}
+					this.gameResult.result = res.result
+					if (res.result) {
+						this.gameResult.prize = res.prize
+					}
+					this.$refs.redEnvelope.open()
+					this.getPlayNumber()
+					this.playLoading = false
+					
+				})
 			},
 			getTime: function(time, format = 'YYYY-MM-DD') {
 				return time ? moment.unix(time).format(format) : ''
@@ -2639,6 +2667,7 @@
 		min-height: 100vh;
 		box-sizing: border-box;
 		overflow: hidden;
+
 
 		.tips {
 			color: #fff;

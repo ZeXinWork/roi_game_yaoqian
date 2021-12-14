@@ -280,3 +280,9 @@ export const USER_PHONE = '/api/user/update'
 
 //当前游戏信息
 export const GAME_INFO = '/api/game/info'
+
+//获取游戏可玩次数
+export const GAME_PLAY_NUMBER = '/api/game/playTime'
+
+//获取游戏结果
+export const GAME_RESULT ='/api/game/play'

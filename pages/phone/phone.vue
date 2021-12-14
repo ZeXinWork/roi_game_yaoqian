@@ -104,7 +104,6 @@
 				}
 				getPhone(params)
 					.then((res) => {
-						console.log(res, "res")
 						user.phone = res.phoneNumber
 						this.$storage.setUser(user)
 						uni.showToast({
