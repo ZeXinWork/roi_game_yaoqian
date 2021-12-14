@@ -324,7 +324,7 @@ export const exchangeGamePrize = (params) => {
 };
 
 export const addExchangeGamePrize = (params) => {
-	return restResult(POST, api.ADD_EXCHANGE_GAME_PRIZE, params);
+	return restResult(POSTBODY, api.ADD_EXCHANGE_GAME_PRIZE, params);
 };
 
 export const addGameHelp = (params) => {

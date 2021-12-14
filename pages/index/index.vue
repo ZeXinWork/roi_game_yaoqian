@@ -959,6 +959,7 @@
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
 			localGameId = '211206093256824726'
+			this.$storage.set("gameId", localGameId)
 			if (localGameId) {
 				this.gameId = localGameId
 				this.getGameInfo() //获取游戏信息
@@ -1238,17 +1239,17 @@
 			},
 			toPage(e) {
 				// TODO: 暂时隐藏登陆逻辑
-				// if (JSON.stringify(this.$storage.getUser()) == '{}') {
-				//   this.$refs.login_popup.open()
-				// } else {
-				//   uni.navigateTo({
-				//     url: e.currentTarget.dataset.url,
-				//   })
-				// }
-				console.log(e.currentTarget.dataset.url)
-				uni.navigateTo({
-					url: e.currentTarget.dataset.url,
-				})
+				if (JSON.stringify(this.$storage.getUser()) == '{}') {
+				  this.$refs.login_popup.open()
+				} else {
+				  uni.navigateTo({
+				    url: e.currentTarget.dataset.url,
+				  })
+				}
+				// console.log(e.currentTarget.dataset.url)
+				// uni.navigateTo({
+				// 	url: e.currentTarget.dataset.url,
+				// })
 			},
 			getImageInfo(url) {
 				return new Promise((reslove, reject) => {

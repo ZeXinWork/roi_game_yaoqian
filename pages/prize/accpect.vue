@@ -9,11 +9,11 @@
 		<view class="prize_box">
 			<view class="userinfo">
 				<view class="avatar">
-					<image :src="gameInfo.userCommonInfo.avatar" mode=""></image>
+					<image :src="contactInfo.avatar" mode=""></image>
 				</view>
 				<view class="">
 					<view class="user_title">发起人</view>
-					<view class="username">{{ gameInfo.userCommonInfo.nickName }}</view>
+					<view class="username">{{ contactInfo.nickname }}</view>
 				</view>
 			</view>
 			<!-- <view class="code_content">
@@ -26,11 +26,11 @@
 			<view class="code_content" @longtap="saveImage">
 				<view class="m_title">联系商家领奖</view>
 				<view class="code_img">
-					<image :show-menu-by-longpress="true" :src="contactInfo.qrCodeUrl" mode=""></image>
+					<image :show-menu-by-longpress="true" :src="contactInfo.qr_code_url" mode=""></image>
 				</view>
 				<view class="code_tip">长按二维码，保存图片到相册</view>
 			</view>
-			<view class="prize_item" @click="canvasToImage">
+			<view class="prize_item" @click="openCode">
 				<view class="">
 					<view class="m_title">领奖码</view>
 					<view class="sub_title">点击保存领奖码</view>
@@ -49,17 +49,17 @@
 			<view class="avatar">
 				<image :src="userInfo.avatar" mode=""></image>
 			</view>
-			<view class="username">{{ userInfo.nickName }}</view>
+			<view class="username">{{ userInfo.nickname }}</view>
 			<view class="prize_level">{{ levelList[prizeInfo.prizeLevel] }}</view>
 			<view class="goods_name">{{ prizeInfo.prizeName }}</view>
 			<view class="p_code_img">
 				<image :src="codeTempFilePath" mode="aspectFit"></image>
 			</view>
 			<view class="p_tips">由发起人扫码，验证中奖者身份</view>
-			<view id="canvasMask" @longtap="saveAccpectImage"></view>
+			<!-- <view id="canvasMask" @longtap="saveAccpectImage"></view> -->
 			<canvas canvas-id="accpectCanvas" id="accpect_canvas"
 				:style="{width: posterWidth + 'px', height: posterHeight + 'px'}"></canvas>
-			<view class="p_btn" @click="$refs.code.hide()">我知道</view>
+			<view class="p_btn" @click="saveAccpectImage">保存到相册</view>
 		</popup>
 		<view style="position: fixed;top: -999999999999px;transform: translateY(-100%);">
 			<ayQrcode ref="qrcode" :modal="true" :url="codeMsg" />
@@ -85,9 +85,7 @@
 		data() {
 			return {
 				gameId: '',
-				contactInfo: {
-					qrCodeUrl: "https://static.roi-cloud.com/prizeImg/20210913/16/29/613f0bf6a055772189.jpg"
-				},
+				contactInfo: {},
 				gameInfo: {},
 				userInfo: {},
 				prizeInfo: {},
@@ -118,7 +116,6 @@
 		onLoad(options) {
 			let that = this;
 			this.userInfo = this.$storage.getUser()
-			this.$refs.code.show()
 			this.gameId = options.gameId
 			this.initData(options)
 			this.getGameInfo()
@@ -144,11 +141,16 @@
 			},
 			getGameInfo() {
 				apiGetGameInfo({
-					gameId: this.gameId
+					game_id: this.gameId,
+					template_id: '2021110901'
 				}).then(res => {
-					res.redeemEndTime = moment(res.redeemEndTime * 1000).format('YYYY年MM月DD日')
+					res.redeemEndTime = moment(res.game_end_time * 1000).format('YYYY年MM月DD日')
 					this.gameInfo = res
 				})
+			},
+			openCode() {
+				this.canvasToImage()
+				this.$refs.code.show()
 			},
 			saveImage() {
 				this.$refs.saveImage.open();
@@ -215,7 +217,7 @@
 					ctx.setFontSize(16)
 					ctx.setTextAlign('center')
 					ctx.setFillStyle('#333')
-					ctx.fillText(this.userInfo.nickName, this.posterWidth / 2, 122)
+					ctx.fillText(this.userInfo.nickname, this.posterWidth / 2, 122)
 					this.darwRoundRect(this.posterWidth / 2 - 25, 132, 48, 31, 6, '#FF2E2E', ctx)
 
 					ctx.setFillStyle('#fff')
@@ -228,11 +230,11 @@
 					ctx.drawImage(this.$refs.qrcode.imagePath, this.posterWidth / 2 - 120, 210, 260, 260)
 					ctx.setFontSize(12)
 					ctx.setFillStyle('#aaa')
-					ctx.fillText('由发起人扫码，验证中奖者身份', 170, 480)
+					ctx.fillText('由发起人扫码，验证中奖者身份', 170, 490)
 					setTimeout(() => {
 						ctx.draw()
 						this.$loading.hide()
-						this.$refs.code.show()
+						// this.$refs.code.show()
 					}, 200)
 				} catch (e) {
 					// this.$loading.hide()
@@ -307,26 +309,41 @@
 			initData(options) {
 				// 获取奖品信息
 				this.$loading.show()
-				prize({
-					uid: options.uid,
-				}).then(res => {
-					this.prizeInfo = res
-					let codeMsg = {
-						gameId: this.gameId,
-						verifyCode: res.prizeCode
-					}
-					codeMsg = JSON.stringify(codeMsg)
-					this.$refs.qrcode.crtQrCode(codeMsg)
-					setTimeout(() => {
-						this.createPoster()
-						this.$loading.hide()
-					}, 1000)
-				})
+				// prize({
+				// 	uid: options.uid,
+				// }).then(res => {
+				// 	this.prizeInfo = res
+				// 	let codeMsg = {
+				// 		gameId: this.gameId,
+				// 		verifyCode: res.prizeCode
+				// 	}
+				// 	codeMsg = JSON.stringify(codeMsg)
+				// 	this.$refs.qrcode.crtQrCode(codeMsg)
+				// 	setTimeout(() => {
+				// 		this.createPoster()
+				// 		this.$loading.hide()
+				// 	}, 1000)
+				// })
+				let codeMsg = {
+					gameId: options.gameId,
+					verifyCode: options.verifyCode
+				}
+				codeMsg = JSON.stringify(codeMsg)
+				this.$refs.qrcode.crtQrCode(codeMsg)
+				console.log(options)
+				this.prizeInfo = {
+					prizeName: options.prizeName,
+					prizeLevel: 1
+				}
 				// 获取联系方式
 				gameContact({
-					gameId: this.gameId
+					userPrizeId: options.uid,
 				}).then(res => {
 					this.contactInfo = res
+					setTimeout(() => {
+					this.createPoster()
+					this.$loading.hide()
+				}, 1000)
 				})
 			}
 		}

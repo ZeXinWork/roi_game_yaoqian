@@ -130,7 +130,7 @@ export const GAME_BACKGROUND = '/Api/User/Game/GameBackground/getOne'
 
 export const GAME_CONTACT_LIST = '/Api/User/Game/Contact/ContactWay/getList'
 
-export const GAME_CONTACT = '/Api/User/Game/Contact/ContactWay/getOne'
+export const GAME_CONTACT = '/api/user/prizeContact'
 
 export const ADD_GAME_CONTACT = '/Api/User/Game/Contact/ContactWay/add'
 
@@ -204,7 +204,7 @@ export const EXCHANGE_GAME_PRIZE_LIST = '/api/gameAward/index'
 
 export const EXCHANGE_GAME_PRIZE = '/Api/User/Game/Prize/Exchange/getOne'
 
-export const ADD_EXCHANGE_GAME_PRIZE = '/Api/User/Game/Prize/Exchange/add'
+export const ADD_EXCHANGE_GAME_PRIZE = '/api/game/redeem'
 
 // 游戏助力
 

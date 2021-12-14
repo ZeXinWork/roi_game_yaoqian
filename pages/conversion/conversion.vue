@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<navbar
-			:params="{lefTitle:'test',back:true,backColor:'#fff',titleColor:'#fff',navColor:'#E83D3D',slot:true,title:gameInfo.logoInfo?'':'一起云博饼'}"
+			:params="{lefTitle:'test',back:true,backColor:'#fff',titleColor:'#fff',navColor:'#E83D3D',slot:true,title:gameInfo.logoInfo?'':'我的奖品'}"
 			class="">
 			<view v-if="gameInfo.logoInfo.img" class="diy_logo"
 				:style="'background:url('+gameInfo.logoInfo.img+') no-repeat;background-size:contain'">
@@ -22,9 +22,7 @@
 						</view>
 						<view class="user_score">
 							<view class="">可兑积分</view>
-							<view class="number">{{ 
-								gameInfo.integral && gameInfo.integral.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,') || 0 
-								}}</view>
+							<view class="number">{{ gameInfo.integral || 0 }}</view>
 						</view>
 					</view>
 					<navigator :url="'../prize/prize?gameId='+gameId" class="user_right">我的奖品</navigator>
@@ -39,7 +37,7 @@
 					<uni-icons v-else class="arrow" type="arrowdown" color="#fff"></uni-icons> -->
 				</view>
 				<view v-for="item in prizeList" :key="item"
-					:class="['card','exchange_part',{'fade':Math.floor((item.left_num-item.prize_num+1)/item.prize_num*100)==0}]">
+					:class="['card','exchange_part',{'fade':Math.floor((item.left_num)/item.prize_num*100)==0}]">
 					<view class="exchange_left" @click="showDetail(item)">
 						<view class="goods_info">
 							<view class="goods_img">
@@ -52,10 +50,10 @@
 						<view class="godds_progress">
 							<view class="progress">
 								<view class="line"
-									:style="{width:Math.floor((item.left_num-item.prize_num+1)/item.prize_num*100)+'%'}">
+									:style="{width:Math.floor((item.left_num)/item.prize_num*100)+'%'}">
 								</view>
 							</view>
-							<text>剩余{{ Math.floor((item.left_num-item.prize_num+1)/item.prize_num*100) }}%</text>
+							<text>剩余{{ Math.floor((item.left_num)/item.prize_num*100) }}%</text>
 						</view>
 					</view>
 					<view class="exchange_right">
@@ -85,7 +83,7 @@
 			</view>
 			<view class="action_part">
 				<view class="action_btn" @click="$refs.exchange.hide()">取消</view>
-				<view class="action_btn active" @click="confirmExchange">是</view>
+				<view class="action_btn active" open-type="getPhoneNumber" @getphonenumber="confirmExchange" @click="confirmExchange">是</view>
 			</view>
 		</popup>
 		<popup ref="finish" class="finish_poup" width="640" left="56" top="336">
@@ -103,34 +101,31 @@
 				<view class="phone-container">
 					<image @click="onClose" src="https://static.roi-cloud.com/base/close.png" class="phone-close" />
 					<view class="phone-title">
-						<text>请留个备用手机号</text>
+						<text>请留手机号</text>
 					</view>
 					<view class="phone-subtitle">
 						<text>作为兑奖备用联系方式，我们会保护你的隐私</text>
 					</view>
-					<view class="phone-input-wrap">
+					<view class="phone-input-wrap" v-if="phone != '' ">
 						<input :value="phone" cursor-spacing="10" @input="changePhone" class="phone-input"
-							placeholder="填写手机号" />
+							placeholder="填写手机号" disabled="true" />
 					</view>
-					<view v-if="phoneError" class="phone-error-msg"><text>{{ phoneError }}</text></view>
-					<view class="phone-input-wrap">
-						<input :value="verifyCode" cursor-spacing="10" @input="changeVerifyCode" maxlength="6"
-							class="phone-code-input" placeholder="填写验证码" />
-						<view :class="['phone-code-button', {'phone-code-button-disabled': verifyCodeTime !== 0}]"
-							@click="sendCode"><text>{{ verifyCodeText }}</text></view>
-					</view>
+					<button v-else open-type="getPhoneNumber" @getphonenumber="getphonenumber" type="primary" class="phone_button"
+						:disabled="false">
+						微信手机号登录
+					</button>
 					<view v-if="codeError" class="phone-error-msg"><text>{{ codeError }}</text></view>
 
 					<view v-if="agreeError" class="agree-error-msg"><text>{{ agreeError }}</text></view>
-					<view :class="['phone-button', {'button-disabled': !phone || !verifyCode}]" @click="savePhone">
+					<view v-if="phone != ''" :class="['phone-button', {'button-disabled': !phone}]" @click="savePhone">
 						<text>保存</text>
 					</view>
 				</view>
 			</view>
 		</uni-popup>
-		<popup ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
+		<popup ref="prizeInfoDetail" class="prizeInfoDetail" width="640" left="56" top="336">
 			<view class="p_header">
-				<image @click="$refs.prizeDetail.hide()" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode=""></image>
+				<image @click="hideDetail" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode=""></image>
 			</view>
 			<view class="g_info">
 				<image :src="curr_show_item.prize_url" mode="aspectFill"></image>
@@ -140,7 +135,7 @@
 			</view>
 			<view class="g_content">
 				<view class="m_content">{{ curr_show_item.prize_details || '暂无详细说明' }}</view>
-				<view class="g_btn" @click="$refs.prizeDetail.hide()">我知道了</view>
+				<view class="g_btn" @click="hideDetail">我知道了</view>
 			</view>
 		</popup>
 	</view>
@@ -157,7 +152,8 @@
 		updateUserPhone,
 		apiGetGameInfo,
 		userGame,
-		apiGetAdvert
+		apiGetAdvert,
+		getPhone
 	} from '@/rest/api.js'
 	import {
 		validPhone,
@@ -173,43 +169,11 @@
 		},
 		data() {
 			return {
-				exchangeGoddsInfo: {
-					prizeImageUrl: "https://static.roi-cloud.com/prizeImg/20210913/16/29/613f0bf6a055772189.jpg",
-					prizeIntegral: 80000,
-					prizeLevel: 6,
-					prizeName: "保时捷麻将(兑奖区域:沈阳、南宁、柳州、昆明、西安、福州，厦门)",
-				},
-				phone: '13159328862',
+				exchangeGoddsInfo: {},
+				phone: '',
 				gameId: '',
-				prizeList: [
-					{
-						deliverNum: 6,
-						gameId: 6,
-						prizeDetails: "1、兑奖区域：沈阳、南宁、柳州、昆明、西安、福州，厦门；2、门店领奖，不支持邮寄",
-						prizeId: 16,
-						prizeImageUrl: "https://static.roi-cloud.com/prizeImg/20210913/16/29/613f0bf6a055772189.jpg",
-						prizeIntegral: 0,
-						prizeLevel: 6,
-						prizeName: "保时捷麻将(兑奖区域:沈阳、南宁、柳州、昆明、西安、福州，厦门)",
-						prizeNum: 60,
-						prizeType: 2,
-					},
-					{
-						deliverNum: 6,
-						gameId: 6,
-						prizeDetails: "1、兑奖区域：厦门2、门店领奖，不支持邮寄",
-						prizeId: 19,
-						prizeImageUrl: "https://static.roi-cloud.com/prizeImg/20210914/21/34/微信图片_20210914104032.jpg",
-						prizeIntegral: 0,
-						prizeLevel: 5,
-						prizeName: "阿斯顿马丁皮质卡包(兑奖区域:厦门)",
-						prizeNum: 10,
-						prizeType: 2,
-					}
-				],
-				user_info: {
-					phone: "13159328862"
-				},
+				prizeList: [],
+				user_info: {},
 				setting: {},
 				verifyCode: '',
 				verifyCodeText: '发送验证码',
@@ -227,12 +191,11 @@
 		},
 		onLoad(options) {
 			this.gameId = options.gameId
-			this.gameId = '211210171117781994'
 			this.getPrizeList()
 			this.getUserInfo()
 			this.getGameInfo()
-			this.getUserPlayInfo()
-			this.getAdvert()
+			// this.getUserPlayInfo()
+			// this.getAdvert()
 		},
 		onReachBottom() {
 			if (this.more) {
@@ -264,7 +227,10 @@
 			},
 			showDetail(item){
 				this.curr_show_item = item
-				this.$refs.prizeDetail.show()
+				this.$refs.prizeInfoDetail.show()
+			},
+			hideDetail() {
+				this.$refs.prizeInfoDetail.hide()
 			},
 			orderPrizeList() {
 				this.points == 'DESC' ? (this.points = 'ASC') : (this.points = 'DESC')
@@ -310,46 +276,10 @@
 					});
 				}
 			},
-			savePhone: function() {
-				if (!this.phone) {
-					this.phoneError = '请填写手机号';
-					return false;
-				} else if (!validPhone(this.phone)) {
-					this.phoneError = '手机号格式错误';
-					return false;
-				} else {
-					this.phoneError = '';
-				}
-				if (!this.verifyCode) {
-					this.codeError = '请填写验证码';
-					return false;
-				} else {
-					this.codeError = '';
-				}
-				let params = {
-					phone: this.phone,
-					verifyCode: this.verifyCode,
-					time: this.verifyCodeResult.time,
-					hash: this.verifyCodeResult.hash
-				};
-				this.$loading.show();
-				updateUserPhone(params).then(response => {
-					clearInterval(this.timer);
-					this.user_info = {
-						...this.user_info,
-						phone: this.phone
-					};
-					// let user = this.$storage.getUser();
-					// this.$storage.setUser({
-					// 	...user,
-					// 	phone: this.phone
-					// });
-					this.$refs.dialog.close();
-					this.$loading.hide();
-				}).catch((error) => {
-					this.$loading.hide();
-					this.$toast.error(error.msg || '短信验证码验证失败');
-				});
+			savePhone(){
+				uni.showToast({
+					title: '保存成功'
+				})
 			},
 			getPrizeList() {
 				this.$loading.show()
@@ -360,11 +290,9 @@
 					points: this.points
 				}
 				exchangeGamePrizeList(params).then(res => {
-					console.log(res)
 					this.$loading.hide()
 					if(params.page == 1) this.prizeList = res
 					else this.prizeList = [...this.prizeList,...res]
-					console.log(this.prizeList)
 					if (res.pageCount == params.page) {
 						this.more = false
 					} else {
@@ -379,46 +307,77 @@
 				}).then(res => {
 					res.redeemEndTime = moment(res.last_receive_time * 1000).format('YYYY年MM月DD日')
 					this.gameInfo = res
+					this.gameInfo.integral = res.integral.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
 				})
 			},
 			onClose: function() {
 				clearInterval(this.timer);
 				this.$refs.dialog.close();
 			},
-			confirmExchange() {
+			confirmExchange(e) {
 				try{
 					this.$refs.exchange.hide()
-					// let user = this.$storage.getUser()
-					console.log('user----', this.user_info);
 					if (this.user_info.phone) {
 						this.exchangePrise()
 					} else {
-						this.phone = '';
-						this.verifyCode = '';
-						this.verifyCodeText = '发送验证码';
-						this.verifyCodeTime = 0;
-						this.phoneError = '';
-						this.codeError = '';
-						this.agreeError = '';
 						this.$refs.dialog.open();
 					}
 				}catch(e){
 					this.$toast.error(e)
 				}
 			},
+			getphonenumber(e) {
+				let that = this
+				// 不允许授权
+				if (e.detail.errMsg !== 'getPhoneNumber:ok') {
+					uni.showToast({
+						title: '请授权！',
+						icon: 'error'
+					})
+					return
+				}
+
+				const user = this.$storage.getUser()
+				const params = {
+					encryptedData: e.detail.encryptedData,
+					iv: e.detail.iv,
+					agreement_id: this.user_info.agreement_id,
+					privacy_clause_id: this.user_info.privacy_clause_id,
+					platform: 'yaoyaoshu'
+				}
+				getPhone(params)
+					.then((res) => {
+						user.phone = res.phoneNumber
+						this.phone = res.phoneNumber
+						this.$storage.setUser(user)
+					})
+					.catch((err) => {
+						uni.showToast({
+							title: '出错啦',
+							icon: 'error'
+						})
+					})
+				this.user_info = user
+			},
 			exchangePrise() {
 				this.$loading.show()
 				addExchangeGamePrize({
 					gameId: this.gameId,
-					prizeId: this.exchangeGoddsInfo.prize_id
+					gameAwardId: this.exchangeGoddsInfo.game_award_id
 				}).then(res => {
-					// this.getUserInfo()
-					this.getUserPlayInfo()
+					if (res.errno != 0){
+						this.$loading.hide()
+						uni.showToast({
+							title: res.errmsg,
+							icon: 'error'
+						})
+						return
+					}
+					this.getGameInfo()
 					this.getPrizeList()
 					this.$loading.hide()
 					this.$refs.finish.show()
 				})
-				this.$refs.finish.show()
 			},
 			getAdvert() {
 				apiGetAdvert({
@@ -428,10 +387,9 @@
 				})
 			},
 			getUserInfo() {
-				// userInfo().then(res => {
-				// 	this.user_info = res
-				// })
 				this.user_info = this.$storage.getUser()
+				this.phone = this.user_info.phone
+				console.log(this.user_info)
 			},
 			exchangePrisePoupShow(item) {
 				try{
@@ -450,7 +408,7 @@
 </script>
 
 <style lang="scss">
-	.prizeDetail{
+	.prizeInfoDetail{
 		.p_header{
 			display: flex;
 			padding: 40upx;
@@ -564,6 +522,14 @@
 				}
 			}
 		}
+	}
+
+	.phone_button {
+    	border-radius: 92upx;
+    	width: 480upx;
+    	height: 80upx;
+    	line-height: 80upx;
+		margin: 40upx;
 	}
 
 	.finish_content {
