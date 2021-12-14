@@ -3,11 +3,11 @@
 		<view class="user-info-wrap">
 			<view class="user-info-container">
 
-				<view class="user-info-body" >
+				<view class="user-info-body">
 					<view class="user-info" @click="updateUserInfo">
 						<image class="user-thumb" :src="user.avatar" />
 						<view class="user-info-text-wrap">
-							<text v-if="authorizeAble" class="user-name">你好 ，{{ user.nickName }}</text>
+							<text v-if="user.userId" class="user-name">你好 ，{{ user.nickname }}</text>
 							<text @click.stop="doLogin" v-else class="user-name">请先登录</text>
 							<text v-if="authorizeAble">点击更新个人信息</text>
 						</view>
@@ -47,11 +47,24 @@
 			</view>
 
 		</view>
+
+		<view class="agreement-wrapper__text">
+			<view>使用本产品服务表示您已同意</view>
+			<text class="cert-item-xieyi" @click="openProtocol('agreement')">
+				络绎有客用户服务协议
+			</text>
+			和
+			<text class="cert-item-xieyi" @click="openProtocol('privacy')">络绎有客用户隐私条款</text>
+		</view>
 	</view>
 </template>
 
 <script>
 	export default {
+		onLoad() {
+			const user = this.$storage.getUser()
+			this.user = user
+		},
 		data() {
 			return {
 				statusBarHeight: 20,
@@ -83,7 +96,33 @@
 				uni.navigateTo({
 					url: './detail'
 				})
-			}
+			},
+			openProtocol(flag) {
+				const privacy = {
+					url: this.user.privacy_clause_url,
+					id: this.user.privacy_clause_id,
+				}
+				const agreenment = {
+					url: this.user.agreement_url,
+					id: this.user.agreement_id,
+				}
+				const url = flag === 'agreement' ? agreenment.url : privacy.url
+				uni.downloadFile({
+					url: url,
+					success(res) {
+						let filePath = res.tempFilePath
+						uni.openDocument({
+							filePath: filePath,
+							fileType: 'pdf',
+							success(res) {
+								//
+							},
+							fail(res) {},
+							complete() {},
+						})
+					},
+				})
+			},
 		}
 	}
 </script>
@@ -315,6 +354,35 @@
 			.swiper-item {
 				width: 100%;
 				height: 100%;
+			}
+		}
+	}
+
+	.agreement-wrapper__text {
+		font-size: 22rpx;
+		color: #b3b2b2;
+		position: fixed;
+		bottom: 100rpx;
+		width: 100%;
+		text-align: center;
+	}
+
+	.cert-item {
+		box-shadow: inset 0px -0.5px 0px #eeeeee;
+		margin: 30rpx 0rpx;
+
+		&-xieyi {
+			color: #0059ff;
+		}
+
+		&-xieyi-checkbox {
+			box-sizing: border-box;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			radio {
+				transform: scale(0.7);
 			}
 		}
 	}
