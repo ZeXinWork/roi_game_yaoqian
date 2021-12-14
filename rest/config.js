@@ -95,7 +95,9 @@ export const ADD_USER_GAME_RECORD = '/Api/User/User/UserPlayGameRecord/add'
 
 // 用户主力记录
 
-export const USER_HELP_RECORD_LSIT = '/Api/User/User/UserHelpRecord/getList'
+export const USER_HELP_RECORD_LSIT = '/api/relay/my'
+
+export const USER_HELP_RECORD_MY_LSIT = '/api/relay/friend'
 
 export const USER_HELP_RECORD = '/Api/User/User/UserHelpRecord/getOne'
 

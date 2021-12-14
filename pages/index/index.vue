@@ -269,15 +269,15 @@
 				<view class="help_list" v-if="helper.list.length > 0">
 					<scroll-view v-show="showItem == 1" :scroll-y="true" ref="scroll" :scroll-top="helperTop"
 						@scrolltolower.stop.prevent="helpMeListMore" @scroll="helpScroll" style="height: 100%">
-						<view class="help_list_item" v-for="item in helper.list" :key="item.recordId">
+						<view class="help_list_item" v-for="item in helper.list" :key="item.id">
 							<view class="help_left">
 								<view class="avatar">
-									<image :src="item.helpUserInfo.avatar" mode=""></image>
+									<image :src="item.avatar" mode=""></image>
 								</view>
-								<view class="username">{{ item.helpUserInfo.nickName }}</view>
+								<view class="username">{{ item.name }}</view>
 							</view>
 							<view class="help_right">
-								<text>{{ getTime(item.helpTime) }} </text>
+								<text>{{ getTime(item.date) }} </text>
 								<text class="ml10">为我助力</text>
 							</view>
 						</view>
@@ -732,7 +732,9 @@
 		gameResult,
 		prizeDetail,
 		cashDetail,
-		getArg
+		getArg,
+		userHelpRecordList,
+		userHelpRecordMyList
 	} from '@/rest/api.js'
 	export default {
 		components: {
@@ -1353,11 +1355,42 @@
 						})
 				}
 			},
+			changeHelpMyList() {
+				userHelpRecordMyList({
+					game_id: this.gameId
+				}).then((res) => {
+					console.log(res)
+					this.helper = res
+				}).catch((error) => {
+					
+				})
+				
+				// this.helper = {
+				// 	list: [
+				// 		{
+				// 			id: 1,
+				// 			avatar: 'https://static.roi-cloud.com/upload/20211209/60935669105926',
+				// 			name: 'asd',
+				// 			date: '1639476971'
+				// 		},
+				// 		{
+				// 			id: 2,
+				// 			avatar: 'https://static.roi-cloud.com/upload/20211209/60935669105926',
+				// 			name: 'asd',
+				// 			date: '1639476971'
+				// 		}
+				// 	]
+				// }
+			},
 			changeHelpTypeList(type) {
 				this.hasMore = true
 				this.currentHelpItem = type
+				if (type == 2) {
+					this.changeHelpMyList()
+				} else {
 				// this.helpTop = 0;
-				this.getHelperList(1, true, type)
+					this.getHelperList(1, true, type)
+				}
 			},
 			play() {
 				uni.getNetworkType({

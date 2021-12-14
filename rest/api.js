@@ -150,6 +150,10 @@ export const userHelpRecordList = (params) => {
 	return restResult(GET_LIST, api.USER_HELP_RECORD_LSIT, params);
 };
 
+export const userHelpRecordMyList = (params) => {
+	return restResult(GET_LIST, api.USER_HELP_RECORD_MY_LSIT, params);
+};
+
 export const userHelpRecord = (params) => {
 	return restResult(GET, api.USER_HELP_RECORD, params);
 };
