@@ -1,49 +1,111 @@
 <template>
 	<view class='detail'>
-		<view class="user-info-game-wrap_content">
-			<image src="https://static.roi-cloud.com/upload/20211211/60935669192518" mode="aspectFill"
-				class="user-info-game-wrap_content_img"></image>
-			<view class="user-info-game-wrap_content_body">
-				<view class="user-info-game-wrap_content_body_header">
-					<view class="user-info-game-wrap_content_body_header_title">摇钱树</view>
-					<view class="user-info-game-wrap_content_body_header_status">
-						<image src="https://static.roi-cloud.com/upload/20211211/60935669193851" mode="aspectFill"></image>
-						<text>进行中</text>
-					</view>
-				</view>
-				<view class="user-info-game-wrap_content_body_header_content">
-					<view class="user-info-game-wrap_content_body_content_open mb-8">
-						<image src="https://static.roi-cloud.com/upload/20211211/60935669200408" mode="aspectFill"></image>
-						<text>开奖方式：即开即中</text>
-					</view>
-					<view class="user-info-game-wrap_content_body_content_open">
-						<image src="https://static.roi-cloud.com/upload/20211211/60935669200828" mode="aspectFill"></image>
-						<text>游戏时间：2021.12.01-2021.12.31</text>
+		<ListScrollView @handleScrollLower='handleScrollLower' @refreshHandler='getMyList'>
+			<view class="user-info-game-wrap">
+				<view class="user-info-game-wrap_content" v-for="item of gameList" :ikey='item.game_id'>
+					<image :src="item.logo_url" mode="aspectFill" class="user-info-game-wrap_content_img"></image>
+					<view class="user-info-game-wrap_content_body">
+						<view class="user-info-game-wrap_content_body_header">
+							<view class="user-info-game-wrap_content_body_header_title">{{item.name}}</view>
+							<view class="user-info-game-wrap_content_body_header_status">
+								<image src="https://static.roi-cloud.com/upload/20211212/60935669153723"
+									mode="aspectFill"></image>
+								<text>{{getStatus(item.status)}}</text>
+							</view>
+						</view>
+						<view class="user-info-game-wrap_content_body_header_content">
+							<view class="user-info-game-wrap_content_body_content_open mb-8">
+								<image src="https://static.roi-cloud.com/upload/20211211/60935669193851"
+									mode="aspectFill"></image>
+								<text>{{`开奖方式：${item.lottery_type===1?'即开即中':'积分兑换'}`}}</text>
+							</view>
+							<view class="user-info-game-wrap_content_body_content_open">
+								<image src="https://static.roi-cloud.com/upload/20211212/60935669153633"
+									mode="aspectFill"></image>
+								<text>{{`游戏时间：${item.game_start_time}-${item.game_end_time}`}}</text>
+							</view>
+						</view>
 					</view>
 				</view>
 			</view>
-		</view>
+		</ListScrollView>
 	</view>
-	
+	</view>
+
 </template>
 
 <script>
+	import ListScrollView from '@/components/ListScrollView.vue'
+	import {
+		getMyListMore
+	} from '@/rest/api.js'
+	import {
+		getGameStatus
+	} from '../../utils/utils.js'
 	export default {
 		data() {
 			return {
-
+				queryObj: {
+					offset: 1,
+					limit: 10,
+				},
+				gameList: [],
+				noData: false
 			};
+		},
+		methods: {
+			getMyList() {
+				getMyListMore(this.queryObj).then((res) => {
+					console.log(res, "res")
+					this.gameList = res
+				})
+			},
+			getStatus(status) {
+				const res = getGameStatus(status)
+				return res
+			},
+			handleScrollLower() {
+				console.log("到底了")
+				if (noData) {
+					return
+				}
+				this.queryObj.limit = this.queryObj.limit + 10
+				this.getMyList()
+			}
+		},
+		components: {
+			ListScrollView
+		},
+		onLoad() {
+			this.getMyList()
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.detail{
+	.detail {
 		padding: 48rpx 40rpx 0 24rpx;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
 	}
+
+	.activity-list-wrapper {
+		flex: 1;
+		width: auto;
+		box-sizing: border-box;
+		overflow: hidden;
+	}
+
+	page {
+		height: 100%;
+		display: flex;
+	}
+
 	.mb-8 {
 		margin-bottom: 16rpx;
 	}
+
 	.user-info-game-wrap_content {
 		border-bottom: 2rpx solid #f5f5f5;
 		padding-bottom: 32rpx;
@@ -99,6 +161,10 @@
 						font-size: 20rpx;
 					}
 				}
+			}
+
+			&_content:not(:last-child) {
+				margin-bottom: 44rpx;
 			}
 		}
 	}

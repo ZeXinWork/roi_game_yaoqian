@@ -446,3 +446,23 @@ export const gameNumber = (params) => {
 export const gameResult = (params) => {
 	return restResult(GET, api.GAME_RESULT, params);
 }
+
+//获取中奖明细
+export const prizeDetail = (params) => {
+	return restResult(GET, api.PRIZE_DETAIL, params);
+}
+
+//获取兑奖明细
+export const cashDetail = (params) => {
+	return restResult(GET, api.CASH_DETAIL, params);
+}
+
+//获取我的游戏列表
+export const getMyList = (params) => {
+	return restResult(GET, api.MY_GAME, params);
+}
+
+//获取我的游戏列表详情
+export const getMyListMore = (params) => {
+	return restResult(GET, api.MY_GAME_LIST, params);
+}
