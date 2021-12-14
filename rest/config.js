@@ -251,7 +251,7 @@ export const AUDIT_IMAGE_RESULT = '/Api/User/Game/Audit/Audit/getImageResult'
 
 // 获取游戏信息
 
-export const GET_GAME_INFO = '/Api/Common/Game/Game/getOne'
+export const GET_GAME_INFO = '/api/game/info'
 export const GET_MIN_SETTING = '/Api/Common/SystemConfig/getMiniSetting'
 
 // 获取用户地址
