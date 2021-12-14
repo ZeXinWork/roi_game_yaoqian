@@ -1368,7 +1368,7 @@
 							if (JSON.stringify(this.$storage.getUser()) == '{}') {
 								this.playLoading = false
 								this.userLogin()
-							} else{	
+							} else {
 								this.getGameResult()
 							}
 						}
@@ -1680,7 +1680,7 @@
 					this.$refs.redEnvelope.open()
 					this.getPlayNumber()
 					this.playLoading = false
-					
+
 				})
 			},
 			getTime: function(time, format = 'YYYY-MM-DD') {
@@ -1722,7 +1722,13 @@
 			wxLogin: function(wxData) {
 				userLogin(wxData)
 					.then((res) => {
-						console.log(res, "res")
+						if (res.errno === "1") {
+							uni.showToast({
+								title: `请求登陆失败！`,
+								icon: 'error'
+							})
+							return
+						}
 						this.$storage.setUser(res);
 						this.$loading.hide();
 						this.logining = false;
@@ -2399,9 +2405,9 @@
 		display: flex;
 		margin: 0 30upx;
 		height: 80upx;
-		color: $uni-color-primary;
+		color: #ff3d3d;
 		line-height: 80upx;
-		border: 1upx solid $uni-color-primary;
+		border: 1upx solid #ff3d3d;
 		border-radius: 16upx;
 		overflow: hidden;
 
@@ -2412,7 +2418,7 @@
 
 			&.active {
 				color: #fff;
-				background-color: $uni-color-primary;
+				background-color: #ff3d3d;
 			}
 		}
 	}
