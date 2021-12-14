@@ -31,27 +31,7 @@
 		<view class="no_data" v-else>
 			暂无奖品
 		</view>
-		<popup ref="phone" class="exchange_poup" width="640" left="56" top="336">
-			<view class="content">
-				<view class="title">请填写领奖手机号</view>
-				<view class="subtitle">填写手机号，方便商家联系你领奖</view>
-				<input type="number" v-model="phone" class="phone_input" value="" placeholder="填写手机号" />
-			</view>
-			<view class="action_part">
-				<view class="action_btn" @click="$refs.phone.hide()">取消</view>
-				<view class="action_btn active" @click="confirm">是</view>
-			</view>
-		</popup>
-		<popup ref="finish" class="finish_poup" width="640" left="56" top="336">
-			<view class="finish_content">
-				<view class="title">兑换成功</view>
-				<view class="sub_title">使用 5,567 博饼分兑换了</view>
-				<image class="goods_img" src="https://static.roi-cloud.com/base/icon_bowl.png" mode="aspectFit"></image>
-				<view class="goods_info">MacBook AirM1版本16G SSD 256G</view>
-				<view class="btn active">找商家领奖</view>
-				<view class="btn " @click="$refs.finish.hide()">继续兑换</view>
-			</view>
-		</popup>
+		<navigator url="../index/index" class="go_game">去游戏</navigator>
 		<popup ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
 			<view class="p_header">
 				<image @click="$refs.prizeDetail.hide()" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode=""></image>
@@ -228,8 +208,23 @@
 	.no_data {
 		padding: 80upx 0;
 		color: #fff;
-		fonf-size: 30upx;
+		font-size: 30upx;
 		text-align: center;
+	}
+
+	.go_game {
+		height: 80rpx;
+		line-height: 80rpx;
+		text-align: center;
+		width: 406rpx;
+		margin: auto;
+		background-image: linear-gradient(180deg, #FFF6B1 0%, #FFCF79 100%);
+		box-shadow: 0 10rpx 20rpx 0 #C12525, inset 0 -10rpx 20rpx 0 #EBAC32;
+		border-radius: 51rpx;
+		font-family: PingFangSC-Semibold;
+		font-size: 34rpx;
+		color: #966502;
+		letter-spacing: 0.26rpx;
 	}
 
 	.goods_list {
