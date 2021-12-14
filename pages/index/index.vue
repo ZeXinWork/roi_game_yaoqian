@@ -55,7 +55,7 @@
 					<view class="chance">
 						您还能摇
 						<view class="number">
-							{{playTime}}
+							{{ playTime }}
 						</view>
 						次红包
 					</view>
@@ -206,27 +206,26 @@
 
 			<!-- 分数排行 -->
 			<popup ref="score" width="650">
-				<view class="p_title">分数明细
+				<view class="p_title f-normal">分数明细
 					<image @click="$refs.score.hide()" class="icon_close"
 						src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
 				</view>
 				<view class="score_menu">
 					<view :class="['score_item', { active: currentScoreItem == 1 }]" @click="changeItem(1)">中奖明细</view>
-					<view :class="['score_item', { active: currentScoreItem == 2 }]" @click="changeItem(2)">奖品明细</view>
+					<view :class="['score_item', { active: currentScoreItem == 2 }]" @click="changeItem(2)">兑奖明细</view>
 				</view>
 				<view v-if="currentScoreItem == 1">
 					<view class="score_list" v-if="scoreDetailList.length > 0">
-						<view class="score_list_item" v-for="item in scoreDetailList" :key="item">
-							<view class="item_left">{{ awardLevel[item.prizeLevel] }}</view>
+						<view class="score_list_item" v-for="item in scoreDetailList" :key="item.id">
+							<view class="item_left">{{item.name}}</view>
 							<view class="item_right">
-								<text class="t_blod">{{
-                  item.prizeLevel > 0
-                    ? gameInfo.gameType == 1
-                      ? item.prizeIntegral
-                      : ''
-                    : '未中奖'
-                }}</text>
-								<text>{{ item.playTime }}</text>
+								<text class="t_blod" v-if="item.integral">{{`+${item.integral}`}}</text>
+								<view class="item_right_time">
+									<view class="item_right_time_date">{{item.date}}</view>
+									<view class="">
+										{{item.time}}
+									</view>
+								</view>
 							</view>
 						</view>
 					</view>
@@ -235,12 +234,15 @@
 				<view v-if="currentScoreItem == 2">
 					<view class="score_list" v-if="exchangeList.length > 0">
 						<view class="score_list_item" v-for="item in exchangeList" :key="item">
-							<view class="item_left">{{ item.prizeInfo.prizeName }}</view>
+							<view class="item_left">{{item.name}}</view>
 							<view class="item_right">
-								<text class="t_blod">+1</text>
-								<text>{{
-                  item.prizeInfo.verifyTime > 0 ? item.verify_time : '未核销'
-                }}</text>
+								<text class="t_blod" v-if="item.integral">{{`-${item.integral}`}}</text>
+								<view class="item_right_time">
+									<view class="item_right_time_date">{{item.date}}</view>
+									<view class="">
+										{{item.time}}
+									</view>
+								</view>
 							</view>
 						</view>
 					</view>
@@ -724,7 +726,9 @@
 		userLogin,
 		gameInfo,
 		gameNumber,
-		gameResult
+		gameResult,
+		prizeDetail,
+		cashDetail,
 	} from '@/rest/api.js'
 	export default {
 		components: {
@@ -945,7 +949,7 @@
 				verifyCodeResult: {},
 				gameId: '',
 				gameInfo: {},
-				playTime: ""
+				playTime: '',
 			}
 		},
 		onShow() {
@@ -963,6 +967,9 @@
 				this.gameId = localGameId
 				this.getGameInfo() //获取游戏信息
 				this.getPlayNumber() //获取游戏可玩次数
+				if (this.currentScoreItem === 1) {
+					this.getAward()
+				}
 				return
 			}
 			const _this = this
@@ -973,18 +980,16 @@
 			const user = this.$storage.getUser()
 			if (gameId && !user.userId) {
 				uni.showModal({
-					title: "提示",
-					content: "请先登录以便进行后续操作",
+					title: '提示',
+					content: '请先登录以便进行后续操作',
 					success(res) {
 						if (res.cancel) {
 							return
 						}
 						_this.userLogin()
-					}
+					},
 				})
 			}
-
-
 		},
 
 		onHide() {
@@ -995,9 +1000,16 @@
 			changeVerifyCode: function(e) {
 				this.verifyCode = e.detail.value
 			},
+			getExchange() {
+				cashDetail({
+					game_id: this.gameId
+				}).then(res => {
+					this.exchangeList = res.list
+				})
+			},
 			onMy() {
 				uni.navigateTo({
-					url: '/pages/my/my'
+					url: '/pages/my/my',
 				})
 			},
 			savePhone: function() {
@@ -1153,11 +1165,9 @@
 							filePath: filePath,
 							fileType: 'pdf',
 							success(res) {
-								// console.log("打开文档成功");
+								//
 							},
-							fail(res) {
-								console.log(res)
-							},
+							fail(res) {},
 							complete() {},
 						})
 					},
@@ -1245,7 +1255,7 @@
 				//     url: e.currentTarget.dataset.url,
 				//   })
 				// }
-				console.log(e.currentTarget.dataset.url)
+
 				uni.navigateTo({
 					url: e.currentTarget.dataset.url,
 				})
@@ -1292,29 +1302,10 @@
 				}, 300)
 			},
 			getAward() {
-				this.$loading.show()
-				gameAward({
-					gameId: this.gameId,
+				prizeDetail({
+					game_id: this.gameId,
 				}).then((res) => {
-					for (let index in res.list) {
-						res.list[index].playTime = moment(
-							res.list[index].playTime * 1000
-						).format('YYYY.MM.DD')
-					}
 					this.scoreDetailList = res.list
-					this.$loading.hide()
-				})
-				this.$loading.show()
-				exchangeGame({
-					gameId: this.gameId,
-				}).then((res) => {
-					for (let index in res.list) {
-						res.list[index].verify_time = moment(
-							res.list[index].verifyTime * 1000
-						).format('YYYY.MM.DD')
-					}
-					this.exchangeList = res.list
-					this.$loading.hide()
 				})
 			},
 			checkLogin() {
@@ -1441,13 +1432,9 @@
 							'mVo4jCV2RqAOb4nZdBjCOfXyTbQs5L3F04XBbEVJroc',
 						],
 						success: (subscribeRes) => {},
-						fail: (res) => {
-							console.log(res)
-						},
+						fail: (res) => {},
 					})
-				} catch (e) {
-					console.log(e)
-				}
+				} catch (e) {}
 			},
 			updateLocation(res) {
 				res.get_time = new Date().getTime()
@@ -1490,14 +1477,12 @@
 							type: 'gcj02',
 							altitude: true,
 							success(res) {
-								console.log(3)
 								that.updateLocation(res)
 							},
 						})
 					},
 					// 授权失败
 					fail: (err) => {
-						console.log(4)
 						this.playLoading = false
 						this.$refs.location.show()
 					},
@@ -1562,7 +1547,6 @@
 				uni.getUserProfile({
 					desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
 					success: (res) => {
-						console.log(res)
 						let params = {
 							avatarUrl: res.userInfo.avatarUrl,
 							nickName: res.userInfo.nickName,
@@ -1645,22 +1629,22 @@
 				localGameId = '211206093256824726'
 				const params = {
 					game_id: localGameId ? localGameId : this.gameId,
-					template_id: '2021110901'
+					template_id: '2021110901',
 				}
-				gameInfo(params).then(res => {
-					this.gameInfo = res
-				}).catch(err => {
-					uni.showToast({
-						title: "出错啦"
+				gameInfo(params)
+					.then((res) => {
+						this.gameInfo = res
 					})
-				})
-
-
+					.catch((err) => {
+						uni.showToast({
+							title: '出错啦',
+						})
+					})
 			},
 			//获取游戏可玩次数
 			getPlayNumber() {
 				gameNumber({
-					game_id: this.gameId
+					game_id: this.gameId,
 				}).then((res) => {
 					this.playTime = res.time
 				})
@@ -1668,7 +1652,7 @@
 			//获取游戏结果
 			getGameResult() {
 				gameResult({
-					game_id: this.gameId
+					game_id: this.gameId,
 				}).then((res) => {
 					if (res.errno === '1') {
 						this.$refs.redEnvelope.open()
@@ -1680,7 +1664,6 @@
 					this.$refs.redEnvelope.open()
 					this.getPlayNumber()
 					this.playLoading = false
-
 				})
 			},
 			getTime: function(time, format = 'YYYY-MM-DD') {
@@ -1689,68 +1672,80 @@
 			userLogin: function() {
 				// 推荐使用uni.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
 				// 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-				this.logining = true;
+				this.logining = true
 				uni.getUserProfile({
-					desc: "用于完善会员资料", // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+					desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
 					success: (res) => {
 						const params = {
 							avatarUrl: res.userInfo.avatarUrl,
 							nickName: res.userInfo.nickName,
-							platform: 'yaoyaoshu'
-						};
-						this.$loading.show();
+							platform: 'yaoyaoshu',
+						}
+						this.$loading.show()
 						uni.login({
 							success: (result) => {
 								this.wxLogin({
 									code: result.code,
 									...params,
-								});
+								})
 							},
 							fail: (err) => {
 								uni.showToast({
-									title: "错误！！",
-								});
-								this.logining = false;
+									title: '错误！！',
+								})
+								this.logining = false
 							},
-						});
+						})
 					},
 					fail: (res) => {
-						this.logining = false;
+						this.logining = false
 					},
-				});
+				})
 			},
 			wxLogin: function(wxData) {
 				userLogin(wxData)
 					.then((res) => {
-						if (res.errno === "1") {
+						if (res.errno === '1') {
 							uni.showToast({
 								title: `请求登陆失败！`,
-								icon: 'error'
+								icon: 'error',
 							})
+							this.logining = false
 							return
 						}
-						this.$storage.setUser(res);
-						this.$loading.hide();
-						this.logining = false;
+						this.$storage.setUser(res)
+						this.$loading.hide()
+						this.logining = false
 
 						uni.navigateTo({
-							url: "/pages/phone/phone",
-						});
+							url: '/pages/phone/phone',
+						})
 					})
 					.catch((res) => {
-						this.logining = false;
-						this.$loading.hide();
-						console.log(res, "错误信息");
+						this.logining = false
+						this.$loading.hide()
+
 						uni.showToast({
 							title: `${res.errmsg}`,
-						});
-					});
+						})
+					})
 			},
 		},
-		onShareAppMessage(e) {
-
+		onShareAppMessage(e) {},
+		watch: {
+			currentScoreItem: {
+				handler(value, old) {
+					if (Number(value) === 1) {
+						this.getAward()
+					}
+					if (Number(value) === 2) {
+						this.getExchange()
+					}
+				},
+				immediate: true,
+				deep: true,
+			},
 		},
-
 	}
 </script>
 
@@ -1955,8 +1950,6 @@
 			height: 100%;
 		}
 	}
-
-
 
 	.over_popup {
 		.over_header {
@@ -2452,6 +2445,16 @@
 					font-size: 28upx;
 					color: #333333;
 				}
+
+				.item_right_time {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+
+					&_date {
+						margin-bottom: 30rpx
+					}
+				}
 			}
 		}
 	}
@@ -2483,6 +2486,10 @@
 			top: 50%;
 			transform: translateY(-50%);
 		}
+	}
+
+	.f-normal {
+		font-weight: normal !important;
 	}
 
 	.help_tip {
@@ -2673,7 +2680,6 @@
 		min-height: 100vh;
 		box-sizing: border-box;
 		overflow: hidden;
-
 
 		.tips {
 			color: #fff;

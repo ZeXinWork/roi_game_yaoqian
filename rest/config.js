@@ -285,4 +285,10 @@ export const GAME_INFO = '/api/game/info'
 export const GAME_PLAY_NUMBER = '/api/game/playTime'
 
 //获取游戏结果
-export const GAME_RESULT ='/api/game/play'
+export const GAME_RESULT = '/api/game/play'
+
+//获取中奖明细
+export const PRIZE_DETAIL = '/api/integrals/win'
+
+//兑奖明细
+export const CASH_DETAIL = '/api/integrals/expend'

@@ -446,3 +446,13 @@ export const gameNumber = (params) => {
 export const gameResult = (params) => {
 	return restResult(GET, api.GAME_RESULT, params);
 }
+
+//获取中奖明细
+export const prizeDetail = (params) => {
+	return restResult(GET, api.PRIZE_DETAIL, params);
+}
+
+//获取兑奖明细
+export const cashDetail = (params)=>{
+	return restResult(GET, api.CASH_DETAIL, params);
+}
