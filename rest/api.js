@@ -466,3 +466,8 @@ export const getMyList = (params) => {
 export const getMyListMore = (params) => {
 	return restResult(GET, api.MY_GAME_LIST, params);
 }
+
+//获取当前协议
+export const getArg = (params) => {
+	return restResult(GET, api.ARG, params);
+}
