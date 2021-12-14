@@ -299,4 +299,8 @@ export const MY_GAME = '/api/game/index'
 //获取我的游戏列表详情
 export const MY_GAME_LIST = '/api/game/index'
 
+//获取用户协议
 export const ARG = '/api/user/privacy'
+
+//获取排行榜信息
+export const GET_RANK='/api/game/ranking'

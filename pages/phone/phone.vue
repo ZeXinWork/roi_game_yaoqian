@@ -64,8 +64,6 @@
 				const params = {
 					encryptedData: e.detail.encryptedData,
 					iv: e.detail.iv,
-					agreement_id: this.user.agreement_id,
-					privacy_clause_id: this.user.privacy_clause_id,
 					platform: 'yaoyaoshu'
 				}
 				getPhone(params)
@@ -90,32 +88,7 @@
 						})
 					})
 			},
-			openProtocol(flag) {
-				const privacy = {
-					url: this.user.privacy_clause_url,
-					id: this.user.privacy_clause_id,
-				}
-				const agreenment = {
-					url: this.user.agreement_url,
-					id: this.user.agreement_id,
-				}
-				const url = flag === 'agreement' ? agreenment.url : privacy.url
-				uni.downloadFile({
-					url: url,
-					success(res) {
-						let filePath = res.tempFilePath
-						uni.openDocument({
-							filePath: filePath,
-							fileType: 'pdf',
-							success(res) {
-								//
-							},
-							fail(res) {},
-							complete() {},
-						})
-					},
-				})
-			},
+	
 		},
 	}
 </script>

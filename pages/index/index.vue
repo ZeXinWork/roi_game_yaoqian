@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="wrap">
 		<navbar :params="{
         navColor: navColor,
         titleColor: '#fff',
@@ -87,7 +87,8 @@
           <image @click="$refs.prizeDetail.close()" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode=""></image>
         </view>
 		  </uni-popup> -->
-			<redEnvelope ref="redEnvelope" :result="gameResult.result" :prize="gameResult.prize"></redEnvelope>
+			<redEnvelope @handleGameResult='handleGameResult' ref="redEnvelope" :result="gameResult.result"
+				:prize="gameResult.prize"></redEnvelope>
 
 			<view class="de_btn zl_btn" @click="popShow('share')">喊好友来博饼</view>
 			<view class="record_wrap">
@@ -131,7 +132,7 @@
                 }}</view>
 							</view>
 							<view class="my_rank_item">
-								<view class="my_rank_title">总博饼分</view>
+								<view class="my_rank_title">总积分</view>
 								<view class="rank_item_number">{{ userRank.score || 0 }}</view>
 							</view>
 						</view>
@@ -732,7 +733,8 @@
 		gameResult,
 		prizeDetail,
 		cashDetail,
-		getArg
+		getArg,
+		getRank
 	} from '@/rest/api.js'
 	export default {
 		components: {
@@ -973,6 +975,7 @@
 				this.gameId = localGameId
 				this.getGameInfo() //获取游戏信息
 				this.getPlayNumber() //获取游戏可玩次数
+				this.getRankList() // 排行榜信息
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
@@ -998,6 +1001,27 @@
 			handleChecked() {
 				this.isChecked = !this.isChecked
 			},
+			getRankList() {
+				getRank({
+					gameId: this.gameId,
+					offset: 1,
+					limit: 10
+				}).then(res => {
+					console.log(res, "ressss")
+				}).catch(err => {
+					uni.showToast({
+						title: "出错啦"
+					})
+				})
+			},
+			handleGameResult({
+				result
+			}) {
+				if (!result) {
+					this.play()
+
+				}
+			},
 			getPrivacy() {
 				getArg({
 					platform: "yaoyaoshu"
@@ -1009,7 +1033,6 @@
 						agreement_url: res.agreement_url
 					}
 					this.$storage.setUser(params)
-					this.$refs.login_popup.open('bottom')
 				})
 
 			},
@@ -1260,18 +1283,14 @@
 				})
 			},
 			toPage(e) {
-				// TODO: 暂时隐藏登陆逻辑
-				// if (JSON.stringify(this.$storage.getUser()) == '{}') {
-				//   this.$refs.login_popup.open()
-				// } else {
-				//   uni.navigateTo({
-				//     url: e.currentTarget.dataset.url,
-				//   })
-				// }
-
-				uni.navigateTo({
-					url: e.currentTarget.dataset.url,
-				})
+				const user = this.$storage.getUser() 
+				if (!user.userId) {
+				  this.$refs.login_popup.open()
+				} else {
+				  uni.navigateTo({
+				    url: e.currentTarget.dataset.url,
+				  })
+				}
 			},
 			getImageInfo(url) {
 				return new Promise((reslove, reject) => {
@@ -1369,8 +1388,8 @@
 								return
 							}
 							this.playLoading = true
-							const user=this.$storage.getUser()
-							console.log(user,"userrrrrrr")
+							const user = this.$storage.getUser()
+							console.log(user, "userrrrrrr")
 							if (!user.userId) {
 								this.playLoading = false
 								this.$refs.login_popup.open('bottom')
@@ -1722,11 +1741,11 @@
 							return
 						}
 						const user = this.$storage.getUser()
-						const params={
+						const params = {
 							...user,
 							...res
 						}
-						console.log(params,"paramsparamsparamsparams")
+						console.log(params, "paramsparamsparamsparams")
 						this.$storage.setUser({
 							...user,
 							...res
@@ -2695,13 +2714,21 @@
 	}
 
 	page {
-		background: #ff2626;
+		box-sizing: border-box;
+		min-height: 100vh;
+		background: #ff2626
+	}
+
+	.wrap {
+
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
 	}
 
 	#main {
-		min-height: 100vh;
 		box-sizing: border-box;
-		overflow: hidden;
+
 
 		.tips {
 			color: #fff;

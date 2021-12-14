@@ -471,3 +471,8 @@ export const getMyListMore = (params) => {
 export const getArg = (params) => {
 	return restResult(GET, api.ARG, params);
 }
+
+//获取排行榜
+export const getRank = (params)=>{
+	return restResult(GET, api.GET_RANK, params);
+}

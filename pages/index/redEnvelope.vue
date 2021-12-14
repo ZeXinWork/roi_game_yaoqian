@@ -36,7 +36,7 @@
 						src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzExIiBoZWlnaHQ9IjE0MSIgdmlld0JveD0iMCAwIDMxMSAxNDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTMxMC4wMSAwbC0uMDA1IDEyNC43MThjMCA4LjgzNy03LjE2MyAxNi0xNiAxNmgtMjc4Yy04LjgzNiAwLTE2LTcuMTYzLTE2LTE2TDAgMGM0NS40NTkgMjAuMTU3IDk4LjQ0IDMxLjcxOCAxNTUuMDA1IDMxLjcxOCA1Ni41NjYgMCAxMDkuNTQ3LTExLjU2MSAxNTUuMDA1LTMxLjcxOHoiIGZpbGw9IiNGMUE0OUEiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==">
 					</image>
 				</view>
-				<view class="p_body_top_button"> 这是个按钮 </view>
+				<view class="p_body_top_button" @click="handleClick"> {{result?'喊好友加好运':'再来一把'}} </view>
 			</view>
 		</view>
 		<view class="p_bottom">
@@ -60,12 +60,18 @@
 			}
 
 		},
+
 		methods: {
 			open() {
 				this.$refs.prizeDetail.open()
 			},
 			close() {
 				this.$refs.prizeDetail.close()
+			},
+			handleClick() {
+				this.$emit('handleGameResult', {
+					result: this.result
+				})
 			}
 		}
 	};
