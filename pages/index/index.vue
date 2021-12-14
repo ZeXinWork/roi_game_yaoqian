@@ -116,7 +116,7 @@
 					</view>
 
 					<view class="rank_time">
-						{{ gameInfo.startTime }} - {{ gameInfo.endTime }}
+						{{ gameInfo.game_start_time }} - {{ gameInfo.game_end_time }}
 					</view>
 					<view class="my_rank">
 						<view class="my_rank_top">
@@ -127,8 +127,8 @@
 							<view class="my_rank_item">
 								<view class="my_rank_title">我的排行</view>
 								<view class="rank_item_number">{{
-                  userRank.ranking || 0
-                }}</view>
+								userRank.ranking || 0
+								}}</view>
 							</view>
 							<view class="my_rank_item">
 								<view class="my_rank_title">总博饼分</view>
@@ -1633,7 +1633,11 @@
 				}
 				gameInfo(params)
 					.then((res) => {
-						this.gameInfo = res
+						this.gameInfo = {
+							...res,
+							game_start_time: moment(res.game_start_time * 1000).format('MM月DD日 HH:mm'),
+							game_end_time: moment(res.game_end_time * 1000).format('MM月DD日  HH:mm')
+						}
 					})
 					.catch((err) => {
 						uni.showToast({
