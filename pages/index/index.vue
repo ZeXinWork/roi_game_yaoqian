@@ -3,7 +3,7 @@
 		<navbar :params="{
         navColor: navColor,
         titleColor: '#fff',
-        title: gameInfo.logo_url ? '' : `${gameInfo.name}`,
+        title: gameInfo.logo_url ? '' : `${gameInfo.name || ''}`,
       }" class="">
 			<view v-if="gameInfo.logoInfo.img" class="diy_logo" :style="
           'background:url(' +
@@ -551,12 +551,15 @@
 					获取你当前地理位置以匹配游戏范围
 				</view>
 				<view class="agreement">
-					<text>点击立即登录即同意</text>
+					<radio :checked="isChecked" @click="handleChecked"></radio>
+					<text>我已阅读并同意</text>
 					<text class="protocol" @click="openProtocol">用户协议</text>
+					<text>与</text>
+					<text class="protocol" @click='openProtocol'>隐私政策</text>
 				</view>
 				<view class="btns">
 					<view class="def_btn" @click="cancelLogin">取消</view>
-					<view class="def_btn active" @click="getUserProfile">登录</view>
+					<view class="def_btn active" @click="userLogin">登录</view>
 				</view>
 			</view>
 		</uni-popup>
@@ -729,6 +732,7 @@
 		gameResult,
 		prizeDetail,
 		cashDetail,
+		getArg
 	} from '@/rest/api.js'
 	export default {
 		components: {
@@ -738,6 +742,7 @@
 		},
 		data() {
 			return {
+				isChecked: false,
 				timer: null,
 				playLoading: false,
 				getGift: 2,
@@ -949,7 +954,7 @@
 				verifyCodeResult: {},
 				gameId: '',
 				gameInfo: {},
-				playTime: '',
+				playTime: 0,
 			}
 		},
 		onShow() {
@@ -962,8 +967,9 @@
 			this.navbarHeight =
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
+			const user = this.$storage.getUser()
 			localGameId = '211206093256824726'
-			if (localGameId) {
+			if (localGameId && user.userId) {
 				this.gameId = localGameId
 				this.getGameInfo() //获取游戏信息
 				this.getPlayNumber() //获取游戏可玩次数
@@ -975,21 +981,10 @@
 			const _this = this
 			const gameId = options.gameId
 			this.gameId = gameId
+			this.gameId = localGameId
 			this.$storage.set('gameId', gameId)
 			const status = Number(options.status)
-			const user = this.$storage.getUser()
-			if (gameId && !user.userId) {
-				uni.showModal({
-					title: '提示',
-					content: '请先登录以便进行后续操作',
-					success(res) {
-						if (res.cancel) {
-							return
-						}
-						_this.userLogin()
-					},
-				})
-			}
+			this.getPrivacy()
 		},
 
 		onHide() {
@@ -999,6 +994,24 @@
 		methods: {
 			changeVerifyCode: function(e) {
 				this.verifyCode = e.detail.value
+			},
+			handleChecked() {
+				this.isChecked = !this.isChecked
+			},
+			getPrivacy() {
+				getArg({
+					platform: "yaoyaoshu"
+				}).then(res => {
+					const params = {
+						agreement_id: res.agreement_id,
+						privacy_clause_id: res.privacy_clause_id,
+						privacy_clause_url: res.privacy_clause_url,
+						agreement_url: res.agreement_url
+					}
+					this.$storage.setUser(params)
+					this.$refs.login_popup.open('bottom')
+				})
+
 			},
 			getExchange() {
 				cashDetail({
@@ -1356,9 +1369,11 @@
 								return
 							}
 							this.playLoading = true
-							if (JSON.stringify(this.$storage.getUser()) == '{}') {
+							const user=this.$storage.getUser()
+							console.log(user,"userrrrrrr")
+							if (!user.userId) {
 								this.playLoading = false
-								this.userLogin()
+								this.$refs.login_popup.open('bottom')
 							} else {
 								this.getGameResult()
 							}
@@ -1602,21 +1617,6 @@
 			onGameManager: function() {
 				this.$refs.popup.open()
 			},
-			wxLogin(wxData) {
-				userLogin(wxData)
-					.then((res) => {
-						this.logining = false
-						this.user_info = res
-						this.$storage.setUser(res)
-						this.$loading.hide()
-						this.canClose = true
-						this.getData()
-					})
-					.catch((res) => {
-						this.logining = false
-						loading.hide()
-					})
-			},
 			getUserPlayInfo() {
 				userGame({
 					gameId: this.gameId,
@@ -1672,6 +1672,14 @@
 			userLogin: function() {
 				// 推荐使用uni.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
 				// 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
+				if (!this.isChecked) {
+					uni.showModal({
+						title: "提示",
+						content: "请先阅读并同意相关服务协议！",
+						showCancel: false
+					})
+					return
+				}
 				this.logining = true
 				uni.getUserProfile({
 					desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
@@ -1713,7 +1721,16 @@
 							this.logining = false
 							return
 						}
-						this.$storage.setUser(res)
+						const user = this.$storage.getUser()
+						const params={
+							...user,
+							...res
+						}
+						console.log(params,"paramsparamsparamsparams")
+						this.$storage.setUser({
+							...user,
+							...res
+						})
 						this.$loading.hide()
 						this.logining = false
 
@@ -1735,14 +1752,17 @@
 		watch: {
 			currentScoreItem: {
 				handler(value, old) {
-					if (Number(value) === 1) {
-						this.getAward()
-					}
-					if (Number(value) === 2) {
-						this.getExchange()
+					const user = this.$storage.getUser()
+					if (user.userId) {
+						if (Number(value) === 1) {
+							this.getAward()
+						}
+						if (Number(value) === 2) {
+							this.getExchange()
+						}
 					}
 				},
-				immediate: true,
+
 				deep: true,
 			},
 		},
@@ -1883,9 +1903,11 @@
 		.agreement {
 			margin-top: 82upx;
 			color: #b2b2b2;
+			font-size: 26rpx;
 
 			.protocol {
-				margin-left: 30upx;
+				color: #0059FF;
+				font-size: 26rpx;
 			}
 		}
 
