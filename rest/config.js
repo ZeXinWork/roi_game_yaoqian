@@ -95,7 +95,9 @@ export const ADD_USER_GAME_RECORD = '/Api/User/User/UserPlayGameRecord/add'
 
 // 用户主力记录
 
-export const USER_HELP_RECORD_LSIT = '/Api/User/User/UserHelpRecord/getList'
+export const USER_HELP_RECORD_LSIT = '/api/relay/my'
+
+export const USER_HELP_RECORD_MY_LSIT = '/api/relay/friend'
 
 export const USER_HELP_RECORD = '/Api/User/User/UserHelpRecord/getOne'
 
@@ -130,7 +132,7 @@ export const GAME_BACKGROUND = '/Api/User/Game/GameBackground/getOne'
 
 export const GAME_CONTACT_LIST = '/Api/User/Game/Contact/ContactWay/getList'
 
-export const GAME_CONTACT = '/Api/User/Game/Contact/ContactWay/getOne'
+export const GAME_CONTACT = '/api/user/prizeContact'
 
 export const ADD_GAME_CONTACT = '/Api/User/Game/Contact/ContactWay/add'
 
@@ -204,7 +206,7 @@ export const EXCHANGE_GAME_PRIZE_LIST = '/api/gameAward/index'
 
 export const EXCHANGE_GAME_PRIZE = '/Api/User/Game/Prize/Exchange/getOne'
 
-export const ADD_EXCHANGE_GAME_PRIZE = '/Api/User/Game/Prize/Exchange/add'
+export const ADD_EXCHANGE_GAME_PRIZE = '/api/game/redeem'
 
 // 游戏助力
 

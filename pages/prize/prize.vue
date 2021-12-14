@@ -9,68 +9,80 @@
 			<view :class="['default_btn',{active:current==2}]" @click="changeType(2)">优惠券</view>
 		</view>
 		<view class="goods_list" v-if="userPrizeList.length>0">
-			<view v-for="item in userPrizeList" :class="['item_box',{item_gray:item.isVerify}]" :key="item">
+			<view v-for="item in userPrizeList" :class="['item_box',{item_gray:item.is_verify != 0}]" :key="item">
 				<view class="item_top">
 					<view class="goods_info" @click="showDetail(item)">
 						<view class="goods_img">
-							<image  :src="item.prizeInfo.prizeImageUrl" mode=""></image>
+							<image  :src="item.prize_url" mode=""></image>
 						</view>
-						<view class="goods_title">{{ item.prizeInfo.prizeName }}</view>
+						<view class="goods_title">{{ item.prize_name }}</view>
 					</view>
-					<navigator v-if="item.isVerify==0" :url="'./accpect?uid='+item.uid+'&gameId='+item.gameId"
-						class="prize_btn">去领奖</navigator>
+					<!-- <navigator v-if="item.is_verify==0"  class="prize_btn"
+					:url="'./accpect?uid='+item.user_prize_id+'&gameId='+item.game_id+'&verifyCode='+item.verify_code+'&prizeName='+item.prize_name">
+						去领奖
+					</navigator> -->
+					<view v-if="item.is_verify==0" class="prize_btn" @click="receivePrize(item)">去领奖</view>
 				</view>
 				<view class="item_bottom">
-					<text>来源发起：{{ item.gameInfo.gameName }}</text>
-					<text v-if="item.verifyTime">领取日期：{{ item.verify_time }}</text>
+					<text>来源发起：{{ item.prize_source }}</text>
+					<text v-if="item.verify_time != 0">领取日期：{{ item.verify_time }}</text>
 				</view>
 			</view>
 		</view>
 		<view class="no_data" v-else>
 			暂无奖品
 		</view>
-		<popup ref="phone" class="exchange_poup" width="640" left="56" top="336">
-			<view class="content">
-				<view class="title">请填写领奖手机号</view>
-				<view class="subtitle">填写手机号，方便商家联系你领奖</view>
-				<input type="number" v-model="phone" class="phone_input" value="" placeholder="填写手机号" />
-			</view>
-			<view class="action_part">
-				<view class="action_btn" @click="$refs.phone.hide()">取消</view>
-				<view class="action_btn active" @click="confirm">是</view>
-			</view>
-		</popup>
-		<popup ref="finish" class="finish_poup" width="640" left="56" top="336">
-			<view class="finish_content">
-				<view class="title">兑换成功</view>
-				<view class="sub_title">使用 5,567 博饼分兑换了</view>
-				<image class="goods_img" src="https://static.roi-cloud.com/base/icon_bowl.png" mode="aspectFit"></image>
-				<view class="goods_info">MacBook AirM1版本16G SSD 256G</view>
-				<view class="btn active">找商家领奖</view>
-				<view class="btn " @click="$refs.finish.hide()">继续兑换</view>
-			</view>
-		</popup>
+		<navigator url="../index/index" class="go_game">去游戏</navigator>
 		<popup ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
 			<view class="p_header">
 				<image @click="$refs.prizeDetail.hide()" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode=""></image>
 			</view>
 			<view class="g_info">
-				<image :src="curr_show_item.prizeInfo.prizeImageUrl" mode="aspectFill"></image>
+				<image :src="curr_show_item.prize_url" mode="aspectFill"></image>
 				<view class="g_info_name">
-					{{ curr_show_item.prizeInfo.prizeName }}
+					{{ curr_show_item.prize_name }}
 				</view>
 			</view>
 			<view class="g_content">
-				<view class="m_content">{{ curr_show_item.prizeInfo.prizeDetails || '暂无详细说明' }}</view>
+				<view class="m_content">{{ curr_show_item.prize_details || '暂无详细说明' }}</view>
 				<view class="g_btn" @click="$refs.prizeDetail.hide()">我知道了</view>
 			</view>
 		</popup>
+		<uni-popup :maskClick="false" type="dialog" ref="dialog">
+			<view class="phone-wrap">
+				<view class="phone-container">
+					<image @click="onClose" src="https://static.roi-cloud.com/base/close.png" class="phone-close" />
+					<view class="phone-title">
+						<text>请留手机号</text>
+					</view>
+					<view class="phone-subtitle">
+						<text>作为兑奖备用联系方式，我们会保护你的隐私</text>
+					</view>
+					<view class="phone-input-wrap" v-if="phone != '' ">
+						<input :value="phone" cursor-spacing="10" @input="changePhone" class="phone-input"
+							placeholder="填写手机号" disabled="true" />
+					</view>
+					<button v-else open-type="getPhoneNumber" @getphonenumber="getphonenumber" type="primary" class="phone_button"
+						:disabled="false">
+						微信手机号登录
+					</button>
+					<view v-if="codeError" class="phone-error-msg"><text>{{ codeError }}</text></view>
+
+					<view v-if="agreeError" class="agree-error-msg"><text>{{ agreeError }}</text></view>
+					<view v-if="phone != ''" :class="['phone-button', {'button-disabled': !phone}]" @click="savePhone">
+						<text>保存</text>
+					</view>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+	import '@/static/css/game.scss'
 	import {
-		prizeList
+		prizeList,
+		getPhone
 	} from '@/rest/api.js'
 	import moment from 'moment'
 	export default {
@@ -80,36 +92,8 @@
 				page: 0,
 				more: true,
 				gameId:'',
-				userPrizeList: [
-					{
-						"isVerify": false,
-						"prizeInfo": {
-							"prizeImageUrl": "https://static.roi-cloud.com/prizeImg/20210913/16/29/613f0bf6a055772189.jpg",
-							"prizeName":"保时捷麻将(兑奖区域:沈阳、南宁、柳州、昆明、西安、福州，厦门)"
-						},
-						"uid":"asdfghj",
-						"gameId": 1,
-						"gameInfo": {
-							"gameName": "建发汽车"        
-						},
-						"verify_time": "2021-01-01",
-						"verifyTime": "2021-01-01"
-					},
-					{
-						"isVerify": true,
-						"prizeInfo": {
-							"prizeImageUrl": "https://static.roi-cloud.com/prizeImg/20210913/16/29/613f0bf6a055772189.jpg",
-							"prizeName":"保时捷麻将(兑奖区域:沈阳、南宁、柳州、昆明、西安、福州，厦门)"
-						},
-						"uid":"asdfghj",
-						"gameId": 1,
-						"gameInfo": {
-							"gameName": "建发汽车"        
-						},
-						"verify_time": "2021-01-01",
-						"verifyTime": "2021-01-01"
-					}
-				],
+				phone: '',
+				userPrizeList: [],
 				curr_show_item:{}
 			};
 		},
@@ -122,10 +106,12 @@
 		onLoad(options) {
 			this.gameId = options.gameId
 			this.getPrizeList()
+			const user = this.$storage.getUser()
+			this.phone = user.phone
 		},
 		methods: {
 			changeType(type) {
-				this.page = 1
+				this.page = 0
 				this.current = type
 				this.getPrizeList(type-1)
 			},
@@ -146,16 +132,69 @@
 					// 	res[index].verify_time = moment(res[index].verifyTime * 1000).format(
 					// 		'YYYY.MM.DD')
 					// }
-					// if(params.offset==0) this.userPrizeList = res
-					// else this.userPrizeList = [...this.userPrizeList,...res]
-					// if (res.pageCount == this.page) {
-					// 	this.more = false
-					// }else{
-					// 	this.more = true
-					// }
+					if(params.offset==0) this.userPrizeList = res
+					else this.userPrizeList = [...this.userPrizeList,...res]
+					if (res.pageCount == this.page) {
+						this.more = false
+					}else{
+						this.more = true
+					}
 					this.$loading.hide()
 				})
 			},
+			receivePrize(item) {
+				if (this.phone){
+					this.toReceive(item)
+				} else {
+					this.$refs.dialog.open()
+				}
+			},
+			getphonenumber(e) {
+				// 不允许授权
+				if (e.detail.errMsg !== 'getPhoneNumber:ok') {
+					uni.showToast({
+						title: '请授权！',
+						icon: 'error'
+					})
+					return
+				}
+
+				const user = this.$storage.getUser()
+				const params = {
+					encryptedData: e.detail.encryptedData,
+					iv: e.detail.iv,
+					agreement_id: user.agreement_id,
+					privacy_clause_id: user.privacy_clause_id,
+					platform: 'yaoyaoshu'
+				}
+				getPhone(params)
+					.then((res) => {
+						user.phone = res.phoneNumber
+						this.phone = res.phoneNumber
+						this.$storage.setUser(user)
+						
+					})
+					.catch((err) => {
+						uni.showToast({
+							title: '出错啦',
+							icon: 'error'
+						})
+					})
+			},
+			savePhone() {
+				uni.showToast({
+					title: '保存成功'
+				})
+				this.$refs.dialog.close()
+			},
+			onClose(){
+				this.$refs.dialog.close()
+			},
+			toReceive(item){
+				uni.navigateTo({
+					url: './accpect?uid='+item.user_prize_id+'&gameId='+item.game_id+'&verifyCode='+item.verify_code+'&prizeName='+item.prize_name+'&awardName='+item.award_name,
+				})
+			}
 		}
 	}
 </script>
@@ -163,6 +202,14 @@
 <style lang="scss">
 	page {
 		background-color: #E83D3D;
+	}
+
+	.phone_button {
+    	border-radius: 92upx;
+    	width: 480upx;
+    	height: 80upx;
+    	line-height: 80upx;
+		margin: 40upx;
 	}
 
 	.tips {
@@ -254,8 +301,23 @@
 	.no_data {
 		padding: 80upx 0;
 		color: #fff;
-		fonf-size: 30upx;
+		font-size: 30upx;
 		text-align: center;
+	}
+
+	.go_game {
+		height: 80rpx;
+		line-height: 80rpx;
+		text-align: center;
+		width: 406rpx;
+		margin: auto;
+		background-image: linear-gradient(180deg, #FFF6B1 0%, #FFCF79 100%);
+		box-shadow: 0 10rpx 20rpx 0 #C12525, inset 0 -10rpx 20rpx 0 #EBAC32;
+		border-radius: 51rpx;
+		font-family: PingFangSC-Semibold;
+		font-size: 34rpx;
+		color: #966502;
+		letter-spacing: 0.26rpx;
 	}
 
 	.goods_list {
