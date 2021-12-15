@@ -121,7 +121,7 @@
 			},
 			getPrizeList(type) {
 				let params = {
-					offset: this.page,
+					offset: this.page * 20,
 					limit: 20,
 					gameId: this.gameId
 				}
