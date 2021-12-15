@@ -36,7 +36,8 @@
 						src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzExIiBoZWlnaHQ9IjE0MSIgdmlld0JveD0iMCAwIDMxMSAxNDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTMxMC4wMSAwbC0uMDA1IDEyNC43MThjMCA4LjgzNy03LjE2MyAxNi0xNiAxNmgtMjc4Yy04LjgzNiAwLTE2LTcuMTYzLTE2LTE2TDAgMGM0NS40NTkgMjAuMTU3IDk4LjQ0IDMxLjcxOCAxNTUuMDA1IDMxLjcxOCA1Ni41NjYgMCAxMDkuNTQ3LTExLjU2MSAxNTUuMDA1LTMxLjcxOHoiIGZpbGw9IiNGMUE0OUEiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==">
 					</image>
 				</view>
-				<view class="p_body_top_button" @click="handleClick"> {{result?'喊好友加好运':'再来一把'}} </view>
+				<button class="p_body_top_button" open-type='share' data-type='1' v-if="result"> 喊好友加好运 </button>
+				<view class="p_body_top_button" @click="handleClick" v-else> 再来一把 </view>
 			</view>
 		</view>
 		<view class="p_bottom">
@@ -47,6 +48,9 @@
 </template>
 
 <script>
+	import {
+		inviteHelp
+	} from '@/rest/api.js'
 	export default {
 		props: {
 			//是否中奖
@@ -57,7 +61,7 @@
 			},
 			prize: {
 				type: Object
-			}
+			},
 
 		},
 
@@ -69,11 +73,13 @@
 				this.$refs.prizeDetail.close()
 			},
 			handleClick() {
-				this.$emit('handleGameResult', {
-					result: this.result
-				})
+				const parent = this.$parent
+
+				this.$emit('handleGameResult', this.result)
+
 			}
-		}
+		},
+	
 	};
 </script>
 
