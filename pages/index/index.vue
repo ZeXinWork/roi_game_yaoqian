@@ -760,6 +760,7 @@
 				gameResult: {
 					prize: {},
 					result: 0,
+
 				},
 				helpFaileMsg: '您的助力次数已用完',
 				helper: {
@@ -904,11 +905,11 @@
 				})
 			},
 
-			handleGameResult({
-				result
-			}) {
+			handleGameResult(result) {
 				if (!result) {
 					this.play()
+				} else {
+					this.$refs.share.show()
 				}
 			},
 			getPrivacy() {
@@ -932,7 +933,7 @@
 				})
 			},
 			onMy() {
-				if(!this.user.userId){
+				if (!this.user.userId) {
 					this.toLogin()
 					return
 				}
@@ -1692,6 +1693,7 @@
 					this.gameResult.result = res.result
 					if (res.result) {
 						this.gameResult.prize = res.prize
+						this.getMyRank()
 					}
 					this.$refs.redEnvelope.open()
 					this.getPlayNumber()
@@ -1795,7 +1797,7 @@
 				// 礼品
 				params = {
 					...params,
-					prize_id: 1,
+					prize_id: this.gameResult.prize.game_award_id,
 				}
 			}
 			if (type == 2) {

@@ -1,7 +1,7 @@
 <template>
 	<view class='detail'>
-		<ListScrollView @handleScrollLower='handleScrollLower' @refreshHandler='getMyList'>
-			<view class="user-info-game-wrap">
+		<view class="user-info-game-wrap">
+			<ListScrollView @handleScrollLower='handleScrollLower' @refreshHandler='getMyList'>
 				<view class="user-info-game-wrap_content" v-for="item of gameList" :ikey='item.game_id'>
 					<image :src="item.logo_url" mode="aspectFill" class="user-info-game-wrap_content_img"></image>
 					<view class="user-info-game-wrap_content_body">
@@ -27,8 +27,8 @@
 						</view>
 					</view>
 				</view>
-			</view>
-		</ListScrollView>
+			</ListScrollView>
+		</view>
 	</view>
 	</view>
 
@@ -46,7 +46,7 @@
 		data() {
 			return {
 				queryObj: {
-					offset: 1,
+					offset: 0,
 					limit: 10,
 				},
 				gameList: [],
@@ -56,8 +56,12 @@
 		methods: {
 			getMyList() {
 				getMyListMore(this.queryObj).then((res) => {
-					console.log(res, "res")
-					this.gameList = res
+					if (this.gameList.length === 0) {
+						this.gameList = res
+					} else {
+						this.gameList = [...this.gameList, ...res]
+					}
+
 				})
 			},
 			getStatus(status) {
@@ -65,11 +69,11 @@
 				return res
 			},
 			handleScrollLower() {
-				console.log("到底了")
-				if (noData) {
+
+				if (this.noData) {
 					return
 				}
-				this.queryObj.limit = this.queryObj.limit + 10
+				this.queryObj.offset = this.queryObj.offset + 10
 				this.getMyList()
 			}
 		},
@@ -84,17 +88,19 @@
 
 <style lang="scss" scoped>
 	.detail {
-		padding: 48rpx 40rpx 0 24rpx;
+		padding: 48rpx 0rpx 0 24rpx;
 		display: flex;
 		flex-direction: column;
 		flex: 1;
+		max-height: 100vh;
 	}
 
-	.activity-list-wrapper {
-		flex: 1;
+	.user-info-game-wrap {
 		width: auto;
 		box-sizing: border-box;
 		overflow: hidden;
+		height: 90vh;
+
 	}
 
 	page {
@@ -111,6 +117,7 @@
 		padding-bottom: 32rpx;
 		box-sizing: border-box;
 		display: flex;
+		padding-right: 40rpx;
 
 		&_img {
 			width: 192rpx;
