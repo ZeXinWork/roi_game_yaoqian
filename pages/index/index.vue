@@ -139,10 +139,10 @@
 							</view>
 							<view class="my_rank_item">
 								<view class="my_rank_title">总积分</view>
-								<view class="rank_item_number">{{ userRank.score || 0 }}</view>
+								<view class="rank_item_number">{{ userRank.integral || 0 }}</view>
 							</view>
 						</view>
-						<button class="share_btn" open-type="share" data-type="2" data-rank="1">
+						<button class="share_btn" open-type="share" data-type="2" :data-rank="userRank.ranking">
 							<image class="icon_wechat" src="https://static.roi-cloud.com/base/icon_wechat.png" mode="">
 							</image>
 							<text>晒排名 加次数</text>
@@ -832,7 +832,7 @@
 			let localGameId = this.$storage.get('gameId')
 			const user = this.$storage.getUser()
 			this.user_info = user
-			console.log(options,"你是个什么东西")
+			console.log(options, "你是个什么东西")
 			if (options.code) {
 				this.gameId = options.gameId
 				this.$storage.set('gameId', options.gameId)
@@ -841,7 +841,7 @@
 			this.inviteCode = this.$storage.get('invite')
 			if (this.inviteCode) {
 				if (user.userId) {
-					this.getInviteInfo(this.inviteCode,'211206093256824726')
+					this.getInviteInfo(this.inviteCode, '211206093256824726')
 				} else {
 					this.toLogin()
 				}
@@ -874,7 +874,7 @@
 			this.currentHelpItem = 1
 		},
 		methods: {
-			getInviteInfo (code,gameId) {
+			getInviteInfo(code, gameId) {
 				inviteInfo({
 					invite_code: code,
 					game_id: gameId,
@@ -887,7 +887,7 @@
 						},
 						prizeName: res.award_name,
 						king: {
-							rankNumber:res.rank,
+							rankNumber: res.rank,
 						},
 						gameName: res.game_name,
 					}
@@ -905,10 +905,10 @@
 				getMyRank({
 					gameId: this.gaemId
 				}).then((res) => {
-					console.log(res, "resssdasdasdasdssss")
+					this.userRank = res
 				})
 			},
-		
+
 			handleGameResult({
 				result
 			}) {
@@ -937,6 +937,10 @@
 				})
 			},
 			onMy() {
+				if(!this.user.userId){
+					this.toLogin()
+					return
+				}
 				uni.navigateTo({
 					url: '/pages/my/my',
 				})
@@ -1257,7 +1261,7 @@
 						if (JSON.stringify(res) == '{}') {
 							this.inviteCode = ""
 							this.isInvite = true
-							this.$storage.set("invite","")
+							this.$storage.set("invite", "")
 							this.getGameInfo()
 							this.$refs.help_other.show()
 						} else {
@@ -1461,15 +1465,7 @@
 					this.$refs[ref].show()
 				}
 			},
-			getUserScore() {
-				this.$loading.show()
-				gameKingOfKingsRankScore({
-					gameId: this.gameId,
-				}).then((res) => {
-					this.userRank = res
-					this.$loading.hide()
-				})
-			},
+
 			getRankScore() {
 				const query = {
 					offset: 1,
@@ -1791,7 +1787,7 @@
 		},
 		async onShareAppMessage(e) {
 			let type, rank
-			if (e.from === 'button') {// 来自页面内分享按钮
+			if (e.from === 'button') { // 来自页面内分享按钮
 				console.log(e.target)
 				type = e.target.dataset.type
 				rank = e.target.dataset.rank
@@ -1810,7 +1806,7 @@
 			if (type == 2) {
 				// 排名
 				params = {
-					... params,
+					...params,
 					rank,
 				}
 			}
@@ -1822,7 +1818,7 @@
 				title: this.gameInfo.name,
 				path,
 			}
-			
+
 		},
 		watch: {
 			currentScoreItem: {

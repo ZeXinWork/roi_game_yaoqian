@@ -154,7 +154,8 @@
 	}
 
 	.user-wrap {
-		height: 100vh;
+		min-height: 100vh;
+		padding-bottom: 100rpx;
 
 		.uni-card {
 			border-radius: 12px !important;
@@ -184,11 +185,9 @@
 
 				.user-status-bar {
 					position: fixed;
-					top: 0;
-					left: 0;
-					right: 0;
 					background: linear-gradient(to bottom right, #ff4c1a, #ff4a71);
-					z-index: 20;
+					margin-top: 800rpx;
+					box-sizing: border-box;
 				}
 
 				.user-info-body {
@@ -227,10 +226,10 @@
 				background-color: #fff;
 				border-radius: 20px;
 				padding: 20rpx 36rpx 54rpx 36rpx;
-				z-index: 10;
 				box-sizing: border-box;
 				margin-top: -80rpx;
 				width: 90%;
+				margin-bottom: 100rpx;
 
 				&_title {
 					font-size: 30rpx;
@@ -296,11 +295,12 @@
 						}
 					}
 				}
+
 				&_content:not(:last-child) {
 					margin-bottom: 44rpx;
 				}
-				
-				
+
+
 			}
 		}
 
@@ -379,7 +379,6 @@
 	.agreement-wrapper__text {
 		font-size: 22rpx;
 		color: #b3b2b2;
-		position: fixed;
 		bottom: 100rpx;
 		width: 100%;
 		text-align: center;
