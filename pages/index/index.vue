@@ -932,6 +932,10 @@
 				})
 			},
 			onMy() {
+				if(!this.user.userId){
+					this.toLogin()
+					return
+				}
 				uni.navigateTo({
 					url: '/pages/my/my',
 				})
