@@ -485,3 +485,8 @@ export const getRank = (params) => {
 export const getOpenAward = (params) => {
 	return restResult(GET, api.GET_FINAL_RANK, params);
 }
+
+//获取我的排名
+export const getMyRank = (params) => {
+	return restResult(GET, api.GET_MY_RANK, params)
+}

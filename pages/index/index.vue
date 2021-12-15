@@ -505,7 +505,7 @@
 					<view v-if="gameInfo.isSvip == 1">
 						<view class="o_rank">本次活动已经结束</view>
 						<view class="o_rank">最终排名为<text>【第{{ userRank.prize_source }}名】</text></view>
-						<view >
+						<view>
 							<view class="svip_end_tips">
 								本次活动已结束
 								<view>请于{{ gameInfo.last_receive_time }}前提交领奖信息，过期作废</view>
@@ -731,7 +731,8 @@
 		getRank,
 		userHelpRecordList,
 		userHelpRecordMyList,
-		getOpenAward
+		getOpenAward,
+		getMyRank
 	} from '@/rest/api.js'
 	export default {
 		components: {
@@ -829,8 +830,8 @@
 				this.gameId = localGameId
 				this.getGameInfo() //获取游戏信息
 				this.getPlayNumber() //获取游戏可玩次数
-				this.getRankList() // 排行榜信息
 				this.getHelperList(1) // 助力记录
+				this.getMyRank() //获取当前我的排名信息
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
@@ -856,21 +857,15 @@
 			handleChecked() {
 				this.isChecked = !this.isChecked
 			},
-			getRankList() {
-				getRank({
-						gameId: this.gameId,
-						offset: 1,
-						limit: 10,
-					})
-					.then((res) => {
-						console.log(res, 'ressss')
-					})
-					.catch((err) => {
-						uni.showToast({
-							title: '出错啦',
-						})
-					})
+
+			getMyRank() {
+				getMyRank({
+					gameId: this.gaemId
+				}).then((res) => {
+					console.log(res, "resssdasdasdasdssss")
+				})
 			},
+		
 			handleGameResult({
 				result
 			}) {
@@ -1626,7 +1621,7 @@
 							),
 						}
 						this.$storage.set('gameInfo', this.gameInfo)
-						if (Number(this.gameInfo.status) === 6 ) {
+						if (Number(this.gameInfo.status) === 6) {
 							getOpenAward({
 								gameId: this.gameId
 							}).then((res) => {

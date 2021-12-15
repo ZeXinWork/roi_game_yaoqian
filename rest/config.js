@@ -309,3 +309,5 @@ export const GET_RANK = '/api/game/ranking'
 
 //获取排行榜开奖结果
 export const GET_FINAL_RANK = '/api/game/userFinalRanking'
+
+export const GET_MY_RANK = '/api/user/ranking'

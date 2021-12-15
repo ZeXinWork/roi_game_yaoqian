@@ -1,17 +1,17 @@
 <template>
-	<view class="main">
+	<view class="main" v-if="gameInfo.game_id">
 		<view class="rule_box">
-			<view class="main_title">博饼规则</view>
+			<view class="main_title">游戏规则</view>
 			<view class="subtitle">
-				<view>嘿！欢迎来到{{ rule.gameName }}</view>
-				<view class="text_center">博饼节活动</view>
+				<view>嘿！欢迎来到{{ gameInfo.name }}</view>
+				<view class="text_center">摇摇树活动</view>
 			</view>
 			<view class="gift_list">
-				<view class="gift_item" v-for="item in rule.prizeInfo">
+				<view class="gift_item" v-for="item in gameInfo.game_award">
 					<view class="gift_img">
-						<image :src="item.prizeImageUrl" mode=""></image>
+						<image :src="item.prize_url" mode=""></image>
 					</view>
-					<text>{{ item.prizeName }}</text>
+					<text>{{ item.prize_name }}</text>
 				</view>
 			</view>
 			<view class="row_line">
@@ -20,21 +20,21 @@
 			</view>
 			<view v-if="gameInfo.gameType === 1" class="row_line">
 				<view class="number">2</view>
-				<view class="row_text">博饼赢积分，凭积分换好礼，最快一天即可换奖品！</view>
+				<view class="row_text">游戏赢积分，凭积分换好礼，最快一天即可换奖品！</view>
 			</view>
 			<view v-if="gameInfo.gameType === 2" class="row_line">
 				<view class="number">2</view>
-				<view class="row_text">博饼即玩即中对应奖品，最快一把即可领奖品！</view>
+				<view class="row_text">游戏即玩即中对应奖品，最快一把即可领奖品！</view>
 			</view>
 			<view class="row_line" v-if="gameInfo.isSvip">
 				<view class="number">3</view>
-				<view class="row_text">累计总博饼积分计入【排行榜】，争夺更多大奖！</view>
+				<view class="row_text">累计总游戏积分计入【排行榜】，争夺更多大奖！</view>
 			</view>
 		</view>
 		<view class="rule_box">
 			<view class="radius_item">
 				<view class="radiu_title">活动时间</view>
-				<view class="radiu_line">{{ rule.startTime }} - {{ rule.endTime }}</view>
+				<view class="radiu_line">{{ gameInfo.game_play_time}}</view>
 			</view>
 			<view class="radius_item">
 				<view class="radiu_title">活动范围</view>
@@ -42,42 +42,42 @@
 					<text>{{ (rule.provinceInfo.region_name || '')+ (rule.cityInfo.region_name || '') + (rule.areaInfo.region_name || '')}}</text>
 				</view>
 				<view class="radiu_line" v-else>
-					<text >全国</text>
+					<text>全国</text>
 				</view>
 			</view>
 			<view class="radius_item">
 				<view class="radiu_title">参与方式</view>
 				<view class="row_line">
 					<view class="number">1</view>
-					<view class="row_text">所有用户均可参与，每人每天有6次免费博饼次数。</view>
+					<view class="row_text">所有用户均可参与，每人每天有6次免费游戏次数。</view>
 				</view>
 				<view class="row_line">
 					<view class="number">2</view>
-					<view class="row_text">所有博饼次数当天23:59:59清零。</view>
+					<view class="row_text">所有游戏次数当天23:59:59清零。</view>
 				</view>
 				<view class="row_line">
 					<view class="number">2</view>
-					<view class="row_text">邀请好友助力成功，双方各加一次博饼次数（多邀多得，上不封顶），每天可助力他人3次（当天不可重复助力）。</view>
+					<view class="row_text">{{`邀请好友助力成功，双方各加一次游戏次数（多邀多得，上不封顶），每天可助力他人${help_times}次（当天不可重复助力）。`}}</view>
 				</view>
 			</view>
 		</view>
-		<view v-if="gameInfo.gameType === 1" class="rule_box">
-			<view class="radiu_title">博饼玩法</view>
+		<view v-if="Number(gameInfo.lottery_type) === 2" class="rule_box">
+			<view class="radiu_title">游戏玩法</view>
 			<view class="row_line">
 				<view class="number">1</view>
-				<view class="row_text">博饼赢博饼分</view>
+				<view class="row_text">游戏赢游戏分</view>
 			</view>
 			<view class="row_line">
 				<view class="number">2</view>
-				<view class="row_text">所得博饼分，将累计计入个人总博饼分及可兑换博饼分中</view>
+				<view class="row_text">所得游戏分，将累计计入个人总游戏分及可兑换游戏分中</view>
 			</view>
 			<view class="row_line">
 				<view class="number">3</view>
-				<view class="row_text">凭累计的可兑换博饼积分可前往【奖品兑换】处兑换奖品。奖品数量有限，兑完即止。点击首页【奖品兑换】即可进入。</view>
+				<view class="row_text">凭累计的可兑换游戏积分可前往【奖品兑换】处兑换奖品。奖品数量有限，兑完即止。点击首页【奖品兑换】即可进入。</view>
 			</view>
 			<view class="row_line" v-if="gameInfo.isSvip">
 				<view class="number">4</view>
-				<view class="row_text">累计的总博饼积分还将计入首页【排行榜】，活动结束后，排行榜得分最高的前几位将额外获得大奖。</view>
+				<view class="row_text">累计的总游戏积分还将计入首页【排行榜】，活动结束后，排行榜得分最高的前几位将额外获得大奖。</view>
 			</view>
 		</view>
 		<view v-if="gameInfo.gameType === 1" class="rule_box">
@@ -93,14 +93,14 @@
 				</view>
 			</view>
 		</view>
-		<view v-if="gameInfo.gameType === 2" class="rule_box">
-			<view class="radiu_title">博饼玩法</view>
+		<view v-if="Number(gameInfo.gameType) === 1" class="rule_box">
+			<view class="radiu_title">游戏玩法</view>
 			<view class="row_line">
 				<view class="number">1</view>
-				<view class="row_text">博饼赢对应级别奖品</view>
+				<view class="row_text">游戏赢对应级别奖品</view>
 			</view>
 		</view>
-		<view v-if="gameInfo.gameType === 2" class="rule_box">
+		<view v-if="Number(gameInfo.gameType) === 1" class="rule_box">
 			<view class="radiu_title">奖品领取</view>
 			<view class="row_line">
 				<view class="number">1</view>
@@ -108,7 +108,7 @@
 			</view>
 		</view>
 		<view @click="back" class="btn">
-			去博饼
+			去游戏
 		</view>
 	</view>
 </template>
@@ -124,32 +124,39 @@
 			return {
 				gameId: 0,
 				rule: {
-					prizeInfo:[]
+					prizeInfo: []
 				},
 				gameInfo: {}
 			};
 		},
 		onLoad(options) {
-			this.gameId = options.gameId
-			this.getRule()
-			this.getGameInfo()
+			let gameInfo = this.$storage.get("gameInfo")
+			this.gameInfo = gameInfo
+			if (!gameInfo.game_id) {
+				uni.showToast({
+					title: "出错啦"
+				})
+				return
+			}
 		},
-		methods:{
-			back(){
+		methods: {
+			back() {
 				uni.navigateBack()
 			},
-			getGameInfo(){
+			getGameInfo() {
 				apiGetGameInfo({
 					gameId: this.gameId,
 				}).then(res => {
 					this.gameInfo = res
 				})
 			},
-			getRule(){
-				gameRule({gameId:this.gameId}).then(res=>{
-					res.endTime = moment(res.endTime*1000).format('YYYY年MM月DD日')
-					res.startTime = moment(res.startTime*1000).format('YYYY年MM月DD日')
-					res.redeemEndTime = moment(res.redeemEndTime*1000).format('YYYY年MM月DD日')
+			getRule() {
+				gameRule({
+					gameId: this.gameId
+				}).then(res => {
+					res.endTime = moment(res.endTime * 1000).format('YYYY年MM月DD日')
+					res.startTime = moment(res.startTime * 1000).format('YYYY年MM月DD日')
+					res.redeemEndTime = moment(res.redeemEndTime * 1000).format('YYYY年MM月DD日')
 					this.rule = res
 				})
 			}
@@ -161,8 +168,8 @@
 	page {
 		background: #E83D3D;
 	}
-	
-	.main{
+
+	.main {
 		padding-bottom: 146upx;
 	}
 
@@ -175,8 +182,8 @@
 		height: 72upx;
 		line-height: 72upx;
 	}
-	
-	.btn{
+
+	.btn {
 		height: 80upx;
 		line-height: 80upx;
 		margin: 52upx 172upx 0;
@@ -257,7 +264,7 @@
 					border-radius: 16upx;
 					background: #eee;
 					overflow: hidden;
-					
+
 				}
 			}
 		}
