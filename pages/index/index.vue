@@ -423,18 +423,21 @@
 							</view>
 						</view>
 					</view>
+					<view class="ass_m_title">你也来一把</view>
 				</view>
 				<!-- 分享排行 -->
-				<view v-else-if="helperInfo.king > 0">
+				<view v-else-if="helperInfo.king.rankNumber > 0">
 					<view class="ass_m_title mt50">在[ {{ helperInfo.gameName }} ] 排名</view>
 					<view class="g_rank_no">第 {{ helperInfo.king && helperInfo.king.rankNumber }} 名</view>
+					<view class="ass_m_title">帮我冲刺一下</view>
 				</view>
 				<!-- 未中奖 -->
 				<view v-else>
 					<view class="ass_m_title mt50">正在参与[ {{ helperInfo.gameName }} ]</view>
+					<view class="ass_m_title">你也来一把</view>
 				</view>
 
-				<view class="ass_m_title">你也来一把</view>
+				
 				<view class="mt10">一起游戏，各得一次机会</view>
 				<view class="play_btn mt50" @click="gameHelp">我也来一把</view>
 				<view class="ad_wrap" v-if="advertList[4].length > 0">
@@ -832,6 +835,8 @@
 			this.user_info = user
 			console.log(options, "你是个什么东西")
 			if (options.code) {
+				this.gameId = options.gameId
+				this.$storage.set('gameId', options.gameId)
 				this.$storage.set('invite', options.code)
 			}
 			this.inviteCode = this.$storage.get('invite')
@@ -876,9 +881,9 @@
 					game_id: gameId,
 				}).then(res => {
 					this.helperInfo = {
-						avatar: this.user_info.avatar,
-						nickName: this.user_info.nickname,
-						prize: {
+						avatar: res.avatar,
+						nickName: res.user_name,
+						prize:{
 							prizeImageUrl: res.award_url
 						},
 						prizeName: res.award_name,
@@ -1810,10 +1815,9 @@
 			// 获取邀请码
 			const inviteData = await inviteHelp(params)
 
-			const path = '/pages/index/index?gameId=' + this.gameId + '&type=' + type + '&code=' + inviteData.code
-			console.log(path)
+			const path = '/pages/index/index?gameId='+this.gameId+'&type=' + type+'&code=' + inviteData.code
 			return {
-				title: '玩个der',
+				title: this.gameInfo.name,
 				path,
 			}
 
