@@ -1,5 +1,6 @@
 <template>
-	<view class="wrap">
+	<view class="wrap"
+		:style="{backgroundColor:gameInfo.game_pk_plugin&&gameInfo.game_pk_plugin.length !==0?'#ff2626':'#fdccb9'}">
 		<navbar :params="{
         navColor: navColor,
         titleColor: '#fff',
@@ -107,7 +108,7 @@
 					</swiper-item>
 				</swiper>
 			</view>
-			<view class="rank_ad_wrap">
+			<view class="rank_ad_wrap" v-if='gameInfo.game_pk_plugin.length&&gameInfo.game_pk_plugin.length!==0'>
 				<view class="rank_wrap">
 					<view class="rank_title">
 						<view class="rank_title_left">
@@ -122,7 +123,7 @@
 					<view class="my_rank">
 						<view class="my_rank_top">
 							<view class="rank_avatar">
-								<image src="https://static.roi-cloud.com/upload/20211211/60935669170230" mode="">
+								<image :src="user.avatar" mode="">
 								</image>
 							</view>
 							<view class="my_rank_item">
@@ -146,14 +147,14 @@
 						<view v-for="(item, index) in kingofKingsList" :key="index" class="mlr30">
 							<view class="rank_box">
 								<view class="gift_image">
-									<image :src="item.info.prizeImgInfo.img" mode="aspectFill"></image>
+									<image :src="item.info.prizeImgInfo.prize_url" mode="aspectFill"></image>
 								</view>
 								<view class="gift_right">
 									<view class="gift_title">
-										<view class="gift_level">{{ item.info.prizeNote }}</view>
+										<view class="gift_level">{{ item.info.ranking_name }}</view>
 										<view class="no_number">{{ item.range }}</view>
 									</view>
-									<view class="">{{ item.info.prizeName }}</view>
+									<view class="">{{ item.info.prize_name }}</view>
 								</view>
 							</view>
 							<view class="box_item" v-for="(user, userIndex) in item.list" :key="item">
@@ -166,9 +167,9 @@
 									</image>
 									<view class="no_icon" v-else>{{ user.no_num }}</view>
 									<image class="avatar" :src="user.avatar" mode=""></image>
-									<text class="username">{{ user.nickName }}</text>
+									<text class="username">{{ user.nickname }}</text>
 								</view>
-								<text>{{ user.score }}</text>
+								<text>{{ user.ranking_integral }}</text>
 							</view>
 						</view>
 
@@ -177,9 +178,9 @@
 								<view class="box_item_left">
 									<view class="no_icon">{{ user.no_num }}</view>
 									<image class="avatar" :src="user.avatar" mode=""></image>
-									<text class="username">{{ user.nickName }}</text>
+									<text class="username">{{ user.nickname }}</text>
 								</view>
-								<text>{{ user.score }}</text>
+								<text>{{ user.ranking_integral }}</text>
 							</view>
 						</view>
 					</view>
@@ -792,156 +793,11 @@
 				gameId: '',
 				helperInfo: {}, //助力人信息
 				loadOptions: {},
-				kingofKingsList: [{
-						info: {
-							createTime: null,
-							kingsId: 1,
-							prizeDeliverWay: 1,
-							prizeId: 1,
-							prizeImgId: '781',
-							prizeImgInfo: {
-								createTime: null,
-								id: 781,
-								img: 'https://static.roi-cloud.com/prizeImg/20210913/16/29/613f0bf6a055772189.jpg',
-								isUse: 1,
-								status: 1,
-								type: 1,
-								userId: 9,
-							},
-							prizeLevel: 1,
-							prizeName: '保时捷麻将',
-							prizeNote: '一等奖',
-							prizeNum: 1,
-							prizeType: 1,
-						},
-						list: [{
-							avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eovdHkwHiaC2k0pKVFHEoDI4EvhiaPn0fkE8fDfxuXNtlR598BTSiaWibaGmw4JiaxXzes8GiafE4co9icIw/132',
-							nickName: '旷世飞人',
-							no_num: 1,
-							score: '201170',
-							sort: 0,
-							userId: 3646,
-						}, ],
-						range: '第1名',
-					},
-					{
-						info: {
-							createTime: null,
-							kingsId: 1,
-							prizeDeliverWay: 1,
-							prizeId: 2,
-							prizeImgId: '782',
-							prizeImgInfo: {
-								createTime: null,
-								id: 782,
-								img: 'https://static.roi-cloud.com/prizeImg/20210914/21/34/微信图片_20210914104032.jpg',
-								isUse: 1,
-								status: 1,
-								type: 1,
-								userId: 9,
-							},
-							prizeLevel: 2,
-							prizeName: '阿斯顿马丁皮质卡包',
-							prizeNote: '二等奖',
-							prizeNum: 1,
-							prizeType: 1,
-						},
-						list: [{
-								avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
-								nickName: '想个简单的名字太难了',
-								no_num: 2,
-								score: '131290',
-								sort: 1,
-								userId: 11271,
-							},
-							{
-								avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqWuWOgK4hTUuVuOUOjKpv6r4OjYPic9nVibpu9CvtBZnic5Z74cFrqQxgyzicJo5GWhxA83NMhMo5IdQ/132',
-								nickName: 'Isabelle Williamson',
-								no_num: 3,
-								score: '111290',
-								sort: 1,
-								userId: 10271,
-							},
-							{
-								avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
-								nickName: '想个简单的名字太难了',
-								no_num: 2,
-								score: '131290',
-								sort: 1,
-								userId: 11271,
-							},
-							{
-								avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
-								nickName: '想个简单的名字太难了',
-								no_num: 2,
-								score: '131290',
-								sort: 1,
-								userId: 11271,
-							},
-						],
-						range: '第2-4名',
-					},
-				],
+				kingofKingsList: [],
 				advertList: [],
 				scoreDetailList: [], //积分明细
 				exchangeList: [], //兑换明细
-				otherKingList: [{
-						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
-						nickName: '想个简单的名字太难了',
-						no_num: 2,
-						score: '131290',
-						sort: 1,
-						userId: 11271,
-					},
-					{
-						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
-						nickName: '想个简单的名字太难了',
-						no_num: 2,
-						score: '131290',
-						sort: 1,
-						userId: 11271,
-					},
-					{
-						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
-						nickName: '想个简单的名字太难了',
-						no_num: 2,
-						score: '131290',
-						sort: 1,
-						userId: 11271,
-					},
-					{
-						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
-						nickName: '想个简单的名字太难了',
-						no_num: 2,
-						score: '131290',
-						sort: 1,
-						userId: 11271,
-					},
-					{
-						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
-						nickName: '想个简单的名字太难了',
-						no_num: 2,
-						score: '131290',
-						sort: 1,
-						userId: 11271,
-					},
-					{
-						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
-						nickName: '想个简单的名字太难了',
-						no_num: 2,
-						score: '131290',
-						sort: 1,
-						userId: 11271,
-					},
-					{
-						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsfw4BEgchyGX3pvz8YUDBzvDI3X0FYwzgkbwClAl8bpthqDS8WYPPndf4gKQ78d80wGbQlRls7w/132',
-						nickName: '想个简单的名字太难了',
-						no_num: 2,
-						score: '131290',
-						sort: 1,
-						userId: 11271,
-					},
-				],
+				otherKingList: [],
 				playAnimation: false,
 				show: false,
 				helpLoading: false,
@@ -963,6 +819,7 @@
 				gameId: '',
 				gameInfo: {},
 				playTime: 0,
+				user: {}
 			}
 		},
 		onShow() {
@@ -976,12 +833,12 @@
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
 			const user = this.$storage.getUser()
+			this.user = user
 			localGameId = '211206093256824726'
 			if (localGameId && user.userId) {
 				this.gameId = localGameId
 				this.getGameInfo() //获取游戏信息
 				this.getPlayNumber() //获取游戏可玩次数
-				this.getRankList() // 排行榜信息
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
@@ -1579,34 +1436,109 @@
 				})
 			},
 			getRankScore() {
-				gameKingOfKingsList({
+				const query = {
+					offset: 1,
+					limit: 50,
+				}
+				getRank({
 					gameId: this.gameId,
-				}).then((kingList) => {
-					this.kingRankList = kingList
-					for (let index in kingList) {
-						kingList[index].no_num = parseInt(index) + 1
+					...query,
+				}).then(async (kingList) => {
+					let userList = kingList
+					this.kingRankList = userList
+					let numIndex = userList.length
+					let kingofKingsList = []
+					for (let index in userList) {
+						userList[index].no_num = parseInt(index) + 1
 					}
-					gameKingofKingsPrizeList({
-						gameId: this.gameId,
-					}).then((res1) => {
-						let kingofKingsList = []
-						let num = 1
-						for (let index in res1) {
-							let item = {
-								info: res1[index],
-								range: res1[index].prizeNum == 1 ?
-									'第' + num + '名' : '第' + num + '～' + (num + res1[index].prizeNum -
-										1) + '名',
-								list: kingList.slice(0, res1[index].prizeNum),
+					let num = 1
+					console.log(userList, "userListuserListuserListuserListuserList")
+					for (let index in this.gameInfo.game_pk_plugin) {
+						if (userList.length < this.gameInfo.game_pk_plugin[index].player_num) {
+							query.offset = query.offset + 1
+							const result = await getRank({
+								gameId: this.gameId,
+								...query,
+							})
+							for (let index in result) {
+								result[index].no_num = numIndex + parseInt(index) + 1
 							}
-							num += res1[index].prizeNum
-							kingList.splice(0, res1[index].prizeNum)
-							kingofKingsList.push(item)
+
+							const newList = [...userList, ...result]
+							userList = [...newList]
+							numIndex = userList.length + numIndex
 						}
-						this.kingofKingsList = kingofKingsList
-						this.otherKingList = kingList
+
+						let item = {
+							info: this.gameInfo.game_pk_plugin[index],
+							range: this.gameInfo.game_pk_plugin[index].player_num == 1 ?
+								'第' + num + '名' : '第' + num + '～' + (num + this.gameInfo.game_pk_plugin[
+										index]
+									.player_num -
+									1) + '名',
+							list: userList.slice(0, this.gameInfo.game_pk_plugin[index].player_num),
+						}
+						num += this.gameInfo.game_pk_plugin[index].player_num
+						userList.splice(0, this.gameInfo.game_pk_plugin[index].player_num)
+						kingofKingsList.push(item)
+					}
+
+					this.kingofKingsList = kingofKingsList
+					let lnum = 0
+					this.kingofKingsList.forEach(item => {
+						item.list.forEach(value => {
+							lnum = lnum + 1
+						})
 					})
+					if (lnum > 50) {
+						const res = getIntNumber(userList.length)
+						if (userList.length >= 20 + res) {
+							this.otherKingList = userList.splice(0, 20 + res)
+						} else {
+							const lastIndex = 20 + res - userList.length
+							query.limit = lastIndex
+							query.offset = query.offset + 1
+							const result = await getRank({
+								gameId: this.gameId,
+								...query,
+							})
+							for (let index in result) {
+								result[index].no_num = numIndex + parseInt(index) + 1
+							}
+							const newList = [...userList, ...result]
+							this.otherKingList = [...newList]
+						}
+					} else {
+						const lastIndex = 50 - lnum
+						if (userList.length >= lastIndex) {
+							this.otherKingList = userList.splice(0, lastIndex)
+						} else {
+							const requireIndex = lastIndex - userList.length
+							query.limit = requireIndex
+							query.offset = query.offset + 1
+							const result = await getRank({
+								gameId: this.gameId,
+								...query,
+							})
+							for (let index in result) {
+								result[index].no_num = numIndex + parseInt(index) + 1
+							}
+							const newList = [...userList, ...result]
+							this.otherKingList = [...newList]
+						}
+
+					}
+
+
+
 				})
+			},
+			getIntNumber(number) {
+				if (number % 10) {
+					const result = 10 - parseInt(number % 10)
+					return result
+				}
+				return 0
 			},
 			getUserProfile(e) {
 				if (this.logining == true) {
@@ -1694,6 +1626,8 @@
 							game_start_time: moment(res.game_start_time * 1000).format('MM月DD日 HH:mm'),
 							game_end_time: moment(res.game_end_time * 1000).format('MM月DD日  HH:mm')
 						}
+						this.$storage.set('gameInfo', this.gameInfo)
+						this.getRankScore() // 排行榜信息
 					})
 					.catch((err) => {
 						uni.showToast({
@@ -1786,7 +1720,7 @@
 							...user,
 							...res
 						}
-						console.log(params, "paramsparamsparamsparams")
+
 						this.$storage.setUser({
 							...user,
 							...res

@@ -97,15 +97,7 @@
 				authorizeAble: false,
 				user: {},
 				loading: false,
-				gameList: [{
-					img: "https://static.roi-cloud.com/upload/20211211/60935669192518",
-					name: "摇钱树",
-					status: 1,
-					open: "即开即中",
-					startTime: "2021.12.01",
-					endTime: "2021.12.31",
-					id: 1
-				}], //我的游戏列表
+				gameList: [], //我的游戏列表
 			}
 		},
 		methods: {
