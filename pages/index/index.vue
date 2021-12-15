@@ -907,7 +907,7 @@
 
 			getMyRank() {
 				getMyRank({
-					gameId: this.gaemId
+					gameId: this.gameId
 				}).then((res) => {
 					this.userRank = res
 				})
