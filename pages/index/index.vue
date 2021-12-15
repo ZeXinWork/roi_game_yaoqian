@@ -829,7 +829,7 @@
 			let localGameId = this.$storage.get('gameId')
 			const user = this.$storage.getUser()
 			this.user_info = user
-			console.log(options,"options")
+			console.log(options,"你是个什么东西")
 			if (options.code) {
 				this.$storage.set('invite', options.code)
 			}
@@ -1811,10 +1811,10 @@
 			}
 			// 获取邀请码
 			inviteHelp(params).then((res)=> {
-				console.log('/pages/index/index?gameId='+this.gameId+'&type=' + type+'&code=' + res.code)
+				const path = '/pages/index/index?gameId='+this.gameId+'&type=' + type+'&code=' + res.code
 				return {
 					title: '玩个der',
-					path: '/pages/index/index?gameId='+this.gameId+'&type=' + type+'&code=' + res.code,
+					path,
 				}
 			}).catch((err) => {
 				console.log(err)
