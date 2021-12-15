@@ -829,7 +829,7 @@
 			let localGameId = this.$storage.get('gameId')
 			const user = this.$storage.getUser()
 			this.user_info = user
-
+			console.log(options,"options")
 			if (options.code) {
 				this.$storage.set('invite', options.code)
 			}
