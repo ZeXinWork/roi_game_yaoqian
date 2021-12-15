@@ -834,6 +834,7 @@
 				this.$storage.set('invite', options.code)
 			}
 			this.inviteCode = this.$storage.get('invite')
+			this.inviteCode = 'e210ebf502bce16a98a5b957c9033490'
 			if (this.inviteCode) {
 				if (user.userId) {
 					this.getInviteInfo(this.inviteCode,'211206093256824726')
@@ -1784,7 +1785,7 @@
 					})
 			},
 		},
-		onShareAppMessage(e) {
+		async onShareAppMessage(e) {
 			let type, rank
 			if (e.from === 'button') {// 来自页面内分享按钮
 				console.log(e.target)
@@ -1810,15 +1811,14 @@
 				}
 			}
 			// 获取邀请码
-			inviteHelp(params).then((res)=> {
-				const path = '/pages/index/index?gameId='+this.gameId+'&type=' + type+'&code=' + res.code
-				return {
-					title: '玩个der',
-					path,
-				}
-			}).catch((err) => {
-				console.log(err)
-			})
+			const inviteData = await inviteHelp(params)
+
+			const path = '/pages/index/index?gameId='+this.gameId+'&type=' + type+'&code=' + inviteData.code
+			console.log(path)
+			return {
+				title: '玩个der',
+				path,
+			}
 			
 		},
 		watch: {
