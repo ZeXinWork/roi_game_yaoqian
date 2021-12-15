@@ -55,7 +55,9 @@
 			"path": "pages/rule/rule",
 			"style": {
 				"navigationBarTitleText": "游戏规则",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#b43b2d",
+				"navigationBarTextStyle": "white"
 			}
 
 		}
