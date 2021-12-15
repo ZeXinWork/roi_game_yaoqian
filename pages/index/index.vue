@@ -834,7 +834,6 @@
 				this.$storage.set('invite', options.code)
 			}
 			this.inviteCode = this.$storage.get('invite')
-			this.inviteCode = 'e210ebf502bce16a98a5b957c9033490'
 			if (this.inviteCode) {
 				if (user.userId) {
 					this.getInviteInfo(this.inviteCode,'211206093256824726')
