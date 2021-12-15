@@ -282,7 +282,7 @@
 								<view class="username">{{ item.name }}</view>
 							</view>
 							<view class="help_right">
-								<text>{{ getTime(item.date) }} </text>
+								<text>{{ item.date }} </text>
 								<text class="ml10">为我助力</text>
 							</view>
 						</view>
@@ -982,6 +982,7 @@
 				this.getGameInfo() //获取游戏信息
 				this.getPlayNumber() //获取游戏可玩次数
 				this.getRankList() // 排行榜信息
+				this.getHelperList(1) // 助力记录
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
@@ -1184,7 +1185,11 @@
 			},
 			helpMeListMore() {
 				if (!this.helpLoading && this.hasMore) {
-					this.getHelperList(this.helper.page + 1)
+					if (this.currentHelpItem == 1) {
+						this.getHelperList(this.helper.page + 1)
+					} else {
+						this.changeHelpMyList(this.helper.page + 1)
+					}
 				}
 			},
 			helpScroll: function(e) {
@@ -1378,41 +1383,40 @@
 						})
 				}
 			},
-			changeHelpMyList() {
+			changeHelpMyList(page) {
 				userHelpRecordMyList({
-					game_id: this.gameId
+					game_id: this.gameId,
+					limit: this.helper.pageSize,
+					page: page
 				}).then((res) => {
-					console.log(res)
-					this.helper = res
+					let list = res.list || []
+					if (list.length < this.helper.pageSize) {
+						this.hasMore = false
+					}
+					console.log(list.length < this.helper.pageSize)
+					if (page !== 1) {
+						list = [...this.helper.list, ...list]
+					}
+					this.helper = {
+						...this.helper,
+						list: list,
+						page: page,
+					}
+					this.helpLoading = false
+					this.$loading.hide()
+
 				}).catch((error) => {
 
 				})
-
-				// this.helper = {
-				// 	list: [
-				// 		{
-				// 			id: 1,
-				// 			avatar: 'https://static.roi-cloud.com/upload/20211209/60935669105926',
-				// 			name: 'asd',
-				// 			date: '1639476971'
-				// 		},
-				// 		{
-				// 			id: 2,
-				// 			avatar: 'https://static.roi-cloud.com/upload/20211209/60935669105926',
-				// 			name: 'asd',
-				// 			date: '1639476971'
-				// 		}
-				// 	]
-				// }
 			},
 			changeHelpTypeList(type) {
 				this.hasMore = true
 				this.currentHelpItem = type
-				if (type == 2) {
-					this.changeHelpMyList()
+				if (type == 1) {
+					this.getHelperList(1, true, type)
 				} else {
 					// this.helpTop = 0;
-					this.getHelperList(1, true, type)
+					this.changeHelpMyList(1)
 				}
 			},
 			play() {
@@ -1644,9 +1648,8 @@
 				this.$loading.show()
 				this.helpLoading = true
 				userHelpRecordList({
-						gameId: this.gameId,
-						type: this.currentHelpItem,
-						pageSize: this.helper.pageSize,
+						game_id: this.gameId,
+						limit: this.helper.pageSize,
 						page: page,
 					})
 					.then((res) => {
