@@ -875,10 +875,13 @@
 		},
 		methods: {
 			getInviteInfo(code, gameId) {
+				cosnole.log(code,"code")
+				cosnole.log(gameId,"gameId")
 				inviteInfo({
 					invite_code: code,
 					game_id: gameId,
 				}).then(res => {
+					console.log(res,"res")
 					this.helperInfo = {
 						avatar: res.avatar,
 						nickName: res.user_name,
