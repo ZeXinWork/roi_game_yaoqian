@@ -136,7 +136,7 @@
 								<view class="rank_item_number">{{ userRank.score || 0 }}</view>
 							</view>
 						</view>
-						<button class="share_btn" open-type="share" data-rank="1">
+						<button class="share_btn" open-type="share" data-type="2" data-rank="1">
 							<image class="icon_wechat" src="https://static.roi-cloud.com/base/icon_wechat.png" mode="">
 							</image>
 							<text>晒排名 加次数</text>
@@ -194,8 +194,7 @@
 				<view class="share_img_wrap">
 					<image src="https://static.roi-cloud.com/base/share_img.png" mode="aspectFit"></image>
 				</view>
-
-				<button open-type="share" class="pop_share_btn" data-type="1" v-if="user_info.userId">
+				<button open-type="share" class="pop_share_btn" data-type="0" v-if="user_info.userId">
 					<image src="https://static.roi-cloud.com/base/icon_share_wechat.png" mode=""></image>
 					<view class="share_text"> 邀请好友 </view>
 				</button>
@@ -408,8 +407,8 @@
 				</view>
 				<text class="username">{{ helperInfo.nickName }}</text>
 				<!-- 分享中奖 -->
-				<view v-if="helperInfo.prize">
-					<view class="ass_m_title mt50">在[ {{ helperInfo.gameName }} ] 博到了</view>
+				<view v-if="helperInfo.prizeName">
+					<view class="ass_m_title mt50">在[ {{ helperInfo.gameName }} ] 获得了</view>
 					<view class="g_img">
 						<view class="goods_wrap">
 							<image :src="helperInfo.prize && helperInfo.prize.prizeImageUrl" mode=""></image>
@@ -420,7 +419,7 @@
 					</view>
 				</view>
 				<!-- 分享排行 -->
-				<view v-else-if="helperInfo.king">
+				<view v-else-if="helperInfo.king > 0">
 					<view class="ass_m_title mt50">在[ {{ helperInfo.gameName }} ] 排名</view>
 					<view class="g_rank_no">第 {{ helperInfo.king && helperInfo.king.rankNumber }} 名</view>
 				</view>
@@ -430,7 +429,7 @@
 				</view>
 
 				<view class="ass_m_title">你也来一把</view>
-				<view class="mt10">一起博饼，各得一次机会</view>
+				<view class="mt10">一起游戏，各得一次机会</view>
 				<view class="play_btn mt50" @click="gameHelp">我也来一把</view>
 				<view class="ad_wrap" v-if="advertList[4].length > 0">
 					<swiper :circular="true" :autoplay="true" :interval="3000" autoplay :duration="1000">
@@ -449,7 +448,7 @@
 				</view>
 				<view class="help_m_title">助力成功</view>
 				<view class="help_sub_title">恭喜您获得一次博饼机会</view>
-				<view class="play_btn mt100" @click="$refs.help_other.hide()">去博饼</view>
+				<view class="play_btn mt100" @click="$refs.help_other.hide()">去游戏</view>
 			</popup>
 			<popup ref="help_other_faile" class="help_other_faile" width="630">
 				<view class="help_status_icon">
@@ -457,7 +456,7 @@
 				</view>
 				<view class="help_m_title">助力失败</view>
 				<view class="help_sub_title">{{ helpFaileMsg }}</view>
-				<view class="play_btn mt100" @click="$refs.help_other_faile.hide()">去博饼</view>
+				<view class="play_btn mt100" @click="$refs.help_other_faile.hide()">去游戏</view>
 			</popup>
 
 			<popup ref="get_out" bgColor="#FFF8DC" class="get_out" width="630">
@@ -740,7 +739,10 @@
 		getArg,
 		getRank,
 		userHelpRecordList,
-		userHelpRecordMyList
+		userHelpRecordMyList,
+		addGameHelp,
+		inviteHelp,
+		inviteInfo
 	} from '@/rest/api.js'
 	export default {
 		components: {
@@ -963,6 +965,8 @@
 				gameId: '',
 				gameInfo: {},
 				playTime: 0,
+				inviteCode: "",
+				isInvite: false,
 			}
 		},
 		onShow() {
@@ -976,6 +980,21 @@
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
 			const user = this.$storage.getUser()
+			this.user_info = user
+
+			if (options.code) {
+				this.$storage.set('invite', options.code)
+			}
+			this.inviteCode = this.$storage.get('invite')
+			this.inviteCode = 'e210ebf502bce16a98a5b957c9033490'
+			if (this.inviteCode) {
+				if (user.userId) {
+					this.getInviteInfo(this.inviteCode,'211206093256824726')
+				} else {
+					this.toLogin()
+				}
+			}
+
 			localGameId = '211206093256824726'
 			if (localGameId && user.userId) {
 				this.gameId = localGameId
@@ -1002,6 +1021,26 @@
 			this.currentHelpItem = 1
 		},
 		methods: {
+			getInviteInfo (code,gameId) {
+				inviteInfo({
+					invite_code: code,
+					game_id: gameId,
+				}).then(res => {
+					this.helperInfo = {
+						avatar: this.user_info.avatar,
+						nickName: this.user_info.nickname,
+						prize:{
+							prizeImageUrl: res.award_url
+						},
+						prizeName: res.award_name,
+						king: {
+							rankNumber:res.rank,
+						},
+						gameName: res.game_name,
+					}
+					this.$refs.assistance.show()
+				})
+			},
 			changeVerifyCode: function(e) {
 				this.verifyCode = e.detail.value
 			},
@@ -1361,27 +1400,30 @@
 			},
 			gameHelp() {
 				let params = {
-					gameId: this.gameId,
-					userId: this.loadOptions.userId,
-					hash: this.loadOptions.hash,
+					invite_code: this.inviteCode,
 				}
-				if (JSON.stringify(this.user_info) == '{}') {
-					this.toLogin()
-				} else {
-					addGameHelp(params)
-						.then((res) => {
-							this.getUserPlayInfo()
-							this.getHelperList(1)
-							this.getAward()
-							this.$refs.assistance.hide()
+
+				addGameHelp(params)
+					.then((res) => {
+						this.$refs.assistance.hide()
+						// 助力结果弹出
+						if (JSON.stringify(res) == '{}') {
+							this.inviteCode = ""
+							this.isInvite = true
+							this.$storage.set("invite","")
+							this.getGameInfo()
 							this.$refs.help_other.show()
-						})
-						.catch((error) => {
-							this.$refs.assistance.hide()
-							this.helpFaileMsg = error.msg
+						} else {
+							this.helpFaileMsg = res.errmsg
 							this.$refs.help_other_faile.show()
-						})
-				}
+						}
+					})
+					.catch((error) => {
+						console.log(error)
+						this.$refs.assistance.hide()
+						this.helpFaileMsg = error.msg
+						this.$refs.help_other_faile.show()
+					})
 			},
 			changeHelpMyList(page) {
 				userHelpRecordMyList({
@@ -1811,7 +1853,43 @@
 					})
 			},
 		},
-		onShareAppMessage(e) {},
+		onShareAppMessage(e) {
+			let type, rank
+			if (e.from === 'button') {// 来自页面内分享按钮
+				console.log(e.target)
+				type = e.target.dataset.type
+				rank = e.target.dataset.rank
+			}
+			let params = {
+				game_id: this.gameId,
+				type
+			}
+			if (type == 1) {
+				// 礼品
+				params = {
+					...params,
+					prize_id: 1,
+				}
+			}
+			if (type == 2) {
+				// 排名
+				params = {
+					... params,
+					rank,
+				}
+			}
+			// 获取邀请码
+			inviteHelp(params).then((res)=> {
+				console.log('/pages/index/index?gameId='+this.gameId+'&type=' + type+'&code=' + res.code)
+				return {
+					title: '玩个der',
+					path: '/pages/index/index?gameId='+this.gameId+'&type=' + type+'&code=' + res.code,
+				}
+			}).catch((err) => {
+				console.log(err)
+			})
+			
+		},
 		watch: {
 			currentScoreItem: {
 				handler(value, old) {
@@ -2400,6 +2478,15 @@
 			font-weight: 600;
 			color: #333333;
 			font-size: 34upx;
+		}
+
+		.mt10 {
+			font-family: PingFangSC-Regular;
+			font-size: 28rpx;
+			color: #333333;
+			letter-spacing: 0;
+			text-align: center;
+			margin-top: 20rpx;
 		}
 
 		.play_btn {

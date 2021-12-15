@@ -332,7 +332,15 @@ export const addExchangeGamePrize = (params) => {
 };
 
 export const addGameHelp = (params) => {
-	return restResult(POST, api.ADD_GAME_HELP, params, {}, false);
+	return restResult(GET, api.ADD_GAME_HELP, params);
+};
+
+export const inviteHelp = (params) => {
+	return restResult(GET, api.INVITE_GAME_HELP, params);
+};
+
+export const inviteInfo = (params) => {
+	return restResult(GET, api.INVITE_INFO_GAME_HELP, params);
 };
 
 export const verifyGameHelp = (params) => {

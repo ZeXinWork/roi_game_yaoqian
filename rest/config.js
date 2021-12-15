@@ -210,7 +210,11 @@ export const ADD_EXCHANGE_GAME_PRIZE = '/api/game/redeem'
 
 // 游戏助力
 
-export const ADD_GAME_HELP = '/Api/User/Game/Help/Help/add'
+export const ADD_GAME_HELP = '/api/relay/help' // 助力
+
+export const INVITE_GAME_HELP = '/api/invite/add' // 获取邀请码
+
+export const INVITE_INFO_GAME_HELP = '/api/invite/info' // 获取邀请码信息
 
 // export const VERIFY_GAME_HELP = '/Api/User/Game/Help/Help/verify'
 export const VERIFY_GAME_HELP = '/Api/Common/Game/Game/verify'
