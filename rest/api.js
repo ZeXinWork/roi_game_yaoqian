@@ -477,6 +477,11 @@ export const getArg = (params) => {
 }
 
 //获取排行榜
-export const getRank = (params)=>{
+export const getRank = (params) => {
 	return restResult(GET, api.GET_RANK, params);
+}
+
+//获取排行榜开奖结果
+export const getOpenAward = (params) => {
+	return restResult(GET, api.GET_FINAL_RANK, params);
 }
