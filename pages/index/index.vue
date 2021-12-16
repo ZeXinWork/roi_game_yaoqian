@@ -69,31 +69,6 @@
 					<view class="de_btn btn_primary" @click="play">摇一摇</view>
 				</view>
 			</view>
-			<!-- <uni-popup ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
-        <view class="p_body">
-          <view class="p_body_mid">
-            <view class="p_body_mid_title">恭喜您抽到奖品啦</view>
-            <view class="p_body_mid_prize">
-              <view class="p_body_mid_prize_item">奖品1</view>
-              <view class="p_body_mid_prize_item">奖品2</view>
-            </view>
-          </view>
-          <view class="p_body_top">
-            <view class="p_body_top_red">
-              <image src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzExIiBoZWlnaHQ9IjEzMiIgdmlld0JveD0iMCAwIDMxMSAxMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTMxMC4wMSAwbC0uMDA1IDExNS43MThjMCA4LjgzNy03LjE2MyAxNi0xNiAxNmgtMjc4Yy04LjgzNiAwLTE2LTcuMTYzLTE2LTE2TDAgMGM0NS40NTkgMjAuMTU3IDk4LjQ0IDMxLjcxOCAxNTUuMDA1IDMxLjcxOCA1Ni41NjYgMCAxMDkuNTQ3LTExLjU2MSAxNTUuMDA1LTMxLjcxOHoiIGZpbGw9IiNFQTM1MkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg=="></image>
-            </view>
-            <view class="p_body_top_pink">
-              <image src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzExIiBoZWlnaHQ9IjE0MSIgdmlld0JveD0iMCAwIDMxMSAxNDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTMxMC4wMSAwbC0uMDA1IDEyNC43MThjMCA4LjgzNy03LjE2MyAxNi0xNiAxNmgtMjc4Yy04LjgzNiAwLTE2LTcuMTYzLTE2LTE2TDAgMGM0NS40NTkgMjAuMTU3IDk4LjQ0IDMxLjcxOCAxNTUuMDA1IDMxLjcxOCA1Ni41NjYgMCAxMDkuNTQ3LTExLjU2MSAxNTUuMDA1LTMxLjcxOHoiIGZpbGw9IiNGMUE0OUEiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg=="></image>
-            </view>
-            <view class="p_body_top_button">
-              这是个按钮
-            </view>
-          </view>
-        </view>
-        <view class="p_bottom">
-          <image @click="$refs.prizeDetail.close()" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode=""></image>
-        </view>
-		  </uni-popup> -->
 			<redEnvelope @handleGameResult="handleGameResult" ref="redEnvelope" :result="gameResult.result"
 				:prize="gameResult.prize"></redEnvelope>
 
@@ -114,9 +89,7 @@
 					</swiper-item>
 				</swiper>
 			</view>
-			<view class="rank_ad_wrap" v-if="
-          gameInfo.game_pk_plugin.length && gameInfo.game_pk_plugin.length !== 0
-        ">
+			<view class="rank_ad_wrap" v-if="gameInfo.game_pk_plugin.length && gameInfo.game_pk_plugin.length !== 0">
 				<view class="rank_wrap">
 					<view class="rank_title">
 						<view class="rank_title_left">
@@ -135,9 +108,7 @@
 							</view>
 							<view class="my_rank_item">
 								<view class="my_rank_title">我的排行</view>
-								<view class="rank_item_number">{{
-                  userRank.ranking || 0
-                }}</view>
+								<view class="rank_item_number">{{userRank.ranking || 0}}</view>
 							</view>
 							<view class="my_rank_item">
 								<view class="my_rank_title">总积分</view>
@@ -154,7 +125,7 @@
 						<view v-for="(item, index) in kingofKingsList" :key="index" class="mlr30">
 							<view class="rank_box">
 								<view class="gift_image">
-									<image :src="item.info.prizeImgInfo.prize_url" mode="aspectFill"></image>
+									<image :src="item.info.prize_url" mode="aspectFill"></image>
 								</view>
 								<view class="gift_right">
 									<view class="gift_title">
@@ -164,7 +135,7 @@
 									<view class="">{{ item.info.prize_name }}</view>
 								</view>
 							</view>
-							<view class="box_item" v-for="(user, userIndex) in item.list" :key="item">
+							<view class="box_item" v-for="(user, userIndex) in item.list" :key="userIndex">
 								<view class="box_item_left">
 									<image v-if="user.no_num < 4" class="no_icon" :src="
                       'https://static.roi-cloud.com/base/icon_no_' +
@@ -312,103 +283,7 @@
 				</view>
 				<view v-else class="no_data"> 暂无数据 </view>
 			</popup>
-			<popup ref="award" width="650" bgColor="#FFF8DC" class="">
-				<view class="p_title">
-					<text :style="{ color: gameResult.level == 6 ? '#fff' : '#333' }">{{
-            gameResult.level == 0 ? '差一点就博中了！' : '恭喜您获得'
-          }}</text>
-					<image @click="$refs.award.hide()" class="icon_close"
-						src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
-				</view>
-				<view class="bg_level-6" v-if="gameResult.level == 6">
-					<image src="https://static.roi-cloud.com/base/over_bg.png" mode=""></image>
-				</view>
-				<!-- 中奖 -->
-				<view v-if="gameResult.level != 0" class="award_level"
-					:style="{ 'margin-top': gameResult.level == 6 ? '-36px' : '10upx' }">
-					<image :src="
-              'https://static.roi-cloud.com/base/icon_award-' +
-              (gameResult.level || 1) +
-              '.png'
-            " mode=""></image>
-				</view>
-				<!-- 未中奖 -->
-				<view v-else class="icon_cry">
-					<image src="https://static.roi-cloud.com/base/icon_cry.png" mode=""></image>
-				</view>
-				<!-- 骰子 -->
-				<view class="dice_result">
-					<!-- 	<view class="dice_item" v-for="(item,index) in gamePoint" :key="item">
-						<text>{{ item }}</text>
-						<image :src="pointsImages[item-1]" mode="">
-						</image>
-					</view> -->
-					<view class="dice_item">
-						<!-- <text>{{ pointsImages[0] }}</text> -->
-						<image :src="pointsImages[0]" mode=""> </image>
-					</view>
-					<view class="dice_item">
-						<!-- <text>{{ pointsImages[1] }}</text> -->
-						<image :src="pointsImages[1]" mode=""> </image>
-					</view>
-					<view class="dice_item">
-						<!-- <text>{{ pointsImages[2] }}</text> -->
-						<image :src="pointsImages[2]" mode=""> </image>
-					</view>
-					<view class="dice_item">
-						<!-- <text>{{ pointsImages[3] }}</text> -->
-						<image :src="pointsImages[3]" mode=""> </image>
-					</view>
-					<view class="dice_item">
-						<!-- <text>{{ pointsImages[4] }}</text> -->
-						<image :src="pointsImages[4]" mode=""> </image>
-					</view>
-					<view class="dice_item">
-						<!-- <text>{{ pointsImages[5] }}</text> -->
-						<image :src="pointsImages[5]" mode=""> </image>
-					</view>
-				</view>
-				<!-- 即玩即中 -->
-				<view v-if="gameInfo.gameType == 2 && gameResult.level > 0">
-					<view v-if="gameResult.prizeStatus == 1" class="award_title">恭喜您拿到奖品啦</view>
-					<view class="goods_wrap" :style="{ 'margin-top': gameResult.prizeStatus == 1 ? 0 : '16px' }">
-						<image :src="gameResult.prizeImageUrl" mode=""></image>
-						<view class="prizeName">
-							{{ gameResult.prizeName }}
-						</view>
-					</view>
-				</view>
-				<!-- 积分兑换 -->
-				<view>
-					<view class="integral"> 积分明细{{ gameResult.points || 0 }}】 </view>
-				</view>
-				<view class="ad_wrap" v-if="advertList[2].length > 0 && gameResult.level > 0">
-					<swiper :circular="true" :autoplay="true" :interval="3000" autoplay :duration="1000">
-						<swiper-item v-for="item in advertList[2]" :key="item">
-							<view class="swiper-item">
-								<image :src="item.uploadImgInfo.img" mode="aspectFill"></image>
-							</view>
-						</swiper-item>
-					</swiper>
-				</view>
-				<!-- 2、无次数 -->
-				<view v-if="userPlayInfo.playTimes - userPlayInfo.playedTimes == 0">
-					<button open-type="share" class="again mt50" v-if="setting.SHARE.STATUS == 0">
-						喊好友加好运
-					</button>
-					<view class="again mt50" style="padding: 0 10px" @click="$refs.award.hide()" v-else>今日战罢，明日再来
-					</view>
-					<view v-if="setting.SHARE.STATUS == 0">
-						<view class="help_tips">
-							助力成功，您和好友各得一次机会
-							<image src="https://static.roi-cloud.com/base/game-tip.png" mode=""></image>
-						</view>
-						<!-- <view class="bo_center">去博饼广场刷刷好运 ></view> -->
-					</view>
-				</view>
-				<!-- 1、还有次数 -->
-				<view v-else class="again mt50" @click="$refs.award.hide()">再来一把</view>
-			</popup>
+
 			<popup ref="assistance" class="assistance_pop" width="630">
 				<view class="avatar">
 					<image :src="helperInfo.avatar" mode=""></image>
@@ -443,7 +318,7 @@
 				<view class="mt10">一起游戏，各得一次机会</view>
 				<view class="play_btn mt50" @click="gameHelp">我也来一把</view>
 				<view class="ad_wrap" v-if="advertList[4].length > 0">
-					<swiper :circular="true" :autoplay="true" :interval="3000" autoplay :duration="1000">
+					<swiper :circular="true" :autoplay="true" :interval="3000" :duration="1000">
 						<swiper-item v-for="item in advertList[4]" :key="item">
 							<view class="swiper-item">
 								<image :src="item.uploadImgInfo.img" mode="aspectFill"></image>
@@ -522,7 +397,7 @@
 							<view class="gift_box_tips">
 								奖品兑换截止{{gameInfo.last_cash_time}}数量有限，对完即止</view>
 						</view>
-						<navigator :url="'/pages/conversion/conversion?gameId=' + gameId"class="get_btn">点我去兑换</navigator>
+						<navigator :url="'/pages/conversion/conversion?gameId=' + gameId" class="get_btn">点我去兑换</navigator>
 					</view>
 				</view>
 			</popup>
@@ -584,21 +459,12 @@
 			<image @click="$refs.network.close()" class="icon_close"
 				src="https://static.roi-cloud.com/base/icon_close.png" mode="">
 			</image>
-			<view class="p_bowl">
-				<image class="img_bowl" src="https://static.roi-cloud.com/base/icon_bowl.png" mode=""></image>
-				<image class="icon_dice-2" src="https://static.roi-cloud.com/base/p_dice.png" mode=""></image>
-				<image class="icon_dice-1" src="https://static.roi-cloud.com/base/p_dice-2.png" mode=""></image>
-				<image class="icon_dice-4" src="https://static.roi-cloud.com/base/icon_dice-4.png" mode=""></image>
-				<image class="icon_dice-5" src="https://static.roi-cloud.com/base/icon_dice-5.png" mode=""></image>
-			</view>
-			<image class="icon_dice" src="https://static.roi-cloud.com/base/p_dice.png" mode=""></image>
-			<image class="icon_dice-3" src="https://static.roi-cloud.com/base/icon_dice-3.png" mode=""></image>
 			<image class="icon_sad" src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
 			<view class="m_title">
-				<text>无法进行博饼游戏</text>
+				<text>无法进行游戏</text>
 			</view>
 			<view class="s_title">
-				<text>很抱歉，因为没有可用的网络连接，不能进行博饼游戏。</text>
+				<text>很抱歉，因为没有可用的网络连接，不能进行游戏。</text>
 			</view>
 			<view class="btn_know" @click="$refs.network.close()">我知道</view>
 			<navigator hover-class="none"
@@ -817,7 +683,7 @@
 			this.navbarHeight =
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
-			consoel.log(localGameId,"localGameIdlocalGameIdlocalGameIdlocalGameIdlocalGameIdlocalGameIdlocalGameId")
+			console.log(localGameId,"localGameIdlocalGameIdlocalGameIdlocalGameIdlocalGameIdlocalGameIdlocalGameId")
 			const user = this.$storage.getUser()
 			this.user_info = user
 			if (options.code) {
@@ -846,11 +712,9 @@
 				}
 				return
 			}
-			const _this = this
 			this.gameId = options.gameId
-			consoel.log(options.gameId,"options.gameIdoptions.gameIdoptions.gameIdoptions.gameIdoptions.gameId")
+			console.log(options.gameId,"options.gameIdoptions.gameIdoptions.gameIdoptions.gameIdoptions.gameId")
 			this.$storage.set('gameId', this.gameId)
-			const status = Number(options.status)
 			this.getPrivacy()
 		},
 
@@ -1128,9 +992,8 @@
 				this.user_info = this.$storage.getUser()
 				this.getUserPlayInfo()
 				this.getGameInfo()
-				this.getAdvertList()
-				// 助力记录
-				this.getHelperList(1)
+				this.getAdvertList() // 广告
+				this.getHelperList(1) // 助力记录
 			},
 			openLocationSetting() {
 				uni.openSetting({
@@ -1443,7 +1306,8 @@
 								type: 'gcj02',
 								altitude: true,
 								success(res) {
-									that.updateLocation(res)
+									console.log(res)
+									// that.updateLocation(res)
 								},
 							})
 						} else {
@@ -2100,7 +1964,7 @@
 			background-size: 100% 100%;
 
 			.over_title {
-				heihgt: 118upx;
+				height: 118upx;
 				text-align: center;
 				line-height: 118upx;
 				color: #fff;
