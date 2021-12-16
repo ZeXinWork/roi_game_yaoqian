@@ -1718,7 +1718,10 @@
 					game_id: this.gameId,
 				}).then((res) => {
 					if (res.errno === '1') {
-						this.$refs.redEnvelope.open()
+						uni.showToast({
+							title:`${res.errmsg}`
+						})
+						return
 					}
 					this.gameResult.result = res.result
 					if (res.result) {
