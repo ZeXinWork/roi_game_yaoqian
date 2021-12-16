@@ -1131,6 +1131,7 @@
 						if (JSON.stringify(res) == '{}') {
 							this.inviteCode = ""
 							this.getGameInfo()
+							this.getPlayNumber()
 							this.$refs.help_other.show()
 						} else {
 							this.helpFaileMsg = res.errmsg
