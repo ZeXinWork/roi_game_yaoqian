@@ -827,7 +827,7 @@
 			this.inviteCode = this.$storage.get('invite')
 			if (this.inviteCode) {
 				if (user.userId) {
-					this.getInviteInfo(this.inviteCode, this.gameId)
+					this.getInviteInfo(this.inviteCode, localGameId)
 				} else {
 					this.toLogin()
 				}
