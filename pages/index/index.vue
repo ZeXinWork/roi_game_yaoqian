@@ -861,7 +861,7 @@
 			}
 			const _this = this
 			this.gameId = options.gameId
-			this.$storage.set('gameId', gameId)
+			this.$storage.set('gameId', this.gameId)
 			const status = Number(options.status)
 			this.getPrivacy()
 		},
@@ -1333,6 +1333,7 @@
 							})
 							return
 						}
+						console.log(res.networkType, "res.networkType === 'none'")
 						if (res.networkType === 'none') {
 							this.$refs.network.show()
 						} else {
