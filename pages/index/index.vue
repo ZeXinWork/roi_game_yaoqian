@@ -439,7 +439,7 @@
 					<view class="ass_m_title">你也来一把</view>
 				</view>
 
-				
+
 				<view class="mt10">一起游戏，各得一次机会</view>
 				<view class="play_btn mt50" @click="gameHelp">我也来一把</view>
 				<view class="ad_wrap" v-if="advertList[4].length > 0">
@@ -819,7 +819,6 @@
 			let localGameId = this.$storage.get('gameId')
 			const user = this.$storage.getUser()
 			this.user_info = user
-			console.log(options, "你是个什么东西")
 			if (options.code) {
 				this.gameId = options.gameId
 				this.$storage.set('gameId', options.gameId)
@@ -828,14 +827,13 @@
 			this.inviteCode = this.$storage.get('invite')
 			if (this.inviteCode) {
 				if (user.userId) {
-					this.getInviteInfo(this.inviteCode, '211206093256824726')
+					this.getInviteInfo(this.inviteCode, this.gameId)
 				} else {
 					this.toLogin()
 				}
 			}
 
 			this.user = user
-			localGameId = '211206093256824726'
 			if (localGameId && user.userId) {
 				this.gameId = localGameId
 				this.getGameInfo() //获取游戏信息
@@ -848,10 +846,8 @@
 				return
 			}
 			const _this = this
-			const gameId = options.gameId
-			this.gameId = gameId
-			this.gameId = localGameId
-			this.$storage.set('gameId', gameId)
+			this.gameId = options.gameId
+			this.$storage.set('gameId', this.gameId)
 			const status = Number(options.status)
 			this.getPrivacy()
 		},
@@ -862,17 +858,17 @@
 		},
 		methods: {
 			getInviteInfo(code, gameId) {
-				console.log(code,"code")
-				console.log(gameId,"gameId")
+				console.log(code, "code")
+				console.log(gameId, "gameId")
 				inviteInfo({
 					invite_code: code,
 					game_id: gameId,
 				}).then(res => {
-					console.log(res,"res")
+					console.log(res, "res")
 					this.helperInfo = {
 						avatar: res.avatar,
 						nickName: res.user_name,
-						prize:{
+						prize: {
 							prizeImageUrl: res.award_url
 						},
 						prizeName: res.award_name,
@@ -927,6 +923,13 @@
 				})
 			},
 			onMy() {
+				if (!this.gameId) {
+					uni.showToast({
+						title: "不存在该游戏！",
+						icon: "error"
+					})
+					return
+				}
 				if (!this.user.userId) {
 					this.toLogin()
 					return
@@ -1174,8 +1177,14 @@
 				})
 			},
 			toPage(e) {
-				const user = this.$storage.getUser()
-				if (!user.userId) {
+				if (!this.gameId) {
+					uni.showToast({
+						title: "不存在该游戏！",
+						icon: "error"
+					})
+					return
+				}
+				if (!this.user.userId) {
 					this.$refs.login_popup.open()
 				} else {
 					uni.navigateTo({
@@ -1233,8 +1242,7 @@
 			},
 			checkLogin() {
 				let flag = true
-				if (JSON.stringify(this.user_info) == '{}') {
-					this.$refs.login_popup.open('bottom')
+				if (!this.user.userId) {
 					flag = false
 				}
 				return flag
@@ -1304,6 +1312,14 @@
 			play() {
 				uni.getNetworkType({
 					success: (res) => {
+						if (!this.gameId) {
+							uni.showToast({
+								title: "不存在该游戏！",
+								icon: "error"
+							})
+							return
+						}
+						console.log(res.networkType, "res.networkType === 'none'")
 						if (res.networkType === 'none') {
 							this.$refs.network.show()
 						} else {
@@ -1461,6 +1477,13 @@
 				})
 			},
 			popShow(ref) {
+				if (!this.gameId) {
+					uni.showToast({
+						title: "不存在该游戏!",
+						icon: "error"
+					})
+					return
+				}
 				if (this.checkLogin()) {
 					this.$refs[ref].show()
 				}
@@ -1646,7 +1669,6 @@
 			},
 			getGameInfo() {
 				let localGameId = this.$storage.get('gameId')
-				localGameId = '211206093256824726'
 				const params = {
 					game_id: localGameId ? localGameId : this.gameId,
 					template_id: '2021110901',
@@ -1837,7 +1859,7 @@
 			// 获取邀请码
 			const inviteData = await inviteHelp(params)
 
-			const path = '/pages/index/index?gameId='+this.gameId+'&type=' + type+'&code=' + inviteData.code
+			const path = '/pages/index/index?gameId=' + this.gameId + '&type=' + type + '&code=' + inviteData.code
 			return {
 				title: this.gameInfo.name,
 				path,
