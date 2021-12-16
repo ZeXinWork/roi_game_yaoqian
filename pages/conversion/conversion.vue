@@ -194,6 +194,7 @@
 			this.getPrizeList()
 			this.getUserInfo()
 			this.getGameInfo()
+			
 			// this.getUserPlayInfo()
 			// this.getAdvert()
 		},
@@ -307,7 +308,7 @@
 				}).then(res => {
 					res.redeemEndTime = moment(res.last_receive_time * 1000).format('YYYY年MM月DD日')
 					this.gameInfo = res
-					this.gameInfo.integral = res.integral.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
+					// this.gameInfo.integral = res.integral.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
 				})
 			},
 			onClose: function() {
@@ -365,7 +366,8 @@
 					gameId: this.gameId,
 					gameAwardId: this.exchangeGoddsInfo.game_award_id
 				}).then(res => {
-					if (res.errno != 0){
+					console.log(res,"resssss")
+					if (res.errno){
 						this.$loading.hide()
 						uni.showToast({
 							title: res.errmsg,
@@ -393,7 +395,7 @@
 			},
 			exchangePrisePoupShow(item) {
 				try{
-					if (item.prize_point > this.gameInfo.integral) {
+					if (Number(item.prize_point) > Number(this.gameInfo.integral)) {
 						this.$toast.error('积分不足')
 					} else {
 						this.exchangeGoddsInfo = item

@@ -13,7 +13,7 @@
 				<view class="item_top">
 					<view class="goods_info" @click="showDetail(item)">
 						<view class="goods_img">
-							<image  :src="item.prize_url" mode=""></image>
+							<image :src="item.prize_url" mode=""></image>
 						</view>
 						<view class="goods_title">{{ item.prize_name }}</view>
 					</view>
@@ -35,7 +35,8 @@
 		<navigator url="../index/index" class="go_game">去游戏</navigator>
 		<popup ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
 			<view class="p_header">
-				<image @click="$refs.prizeDetail.hide()" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode=""></image>
+				<image @click="$refs.prizeDetail.hide()" class="icon_close"
+					src="https://static.roi-cloud.com/base/close.png" mode=""></image>
 			</view>
 			<view class="g_info">
 				<image :src="curr_show_item.prize_url" mode="aspectFill"></image>
@@ -62,8 +63,8 @@
 						<input :value="phone" cursor-spacing="10" @input="changePhone" class="phone-input"
 							placeholder="填写手机号" disabled="true" />
 					</view>
-					<button v-else open-type="getPhoneNumber" @getphonenumber="getphonenumber" type="primary" class="phone_button"
-						:disabled="false">
+					<button v-else open-type="getPhoneNumber" @getphonenumber="getphonenumber" type="primary"
+						class="phone_button" :disabled="false">
 						微信手机号登录
 					</button>
 					<view v-if="codeError" class="phone-error-msg"><text>{{ codeError }}</text></view>
@@ -91,10 +92,10 @@
 				current: 0,
 				page: 0,
 				more: true,
-				gameId:'',
+				gameId: '',
 				phone: '',
 				userPrizeList: [],
-				curr_show_item:{}
+				curr_show_item: {}
 			};
 		},
 		onReachBottom(e) {
@@ -113,9 +114,9 @@
 			changeType(type) {
 				this.page = 0
 				this.current = type
-				this.getPrizeList(type-1)
+				this.getPrizeList(type - 1)
 			},
-			showDetail(item){
+			showDetail(item) {
 				this.curr_show_item = item
 				this.$refs.prizeDetail.show()
 			},
@@ -132,18 +133,23 @@
 					// 	res[index].verify_time = moment(res[index].verifyTime * 1000).format(
 					// 		'YYYY.MM.DD')
 					// }
-					if(params.offset==0) this.userPrizeList = res
-					else this.userPrizeList = [...this.userPrizeList,...res]
-					if (res.pageCount == this.page) {
-						this.more = false
+					if (Array.isArray(res)) {
+						if (params.offset == 0) this.userPrizeList = res
+						else this.userPrizeList = [...this.userPrizeList, ...res]
+						if (res.pageCount == this.page) {
+							this.more = false
+						} else {
+							this.more = true
+						}
+
 					}else{
-						this.more = true
+						this.more = false
 					}
 					this.$loading.hide()
 				})
 			},
 			receivePrize(item) {
-				if (this.phone){
+				if (this.phone) {
 					this.toReceive(item)
 				} else {
 					this.$refs.dialog.open()
@@ -172,7 +178,7 @@
 						user.phone = res.phoneNumber
 						this.phone = res.phoneNumber
 						this.$storage.setUser(user)
-						
+
 					})
 					.catch((err) => {
 						uni.showToast({
@@ -187,12 +193,13 @@
 				})
 				this.$refs.dialog.close()
 			},
-			onClose(){
+			onClose() {
 				this.$refs.dialog.close()
 			},
-			toReceive(item){
+			toReceive(item) {
 				uni.navigateTo({
-					url: './accpect?uid='+item.user_prize_id+'&gameId='+item.game_id+'&verifyCode='+item.verify_code+'&prizeName='+item.prize_name+'&awardName='+item.award_name,
+					url: './accpect?uid=' + item.user_prize_id + '&gameId=' + item.game_id + '&verifyCode=' + item
+						.verify_code + '&prizeName=' + item.prize_name + '&awardName=' + item.award_name,
 				})
 			}
 		}
@@ -205,10 +212,10 @@
 	}
 
 	.phone_button {
-    	border-radius: 92upx;
-    	width: 480upx;
-    	height: 80upx;
-    	line-height: 80upx;
+		border-radius: 92upx;
+		width: 480upx;
+		height: 80upx;
+		line-height: 80upx;
 		margin: 40upx;
 	}
 
@@ -218,21 +225,23 @@
 		font-size: 24upx;
 		margin-top: 56upx;
 	}
-	
-	.prizeDetail{
-		.p_header{
+
+	.prizeDetail {
+		.p_header {
 			display: flex;
 			padding: 40upx;
-			justify-content:flex-end;
-			
-			.icon_close{
+			justify-content: flex-end;
+
+			.icon_close {
 				width: 40upx;
 				height: 40upx;
 			}
 		}
-		.g_content{
+
+		.g_content {
 			padding: 70upx;
-			.m_content{
+
+			.m_content {
 				padding-top: 40upx;
 				max-height: 300upx;
 				overflow: hidden;
@@ -242,7 +251,8 @@
 				font-size: 28upx;
 				margin-bottom: 60upx;
 			}
-			.g_btn{
+
+			.g_btn {
 				width: 406upx;
 				height: 80upx;
 				line-height: 80upx;
@@ -254,25 +264,27 @@
 				margin: 0 auto;
 			}
 		}
-		
-		.g_info{
+
+		.g_info {
 			padding: 0 70upx;
 			display: flex;
-			image{
+
+			image {
 				width: 130upx;
 				height: 130upx;
 				margin-right: 24upx;
 			}
-			.g_info_name{
+
+			.g_info_name {
 				width: 1upx;
 				flex: 1;
-				 text-overflow: -o-ellipsis-lastline;
-				  overflow: hidden;
-				  text-overflow: ellipsis;
-				  display: -webkit-box;
-				  -webkit-line-clamp: 2;
-				  line-clamp: 2;
-				  -webkit-box-orient: vertical;
+				text-overflow: -o-ellipsis-lastline;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				line-clamp: 2;
+				-webkit-box-orient: vertical;
 			}
 		}
 	}
