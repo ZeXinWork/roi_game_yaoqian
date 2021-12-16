@@ -817,6 +817,7 @@
 			this.navbarHeight =
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
+			consoel.log(localGameId,"localGameIdlocalGameIdlocalGameIdlocalGameIdlocalGameIdlocalGameIdlocalGameId")
 			const user = this.$storage.getUser()
 			this.user_info = user
 			if (options.code) {
@@ -847,6 +848,7 @@
 			}
 			const _this = this
 			this.gameId = options.gameId
+			consoel.log(options.gameId,"options.gameIdoptions.gameIdoptions.gameIdoptions.gameIdoptions.gameId")
 			this.$storage.set('gameId', this.gameId)
 			const status = Number(options.status)
 			this.getPrivacy()
