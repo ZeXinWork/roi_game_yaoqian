@@ -31,12 +31,14 @@
 					text="活动发起方和参与用户需同意《络绎有客博饼用户服务协议》方可进行游戏，使用本服务即视为已阅读并同意受本协议的约束。活动发起方不得利用本程序从事国家法律法规禁止的违法犯罪活动，不得上架法律法规禁止或限制发布的产品，活动发起方对所提供奖品的质量和兑奖承诺全权负责。">
 				</uni-notice-bar>
 			</view>
-			<view class="tips">
-				游戏时间：{{
-          gameInfo.game_start_time
-            ? gameInfo.game_start_time + ' - ' + gameInfo.game_end_time
-            : '未开始'
-        }}
+			<view class="tips" v-if="Number(gameInfo.status) == 3">
+				游戏时间：{{ gameInfo.game_start_time + ' - ' + gameInfo.game_end_time}}
+			</view>
+			<view class="tips" v-else-if="Number(gameInfo.status) > 3">
+				{{ getGameStatus(Number(gameInfo.status))}}
+			</view>
+			<view class="tips" v-else>
+				未开始
 			</view>
 			<canvas canvas-id="shareCanvas" id="shareCanvas"></canvas>
 			<!-- <view class="bowl_title">
@@ -472,15 +474,6 @@
 				<image @click="closeThisPage" class="icon_close" src="https://static.roi-cloud.com/base/icon_close.png"
 					mode="">
 				</image>
-				<view class="p_bowl">
-					<image class="img_bowl" src="https://static.roi-cloud.com/base/icon_bowl.png" mode=""></image>
-					<image class="icon_dice-2" src="https://static.roi-cloud.com/base/p_dice.png" mode=""></image>
-					<image class="icon_dice-1" src="https://static.roi-cloud.com/base/p_dice-2.png" mode=""></image>
-					<image class="icon_dice-4" src="https://static.roi-cloud.com/base/icon_dice-4.png" mode=""></image>
-					<image class="icon_dice-5" src="https://static.roi-cloud.com/base/icon_dice-5.png" mode=""></image>
-				</view>
-				<image class="icon_dice" src="https://static.roi-cloud.com/base/p_dice.png" mode=""></image>
-				<image class="icon_dice-3" src="https://static.roi-cloud.com/base/icon_dice-3.png" mode=""></image>
 				<image class="icon_sad" src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
 				<view class="m_title">本游戏因违规已停止服务</view>
 				<view class="s_title"> 很抱歉由于涉嫌违规已 停止服务。 </view>
@@ -501,23 +494,25 @@
 						</view>
 					</view>
 					<view class="o_avatar">
-						<image :src="user.avatat" mode=""></image>
+						<image :src="user.avatar" mode=""></image>
 					</view>
-					<view class="o_username">{{ user_info.nickName }}</view>
-					<view v-if="gameInfo.isSvip == 1">
+					<view class="o_username">{{ user_info.nickname }}</view>
+					<view v-if="gameInfo.lottery_type == 1">
 						<view class="o_rank">本次活动已经结束</view>
-						<view class="o_rank">最终排名为<text>【第{{ userRank.prize_source }}名】</text></view>
+						<view class="o_rank">最终排名为<text>【第{{ rankeOpenAward.prize_source }}名】</text></view>
+						<view class="o_prize">
+							<image :src="rankeOpenAward.prize_url" mode="aspectFill"></image>
+							<view class="o_prize_text">
+								<view class="ranke_name">{{rankeOpenAward.ranking_name}}</view>
+								<view class="prize_name">{{rankeOpenAward.prize_name}}</view>
+							</view>
+						</view>
 						<view>
 							<view class="svip_end_tips">
 								本次活动已结束
-								<view>请于{{ gameInfo.last_receive_time }}前提交领奖信息，过期作废</view>
+								<view>请于{{ rankeOpenAward.last_receive_time }}前提交领奖信息，过期作废</view>
 							</view>
-							<navigator v-if="gameInfo.gameType == 1"
-								:url="'/pages/conversion/conversion?gameId=' + gameId" class="get_btn">点我去兑换</navigator>
-							<navigator v-if="gameInfo.gameType == 2" :url="'/pages/prize/prize?gameId=' + gameId"
-								class="get_btn">
-								点我领奖
-							</navigator>
+							<navigator :url="'/pages/prize/prize?gameId=' + gameId" class="get_btn">点我领奖</navigator>
 						</view>
 					</view>
 					<view v-else>
@@ -525,16 +520,9 @@
 						<view class="icon_gift_box">
 							<image src="https://static.roi-cloud.com/base/icon_gift_box.png" mode=""></image>
 							<view class="gift_box_tips">
-								奖品{{ gameInfo.gameType == 2 ? '领取' : '兑换' }}截止{{
-                  gameInfo.overChance
-                }}数量有限，对完即止</view>
+								奖品兑换截止{{gameInfo.last_cash_time}}数量有限，对完即止</view>
 						</view>
-						<navigator v-if="gameInfo.gameType == 1" :url="'/pages/conversion/conversion?gameId=' + gameId"
-							class="get_btn">点我去兑换</navigator>
-						<navigator v-if="gameInfo.gameType == 2" :url="'/pages/prize/prize?gameId=' + gameId"
-							class="get_btn">
-							点我领奖
-						</navigator>
+						<navigator :url="'/pages/conversion/conversion?gameId=' + gameId"class="get_btn">点我去兑换</navigator>
 					</view>
 				</view>
 			</popup>
@@ -687,18 +675,14 @@
 					<view class="phone-input-wrap">
 						<input :value="verifyCode" cursor-spacing="10" @input="changeVerifyCode" maxlength="6"
 							class="phone-code-input" placeholder="填写验证码" />
-						<view :class="[
-                'phone-code-button',
-                { 'phone-code-button-disabled': verifyCodeTime !== 0 },
-              ]" @click="sendCode"><text>{{ verifyCodeText }}</text></view>
+						<view :class="['phone-code-button',{ 'phone-code-button-disabled': verifyCodeTime !== 0 },]" @click="sendCode">
+							<text>{{ verifyCodeText }}</text>
+						</view>
 					</view>
 					<view v-if="codeError" class="phone-error-msg"><text>{{ codeError }}</text></view>
 
 					<view v-if="agreeError" class="agree-error-msg"><text>{{ agreeError }}</text></view>
-					<view :class="[
-              'phone-button',
-              { 'button-disabled': !phone || !verifyCode },
-            ]" @click="savePhone">
+					<view :class="['phone-button',{ 'button-disabled': !phone || !verifyCode },]" @click="savePhone">
 						<text>保存</text>
 					</view>
 				</view>
@@ -819,6 +803,8 @@
 				inviteCode: "",
 				isInvite: false,
 				user: {},
+				isStart: false,
+				rankeOpenAward: {}, // 最终排名开奖结果
 			}
 		},
 		onShow() {
@@ -1324,8 +1310,18 @@
 							if (this.playLoading) {
 								return
 							}
-							this.playLoading = true
 							const user = this.$storage.getUser()
+							if (user.userId && !this.isStart) {
+								const status = this.gameInfo.status
+								if ( status == 1 || status == 2) {
+									uni.showToast({
+										title: '游戏未开始!',
+										icon: 'none'
+									})
+								}
+								return
+							}
+							this.playLoading = true
 							console.log(user, 'userrrrrrr')
 							if (!user.userId) {
 								this.playLoading = false
@@ -1667,13 +1663,9 @@
 							),
 						}
 						this.$storage.set('gameInfo', this.gameInfo)
-						if (Number(this.gameInfo.status) === 6) {
-							getOpenAward({
-								gameId: this.gameId
-							}).then((res) => {
-								this.$refs.over_popup.show()
-							})
-						}
+						
+						this.showGamePopup(Number(res.status))
+
 						this.getRankScore() // 排行榜信息
 					})
 					.catch((err) => {
@@ -1681,6 +1673,33 @@
 							title: '出错啦',
 						})
 					})
+			},
+			showGamePopup(status) {
+				if (status == 1 || status == 2) { // 待开始
+					uni.showToast({
+						title: '游戏未开始！',
+						icon: 'none'
+					})
+				}
+				if (status == 3) { // 进行中
+					this.isStart = true
+				}
+				if (status == 6) { // 已结束
+					if(Number(this.gameInfo.lottery_type) == 1){
+						getOpenAward({
+							gameId: this.gameId
+						}).then((res) => {
+							this.rankeOpenAward = res
+							this.$refs.over_popup.show()
+						})
+					} else {
+
+					}
+				}
+				if (status == 7) { // 已下架
+					this.$refs.get_out.show()
+				}
+				
 			},
 			//获取游戏可玩次数
 			getPlayNumber() {
@@ -2103,6 +2122,50 @@
 			}
 		}
 
+		.o_prize{
+			background-color: #fefcf1;
+			border-radius: 20upx;
+			min-height: 152upx;
+			align-items: center;
+			display: flex;
+			width: 540upx;
+			margin: 20rpx auto;
+			box-sizing: border-box;
+			padding: 20rpx 20rpx 20rpx 20rpx;
+			align-items: center;
+			box-shadow: 0 10rpx 40rpx 0 rgba(0,0,0,0.06);
+
+			image {
+				width: 100rpx;
+				height: 100rpx;
+				margin-right: 30rpx;
+				border-radius: 16rpx;
+			}
+			.o_prize_text{
+				display:flex;
+				flex-direction: column;
+				.ranke_name {
+					background: #FF7948;
+					border-radius: 21rpx;
+					font-size: 26rpx;
+					color: #FFFFFF;
+					height: 40rpx;
+					line-height: 40rpx;
+					text-align: center;
+					width: 140rpx;
+				}
+				.prize_name {
+					margin-top: 14rpx;
+					font-size: 28rpx;
+					color: #333333;
+					width: 360rpx;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
+			}
+		}
+
 		.svip_end_tips {
 			width: 100%;
 			margin: 40upx auto 0;
@@ -2218,7 +2281,7 @@
 		.icon_sad {
 			width: 104upx;
 			height: 104upx;
-			margin: -18upx auto 0;
+			margin-top: 90rpx;
 		}
 
 		.m_title {
