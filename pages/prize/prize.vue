@@ -22,6 +22,7 @@
 						去领奖
 					</navigator> -->
 					<view v-if="item.is_verify==0" class="prize_btn" @click="receivePrize(item)">去领奖</view>
+					<view v-else class="prize_btn_l" @click="showDetail(item)">查看</view>
 				</view>
 				<view class="item_bottom">
 					<text>来源发起：{{ item.prize_source }}</text>
@@ -490,6 +491,18 @@
 						border: 1upx solid #E83D3D;
 						color: #E83D3D;
 					}
+				}
+				.prize_btn_l {
+					font-size: 28rpx;
+					width: 138rpx;
+					text-align: center;
+					height: 56rpx;
+					border-radius: 56rpx;
+					line-height: 56rpx;
+					background: #fff;
+					color: #E83D3D;
+					border-color: #E83D3D;
+					border: solid 2rpx;
 				}
 			}
 

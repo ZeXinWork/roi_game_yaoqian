@@ -750,7 +750,10 @@
 						},
 						gameName: res.game_name,
 					}
-					this.$refs.assistance.show()
+					const user = this.$store.getUser()
+					if (user && user.userId){
+						this.$refs.assistance.show()
+					}
 				})
 			},
 			changeVerifyCode: function(e) {
@@ -1056,12 +1059,13 @@
 					})
 					return
 				}
-				if (!this.user.userId) {
-					this.$refs.login_popup.open()
-				} else {
+				const user = this.$storage.getUser()
+				if (user && user.userId) {
 					uni.navigateTo({
 						url: e.currentTarget.dataset.url,
 					})
+				} else {
+					this.$refs.login_popup.open('bottom')
 				}
 			},
 			getImageInfo(url) {
