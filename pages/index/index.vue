@@ -1718,6 +1718,13 @@
 						this.$loading.hide()
 						this.logining = false
 						this.$refs.login_popup.close()
+						this.getGameInfo() //获取游戏信息
+						this.getPlayNumber() //获取游戏可玩次数
+						this.getHelperList(1) // 助力记录
+						this.getMyRank() //获取当前我的排名信息
+						if (this.currentScoreItem === 1) {
+							this.getAward()
+						}
 					})
 					.catch((res) => {
 						this.logining = false
