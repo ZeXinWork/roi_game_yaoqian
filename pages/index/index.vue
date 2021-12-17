@@ -261,7 +261,8 @@
 							</view>
 							<view class="help_right">
 								<text>{{ item.date }} </text>
-								<text class="ml10">为我助力</text>
+								<text class="ml10" v-if="currentHelpItem == 1">为我助力</text>
+								<text class="ml10" v-else>为Ta助力</text>
 							</view>
 						</view>
 					</scroll-view>
