@@ -692,10 +692,13 @@
 				this.$storage.set('invite', options.code)
 			}
 			this.inviteCode = this.$storage.get('invite')
-			console.log(inviteCode,"邀请码")
-			console.log(this.isInvite,"是否邀请过")
+			console.log(this.inviteCode,"邀请码")
+			
 			if (this.inviteCode) {
-				if (user.userId && !this.isInvite) {
+				let list = this.$storage.get("inviteList")
+				const isInvite = list.indexOf(this.inviteCode) > -1
+				console.log(isInvite,"是否邀请过")
+				if (user.userId && !isInvite) {
 					this.getInviteInfo(this.inviteCode, localGameId)
 				} else {
 					this.toLogin()
@@ -1132,7 +1135,9 @@
 							this.$refs.help_other_faile.show()
 						}
 						this.$storage.clear("invite")
-						this.isInvite = true
+						let list = this.$storage.get("inviteList")
+						list.push(this.inviteCode)
+						this.$storage.set("inviteList",list)
 					})
 					.catch((error) => {
 						console.log(error)
