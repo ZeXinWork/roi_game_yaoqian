@@ -397,7 +397,8 @@
 							<view class="gift_box_tips">
 								奖品兑换截止{{gameInfo.last_cash_time}}数量有限，对完即止</view>
 						</view>
-						<navigator :url="'/pages/conversion/conversion?gameId=' + gameId" class="get_btn">点我去兑换</navigator>
+						<navigator :url="'/pages/conversion/conversion?gameId=' + gameId" class="get_btn">点我去兑换
+						</navigator>
 					</view>
 				</view>
 			</popup>
@@ -541,7 +542,8 @@
 					<view class="phone-input-wrap">
 						<input :value="verifyCode" cursor-spacing="10" @input="changeVerifyCode" maxlength="6"
 							class="phone-code-input" placeholder="填写验证码" />
-						<view :class="['phone-code-button',{ 'phone-code-button-disabled': verifyCodeTime !== 0 },]" @click="sendCode">
+						<view :class="['phone-code-button',{ 'phone-code-button-disabled': verifyCodeTime !== 0 },]"
+							@click="sendCode">
 							<text>{{ verifyCodeText }}</text>
 						</view>
 					</view>
@@ -683,7 +685,7 @@
 			this.navbarHeight =
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
-			console.log(localGameId,"localGameIdlocalGameIdlocalGameIdlocalGameIdlocalGameIdlocalGameIdlocalGameId")
+			
 			const user = this.$storage.getUser()
 			this.user_info = user
 			if (options.code) {
@@ -693,7 +695,6 @@
 			}
 			this.inviteCode = this.$storage.get('invite')
 			console.log(this.inviteCode,"邀请码")
-			
 			if (this.inviteCode) {
 				let list = this.$storage.get("inviteList")
 				const isInvite = list.indexOf(this.inviteCode) > -1
@@ -718,7 +719,8 @@
 				return
 			}
 			this.gameId = options.gameId
-			console.log(options.gameId,"options.gameIdoptions.gameIdoptions.gameIdoptions.gameIdoptions.gameId")
+
+		
 			this.$storage.set('gameId', this.gameId)
 			this.getPrivacy()
 		},
@@ -1107,7 +1109,9 @@
 				prizeDetail({
 					game_id: this.gameId,
 				}).then((res) => {
+					console.log(res.list, "res.listres.listres.list")
 					this.scoreDetailList = res.list
+					console.log(this.scoreDetailList, "this.scoreDetailListthis.scoreDetailList")
 				})
 			},
 			checkLogin() {
@@ -1129,6 +1133,7 @@
 						if (JSON.stringify(res) == '{}') {
 							this.inviteCode = ""
 							this.getGameInfo()
+							this.getPlayNumber()
 							this.$refs.help_other.show()
 						} else {
 							this.helpFaileMsg = res.errmsg
@@ -1201,7 +1206,7 @@
 							const user = this.$storage.getUser()
 							if (user.userId && !this.isStart) {
 								const status = this.gameInfo.status
-								if ( status == 1 || status == 2) {
+								if (status == 1 || status == 2) {
 									uni.showToast({
 										title: '游戏未开始!',
 										icon: 'none'
@@ -1210,7 +1215,6 @@
 								return
 							}
 							this.playLoading = true
-							console.log(user, 'userrrrrrr')
 							if (!user.userId) {
 								this.playLoading = false
 								this.$refs.login_popup.open('bottom')
@@ -1364,7 +1368,7 @@
 
 			getRankScore() {
 				const query = {
-					offset: 1,
+					offset: 0,
 					limit: 50,
 				}
 				getRank({
@@ -1379,12 +1383,16 @@
 						userList[index].no_num = parseInt(index) + 1
 					}
 					let num = 1
-					console.log(userList, 'userListuserListuserListuserListuserList')
+					let lastFlag = false
+					if (userList.length < 50) {
+						lastFlag = true
+					}
 					for (let index in this.gameInfo.game_pk_plugin) {
 						if (
-							userList.length < this.gameInfo.game_pk_plugin[index].player_num
+							!lastFlag && userList.length < this.gameInfo.game_pk_plugin[index]
+							.player_num
 						) {
-							query.offset = query.offset + 1
+							query.offset = (query.offset + 1) * 50
 							const result = await getRank({
 								gameId: this.gameId,
 								...query,
@@ -1392,7 +1400,9 @@
 							for (let index in result) {
 								result[index].no_num = numIndex + parseInt(index) + 1
 							}
-
+							if (result.length < 50) {
+								lastFlag = true
+							}
 							const newList = [...userList, ...result]
 							userList = [...newList]
 							numIndex = userList.length + numIndex
@@ -1417,20 +1427,21 @@
 					}
 
 					this.kingofKingsList = kingofKingsList
+					console.log(this.kingofKingsList, "this.kingofKingsListthis.kingofKingsList")
 					let lnum = 0
 					this.kingofKingsList.forEach((item) => {
 						item.list.forEach((value) => {
 							lnum = lnum + 1
 						})
 					})
-					if (lnum > 50) {
+					if (lnum > 50 && !lastFlag) {
 						const res = getIntNumber(userList.length)
 						if (userList.length >= 20 + res) {
 							this.otherKingList = userList.splice(0, 20 + res)
 						} else {
 							const lastIndex = 20 + res - userList.length
+							query.offset = (query.offset + 1) * lastIndex
 							query.limit = lastIndex
-							query.offset = query.offset + 1
 							const result = await getRank({
 								gameId: this.gameId,
 								...query,
@@ -1442,23 +1453,26 @@
 							this.otherKingList = [...newList]
 						}
 					} else {
-						const lastIndex = 50 - lnum
-						if (userList.length >= lastIndex) {
-							this.otherKingList = userList.splice(0, lastIndex)
-						} else {
-							const requireIndex = lastIndex - userList.length
-							query.limit = requireIndex
-							query.offset = query.offset + 1
-							const result = await getRank({
-								gameId: this.gameId,
-								...query,
-							})
-							for (let index in result) {
-								result[index].no_num = numIndex + parseInt(index) + 1
+						if (!lastFlag) {
+							const lastIndex = 50 - lnum
+							if (userList.length >= lastIndex) {
+								this.otherKingList = userList.splice(0, lastIndex)
+							} else {
+								const requireIndex = lastIndex - userList.length
+								query.limit = requireIndex
+								query.offset = (query.offset + 1) * requireIndex
+								const result = await getRank({
+									gameId: this.gameId,
+									...query,
+								})
+								for (let index in result) {
+									result[index].no_num = numIndex + parseInt(index) + 1
+								}
+								const newList = [...userList, ...result]
+								this.otherKingList = [...newList]
 							}
-							const newList = [...userList, ...result]
-							this.otherKingList = [...newList]
 						}
+
 					}
 				})
 			},
@@ -1558,7 +1572,7 @@
 							),
 						}
 						this.$storage.set('gameInfo', this.gameInfo)
-						
+
 						this.showGamePopup(Number(res.status))
 
 						this.getRankScore() // 排行榜信息
@@ -1580,7 +1594,7 @@
 					this.isStart = true
 				}
 				if (status == 6) { // 已结束
-					if(Number(this.gameInfo.lottery_type) == 1){
+					if (Number(this.gameInfo.lottery_type) == 1) {
 						getOpenAward({
 							gameId: this.gameId
 						}).then((res) => {
@@ -1594,7 +1608,7 @@
 				if (status == 7) { // 已下架
 					this.$refs.get_out.show()
 				}
-				
+
 			},
 			//获取游戏可玩次数
 			getPlayNumber() {
@@ -1610,12 +1624,16 @@
 					game_id: this.gameId,
 				}).then((res) => {
 					if (res.errno === '1') {
-						this.$refs.redEnvelope.open()
+						uni.showToast({
+							title: `${res.errmsg}`
+						})
+						return
 					}
 					this.gameResult.result = res.result
 					if (res.result) {
 						this.gameResult.prize = res.prize
 						this.getMyRank()
+						this.getRankScore()
 					}
 					this.$refs.redEnvelope.open()
 					this.getPlayNumber()
@@ -2017,7 +2035,7 @@
 			}
 		}
 
-		.o_prize{
+		.o_prize {
 			background-color: #fefcf1;
 			border-radius: 20upx;
 			min-height: 152upx;
@@ -2028,7 +2046,7 @@
 			box-sizing: border-box;
 			padding: 20rpx 20rpx 20rpx 20rpx;
 			align-items: center;
-			box-shadow: 0 10rpx 40rpx 0 rgba(0,0,0,0.06);
+			box-shadow: 0 10rpx 40rpx 0 rgba(0, 0, 0, 0.06);
 
 			image {
 				width: 100rpx;
@@ -2036,9 +2054,11 @@
 				margin-right: 30rpx;
 				border-radius: 16rpx;
 			}
-			.o_prize_text{
-				display:flex;
+
+			.o_prize_text {
+				display: flex;
 				flex-direction: column;
+
 				.ranke_name {
 					background: #FF7948;
 					border-radius: 21rpx;
@@ -2049,6 +2069,7 @@
 					text-align: center;
 					width: 140rpx;
 				}
+
 				.prize_name {
 					margin-top: 14rpx;
 					font-size: 28rpx;
@@ -2489,12 +2510,12 @@
 
 		.score_list_item {
 			display: flex;
-			height: 108upx;
-			line-height: 108upx;
+			min-height: 108upx;
 			justify-content: space-between;
+			align-items: center;
 
 			.item_left {
-				width: 60%;
+				width: 40%;
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
@@ -2503,6 +2524,10 @@
 			.item_right {
 				color: #666666;
 				font-size: 24upx;
+				flex: 1;
+				display: flex;
+				justify-content: space-between;
+				align-items:center;
 
 				.t_blod {
 					margin-right: 40upx;
@@ -2514,10 +2539,8 @@
 				.item_right_time {
 					display: flex;
 					flex-direction: column;
-					align-items: center;
-
 					&_date {
-						margin-bottom: 30rpx;
+						// margin-bottom: 30rpx;
 					}
 				}
 			}
