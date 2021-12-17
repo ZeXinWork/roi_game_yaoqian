@@ -697,7 +697,7 @@
 			console.log(this.inviteCode,"邀请码")
 			if (this.inviteCode) {
 				let list = this.$storage.get("inviteList")
-				const isInvite = list.indexOf(this.inviteCode) > -1
+				const isInvite = list && list.isArray() && list.indexOf(this.inviteCode) > -1
 				console.log(isInvite,"是否邀请过")
 				if (user.userId && !isInvite) {
 					this.getInviteInfo(this.inviteCode, localGameId)
@@ -1141,7 +1141,11 @@
 						}
 						this.$storage.clear("invite")
 						let list = this.$storage.get("inviteList")
-						list.push(this.inviteCode)
+						if (list && list.isArray()){
+							list.push(this.inviteCode)
+						} else {
+							list = [this.inviteCode]
+						}
 						this.$storage.set("inviteList",list)
 					})
 					.catch((error) => {
