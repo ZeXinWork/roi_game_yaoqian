@@ -35,7 +35,7 @@
 							<view class="user-info-game-wrap_content_body_content_open">
 								<image src="https://static.roi-cloud.com/upload/20211212/60935669153633"
 									mode="aspectFill"></image>
-								<text>{{`游戏时间：${item.game_start_time}-${item.game_end_time}`}}</text>
+								<text>{{`游戏时间：${momentData(item.game_start_time)}-${momentData(item.game_end_time)}`}}</text>
 							</view>
 						</view>
 					</view>
@@ -62,6 +62,7 @@
 	import {
 		getMyList
 	} from '@/rest/api.js'
+	import moment from 'moment'
 	import {
 		getGameStatus
 	} from '../../utils/utils.js'
@@ -101,6 +102,9 @@
 			}
 		},
 		methods: {
+			momentData(date) {
+				return moment(date * 1000).format('YYYY.MM.DD')
+			},
 			getStatus(status) {
 				const res = getGameStatus(status)
 				return res
@@ -260,8 +264,12 @@
 							justify-content: space-between;
 
 							&_title {
-								font-size: 40rpx;
+								width: 260rpx;
+								font-size: 30rpx;
 								color: #333;
+								overflow: hidden;
+								white-space: nowrap;
+								text-overflow: ellipsis;
 							}
 
 							&_status {
@@ -272,6 +280,10 @@
 									width: 32rpx;
 									height: 32rpx;
 									margin-right: 8rpx;
+								}
+
+								text {
+									font-size: 25rpx;
 								}
 							}
 						}
