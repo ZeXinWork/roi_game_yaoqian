@@ -28,7 +28,7 @@
 			<view class="swiper_wrap">
 				<uni-notice-bar showIcon="true" color="#fff" background-color="transparent" scrollable="true"
 					single="true"
-					text="活动发起方和参与用户需同意《络绎有客博饼用户服务协议》方可进行游戏，使用本服务即视为已阅读并同意受本协议的约束。活动发起方不得利用本程序从事国家法律法规禁止的违法犯罪活动，不得上架法律法规禁止或限制发布的产品，活动发起方对所提供奖品的质量和兑奖承诺全权负责。">
+					text="活动发起方和参与用户需同意《络绎有客游戏用户服务协议》方可进行游戏，使用本服务即视为已阅读并同意受本协议的约束。活动发起方不得利用本程序从事国家法律法规禁止的违法犯罪活动，不得上架法律法规禁止或限制发布的产品，活动发起方对所提供奖品的质量和兑奖承诺全权负责。">
 				</uni-notice-bar>
 			</view>
 			<view class="tips" v-if="Number(gameInfo.status) == 3">
@@ -72,7 +72,7 @@
 			<redEnvelope @handleGameResult="handleGameResult" ref="redEnvelope" :result="gameResult.result"
 				:prize="gameResult.prize"></redEnvelope>
 
-			<view class="de_btn zl_btn" @click="popShow('share')">喊好友来博饼</view>
+			<view class="de_btn zl_btn" @click="popShow('share')">喊好友来游戏</view>
 			<view class="record_wrap">
 				<text @click="popShow('score')">积分明细</text>
 				<view class="line"></view>
@@ -334,7 +334,7 @@
 					<image src="https://static.roi-cloud.com/base/icon_success.png" mode=""></image>
 				</view>
 				<view class="help_m_title">助力成功</view>
-				<view class="help_sub_title">恭喜您获得一次博饼机会</view>
+				<view class="help_sub_title">恭喜您获得一次游戏机会</view>
 				<view class="play_btn mt100" @click="$refs.help_other.hide()">去游戏</view>
 			</popup>
 			<popup ref="help_other_faile" class="help_other_faile" width="630">
@@ -513,10 +513,10 @@
 			<image class="icon_dice-3" src="https://static.roi-cloud.com/base/icon_dice-3.png" mode=""></image>
 			<image class="icon_sad" src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
 			<view class="m_title">
-				<text>无法进行博饼游戏</text>
+				<text>无法进行游戏游戏</text>
 			</view>
 			<view class="s_title">
-				<text>很抱歉，因为无法获取您当前的地理位置，不能进行博饼游戏。</text>
+				<text>很抱歉，因为无法获取您当前的地理位置，不能进行游戏游戏。</text>
 			</view>
 			<view class="btn_know" @click="openLocationSetting">我知道</view>
 			<navigator hover-class="none"
@@ -686,7 +686,12 @@
 			this.navbarHeight =
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
-			
+			if (options.gameId && options.gameId !== localGameId) {
+				localGameId = options.gameId
+				this.$storage.set('gameId', options.gameId)
+			}
+			this.gameId = localGameId
+			this.$storage.set('gameId', this.gameId)
 			const user = this.$storage.getUser()
 			this.user_info = user
 			if (options.code) {
@@ -695,11 +700,11 @@
 				this.$storage.set('invite', options.code)
 			}
 			this.inviteCode = this.$storage.get('invite')
-			console.log(this.inviteCode,"邀请码")
+			console.log(this.inviteCode, "邀请码")
 			if (this.inviteCode) {
 				let list = this.$storage.get("inviteList")
 				const isInvite = list && list.isArray() && list.indexOf(this.inviteCode) > -1
-				console.log(isInvite,"是否邀请过")
+				console.log(isInvite, "是否邀请过")
 				if (user.userId && !isInvite) {
 					this.getInviteInfo(this.inviteCode, localGameId)
 				} else {
@@ -719,10 +724,6 @@
 				}
 				return
 			}
-			this.gameId = options.gameId
-
-		
-			this.$storage.set('gameId', this.gameId)
 			this.getPrivacy()
 		},
 
@@ -752,7 +753,7 @@
 						gameName: res.game_name,
 					}
 					const user = this.$store.getUser()
-					if (user && user.userId){
+					if (user && user.userId) {
 						this.$refs.assistance.show()
 					}
 				})
@@ -1146,12 +1147,12 @@
 						}
 						this.$storage.clear("invite")
 						let list = this.$storage.get("inviteList")
-						if (list && list.isArray()){
+						if (list && list.isArray()) {
 							list.push(this.inviteCode)
 						} else {
 							list = [this.inviteCode]
 						}
-						this.$storage.set("inviteList",list)
+						this.$storage.set("inviteList", list)
 					})
 					.catch((error) => {
 						console.log(error)
@@ -1287,7 +1288,7 @@
 							} else if (startsWith(error.msg, '该游戏指定参与范围')) {
 								this.positionMsg = error.msg
 								this.$refs.position.show()
-							} else if (startsWith(error.msg, '请授权位置进行博饼')) {
+							} else if (startsWith(error.msg, '请授权位置进行游戏')) {
 								this.$refs.location.show()
 							} else {
 								this.$toast.error(error.msg)
@@ -1716,15 +1717,12 @@
 						})
 						this.$loading.hide()
 						this.logining = false
-
-						uni.navigateTo({
-							url: '/pages/phone/phone',
-						})
+						this.$refs.login_popup.close()
 					})
 					.catch((res) => {
 						this.logining = false
 						this.$loading.hide()
-
+						this.$refs.login_popup.close()
 						uni.showToast({
 							title: `${res.errmsg}`,
 						})
@@ -2536,7 +2534,7 @@
 				flex: 1;
 				display: flex;
 				justify-content: space-between;
-				align-items:center;
+				align-items: center;
 
 				.t_blod {
 					margin-right: 40upx;
@@ -2548,6 +2546,7 @@
 				.item_right_time {
 					display: flex;
 					flex-direction: column;
+
 					&_date {
 						// margin-bottom: 30rpx;
 					}
