@@ -292,13 +292,14 @@
 				}
 				exchangeGamePrizeList(params).then(res => {
 					this.$loading.hide()
-					if(params.page == 1) this.prizeList = res
-					else this.prizeList = [...this.prizeList,...res]
-					if (res.pageCount == params.page) {
-						this.more = false
-					} else {
-						this.more = true
-					}
+					this.prizeList = res
+					// if(params.page == 1) this.prizeList = res
+					// else this.prizeList = [...this.prizeList,...res]
+					// if (res.pageCount == params.page) {
+					// 	this.more = false
+					// } else {
+					// 	this.more = true
+					// }
 				})
 			},
 			getGameInfo() {
