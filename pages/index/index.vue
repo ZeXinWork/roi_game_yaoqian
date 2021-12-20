@@ -982,6 +982,10 @@
 				})
 			},
 			getData() {
+				// 获取排行榜
+				this.getRankScore()
+				// 获取我的排行
+				this.getMyRank()
 				//   apiGetMinSetting().then((res) => {
 				//     this.setting = res
 				//     this.gameId = this.$storage.get('gameId')
