@@ -164,6 +164,19 @@
 					</view>
 				</view>
 			</view>
+			<popup ref="onceShare" width="650" bgColor="#FFF8DC">
+				<view class="p_title">立即分享游戏
+					<image @click="$refs.share.hide()" class="icon_close"
+						src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
+				</view>
+
+				<button open-type="share" class="pop_share_btn" data-type="0">
+					<image src="https://static.roi-cloud.com/base/icon_share_wechat.png" mode=""></image>
+					<view class="share_text"> 邀请好友 </view>
+				</button>
+
+
+			</popup>
 
 			<popup ref="share" width="650" bgColor="#FFF8DC">
 				<view class="p_title">多邀多得上不封顶
@@ -600,6 +613,8 @@
 		},
 		data() {
 			return {
+				share: false,
+				onceShare: true,
 				isChecked: false,
 				timer: null,
 				playLoading: false,
@@ -700,6 +715,11 @@
 				this.$storage.set('invite', options.code)
 			}
 			this.inviteCode = this.$storage.get('invite')
+			console.log(options.share, "options.shareoptions.shareoptions.shareoptions.share")
+			if (options.share) {
+				this.$refs.onceShare.show()
+				this.share = true
+			}
 			console.log(this.inviteCode, "邀请码")
 			if (this.inviteCode) {
 				let list = this.$storage.get("inviteList")
@@ -725,6 +745,7 @@
 				return
 			}
 			this.getPrivacy()
+
 		},
 
 		onHide() {
@@ -1741,6 +1762,15 @@
 			},
 		},
 		async onShareAppMessage(e) {
+			if (this.share && this.onceShare) {
+				const path = `/pages/index/index?gameId=${this.gameId} `
+				this.onceShare = false
+				this.$refs.onceShare.hide()
+				return {
+					title: this.gameInfo.name,
+					path,
+				}
+			}
 			let type, rank
 			if (e.from === 'button') { // 来自页面内分享按钮
 				console.log(e.target)
@@ -2789,7 +2819,7 @@
 		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
-        overflow-x: hidden;
+		overflow-x: hidden;
 		overflow-y: auto;
 	}
 
