@@ -281,6 +281,7 @@
 				uni.showToast({
 					title: '保存成功'
 				})
+				this.$refs.dialog.close()
 			},
 			getPrizeList() {
 				this.$loading.show()
@@ -529,7 +530,7 @@
 
 	.phone_button {
     	border-radius: 92upx;
-    	width: 480upx;
+    	// width: 480upx;
     	height: 80upx;
     	line-height: 80upx;
 		margin: 40upx;
