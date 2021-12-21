@@ -184,7 +184,7 @@
 						src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
 				</view>
 				<view class="share_img_wrap">
-					<image src="https://static.roi-cloud.com/base/share_img.png" mode="aspectFit"></image>
+					<image src="https://game0.roi-cloud.com/static/images/share_red_img.png" mode="aspectFit"></image>
 				</view>
 				<button open-type="share" class="pop_share_btn" data-type="0" v-if="user_info.userId">
 					<image src="https://static.roi-cloud.com/base/icon_share_wechat.png" mode=""></image>
