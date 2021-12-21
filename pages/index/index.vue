@@ -6,16 +6,15 @@
           : '#fdccb9',
     }">
 		<navbar :params="{
-        navColor: navColor,
-        titleColor: '#fff',
-        title: gameInfo.logo_url ? '' : `${gameInfo.name || ''}`,
-      }" class="">
-			<view v-if="gameInfo.logoInfo.img" class="diy_logo" :style="
-          'background:url(' +
-          gameInfo.logoInfo.img +
-          ') no-repeat;background-size:contain'
-        ">
-			</view>
+			navColor: navColor,
+			titleColor: '#fff',
+			title: gameInfo.logo_url ? '' : `${gameInfo.name || ''}`,
+		}" class="">
+			<view v-if="gameInfo.logo_url" class="diy_logo" :style="
+				'background:url(' +
+				gameInfo.logo_url +
+				') no-repeat;background-size:contain'
+			"/>
 		</navbar>
 		<view id="main" :style="{
         paddingTop: navbarHeight + 'px',
