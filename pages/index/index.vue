@@ -1009,6 +1009,8 @@
 				this.getRankScore()
 				// 获取我的排行
 				this.getMyRank()
+				//获取游戏可玩次数
+				this.getPlayNumber() 
 				//   apiGetMinSetting().then((res) => {
 				//     this.setting = res
 				//     this.gameId = this.$storage.get('gameId')
@@ -1427,7 +1429,7 @@
 					for (let index in this.gameInfo.game_pk_plugin) {
 						if (
 							!lastFlag && userList.length < this.gameInfo.game_pk_plugin[index]
-							.player_num
+							.start_seq
 						) {
 							query.offset = (query.offset + 1) * 50
 							const result = await getRank({
@@ -1447,19 +1449,19 @@
 
 						let item = {
 							info: this.gameInfo.game_pk_plugin[index],
-							range: this.gameInfo.game_pk_plugin[index].player_num == 1 ?
+							range: this.gameInfo.game_pk_plugin[index].start_seq == 1 ?
 								'第' + num + '名' : '第' +
 								num +
 								'～' +
-								(num + this.gameInfo.game_pk_plugin[index].player_num - 1) +
+								(this.gameInfo.game_pk_plugin[index].start_seq) +
 								'名',
 							list: userList.slice(
 								0,
-								this.gameInfo.game_pk_plugin[index].player_num
+								this.gameInfo.game_pk_plugin[index].start_seq
 							),
 						}
-						num += this.gameInfo.game_pk_plugin[index].player_num
-						userList.splice(0, this.gameInfo.game_pk_plugin[index].player_num)
+						num += this.gameInfo.game_pk_plugin[index].start_seq
+						userList.splice(0, this.gameInfo.game_pk_plugin[index].start_seq)
 						kingofKingsList.push(item)
 					}
 
@@ -1508,6 +1510,9 @@
 								const newList = [...userList, ...result]
 								this.otherKingList = [...newList]
 							}
+						} else {
+							const lastIndex = 50 - lnum
+							this.otherKingList = userList.splice(0, lastIndex)
 						}
 
 					}
