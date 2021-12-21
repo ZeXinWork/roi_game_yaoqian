@@ -134,16 +134,18 @@
 					// 	res[index].verify_time = moment(res[index].verifyTime * 1000).format(
 					// 		'YYYY.MM.DD')
 					// }
-					if (Array.isArray(res)) {
-						if (params.offset == 0) this.userPrizeList = res
-						else this.userPrizeList = [...this.userPrizeList, ...res]
-						if (res.pageCount == this.page) {
-							this.more = false
-						} else {
-							this.more = true
+					if (res) {
+						if (params.offset == 0) {
+							this.userPrizeList = res
+						} else { 
+							this.userPrizeList = [...this.userPrizeList, ...res]
 						}
-
-					}else{
+						if (res.length == 20) {
+							this.more = true
+						} else {
+							this.more = false
+						}
+					} else {
 						this.more = false
 					}
 					this.$loading.hide()
