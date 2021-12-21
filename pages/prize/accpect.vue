@@ -238,7 +238,7 @@
 						// this.$refs.code.show()
 					}, 200)
 				} catch (e) {
-					// this.$loading.hide()
+					this.$loading.hide()
 					console.log(e)
 				}
 			},
@@ -310,21 +310,6 @@
 			initData(options) {
 				// 获取奖品信息
 				this.$loading.show()
-				// prize({
-				// 	uid: options.uid,
-				// }).then(res => {
-				// 	this.prizeInfo = res
-				// 	let codeMsg = {
-				// 		gameId: this.gameId,
-				// 		verifyCode: res.prizeCode
-				// 	}
-				// 	codeMsg = JSON.stringify(codeMsg)
-				// 	this.$refs.qrcode.crtQrCode(codeMsg)
-				// 	setTimeout(() => {
-				// 		this.createPoster()
-				// 		this.$loading.hide()
-				// 	}, 1000)
-				// })
 				this.awardName = options.awardName
 				let codeMsg = {
 					gameId: options.gameId,
@@ -342,9 +327,9 @@
 				}).then(res => {
 					this.contactInfo = res
 					setTimeout(() => {
-					this.createPoster()
-					this.$loading.hide()
-				}, 1000)
+						// this.createPoster()
+						this.$loading.hide()
+					}, 1000)
 				})
 			}
 		}
