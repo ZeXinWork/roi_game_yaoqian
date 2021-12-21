@@ -1411,6 +1411,7 @@
 					return
 				}
 				if (this.checkLogin()) {
+					this.getAward()
 					this.$refs[ref].show()
 				}
 			},
