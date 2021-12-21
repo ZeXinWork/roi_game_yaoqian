@@ -778,14 +778,15 @@
 				.goods_img {
 					width: 88upx;
 					height: 88upx;
-					border-radius: 5upx;
+					border-radius: 16upx;
 					margin-right: 20upx;
 					overflow: hidden;
 
 					image {
-						width: 100upx;
-						height: 100upx;
+						width: 110upx;
+						height: 110upx;
 						object-fit: cover;
+						border-radius: 16rpx;
 					}
 				}
 

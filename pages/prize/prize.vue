@@ -13,7 +13,7 @@
 				<view class="item_top">
 					<view class="goods_info" @click="showDetail(item)">
 						<view class="goods_img">
-							<image :src="item.prize_url" mode=""></image>
+							<image class="goods_img_c" :src="item.prize_url" mode=""></image>
 						</view>
 						<view class="goods_title">{{ item.prize_name }}</view>
 					</view>
@@ -25,8 +25,9 @@
 					<view v-else class="prize_btn_l" @click="showDetail(item)">查看</view>
 				</view>
 				<view class="item_bottom">
-					<text>来源发起：{{ item.prize_source }}</text>
+					<text>奖品来源：{{ item.prize_source }}</text>
 					<text v-if="item.verify_time != 0">领取日期：{{ item.verify_time }}</text>
+					<text v-else>领奖截止日期：{{ item.last_receive_time }}</text>
 				</view>
 			</view>
 		</view>
@@ -130,10 +131,10 @@
 				if (type != undefined && type >= 0) params.prizeType = type
 				this.$loading.show()
 				prizeList(params).then(res => {
-					// for (let index in res) {
-					// 	res[index].verify_time = moment(res[index].verifyTime * 1000).format(
-					// 		'YYYY.MM.DD')
-					// }
+					for (let index in res) {
+						res[index].last_receive_time = moment(res[index].last_receive_time * 1000).format(
+							'YYYY.MM.DD')
+					}
 					if (res) {
 						if (params.offset == 0) {
 							this.userPrizeList = res
@@ -372,10 +373,13 @@
 				}
 
 				.goods_img {
-					width: 88upx;
-					height: 88upx;
+					width: 110upx;
+					height: 110upx;
 					border-radius: 16upx;
 					background: #eee;
+				}
+				.goods_img_c {
+					border-radius: 16rpx;
 				}
 
 				.finish_content {
