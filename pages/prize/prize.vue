@@ -60,7 +60,7 @@
 					<view class="phone-subtitle">
 						<text>作为兑奖备用联系方式，我们会保护你的隐私</text>
 					</view>
-					<view class="phone-input-wrap" v-if="phone != '' ">
+					<view class="phone-input-wrap" v-if="phone">
 						<input :value="phone" cursor-spacing="10" @input="changePhone" class="phone-input"
 							placeholder="填写手机号" disabled="true" />
 					</view>
@@ -176,6 +176,13 @@
 				}
 				getPhone(params)
 					.then((res) => {
+						if (res.errno != 1){
+							uni.showToast({
+								title: '出错啦',
+								icon: 'error'
+							})
+							return
+						}
 						user.phone = res.phoneNumber
 						this.phone = res.phoneNumber
 						this.$storage.setUser(user)
@@ -214,7 +221,7 @@
 
 	.phone_button {
 		border-radius: 92upx;
-		width: 480upx;
+		// width: 480upx;
 		height: 80upx;
 		line-height: 80upx;
 		margin: 40upx;
