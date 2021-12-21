@@ -2,7 +2,7 @@
 	<view class='detail'>
 		<view class="user-info-game-wrap">
 			<ListScrollView @handleScrollLower='handleScrollLower' @refreshHandler='getMyList'>
-				<view class="user-info-game-wrap_content" v-for="item of gameList" :ikey='item.game_id'>
+				<view class="user-info-game-wrap_content" v-for="item of gameList" :key='item.game_id' @click="toGame(item)">
 					<image :src="item.logo_url" mode="aspectFill" class="user-info-game-wrap_content_img"></image>
 					<view class="user-info-game-wrap_content_body">
 						<view class="user-info-game-wrap_content_body_header">
@@ -55,6 +55,9 @@
 			};
 		},
 		methods: {
+			toGame(game) {
+				uni.navigateTo({ url: `../index/index?gameId=${game.game_id}` })
+			},
 			momentData(date) {
 				return moment(date * 1000).format('YYYY.MM.DD')
 			},

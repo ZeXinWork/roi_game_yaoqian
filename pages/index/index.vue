@@ -13,7 +13,7 @@
 			<view v-if="gameInfo.logo_url" class="diy_logo" :style="
 				'background:url(' +
 				gameInfo.logo_url +
-				') no-repeat;background-size:contain'
+				') center center no-repeat;background-size:contain'
 			"/>
 		</navbar>
 		<view id="main" :style="{
@@ -137,10 +137,10 @@
 							<view class="box_item" v-for="(user, userIndex) in item.list" :key="userIndex">
 								<view class="box_item_left">
 									<image v-if="user.no_num < 4" class="no_icon" :src="
-                      'https://static.roi-cloud.com/base/icon_no_' +
-                      user.no_num +
-                      '.png'
-                    " mode="aspectFill">
+										'https://static.roi-cloud.com/base/icon_no_' +
+										user.no_num +
+										'.png'
+										" mode="aspectFill">
 									</image>
 									<view class="no_icon" v-else>{{ user.no_num }}</view>
 									<image class="avatar" :src="user.avatar" mode=""></image>
