@@ -585,9 +585,6 @@
 	import redEnvelope from './redEnvelope'
 	import moment from 'moment'
 	import {
-		getGameStatus
-	} from '@/utils/utils.js'
-	import {
 		userLogin,
 		gameInfo,
 		gameNumber,
@@ -753,7 +750,16 @@
 		},
 		methods: {
 			gameStatus(code){
-				return getGameStatus(code)
+				const orderStatus = {
+					1: '待设置',
+					2: '待开始',
+					3: '进行中',
+					4: '兑奖中',
+					5: '领奖中',
+					6: '已结束',
+					7: '已下架',
+				}
+				return orderStatus[Number(code)] || ''
 			},
 			getInviteInfo(code, gameId) {
 				console.log(code, "code")
@@ -775,7 +781,7 @@
 						},
 						gameName: res.game_name,
 					}
-					const user = this.$store.getUser()
+					const user = this.$storage.getUser()
 					if (user && user.userId) {
 						this.$refs.assistance.show()
 					}
