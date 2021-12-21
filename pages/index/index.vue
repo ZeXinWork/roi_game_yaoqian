@@ -14,7 +14,7 @@
 				'background:url(' +
 				gameInfo.logo_url +
 				') center center no-repeat;background-size:contain'
-			"/>
+			" />
 		</navbar>
 		<view id="main" :style="{
         paddingTop: navbarHeight + 'px',
@@ -35,9 +35,6 @@
 			</view>
 			<view class="tips" v-else-if="Number(gameInfo.status) > 3">
 				{{ gameStatus(Number(gameInfo.status))}}
-			</view>
-			<view class="tips" v-else>
-				未开始
 			</view>
 			<canvas canvas-id="shareCanvas" id="shareCanvas"></canvas>
 			<!-- <view class="bowl_title">
@@ -165,7 +162,7 @@
 			</view>
 			<popup ref="onceShare" width="650" bgColor="#FFF8DC">
 				<view class="p_title">立即分享游戏
-					<image @click="$refs.share.hide()" class="icon_close"
+					<image @click="$refs.onceShare.hide()" class="icon_close"
 						src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
 				</view>
 
@@ -427,9 +424,9 @@
 				<view class="agreement">
 					<radio :checked="isChecked" @click="handleChecked"></radio>
 					<text>我已阅读并同意</text>
-					<text class="protocol" @click="openProtocol">用户协议</text>
+					<text class="protocol" @click="openProtocol('arg')">用户协议</text>
 					<text>与</text>
-					<text class="protocol" @click="openProtocol">隐私政策</text>
+					<text class="protocol" @click="openProtocol('prv')">隐私政策</text>
 				</view>
 				<view class="btns">
 					<view class="def_btn" @click="cancelLogin">取消</view>
@@ -688,7 +685,7 @@
 			}
 		},
 		onShow() {
-			this.getData()
+			// this.getData()
 		},
 		onReady() {
 			this.context = uni.createCanvasContext('shareCanvas', this)
@@ -711,10 +708,9 @@
 				this.$storage.set('invite', options.code)
 			}
 			this.inviteCode = this.$storage.get('invite')
-			console.log(options.share, "options.shareoptions.shareoptions.shareoptions.share")
 			if (options.share) {
-				this.$refs.onceShare.show()
 				this.share = true
+				this.toLogin()
 			}
 			console.log(this.inviteCode, "邀请码")
 			if (this.inviteCode) {
@@ -729,6 +725,8 @@
 			}
 
 			this.user = user
+			console.log(localGameId, "localGameIdlocalGameIdlocalGameId")
+
 			if (localGameId && user.userId) {
 				this.gameId = localGameId
 				this.getGameInfo() //获取游戏信息
@@ -741,7 +739,6 @@
 				return
 			}
 			this.getPrivacy()
-
 		},
 
 		onHide() {
@@ -749,7 +746,7 @@
 			this.currentHelpItem = 1
 		},
 		methods: {
-			gameStatus(code){
+			gameStatus(code) {
 				const orderStatus = {
 					1: '待设置',
 					2: '待开始',
@@ -820,6 +817,8 @@
 						agreement_url: res.agreement_url,
 					}
 					this.$storage.setUser(params)
+					const user = this.$storage.getUser()
+					console.log(user, "uuuuuuuuuuuuuuuuuuu")
 				})
 			},
 			getExchange() {
@@ -993,9 +992,16 @@
 			cancelLogin() {
 				this.$refs.login_popup.close()
 			},
-			openProtocol() {
+			openProtocol(flag) {
+				const user = this.$storage.getUser()
+				let query = ''
+				if (flag === 'arg') {
+					query = user.agreement_url
+				} else {
+					query = user.privacy_clause_url
+				}
 				uni.downloadFile({
-					url: 'https://static.roi-cloud.com/base/protocol.pdf',
+					url: query,
 					success(res) {
 						let filePath = res.tempFilePath
 						uni.openDocument({
@@ -1011,12 +1017,15 @@
 				})
 			},
 			getData() {
-				// 获取排行榜
-				this.getRankScore()
-				// 获取我的排行
-				this.getMyRank()
-				//获取游戏可玩次数
-				this.getPlayNumber() 
+				if (this.gameId) {
+					// 获取排行榜
+					this.getRankScore()
+					// 获取我的排行
+					this.getMyRank()
+					//获取游戏可玩次数
+					this.getPlayNumber()
+				}
+
 				//   apiGetMinSetting().then((res) => {
 				//     this.setting = res
 				//     this.gameId = this.$storage.get('gameId')
@@ -1610,6 +1619,14 @@
 				}
 				gameInfo(params)
 					.then((res) => {
+						if (res.errno === "1") {
+							uni.showToast({
+								title: "不存在该游戏!",
+								icon: "error"
+							})
+							this.gameId = ''
+							return
+						}
 						this.gameInfo = {
 							...res,
 							game_start_time: moment(res.game_start_time * 1000).format(
@@ -1763,6 +1780,9 @@
 						if (this.currentScoreItem === 1) {
 							this.getAward()
 						}
+						if (this.share && this.onceShare) {
+							this.$refs.onceShare.show()
+						}
 					})
 					.catch((res) => {
 						this.logining = false
@@ -1775,6 +1795,14 @@
 			},
 		},
 		async onShareAppMessage(e) {
+			if (!this.gameId) {
+				uni.showToast({
+					title: "不存在该游戏!",
+					icon: "error"
+				})
+				this.$refs.onceShare.hide()
+				return
+			}
 			if (this.share && this.onceShare) {
 				const path = `/pages/index/index?gameId=${this.gameId} `
 				this.onceShare = false
