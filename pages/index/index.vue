@@ -35,7 +35,7 @@
 				游戏时间：{{ gameInfo.game_start_time + ' - ' + gameInfo.game_end_time}}
 			</view>
 			<view class="tips" v-else-if="Number(gameInfo.status) > 3">
-				{{ getGameStatus(Number(gameInfo.status))}}
+				{{ gameStatus(Number(gameInfo.status))}}
 			</view>
 			<view class="tips" v-else>
 				未开始
@@ -753,6 +753,9 @@
 			this.currentHelpItem = 1
 		},
 		methods: {
+			gameStatus(code){
+				return getGameStatus(code)
+			},
 			getInviteInfo(code, gameId) {
 				console.log(code, "code")
 				console.log(gameId, "gameId")
