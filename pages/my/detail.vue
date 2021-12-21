@@ -36,6 +36,7 @@
 
 <script>
 	import ListScrollView from '@/components/ListScrollView.vue'
+	import _ from 'lodash'
 	import {
 		getMyListMore
 	} from '@/rest/api.js'
@@ -66,7 +67,9 @@
 					if (this.gameList.length === 0) {
 						this.gameList = res
 					} else {
-						this.gameList = [...this.gameList, ...res]
+						if (_.isArray(res)){
+							this.gameList = [...this.gameList, ...res]
+						}
 					}
 
 				})
