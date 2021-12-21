@@ -141,13 +141,16 @@
 
 			},
 			getGameInfo() {
-				apiGetGameInfo({
-					game_id: this.gameId,
-					template_id: '2021110901'
-				}).then(res => {
-					res.redeemEndTime = moment(res.game_end_time * 1000).format('YYYY年MM月DD日')
-					this.gameInfo = res
-				})
+				gameInfo = this.$storage.get("gameInfo")
+				gameInfo.redeemEndTime = moment(res.game_end_time * 1000).format('YYYY年MM月DD日')
+				this.gameInfo = gameInfo
+				// apiGetGameInfo({
+				// 	game_id: this.gameId,
+				// 	template_id: '2021110901'
+				// }).then(res => {
+				// 	res.redeemEndTime = moment(res.game_end_time * 1000).format('YYYY年MM月DD日')
+				// 	this.gameInfo = res
+				// })
 			},
 			openCode() {
 				this.canvasToImage()
