@@ -2,8 +2,9 @@
 	<uni-popup ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
 		<view class="p_body">
 			<view class="p_body_mid" v-if="result">
-				<view class="p_body_mid_title">恭喜您抽到奖品啦</view>
-				<view class="p_body_mid_prize">
+				<view class="p_body_mid_title" v-if="type == 1">恭喜您抽到奖品啦</view>
+				<view class="p_body_mid_title" v-else>恭喜您抽到积分啦</view>
+				<view class="p_body_mid_prize" v-if="type == 1">
 					<view class="p_body_mid_prize_item">
 						<image :src="prize.prize_url" mode="aspectFill"></image>
 						<view>{{prize.prize_name}}</view>
@@ -14,7 +15,18 @@
 						</image>
 						<view class="bet">
 							<text>积分</text>
-							<text>{{`+ ${prize.prize_point}`}}</text>
+							<text>{{`+ ${prize.award_point}`}}</text>
+						</view>
+
+					</view>
+				</view>
+				<view class="p_body_mid_prize" v-else>
+					<view class="p_body_mid_prize_item">
+						<image src="https://static.roi-cloud.com/upload/20211213/60935669182359" mode="aspectFill">
+						</image>
+						<view class="bet">
+							<text>积分</text>
+							<text>{{`+ ${prize.award_point}`}}</text>
 						</view>
 
 					</view>
@@ -62,19 +74,22 @@
 			prize: {
 				type: Object
 			},
+			type: 1,
 
 		},
-
+		onLoad(){
+			const parent = this.$parent
+			this.type = parent.gameInfo.lottery_type
+		},
 		methods: {
 			open() {
+				
 				this.$refs.prizeDetail.open()
 			},
 			close() {
 				this.$refs.prizeDetail.close()
 			},
 			handleClick() {
-				const parent = this.$parent
-
 				this.$emit('handleGameResult', this.result)
 
 			}
