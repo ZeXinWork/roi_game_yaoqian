@@ -176,7 +176,7 @@
 				}
 				getPhone(params)
 					.then((res) => {
-						if (res.errno != 1){
+						if (res.errno){
 							uni.showToast({
 								title: '出错啦',
 								icon: 'error'
