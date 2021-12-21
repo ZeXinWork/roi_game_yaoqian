@@ -427,9 +427,9 @@
 				<view class="agreement">
 					<radio :checked="isChecked" @click="handleChecked"></radio>
 					<text>我已阅读并同意</text>
-					<text class="protocol" @click="openProtocol">用户协议</text>
+					<text class="protocol" @click="openProtocol('agreenment')">用户协议</text>
 					<text>与</text>
-					<text class="protocol" @click="openProtocol">隐私政策</text>
+					<text class="protocol" @click="openProtocol('privacy')">隐私政策</text>
 				</view>
 				<view class="btns">
 					<view class="def_btn" @click="cancelLogin">取消</view>
@@ -993,9 +993,13 @@
 			cancelLogin() {
 				this.$refs.login_popup.close()
 			},
-			openProtocol() {
+			openProtocol(type) {
+				let data = {
+					'privacy': 'https://static.roi-cloud.com/agreement/v1.0/youke_privacy_clause_v1.0.pdf',
+					'agreenment': 'https://static.roi-cloud.com/base/protocol.pdf',
+				}
 				uni.downloadFile({
-					url: 'https://static.roi-cloud.com/base/protocol.pdf',
+					url: data[type],
 					success(res) {
 						let filePath = res.tempFilePath
 						uni.openDocument({
