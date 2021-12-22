@@ -108,9 +108,12 @@
       </view>
       <redEnvelope
         @handleGameResult="handleGameResult"
+		@play="play"
         ref="redEnvelope"
         :result="gameResult.result"
         :prize="gameResult.prize"
+		:playTime="playTime"
+		:type="gameInfo.lottery_type"
       ></redEnvelope>
 
       <view class="de_btn zl_btn" @click="popShow('share')">喊好友来游戏</view>
