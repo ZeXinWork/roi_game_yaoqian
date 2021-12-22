@@ -141,7 +141,7 @@
 
 			},
 			getGameInfo() {
-				gameInfo = this.$storage.get("gameInfo")
+				let gameInfo = this.$storage.get("gameInfo")
 				gameInfo.redeemEndTime = moment(res.game_end_time * 1000).format('YYYY年MM月DD日')
 				this.gameInfo = gameInfo
 				// apiGetGameInfo({

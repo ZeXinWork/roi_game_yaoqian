@@ -1097,7 +1097,7 @@ export default {
       localGameId = options.gameId
       this.$storage.set('gameId', options.gameId)
     }
-    this.gameId = localGameId
+    this.gameId = localGameId.trim()
     this.$storage.set('gameId', this.gameId)
     const user = this.$storage.getUser()
     if (options.code) {
@@ -1116,7 +1116,7 @@ export default {
       const isInvite = list && list.indexOf(this.inviteCode) > -1
       console.log(isInvite, '是否邀请过')
       if (user.userId && !(isInvite == true)) {
-        this.getInviteInfo(this.inviteCode, localGameId)
+        this.getInviteInfo(this.inviteCode, localGameId.trim())
       }
 	  if (!user.userId) {
 		this.isOpenAssistance = true
@@ -1128,7 +1128,7 @@ export default {
     console.log(localGameId, 'localGameIdlocalGameIdlocalGameId')
 
     if (localGameId && user.userId) {
-      this.gameId = localGameId
+      this.gameId = localGameId.trim()
       this.getGameInfo() //获取游戏信息
       this.getPlayNumber() //获取游戏可玩次数
       this.getHelperList(1) // 助力记录
