@@ -172,7 +172,7 @@ export default {
     changeType(type) {
       this.page = 0;
       this.current = type;
-      this.getPrizeList(type - 1);
+      this.getPrizeList(type);
     },
     showDetail(item) {
       this.curr_show_item = item;
@@ -184,7 +184,7 @@ export default {
         limit: 20,
         gameId: this.gameId,
       };
-      if (type != undefined && type >= 0) params.prizeType = type;
+      if (type != undefined && type > 0) params.prizeType = type;
       this.$loading.show();
       prizeList(params).then((res) => {
         for (let index in res) {
@@ -434,6 +434,7 @@ page {
   font-size: 34rpx;
   color: #966502;
   letter-spacing: 0.26rpx;
+  margin-bottom: 20px;
 }
 
 .goods_list {
