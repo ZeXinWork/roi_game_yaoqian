@@ -289,7 +289,7 @@
           open-type="share"
           class="pop_share_btn"
           data-type="0"
-          v-if="user_info.userId"
+          v-if="user.userId"
         >
           <image
             src="https://static.roi-cloud.com/base/icon_share_wechat.png"
@@ -595,7 +595,7 @@
           <view class="o_avatar">
             <image :src="user.avatar" mode=""></image>
           </view>
-          <view class="o_username">{{ user_info.nickname }}</view>
+          <view class="o_username">{{ user.nickname }}</view>
           <view v-if="gameInfo.lottery_type == 1">
             <view class="o_rank">本次活动已经结束</view>
             <view class="o_rank"
@@ -1016,7 +1016,6 @@ export default {
       level: 1, //中奖登记
       navbarHeight: 0, //navbar高度
       userPlayInfo: {}, //用户玩的次数
-      user_info: '',
       userRank: {}, //用户排名
       gameResult: {
         prize: {},
@@ -1097,7 +1096,6 @@ export default {
     this.gameId = localGameId
     this.$storage.set('gameId', this.gameId)
     const user = this.$storage.getUser()
-    this.user_info = user
     if (options.code) {
       this.gameId = options.gameId
       this.$storage.set('gameId', options.gameId)
@@ -1233,7 +1231,8 @@ export default {
         })
         return
       }
-      if (!this.user.userId) {
+	  const user = this.$storage.getUser()
+      if (!user.userId) {
         this.toLogin()
         return
       }
@@ -1267,8 +1266,8 @@ export default {
       updateUserPhone(params)
         .then((response) => {
           clearInterval(this.timer)
-          this.user_info = {
-            ...this.user_info,
+          this.user = {
+            ...this.user,
             phone: this.phone,
           }
           // let user = this.$storage.getUser();
@@ -1442,7 +1441,7 @@ export default {
     // 初始化
     initData() {
       this.$refs.login_popup.close()
-      this.user_info = this.$storage.getUser()
+      this.user = this.$storage.getUser()
       this.getUserPlayInfo()
       this.getGameInfo()
       this.getAdvertList() // 广告
@@ -2181,6 +2180,7 @@ export default {
           this.$loading.hide()
           this.logining = false
           this.$refs.login_popup.close()
+		  this.user = this.$storage.getUser()
           this.getGameInfo() //获取游戏信息
           this.getPlayNumber() //获取游戏可玩次数
           this.getHelperList(1) // 助力记录
@@ -2189,6 +2189,7 @@ export default {
             this.getAward()
           }
           if (this.share && this.onceShare) {
+			console.log(this.user,"分享用户登录")
             this.$refs.onceShare.show()
           }
         })
