@@ -3291,6 +3291,7 @@ page {
   flex-direction: column;
   overflow-x: hidden;
   overflow-y: auto;
+  // height: calc(100vh);
 }
 
 #main {
