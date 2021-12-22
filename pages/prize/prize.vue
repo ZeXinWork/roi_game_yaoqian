@@ -47,7 +47,7 @@
           <view v-else class="prize_btn_l" @click="showDetail(item)">查看</view>
         </view>
         <view class="item_bottom">
-          <text>奖品来源：{{ item.prize_source }}</text>
+          <text>奖品来源：{{ source[item.prize_source] }}</text>
           <text v-if="item.verify_time != 0"
             >领取日期：{{ item.verify_time }}</text
           >
@@ -153,6 +153,7 @@ export default {
       phone: "",
       userPrizeList: [],
       curr_show_item: {},
+	  source: ['','即开即中','积分兑换','粉丝PK排行榜']
     };
   },
   onReachBottom(e) {
