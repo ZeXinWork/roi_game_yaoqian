@@ -2226,7 +2226,7 @@ export default {
       return
     }
     if (this.share && this.onceShare) {
-      const path = `/pages/index/index?gameId=${this.gameId} `
+      const path = `/pages/index/index?gameId=${this.gameId}`
       this.onceShare = false
       this.$refs.onceShare.hide()
       return {
