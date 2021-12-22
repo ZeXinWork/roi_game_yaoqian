@@ -8,9 +8,10 @@
 		{
 			"path": "pages/conversion/conversion",
 			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false,
-				"navigationStyle": "custom"
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#E83D3D",
+				"navigationBarTitleText": "兑换奖品",
+				"enablePullDownRefresh": false
 			}
 		},
 		{

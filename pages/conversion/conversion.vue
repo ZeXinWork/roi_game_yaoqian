@@ -1,6 +1,6 @@
 <template>
   <view>
-    <navbar
+    <!-- <navbar
       :params="{
         lefTitle: 'test',
         back: true,
@@ -22,7 +22,7 @@
         "
       >
       </view>
-    </navbar>
+    </navbar> -->
     <view id="main">
       <view class="card">
         <view class="main_title">奖品兑换</view>
