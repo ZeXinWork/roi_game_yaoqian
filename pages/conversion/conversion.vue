@@ -252,6 +252,8 @@ import { validPhone, relativePath } from "@/utils/tool.js";
 import moment from "moment";
 import popup from "@/components/popup/popup.vue";
 import navbar from "../../components/Navbar.vue";
+import _ from "lodash";
+
 export default {
   components: {
     navbar,
@@ -324,7 +326,7 @@ export default {
       this.$refs.prizeInfoDetail.hide();
     },
     orderPrizeList() {
-      this.points == "DESC" ? (this.points = "ASC") : (this.points = "DESC");
+      this.points == "desc" ? (this.points = "asc") : (this.points = "desc");
       this.page = 1;
       this.getPrizeList();
     },
@@ -383,7 +385,7 @@ export default {
       };
       exchangeGamePrizeList(params).then((res) => {
         this.$loading.hide();
-        this.prizeList = res;
+        this.prizeList = _.orderBy(res, 'prize_point', this.points);
         // if(params.page == 1) this.prizeList = res
         // else this.prizeList = [...this.prizeList,...res]
         // if (res.pageCount == params.page) {
