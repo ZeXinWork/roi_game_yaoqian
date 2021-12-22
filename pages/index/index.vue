@@ -1080,6 +1080,7 @@ export default {
       user: {},
       isStart: false,
       rankeOpenAward: {}, // 最终排名开奖结果
+	  isOpenAssistance: false
     }
   },
   onShow() {
@@ -1114,10 +1115,11 @@ export default {
       let list = this.$storage.get('inviteList')
       const isInvite = list && list.indexOf(this.inviteCode) > -1
       console.log(isInvite, '是否邀请过')
-      if (user.userId && !isInvite) {
+      if (user.userId && !(isInvite == true)) {
         this.getInviteInfo(this.inviteCode, localGameId)
       }
 	  if (!user.userId) {
+		this.isOpenAssistance = true
 		this.toLogin()
 	  }
     }
@@ -1159,11 +1161,15 @@ export default {
     getInviteInfo(code, gameId) {
       console.log(code, 'code')
       console.log(gameId, 'gameId')
-      inviteInfo({
+	  const params = {
         invite_code: code,
         game_id: gameId,
-      }).then((res) => {
-        console.log(res, 'res')
+      }
+      inviteInfo(params).then((res) => {
+		if (res.errno) {
+        	console.log(res, '获取邀请信息出错了！！！')
+			return
+		}
         this.helperInfo = {
           avatar: res.avatar,
           nickName: res.user_name,
@@ -2191,6 +2197,10 @@ export default {
           if (this.currentScoreItem === 1) {
             this.getAward()
           }
+		  if (this.isOpenAssistance) {
+			this.isOpenAssistance = false
+			this.getInviteInfo(this.inviteCode, this.gameId)
+		  }
           if (this.share && this.onceShare) {
 			console.log(this.user,"分享用户登录")
             this.$refs.onceShare.show()
