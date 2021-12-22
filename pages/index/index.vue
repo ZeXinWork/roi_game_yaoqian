@@ -977,6 +977,7 @@ import popup from '@/components/popup/popup.vue'
 import navbar from '@/components/Navbar.vue'
 import redEnvelope from './redEnvelope'
 import moment from 'moment'
+import _ from 'lodash'
 import {
   userLogin,
   gameInfo,
@@ -1080,7 +1081,7 @@ export default {
     }
   },
   onShow() {
-    // this.getData()
+    this.getData()
   },
   onReady() {
     this.context = uni.createCanvasContext('shareCanvas', this)
@@ -1110,14 +1111,14 @@ export default {
     console.log(this.inviteCode, '邀请码')
     if (this.inviteCode) {
       let list = this.$storage.get('inviteList')
-      const isInvite =
-        list && list.isArray() && list.indexOf(this.inviteCode) > -1
+      const isInvite = list && list.indexOf(this.inviteCode) > -1
       console.log(isInvite, '是否邀请过')
       if (user.userId && !isInvite) {
         this.getInviteInfo(this.inviteCode, localGameId)
-      } else {
-        this.toLogin()
       }
+	  if (!user.userId) {
+		this.toLogin()
+	  }
     }
 
     this.user = user
@@ -1590,11 +1591,12 @@ export default {
           }
           this.$storage.clear('invite')
           let list = this.$storage.get('inviteList')
-          if (list && list.isArray()) {
-            list.push(this.inviteCode)
+          if (list && _.isArray(list)) {
+            list.push(params.invite_code)
           } else {
-            list = [this.inviteCode]
+            list = [params.invite_code]
           }
+		  console.log(list)
           this.$storage.set('inviteList', list)
         })
         .catch((error) => {
