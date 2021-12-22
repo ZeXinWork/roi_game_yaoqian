@@ -41,6 +41,7 @@
 		{
 			"path": "pages/my/my",
 			"style": {
+				"navigationBarTitleText": "个人中心",
 				"navigationBarTextStyle": "white",
 				"navigationBarBackgroundColor": "#ff4b3b"
 			}
