@@ -16,19 +16,19 @@
 			<view class="user-info-game-wrap">
 				<view class="user-info-game-wrap_title">我的游戏</view>
 				<view class="user-info-game-wrap_content" v-for="item of gameList" :key='item.game_id' @click="toGame(item)">
-					<image :src="item.logo_url" mode="aspectFill" class="user-info-game-wrap_content_img"></image>
+					<image src="https://static.roi-cloud.com/upload/20211223/60935669155516" mode="aspectFill" class="user-info-game-wrap_content_img"></image>
 					<view class="user-info-game-wrap_content_body">
 						<view class="user-info-game-wrap_content_body_header">
 							<view class="user-info-game-wrap_content_body_header_title">{{item.name}}</view>
 							<view class="user-info-game-wrap_content_body_header_status">
-								<image src="https://static.roi-cloud.com/upload/20211212/60935669153723"
+								<image v-if="item.status == 3" src="https://static.roi-cloud.com/upload/20211212/60935669153723"
 									mode="aspectFill"></image>
-								<text>{{getStatus(item.status)}}</text>
+								<text :class="item.status == 3 ? 'doing_text': 'did_text'">{{getStatus(item.status)}}</text>
 							</view>
 						</view>
 						<view class="user-info-game-wrap_content_body_header_content">
 							<view class="user-info-game-wrap_content_body_content_open mb-8">
-								<image src="https://static.roi-cloud.com/upload/20211211/60935669193851"
+								<image src="https://static.roi-cloud.com/upload/20211223/60935669153957"
 									mode="aspectFill"></image>
 								<text>{{`开奖方式：${item.lottery_type===1?'即开即中':'积分兑换'}`}}</text>
 							</view>
@@ -268,7 +268,7 @@
 
 							&_title {
 								width: 260rpx;
-								font-size: 30rpx;
+								font-size: 40rpx;
 								color: #333;
 								overflow: hidden;
 								white-space: nowrap;
@@ -285,8 +285,16 @@
 									margin-right: 8rpx;
 								}
 
-								text {
+								.doing_text {
 									font-size: 25rpx;
+									color: #E83D3D;
+									letter-spacing: 0.2rpx;
+								}
+
+								.did_text {
+									font-size: 25rpx;
+									color: #8B8B8B;
+									letter-spacing: 0.2rpx;
 								}
 							}
 						}

@@ -55,8 +55,8 @@
 					<view class="number">2</view>
 					<view class="row_text">所有游戏次数当天23:59:59清零。</view>
 				</view>
-				<view class="row_line">
-					<view class="number">2</view>
+				<view class="row_line" v-if="!openShare == 'false'">
+					<view class="number">3</view>
 					<view class="row_text">{{`邀请好友助力成功，双方各加一次游戏次数（多邀多得，上不封顶），每天可助力他人${help_times}次（当天不可重复助力）。`}}</view>
 				</view>
 			</view>
@@ -126,12 +126,15 @@
 				rule: {
 					prizeInfo: []
 				},
-				gameInfo: {}
+				gameInfo: {},
+				openShare: false,
 			};
 		},
 		onLoad(options) {
 			let gameInfo = this.$storage.get("gameInfo")
 			this.gameInfo = gameInfo
+			console.log(options)
+			this.openShare = options.openShare
 			if (!gameInfo.game_id) {
 				uni.showToast({
 					title: "出错啦"

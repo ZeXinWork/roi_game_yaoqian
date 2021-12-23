@@ -3,19 +3,19 @@
 		<view class="user-info-game-wrap">
 			<ListScrollView @handleScrollLower='handleScrollLower' @refreshHandler='getMyList'>
 				<view class="user-info-game-wrap_content" v-for="item of gameList" :key='item.game_id' @click="toGame(item)">
-					<image :src="item.logo_url" mode="aspectFill" class="user-info-game-wrap_content_img"></image>
+					<image src="https://static.roi-cloud.com/upload/20211223/60935669155516" mode="aspectFill" class="user-info-game-wrap_content_img"></image>
 					<view class="user-info-game-wrap_content_body">
 						<view class="user-info-game-wrap_content_body_header">
 							<view class="user-info-game-wrap_content_body_header_title">{{item.name}}</view>
 							<view class="user-info-game-wrap_content_body_header_status">
-								<image src="https://static.roi-cloud.com/upload/20211212/60935669153723"
+								<image v-if="item.status == 3" src="https://static.roi-cloud.com/upload/20211212/60935669153723"
 									mode="aspectFill"></image>
-								<text>{{getStatus(item.status)}}</text>
+								<text :class="item.status == 3 ? 'doing_text': 'did_text'">{{getStatus(item.status)}}</text>
 							</view>
 						</view>
 						<view class="user-info-game-wrap_content_body_header_content">
 							<view class="user-info-game-wrap_content_body_content_open mb-8">
-								<image src="https://static.roi-cloud.com/upload/20211211/60935669193851"
+								<image src="https://static.roi-cloud.com/upload/20211223/60935669153957"
 									mode="aspectFill"></image>
 								<text>{{`开奖方式：${item.lottery_type===1?'即开即中':'积分兑换'}`}}</text>
 							</view>
@@ -30,8 +30,6 @@
 			</ListScrollView>
 		</view>
 	</view>
-	</view>
-
 </template>
 
 <script>
@@ -123,15 +121,17 @@
 	}
 
 	.user-info-game-wrap_content {
-		border-bottom: 2rpx solid #f5f5f5;
-		padding-bottom: 32rpx;
+		border-bottom: 2rpx solid #efeaea;
+		// padding-bottom: 32rpx;
 		box-sizing: border-box;
 		display: flex;
-		padding-right: 40rpx;
+		// padding-right: 40rpx;
+		padding: 20rpx 40rpx 32rpx 10rpx;
 
 		&_img {
 			width: 192rpx;
 			height: 192rpx;
+			border-radius: 20rpx;
 		}
 
 		&_body {
@@ -148,6 +148,10 @@
 				&_title {
 					font-size: 40rpx;
 					color: #333;
+					width: 260rpx;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
 				}
 
 				&_status {
@@ -158,6 +162,18 @@
 						width: 32rpx;
 						height: 32rpx;
 						margin-right: 8rpx;
+					}
+
+					.doing_text {
+						font-size: 25rpx;
+						color: #E83D3D;
+						letter-spacing: 0.2rpx;
+					}
+
+					.did_text {
+						font-size: 25rpx;
+						color: #8B8B8B;
+						letter-spacing: 0.2rpx;
 					}
 				}
 			}
