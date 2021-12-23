@@ -50,7 +50,7 @@
           <text>所需积分</text>
           <uni-icons
             class="arrow"
-            :type="points == 'DESC' ? 'arrowup' : 'arrowdown'"
+            :type="points == 'desc' ? 'arrowup' : 'arrowdown'"
             color="#fff"
           ></uni-icons>
 
@@ -276,8 +276,8 @@ export default {
       gameInfo: {},
       advertList: [],
       userPlayInfo: {},
-      points: "DESC",
-      page: 1,
+      points: "desc",
+      page: 0,
       curr_show_item: {},
     };
   },
@@ -381,10 +381,12 @@ export default {
         page: this.page,
         gameId: this.gameId,
         pageSzie: 20,
-        points: this.points,
       };
       exchangeGamePrizeList(params).then((res) => {
         this.$loading.hide();
+		res = _.map(res, (item) => {
+			return {...item, prize_point: Number(item.prize_point)}
+		})
         this.prizeList = _.orderBy(res, 'prize_point', this.points);
         // if(params.page == 1) this.prizeList = res
         // else this.prizeList = [...this.prizeList,...res]
