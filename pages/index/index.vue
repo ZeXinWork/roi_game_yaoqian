@@ -1233,13 +1233,6 @@ export default {
       })
     },
     onMy() {
-      if (!this.gameId) {
-        uni.showToast({
-          title: '不存在该游戏！',
-          icon: 'error',
-        })
-        return
-      }
 	  const user = this.$storage.getUser()
       if (!user.userId) {
         this.toLogin()
@@ -1652,13 +1645,6 @@ export default {
     play() {
       uni.getNetworkType({
         success: (res) => {
-          if (!this.gameId) {
-            uni.showToast({
-              title: '不存在该游戏！',
-              icon: 'error',
-            })
-            return
-          }
           console.log(res.networkType, "res.networkType === 'none'")
           if (res.networkType === 'none') {
             this.$refs.network.show()
@@ -1667,6 +1653,14 @@ export default {
               return
             }
             const user = this.$storage.getUser()
+
+			if (user.userId && !this.gameId) {
+				uni.showToast({
+                  title: '暂无游戏信息!',
+                  icon: 'none',
+                })
+			}
+
             if (user.userId && !this.isStart) {
               const status = this.gameInfo.status
               if (status == 1 || status == 2) {
@@ -2190,13 +2184,15 @@ export default {
           this.logining = false
           this.$refs.login_popup.close()
 		  this.user = this.$storage.getUser()
-          this.getGameInfo() //获取游戏信息
-          this.getPlayNumber() //获取游戏可玩次数
-          this.getHelperList(1) // 助力记录
-          this.getMyRank() //获取当前我的排名信息
-          if (this.currentScoreItem === 1) {
-            this.getAward()
-          }
+		  if (this.gameId){
+			this.getGameInfo() //获取游戏信息
+			this.getPlayNumber() //获取游戏可玩次数
+			this.getHelperList(1) // 助力记录
+			this.getMyRank() //获取当前我的排名信息
+			if (this.currentScoreItem === 1) {
+				this.getAward()
+			}
+		  }
 		  if (this.isOpenAssistance) {
 			this.isOpenAssistance = false
 			this.getInviteInfo(this.inviteCode, this.gameId)
