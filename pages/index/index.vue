@@ -62,7 +62,7 @@
 			</view> -->
       <view class="bowl">
         <view
-          :data-url="'/pages/rule/rule?gameId=' + gameId"
+          :data-url="'/pages/rule/rule?gameId=' + gameId + '&openShare=' + isOpenShareContent" 
           class="rule"
           @click="toPage"
           >游戏规则</view
@@ -114,9 +114,10 @@
         :prize="gameResult.prize"
 		:playTime="playTime"
 		:type="gameInfo.lottery_type"
+		:openShare="isOpenShareContent"
       ></redEnvelope>
 
-      <view class="de_btn zl_btn" @click="popShow('share')">喊好友来游戏</view>
+      <view v-if="isOpenShareContent" class="de_btn zl_btn" @click="popShow('share')">喊好友来游戏</view>
       <view class="record_wrap">
         <text @click="popShow('score')">积分明细</text>
         <view class="line"></view>
@@ -178,6 +179,7 @@
               </view>
             </view>
             <button
+			  v-if="isOpenShareContent"
               class="share_btn"
               open-type="share"
               data-type="2"
@@ -1080,7 +1082,8 @@ export default {
       user: {},
       isStart: false,
       rankeOpenAward: {}, // 最终排名开奖结果
-	  isOpenAssistance: false
+	  isOpenAssistance: false,
+	  isOpenShareContent: false,
     }
   },
   onShow() {
@@ -2211,6 +2214,7 @@ export default {
 			if (this.currentScoreItem === 1) {
 				this.getAward()
 			}
+			this.isOpenShareContent = res.show_share_btn == 1
 		  }
 		  if (this.isOpenAssistance) {
 			this.isOpenAssistance = false

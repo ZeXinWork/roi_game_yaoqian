@@ -30,8 +30,6 @@
 			</ListScrollView>
 		</view>
 	</view>
-	</view>
-
 </template>
 
 <script>
