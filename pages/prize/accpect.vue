@@ -26,7 +26,7 @@
 			<view class="code_content" @longtap="saveImage">
 				<view class="m_title">联系商家领奖</view>
 				<view class="code_img">
-					<image :show-menu-by-longpress="true" :src="contactInfo.qr_code_url" mode=""></image>
+					<image :show-menu-by-longpress="false" :src="contactInfo.qr_code_url" mode=""></image>
 				</view>
 				<view class="code_tip">长按二维码，保存图片到相册</view>
 			</view>
@@ -142,7 +142,7 @@
 			},
 			getGameInfo() {
 				let gameInfo = this.$storage.get("gameInfo")
-				gameInfo.redeemEndTime = moment(res.game_end_time * 1000).format('YYYY年MM月DD日')
+				gameInfo.redeemEndTime = moment(gameInfo.game_end_time * 1000).format('YYYY年MM月DD日')
 				this.gameInfo = gameInfo
 				// apiGetGameInfo({
 				// 	game_id: this.gameId,
@@ -288,7 +288,7 @@
 			},
 			actionSaveImage(e) {
 				uni.downloadFile({
-					url: this.contactInfo.qrCodeUrl,
+					url: this.contactInfo.qr_code_url,
 					success: (res) => {
 						if (res.statusCode === 200) {
 							uni.saveImageToPhotosAlbum({
@@ -307,6 +307,9 @@
 								}
 							});
 						}
+					},
+					fail: (res) => {
+						console.log(res)
 					}
 				})
 			},
