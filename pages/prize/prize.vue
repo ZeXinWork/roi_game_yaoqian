@@ -80,7 +80,7 @@
       </view>
       <view class="g_content">
         <view class="m_content">{{
-          curr_show_item.prize_details || "暂无详细说明"
+          curr_show_item.prize_desc || "暂无详细说明"
         }}</view>
         <view class="g_btn" @click="$refs.prizeDetail.hide()">我知道了</view>
       </view>
