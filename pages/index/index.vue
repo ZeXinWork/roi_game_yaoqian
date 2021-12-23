@@ -1652,16 +1652,32 @@ export default {
             if (this.playLoading) {
               return
             }
+			this.playLoading = true
             const user = this.$storage.getUser()
 
-			if (user.userId && !this.gameId) {
+			if (!user.userId) {
+              this.playLoading = false
+              this.$refs.login_popup.open('bottom')
+			  return
+            }
+
+			if (!this.gameId) {
 				uni.showToast({
                   title: '暂无游戏信息!',
                   icon: 'none',
                 })
+				return
 			}
 
-            if (user.userId && !this.isStart) {
+			if (this.gameInfo.status > 5 ) {
+				uni.showToast({
+				title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
+				icon: 'error',
+				})
+				return
+			}
+
+            if (!this.isStart) {
               const status = this.gameInfo.status
               if (status == 1 || status == 2) {
                 uni.showToast({
@@ -1671,13 +1687,9 @@ export default {
               }
               return
             }
-            this.playLoading = true
-            if (!user.userId) {
-              this.playLoading = false
-              this.$refs.login_popup.open('bottom')
-            } else {
-              this.getGameResult()
-            }
+            this.getGameResult()
+			this.playLoading = false
+            
           }
         },
       })
@@ -1818,6 +1830,13 @@ export default {
         })
         return
       }
+	  if (ref == 'share' && this.gameInfo.status > 5 ) {
+		  uni.showToast({
+			title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
+			icon: 'error',
+		  })
+		  return
+	  }
       if (this.checkLogin()) {
         this.getAward()
         this.$refs[ref].show()
@@ -2221,6 +2240,13 @@ export default {
       this.$refs.onceShare.hide()
       return
     }
+	if (this.gameInfo.status > 5 ) {
+		uni.showToast({
+		  title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
+		  icon: 'error',
+		})
+		return
+	}
     if (this.share && this.onceShare) {
       const path = `/pages/index/index?gameId=${this.gameId}`
       this.onceShare = false
