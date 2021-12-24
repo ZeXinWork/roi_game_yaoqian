@@ -3592,6 +3592,7 @@ page {
 
   .recorde_ad_wrap {
     background-image: linear-gradient(180deg, #FECBB7 55%, rgba(255, 255, 255, 0) 100%);
+    min-height: 400rpx;
   }
 
   .record_wrap {
