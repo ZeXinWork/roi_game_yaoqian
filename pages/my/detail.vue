@@ -66,6 +66,9 @@
 						this.gameList = res
 					} else {
 						if (_.isArray(res)){
+							if (res.length < this.queryObj.limit) {
+								this.noData = true
+							}
 							this.gameList = [...this.gameList, ...res]
 						}
 					}
