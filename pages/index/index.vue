@@ -1234,9 +1234,12 @@ export default {
         this.toLogin()
         return
       }
-      uni.navigateTo({
-        url: '/pages/my/my',
-      })
+	  wechat.getAuthOfSubscribeMessage(()=> {
+		uni.navigateTo({
+		  url: '/pages/my/my',
+		})
+	  })
+      
     },
     savePhone: function () {
       if (!this.phone) {
