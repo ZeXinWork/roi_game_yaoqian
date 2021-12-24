@@ -971,6 +971,7 @@ import '@/static/css/game.scss'
 import Modal from '@/components/Modal.vue'
 import startsWith from 'lodash/startsWith'
 import { validPhone, relativePath } from '@/utils/tool.js'
+import wechat from '@/utils/wechatUtils.js'
 import popup from '@/components/popup/popup.vue'
 import navbar from '@/components/Navbar.vue'
 import redEnvelope from './redEnvelope'
@@ -992,6 +993,7 @@ import {
   inviteInfo,
   getOpenAward,
   getMyRank,
+  apiWechatMessage,
 } from '@/rest/api.js'
 export default {
   components: {
@@ -1075,8 +1077,9 @@ export default {
       user: {},
       isStart: false,
       rankeOpenAward: {}, // 最终排名开奖结果
-	  isOpenAssistance: false,
-	  isOpenShareContent: false,
+      isOpenAssistance: false,
+      isOpenShareContent: false,
+      isOpenSendMessage: false,
     }
   },
   onShow() {
@@ -1234,11 +1237,18 @@ export default {
         this.toLogin()
         return
       }
-	  wechat.getAuthOfSubscribeMessage(()=> {
-		uni.navigateTo({
-		  url: '/pages/my/my',
-		})
-	  })
+      if (this.isOpenSendMessage){
+        wechat.getAuthOfSubscribeMessage(()=> {
+          uni.navigateTo({
+            url: '/pages/my/my',
+          })
+        })
+      } else {
+        uni.navigateTo({
+          url: '/pages/my/my',
+        })
+      }
+      
       
     },
     savePhone: function () {
@@ -1355,7 +1365,13 @@ export default {
       this.helpTop = 0
       this.hasMore = true
       this.show = true
-      this.popShow('help')
+      if (this.isOpenSendMessage) {
+        wechat.getAuthOfSubscribeMessage(()=> {
+          this.popShow('help')
+        })
+      } else {
+        this.popShow('help')
+      }
     },
     getKingOfKingPrize() {
       apiKingOfKingPrize({
@@ -1421,6 +1437,8 @@ export default {
         this.getMyRank()
         //获取游戏可玩次数
         this.getPlayNumber()
+		    this.isOpenShareContent = this.user.show_share_btn == 1
+        this.getWechatMessage()
       }
 
       //   apiGetMinSetting().then((res) => {
@@ -1504,9 +1522,18 @@ export default {
       }
       const user = this.$storage.getUser()
       if (user && user.userId) {
-        uni.navigateTo({
-          url: e.currentTarget.dataset.url,
-        })
+        if ( this.isOpenSendMessage && (e.currentTarget.dataset.url.indexOf("conversion/conversion") >= 1
+        || e.currentTarget.dataset.url.indexOf("prize/prize") >= 1)) {
+          wechat.getAuthOfSubscribeMessage(()=> {
+            uni.navigateTo({
+              url: e.currentTarget.dataset.url,
+            })
+          })
+        } else {
+          uni.navigateTo({
+            url: e.currentTarget.dataset.url,
+          })
+        }
       } else {
         this.$refs.login_popup.open('bottom')
       }
@@ -1651,30 +1678,32 @@ export default {
             if (this.playLoading) {
               return
             }
-			this.playLoading = true
+            this.playLoading = true
             const user = this.$storage.getUser()
 
-			if (!user.userId) {
+            if (!user.userId) {
               this.playLoading = false
               this.$refs.login_popup.open('bottom')
-			  return
+              return
             }
 
-			if (!this.gameId) {
-				uni.showToast({
-                  title: '暂无游戏信息!',
-                  icon: 'none',
-                })
-				return
-			}
+            if (!this.gameId) {
+              uni.showToast({
+                title: '暂无游戏信息!',
+                icon: 'none',
+              })
+              this.playLoading = false
+              return
+            }
 
-			if (this.gameInfo.status > 5 ) {
-				uni.showToast({
-				title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
-				icon: 'error',
-				})
-				return
-			}
+            if (this.gameInfo.status > 5 ) {
+              uni.showToast({
+                title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
+                icon: 'error',
+              })
+              this.playLoading = false
+              return
+            }
 
             if (!this.isStart) {
               const status = this.gameInfo.status
@@ -1684,11 +1713,19 @@ export default {
                   icon: 'none',
                 })
               }
+              this.playLoading = false
               return
             }
-            this.getGameResult()
-			this.playLoading = false
-            
+
+            if (this.isOpenSendMessage) {
+              wechat.getAuthOfSubscribeMessage(()=> {
+              this.playLoading = false
+                this.getGameResult()
+              })
+            } else {
+              this.playLoading = false
+              this.getGameResult()
+            }
           }
         },
       })
@@ -1829,15 +1866,23 @@ export default {
         })
         return
       }
-	  if (ref == 'share' && this.gameInfo.status > 5 ) {
-		  uni.showToast({
-			title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
-			icon: 'error',
-		  })
-		  return
-	  }
+      if (ref == 'share' && this.gameInfo.status > 5 ) {
+        uni.showToast({
+        title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
+        icon: 'error',
+        })
+        return
+      }
       if (this.checkLogin()) {
         this.getAward()
+        if (ref == 'source') {
+          if (this.isOpenSendMessage) {
+            wechat.getAuthOfSubscribeMessage(()=> {
+              this.$refs[ref].show()
+            })
+            return
+          }
+        }
         this.$refs[ref].show()
       }
     },
@@ -2223,6 +2268,7 @@ export default {
 				this.getAward()
 			}
 			this.isOpenShareContent = res.show_share_btn == 1
+			console.log(this.isOpenShareContent)
 		  }
 		  if (this.isOpenAssistance) {
 			this.isOpenAssistance = false
@@ -2242,6 +2288,12 @@ export default {
           })
         })
     },
+    getWechatMessage(handler) {
+			apiWechatMessage().then((res)=> {
+				this.isOpenSendMessage = res.high_frequency_notice == 1
+				handler && handler()
+			})
+		}
   },
   async onShareAppMessage(e) {
     if (!this.gameId) {

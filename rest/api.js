@@ -498,3 +498,8 @@ export const getOpenAward = (params) => {
 export const getMyRank = (params) => {
 	return restResult(GET, api.GET_MY_RANK, params)
 }
+
+// 获取触发消息推送
+export const apiWechatMessage = () => {
+	return restResult(GET, api.WECHAT_MESSAGE )
+}
