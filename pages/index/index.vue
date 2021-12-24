@@ -1,63 +1,45 @@
 <template>
-  <view
-    class="wrap"
-    :style="{
+	<view class="wrap" :style="{
       backgroundColor:
         gameInfo.game_pk_plugin && gameInfo.game_pk_plugin.length !== 0
           ? '#ff2626'
           : '#fdccb9',
-    }"
-  >
-    <navbar
-      :params="{
+    }">
+		<navbar :params="{
         navColor: navColor,
         titleColor: '#fff',
         title: gameInfo.logo_url ? '' : `${gameInfo.name || ''}`,
-      }"
-      class=""
-    >
-      <view
-        v-if="gameInfo.logo_url"
-        class="diy_logo"
-        :style="
+      }" class="">
+			<view v-if="gameInfo.logo_url" class="diy_logo" :style="
           'background:url(' +
           gameInfo.logo_url +
           ') center center no-repeat;background-size:contain'
-        "
-      />
-    </navbar>
-    <view
-      id="main"
-      :style="{
+        " />
+		</navbar>
+		<view id="main" :style="{
         paddingTop: navbarHeight + 'px',
         background: `url(${
           gameInfo.backgroundInfo.backgroundUrl ||
           'https://static.roi-cloud.com/upload/20211211/60935669180404'
         }) no-repeat`,
         backgroundSize: '100%',
-      }"
-    >
-      <view class="swiper_wrap">
-        <uni-notice-bar
-          showIcon="true"
-          color="#fff"
-          background-color="transparent"
-          scrollable="true"
-          single="true"
-          text="活动发起方和参与用户需同意《络绎有客游戏用户服务协议》方可进行游戏，使用本服务即视为已阅读并同意受本协议的约束。活动发起方不得利用本程序从事国家法律法规禁止的违法犯罪活动，不得上架法律法规禁止或限制发布的产品，活动发起方对所提供奖品的质量和兑奖承诺全权负责。"
-        >
-        </uni-notice-bar>
-      </view>
-      <view class="tips" v-if="Number(gameInfo.status) == 3">
-        游戏时间：{{
+      }">
+			<view class="swiper_wrap">
+				<uni-notice-bar showIcon="true" color="#fff" background-color="transparent" scrollable="true"
+					single="true"
+					text="活动发起方和参与用户需同意《络绎有客游戏用户服务协议》方可进行游戏，使用本服务即视为已阅读并同意受本协议的约束。活动发起方不得利用本程序从事国家法律法规禁止的违法犯罪活动，不得上架法律法规禁止或限制发布的产品，活动发起方对所提供奖品的质量和兑奖承诺全权负责。">
+				</uni-notice-bar>
+			</view>
+			<view class="tips" v-if="Number(gameInfo.status) == 3">
+				游戏时间：{{
           gameInfo.game_start_time + ' - ' + gameInfo.game_end_time
         }}
-      </view>
-      <view class="tips" v-else-if="Number(gameInfo.status) > 3">
-        {{ gameStatus(Number(gameInfo.status)) }}
-      </view>
-      <canvas canvas-id="shareCanvas" id="shareCanvas"></canvas>
-      <!-- <view class="bowl_title">
+			</view>
+			<view class="tips" v-else-if="Number(gameInfo.status) > 3">
+				{{ gameStatus(Number(gameInfo.status)) }}
+			</view>
+			<canvas canvas-id="shareCanvas" id="shareCanvas"></canvas>
+			<!-- <view class="bowl_title">
 				<image src="https://static.roi-cloud.com/base/icon_bo-title.png" mode=""></image>
 			</view> -->
       <view class="bowl">
@@ -140,830 +122,501 @@
         class="rank_ad_wrap"
         v-if="
           gameInfo.game_pk_plugin.length && gameInfo.game_pk_plugin.length !== 0
-        "
-      >
-        <view class="rank_wrap">
-          <view class="rank_title">
-            <view class="rank_title_left">
-              <view class="icon_rangk"></view>
-              <text>排行榜</text>
-            </view>
-          </view>
+        ">
+				<view class="rank_wrap">
+					<view class="rank_title">
+						<view class="rank_title_left">
+							<view class="icon_rangk"></view>
+							<text>排行榜</text>
+						</view>
+					</view>
 
-          <view class="rank_time">
-            {{ gameInfo.game_start_time }} - {{ gameInfo.game_end_time }}
-          </view>
-          <view class="my_rank">
-            <view class="my_rank_top">
-              <view class="rank_avatar">
-                <image :src="user.avatar" mode=""> </image>
-              </view>
-              <view class="my_rank_item">
-                <view class="my_rank_title">我的排行</view>
-                <view class="rank_item_number">{{
+					<view class="rank_time">
+						{{ gameInfo.game_start_time }} - {{ gameInfo.game_end_time }}
+					</view>
+					<view class="my_rank">
+						<view class="my_rank_top">
+							<view class="rank_avatar">
+								<image :src="user.avatar" mode=""> </image>
+							</view>
+							<view class="my_rank_item">
+								<view class="my_rank_title">我的排行</view>
+								<view class="rank_item_number">{{
                   userRank.ranking || 0
                 }}</view>
-              </view>
-              <view class="my_rank_item">
-                <view class="my_rank_title">总积分</view>
-                <view class="rank_item_number">{{
+							</view>
+							<view class="my_rank_item">
+								<view class="my_rank_title">总积分</view>
+								<view class="rank_item_number">{{
                   userRank.integral || 0
                 }}</view>
-              </view>
-            </view>
-            <button
-			  v-if="isOpenShareContent"
-              class="share_btn"
-              open-type="share"
-              data-type="2"
-              :data-rank="userRank.ranking"
-            >
-              <image
-                class="icon_wechat"
-                src="https://static.roi-cloud.com/base/icon_wechat.png"
-                mode=""
-              >
-              </image>
-              <text>晒排名 加次数</text>
-            </button>
-          </view>
-          <view class="rank_list">
-            <view
-              v-for="(item, index) in kingofKingsList"
-              :key="index"
-              class="mlr30"
-            >
-              <view class="rank_box">
-                <view class="gift_image">
-                  <image :src="item.info.prize_url" mode="aspectFill"></image>
-                </view>
-                <view class="gift_right">
-                  <view class="gift_title">
-                    <view class="gift_level">{{ item.info.ranking_name }}</view>
-                    <view class="no_number">{{ item.range }}</view>
-                  </view>
-                  <view class="">{{ item.info.prize_name }}</view>
-                </view>
-              </view>
-              <view
-                class="box_item"
-                v-for="(user, userIndex) in item.list"
-                :key="userIndex"
-              >
-                <view class="box_item_left">
-                  <image
-                    v-if="user.no_num < 4"
-                    class="no_icon"
-                    :src="
+							</view>
+						</view>
+						<button v-if="isOpenShareContent" class="share_btn" open-type="share" data-type="2"
+							:data-rank="userRank.ranking">
+							<image class="icon_wechat" src="https://static.roi-cloud.com/base/icon_wechat.png" mode="">
+							</image>
+							<text>晒排名 加次数</text>
+						</button>
+					</view>
+					<view class="rank_list">
+						<view v-for="(item, index) in kingofKingsList" :key="index" class="mlr30">
+							<view class="rank_box">
+								<view class="gift_image">
+									<image :src="item.info.prize_url" mode="aspectFill"></image>
+								</view>
+								<view class="gift_right">
+									<view class="gift_title">
+										<view class="gift_level">{{ item.info.ranking_name }}</view>
+										<view class="no_number">{{ item.range }}</view>
+									</view>
+									<view class="">{{ item.info.prize_name }}</view>
+								</view>
+							</view>
+							<view class="box_item" v-for="(user, userIndex) in item.list" :key="userIndex">
+								<view class="box_item_left">
+									<image v-if="user.no_num < 4" class="no_icon" :src="
                       'https://static.roi-cloud.com/base/icon_no_' +
                       user.no_num +
                       '.png'
-                    "
-                    mode="aspectFill"
-                  >
-                  </image>
-                  <view class="no_icon" v-else>{{ user.no_num }}</view>
-                  <image class="avatar" :src="user.avatar" mode=""></image>
-                  <text class="username">{{ user.nickname }}</text>
-                </view>
-                <text>{{ user.ranking_integral }}</text>
-              </view>
-            </view>
+                    " mode="aspectFill">
+									</image>
+									<view class="no_icon" v-else>{{ user.no_num }}</view>
+									<image class="avatar" :src="user.avatar" mode=""></image>
+									<text class="username">{{ user.nickname }}</text>
+								</view>
+								<text>{{ user.ranking_integral }}</text>
+							</view>
+						</view>
 
-            <view class="border_top">
-              <view
-                class="box_item"
-                v-for="(user, userIndex) in otherKingList"
-                :key="userIndex"
-              >
-                <view class="box_item_left">
-                  <view class="no_icon">{{ user.no_num }}</view>
-                  <image class="avatar" :src="user.avatar" mode=""></image>
-                  <text class="username">{{ user.nickname }}</text>
-                </view>
-                <text>{{ user.ranking_integral }}</text>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-      <popup ref="onceShare" width="650" bgColor="#FFF8DC">
-        <view class="p_title"
-          >立即分享游戏
-          <image
-            @click="$refs.onceShare.hide()"
-            class="icon_close"
-            src="https://static.roi-cloud.com/base/icon_close.png"
-            mode=""
-          ></image>
-        </view>
+						<view class="border_top">
+							<view class="box_item" v-for="(user, userIndex) in otherKingList" :key="userIndex">
+								<view class="box_item_left">
+									<view class="no_icon">{{ user.no_num }}</view>
+									<image class="avatar" :src="user.avatar" mode=""></image>
+									<text class="username">{{ user.nickname }}</text>
+								</view>
+								<text>{{ user.ranking_integral }}</text>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<popup ref="onceShare" width="650" bgColor="#FFF8DC">
+				<view class="p_title">立即分享游戏
+					<image @click="$refs.onceShare.hide()" class="icon_close"
+						src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
+				</view>
 
-        <button open-type="share" class="pop_share_btn" data-type="0">
-          <image
-            src="https://static.roi-cloud.com/base/icon_share_wechat.png"
-            mode=""
-          ></image>
-          <view class="share_text"> 邀请好友 </view>
-        </button>
-      </popup>
+				<button open-type="share" class="pop_share_btn" data-type="0">
+					<image src="https://static.roi-cloud.com/base/icon_share_wechat.png" mode=""></image>
+					<view class="share_text"> 邀请好友 </view>
+				</button>
+			</popup>
 
-      <popup ref="share" width="650" bgColor="#FFF8DC">
-        <view class="p_title"
-          >多邀多得上不封顶
-          <image
-            @click="$refs.share.hide()"
-            class="icon_close"
-            src="https://static.roi-cloud.com/base/icon_close.png"
-            mode=""
-          ></image>
-        </view>
-        <view class="share_img_wrap">
-          <image
-            src="https://game0.roi-cloud.com/static/images/share_red_img.png"
-            mode="aspectFit"
-          ></image>
-        </view>
-        <button
-          open-type="share"
-          class="pop_share_btn"
-          data-type="0"
-          v-if="user.userId"
-        >
-          <image
-            src="https://static.roi-cloud.com/base/icon_share_wechat.png"
-            mode=""
-          ></image>
-          <view class="share_text"> 邀请好友 </view>
-        </button>
-        <view
-          class="pop_share_btn"
-          v-else
-          @click="$refs.share.hide(), toLogin()"
-        >
-          <image
-            src="https://static.roi-cloud.com/base/icon_share_wechat.png"
-            mode=""
-          ></image>
-          <view class="share_text"> 邀请好友 </view>
-        </view>
-      </popup>
+			<popup ref="share" width="650" bgColor="#FFF8DC">
+				<view class="p_title">多邀多得上不封顶
+					<image @click="$refs.share.hide()" class="icon_close"
+						src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
+				</view>
+				<view class="share_img_wrap">
+					<image src="https://game0.roi-cloud.com/static/images/share_red_img.png" mode="aspectFit"></image>
+				</view>
+				<button open-type="share" class="pop_share_btn" data-type="0" v-if="user.userId">
+					<image src="https://static.roi-cloud.com/base/icon_share_wechat.png" mode=""></image>
+					<view class="share_text"> 邀请好友 </view>
+				</button>
+				<view class="pop_share_btn" v-else @click="$refs.share.hide(), toLogin()">
+					<image src="https://static.roi-cloud.com/base/icon_share_wechat.png" mode=""></image>
+					<view class="share_text"> 邀请好友 </view>
+				</view>
+			</popup>
 
-      <!-- 分数排行 -->
-      <popup ref="score" width="650">
-        <view class="p_title f-normal"
-          >分数明细
-          <image
-            @click="$refs.score.hide()"
-            class="icon_close"
-            src="https://static.roi-cloud.com/base/icon_close.png"
-            mode=""
-          ></image>
-        </view>
-        <view class="score_menu">
-          <view
-            :class="['score_item', { active: currentScoreItem == 1 }]"
-            @click="changeItem(1)"
-            >中奖明细</view
-          >
-          <view
-            :class="['score_item', { active: currentScoreItem == 2 }]"
-            @click="changeItem(2)"
-            >兑奖明细</view
-          >
-        </view>
-        <view v-if="currentScoreItem == 1">
-          <view class="score_list" v-if="scoreDetailList.length > 0">
-            <view
-              class="score_list_item"
-              v-for="item in scoreDetailList"
-              :key="item.id"
-            >
-              <view class="item_left">{{ item.name }}</view>
-              <view class="item_right">
-                <text class="t_blod" v-if="item.integral">{{
+			<!-- 分数排行 -->
+			<popup ref="score" width="650">
+				<view class="p_title f-normal">积分明细
+					<image @click="$refs.score.hide()" class="icon_close"
+						src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
+				</view>
+				<view class="score_menu">
+					<view :class="['score_item', { active: currentScoreItem == 1 }]" @click="changeItem(1)">中奖明细</view>
+					<view :class="['score_item', { active: currentScoreItem == 2 }]" @click="changeItem(2)">兑奖明细</view>
+				</view>
+				<view v-if="currentScoreItem == 1">
+					<view class="score_list" v-if="scoreDetailList.length > 0">
+						<view class="score_list_item" v-for="item in scoreDetailList" :key="item.id">
+							<view class="item_left" v-if="Number(gameInfo.lottery_type) === 1">{{ item.name }}</view>
+							<view class="item_right">
+								<text class="t_blod" v-if="item.integral">{{
                   `+${item.integral}`
                 }}</text>
-                <view class="item_right_time">
-                  <view class="item_right_time_date">{{ item.date }}</view>
-                  <view class="">
-                    {{ item.time }}
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-          <view class="no_data" v-else>暂无数据</view>
-        </view>
-        <view v-if="currentScoreItem == 2">
-          <view class="score_list" v-if="exchangeList.length > 0">
-            <view
-              class="score_list_item"
-              v-for="item in exchangeList"
-              :key="item"
-            >
-              <view class="item_left">{{ item.name }}</view>
-              <view class="item_right">
-                <text class="t_blod" v-if="item.integral">{{
+								<view class="item_right_time">
+									<view class="item_right_time_date">{{ item.date }}</view>
+									<view class="">
+										{{ item.time }}
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="no_data" v-else>暂无数据</view>
+				</view>
+				<view v-if="currentScoreItem == 2">
+					<view class="score_list" v-if="exchangeList.length > 0">
+						<view class="score_list_item" v-for="item in exchangeList" :key="item">
+							<view class="item_left">{{ item.name }}</view>
+							<view class="item_right">
+								<text class="t_blod" v-if="item.integral">{{
                   `-${item.integral}`
                 }}</text>
-                <view class="item_right_time">
-                  <view class="item_right_time_date">{{ item.date }}</view>
-                  <view class="">
-                    {{ item.time }}
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-          <view class="no_data" v-else>暂无数据</view>
-        </view>
-      </popup>
+								<view class="item_right_time">
+									<view class="item_right_time_date">{{ item.date }}</view>
+									<view class="">
+										{{ item.time }}
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="no_data" v-else>暂无数据</view>
+				</view>
+			</popup>
 
-      <popup ref="help" width="650" :canClose="false">
-        <view class="p_title">
-          <text>助力记录</text>
-          <image
-            @click.stop="closeHelp"
-            class="icon_close"
-            src="https://static.roi-cloud.com/base/icon_close.png"
-            mode=""
-          ></image>
-        </view>
-        <view class="help_menu">
-          <view
-            :class="['help_item', { active: currentHelpItem == 1 }]"
-            @click="changeHelpTypeList(1)"
-            >好友助力
-          </view>
-          <view
-            :class="['help_item', { active: currentHelpItem == 2 }]"
-            @click="changeHelpTypeList(2)"
-            >我的助力
-          </view>
-        </view>
-        <view class="help_tip">
-          <image
-            src="https://static.roi-cloud.com/base/icon_bulb.png"
-            mode=""
-          ></image>
-          <text>每人每天可邀请无限好友助力（不可重复助力）</text>
-        </view>
-        <view class="help_list" v-if="helper.list.length > 0">
-          <scroll-view
-            v-show="showItem == 1"
-            :scroll-y="true"
-            ref="scroll"
-            :scroll-top="helperTop"
-            @scrolltolower.stop.prevent="helpMeListMore"
-            @scroll="helpScroll"
-            style="height: 100%"
-          >
-            <view
-              class="help_list_item"
-              v-for="item in helper.list"
-              :key="item.id"
-            >
-              <view class="help_left">
-                <view class="avatar">
-                  <image :src="item.avatar" mode=""></image>
-                </view>
-                <view class="username">{{ item.name }}</view>
-              </view>
-              <view class="help_right">
-                <text>{{ item.date }} </text>
-                <text class="ml10" v-if="currentHelpItem == 1">为我助力</text>
-                <text class="ml10" v-else>为Ta助力</text>
-              </view>
-            </view>
-          </scroll-view>
-          <scroll-view
-            v-show="showItem == 2"
-            :scroll-y="true"
-            ref="scroll"
-            :scroll-top="helperTop"
-            @scrolltolower.stop.prevent="helpMeListMore"
-            @scroll="helpScroll"
-            style="height: 100%"
-          >
-            <view
-              class="help_list_item"
-              v-for="item in helper.list"
-              :key="item.recordId"
-            >
-              <view class="help_left">
-                <view class="avatar">
-                  <image :src="item.userInfo.avatar" mode=""></image>
-                </view>
-                <view class="username">{{ item.userInfo.nickName }}</view>
-              </view>
-              <view class="help_right">
-                <text>{{ getTime(item.helpTime) }} </text>
-                <text class="ml10">为TA助力</text>
-              </view>
-            </view>
-          </scroll-view>
-        </view>
-        <view v-else class="no_data"> 暂无数据 </view>
-      </popup>
+			<popup ref="help" width="650" :canClose="false">
+				<view class="p_title">
+					<text>助力记录</text>
+					<image @click.stop="closeHelp" class="icon_close"
+						src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
+				</view>
+				<view class="help_menu">
+					<view :class="['help_item', { active: currentHelpItem == 1 }]" @click="changeHelpTypeList(1)">好友助力
+					</view>
+					<view :class="['help_item', { active: currentHelpItem == 2 }]" @click="changeHelpTypeList(2)">我的助力
+					</view>
+				</view>
+				<view class="help_tip">
+					<image src="https://static.roi-cloud.com/base/icon_bulb.png" mode=""></image>
+					<text>每人每天可邀请无限好友助力（不可重复助力）</text>
+				</view>
+				<view class="help_list" v-if="helper.list.length > 0">
+					<scroll-view v-show="showItem == 1" :scroll-y="true" ref="scroll" :scroll-top="helperTop"
+						@scrolltolower.stop.prevent="helpMeListMore" @scroll="helpScroll" style="height: 100%">
+						<view class="help_list_item" v-for="item in helper.list" :key="item.id">
+							<view class="help_left">
+								<view class="avatar">
+									<image :src="item.avatar" mode=""></image>
+								</view>
+								<view class="username">{{ item.name }}</view>
+							</view>
+							<view class="help_right">
+								<text>{{ item.date }} </text>
+								<text class="ml10" v-if="currentHelpItem == 1">为我助力</text>
+								<text class="ml10" v-else>为Ta助力</text>
+							</view>
+						</view>
+					</scroll-view>
+					<scroll-view v-show="showItem == 2" :scroll-y="true" ref="scroll" :scroll-top="helperTop"
+						@scrolltolower.stop.prevent="helpMeListMore" @scroll="helpScroll" style="height: 100%">
+						<view class="help_list_item" v-for="item in helper.list" :key="item.recordId">
+							<view class="help_left">
+								<view class="avatar">
+									<image :src="item.userInfo.avatar" mode=""></image>
+								</view>
+								<view class="username">{{ item.userInfo.nickName }}</view>
+							</view>
+							<view class="help_right">
+								<text>{{ getTime(item.helpTime) }} </text>
+								<text class="ml10">为TA助力</text>
+							</view>
+						</view>
+					</scroll-view>
+				</view>
+				<view v-else class="no_data"> 暂无数据 </view>
+			</popup>
 
-      <popup ref="assistance" class="assistance_pop" width="630">
-        <view class="avatar">
-          <image :src="helperInfo.avatar" mode=""></image>
-        </view>
-        <text class="username">{{ helperInfo.nickName }}</text>
-        <!-- 分享中奖 -->
-        <view v-if="helperInfo.prizeName">
-          <view class="ass_m_title mt50"
-            >在[ {{ helperInfo.gameName }} ] 获得了</view
-          >
-          <view class="g_img">
-            <view class="goods_wrap">
-              <image
-                :src="helperInfo.prize && helperInfo.prize.prizeImageUrl"
-                mode=""
-              ></image>
-              <view class="prizeName">
-                {{ helperInfo.prizeName }}
-              </view>
-            </view>
-          </view>
-          <view class="ass_m_title">你也来一把</view>
-        </view>
-        <!-- 分享排行 -->
-        <view v-else-if="helperInfo.king.rankNumber > 0">
-          <view class="ass_m_title mt50"
-            >在[ {{ helperInfo.gameName }} ] 排名</view
-          >
-          <view class="g_rank_no"
-            >第 {{ helperInfo.king && helperInfo.king.rankNumber }} 名</view
-          >
-          <view class="ass_m_title">帮我冲刺一下</view>
-        </view>
-        <!-- 未中奖 -->
-        <view v-else>
-          <view class="ass_m_title mt50"
-            >正在参与[ {{ helperInfo.gameName }} ]</view
-          >
-          <view class="ass_m_title">你也来一把</view>
-        </view>
+			<popup ref="assistance" class="assistance_pop" width="630">
+				<view class="avatar">
+					<image :src="helperInfo.avatar" mode=""></image>
+				</view>
+				<text class="username">{{ helperInfo.nickName }}</text>
+				<!-- 分享中奖 -->
+				<view v-if="helperInfo.prizeName">
+					<view class="ass_m_title mt50">在[ {{ helperInfo.gameName }} ] 获得了</view>
+					<view class="g_img">
+						<view class="goods_wrap">
+							<image :src="helperInfo.prize && helperInfo.prize.prizeImageUrl" mode=""></image>
+							<view class="prizeName">
+								{{ helperInfo.prizeName }}
+							</view>
+						</view>
+					</view>
+					<view class="ass_m_title">你也来一把</view>
+				</view>
+				<!-- 分享排行 -->
+				<view v-else-if="helperInfo.king.rankNumber > 0">
+					<view class="ass_m_title mt50">在[ {{ helperInfo.gameName }} ] 排名</view>
+					<view class="g_rank_no">第 {{ helperInfo.king && helperInfo.king.rankNumber }} 名</view>
+					<view class="ass_m_title">帮我冲刺一下</view>
+				</view>
+				<!-- 未中奖 -->
+				<view v-else>
+					<view class="ass_m_title mt50">正在参与[ {{ helperInfo.gameName }} ]</view>
+					<view class="ass_m_title">你也来一把</view>
+				</view>
 
-        <view class="mt10">一起游戏，各得一次机会</view>
-        <view class="play_btn mt50" @click="gameHelp">我也来一把</view>
-        <view class="ad_wrap" v-if="advertList[4].length > 0">
-          <swiper
-            :circular="true"
-            :autoplay="true"
-            :interval="3000"
-            :duration="1000"
-          >
-            <swiper-item v-for="item in advertList[4]" :key="item">
-              <view class="swiper-item">
-                <image :src="item.uploadImgInfo.img" mode="aspectFill"></image>
-              </view>
-            </swiper-item>
-          </swiper>
-        </view>
-      </popup>
+				<view class="mt10">一起游戏，各得一次机会</view>
+				<view class="play_btn mt50" @click="gameHelp">我也来一把</view>
+				<view class="ad_wrap" v-if="advertList[4].length > 0">
+					<swiper :circular="true" :autoplay="true" :interval="3000" :duration="1000">
+						<swiper-item v-for="item in advertList[4]" :key="item">
+							<view class="swiper-item">
+								<image :src="item.uploadImgInfo.img" mode="aspectFill"></image>
+							</view>
+						</swiper-item>
+					</swiper>
+				</view>
+			</popup>
 
-      <popup ref="help_other" class="help_other" width="630">
-        <view class="help_status_icon">
-          <image
-            src="https://static.roi-cloud.com/base/icon_success.png"
-            mode=""
-          ></image>
-        </view>
-        <view class="help_m_title">助力成功</view>
-        <view class="help_sub_title">恭喜您获得一次游戏机会</view>
-        <view class="play_btn mt100" @click="$refs.help_other.hide()"
-          >去游戏</view
-        >
-      </popup>
-      <popup ref="help_other_faile" class="help_other_faile" width="630">
-        <view class="help_status_icon">
-          <image
-            src="https://static.roi-cloud.com/base/icon_fail.png"
-            mode=""
-          ></image>
-        </view>
-        <view class="help_m_title">助力失败</view>
-        <view class="help_sub_title">{{ helpFaileMsg }}</view>
-        <view class="play_btn mt100" @click="$refs.help_other_faile.hide()"
-          >去游戏</view
-        >
-      </popup>
+			<popup ref="help_other" class="help_other" width="630">
+				<view class="help_status_icon">
+					<image src="https://static.roi-cloud.com/base/icon_success.png" mode=""></image>
+				</view>
+				<view class="help_m_title">助力成功</view>
+				<view class="help_sub_title">恭喜您获得一次游戏机会</view>
+				<view class="play_btn mt100" @click="$refs.help_other.hide()">去游戏</view>
+			</popup>
+			<popup ref="help_other_faile" class="help_other_faile" width="630">
+				<view class="help_status_icon">
+					<image src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
+				</view>
+				<view class="help_m_title">助力失败</view>
+				<view class="help_sub_title">{{ helpFaileMsg }}</view>
+				<view class="play_btn mt100" @click="$refs.help_other_faile.hide()">去游戏</view>
+			</popup>
 
-      <popup ref="get_out" bgColor="#FFF8DC" class="get_out" width="630">
-        <image
-          @click="closeThisPage"
-          class="icon_close"
-          src="https://static.roi-cloud.com/base/icon_close.png"
-          mode=""
-        >
-        </image>
-        <image
-          class="icon_sad"
-          src="https://static.roi-cloud.com/base/icon_fail.png"
-          mode=""
-        ></image>
-        <view class="m_title">本游戏因违规已停止服务</view>
-        <view class="s_title"> 很抱歉由于涉嫌违规已 停止服务。 </view>
-        <view class="btn_know" @click="closeThisPage">我知道</view>
-        <navigator
-          hover-class="none"
-          url="/pages/webView/webView?src=https://mp.weixin.qq.com/s/-vyXSDr_h-OTVsZfkZRf6w"
-          class="bttom_tips"
-        >
-          关闭后依然可进行奖品相关操作 如有疑问请 <text>点击查看</text>
-        </navigator>
-      </popup>
-      <popup ref="over_popup" bgColor="#FFF8DC" class="over_popup" width="630">
-        <view>
-          <view class="over_header">
-            <view class="over_title">
-              <text>活动结束</text>
-              <uni-icons
-                @click="$refs.over_popup.hide()"
-                class="icon_close"
-                type="closeempty"
-                size="30"
-                color="#fff"
-              ></uni-icons>
-            </view>
-          </view>
-          <view class="o_avatar">
-            <image :src="user.avatar" mode=""></image>
-          </view>
-          <view class="o_username">{{ user.nickname }}</view>
-          <view v-if="gameInfo.lottery_type == 1">
-            <view class="o_rank">本次活动已经结束</view>
-            <view class="o_rank"
-              >最终排名为<text
-                >【第{{ rankeOpenAward.prize_source }}名】</text
-              ></view
-            >
-            <view class="o_prize">
-              <image :src="rankeOpenAward.prize_url" mode="aspectFill"></image>
-              <view class="o_prize_text">
-                <view class="ranke_name">{{
+			<popup ref="get_out" bgColor="#FFF8DC" class="get_out" width="630">
+				<image @click="closeThisPage" class="icon_close" src="https://static.roi-cloud.com/base/icon_close.png"
+					mode="">
+				</image>
+				<image class="icon_sad" src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
+				<view class="m_title">本游戏因违规已停止服务</view>
+				<view class="s_title"> 很抱歉由于涉嫌违规已 停止服务。 </view>
+				<view class="btn_know" @click="closeThisPage">我知道</view>
+				<navigator hover-class="none"
+					url="/pages/webView/webView?src=https://mp.weixin.qq.com/s/-vyXSDr_h-OTVsZfkZRf6w"
+					class="bttom_tips">
+					关闭后依然可进行奖品相关操作 如有疑问请 <text>点击查看</text>
+				</navigator>
+			</popup>
+			<popup ref="over_popup" bgColor="#FFF8DC" class="over_popup" width="630">
+				<view>
+					<view class="over_header">
+						<view class="over_title">
+							<text>活动结束</text>
+							<uni-icons @click="$refs.over_popup.hide()" class="icon_close" type="closeempty" size="30"
+								color="#fff"></uni-icons>
+						</view>
+					</view>
+					<view class="o_avatar">
+						<image :src="user.avatar" mode=""></image>
+					</view>
+					<view class="o_username">{{ user.nickname }}</view>
+					<view v-if="gameInfo.lottery_type == 1">
+						<view class="o_rank">本次活动已经结束</view>
+						<view class="o_rank">最终排名为<text>【第{{ rankeOpenAward.prize_source }}名】</text></view>
+						<view class="o_prize">
+							<image :src="rankeOpenAward.prize_url" mode="aspectFill"></image>
+							<view class="o_prize_text">
+								<view class="ranke_name">{{
                   rankeOpenAward.ranking_name
                 }}</view>
-                <view class="prize_name">{{ rankeOpenAward.prize_name }}</view>
-              </view>
-            </view>
-            <view>
-              <view class="svip_end_tips">
-                本次活动已结束
-                <view
-                  >请于{{
+								<view class="prize_name">{{ rankeOpenAward.prize_name }}</view>
+							</view>
+						</view>
+						<view>
+							<view class="svip_end_tips">
+								本次活动已结束
+								<view>请于{{
                     rankeOpenAward.last_receive_time
-                  }}前提交领奖信息，过期作废</view
-                >
-              </view>
-              <navigator
-                :url="'/pages/prize/prize?gameId=' + gameId"
-                class="get_btn"
-                >点我领奖</navigator
-              >
-            </view>
-          </view>
-          <view v-else>
-            <view class="o_rank">感谢参与，本次活动已结束</view>
-            <view class="icon_gift_box">
-              <image
-                src="https://static.roi-cloud.com/base/icon_gift_box.png"
-                mode=""
-              ></image>
-              <view class="gift_box_tips">
-                奖品兑换截止{{
+                  }}前提交领奖信息，过期作废</view>
+							</view>
+							<navigator :url="'/pages/prize/prize?gameId=' + gameId" class="get_btn">点我领奖</navigator>
+						</view>
+					</view>
+					<view v-else>
+						<view class="o_rank">感谢参与，本次活动已结束</view>
+						<view class="icon_gift_box">
+							<image src="https://static.roi-cloud.com/base/icon_gift_box.png" mode=""></image>
+							<view class="gift_box_tips">
+								奖品兑换截止{{
                   gameInfo.last_cash_time
-                }}数量有限，对完即止</view
-              >
-            </view>
-            <navigator
-              :url="'/pages/conversion/conversion?gameId=' + gameId"
-              class="get_btn"
-              >点我去兑换
-            </navigator>
-          </view>
-        </view>
-      </popup>
-    </view>
-    <uni-popup ref="login_popup" type="bottom">
-      <view class="login_poup">
-        <view class="login_title">登录小程序</view>
-        <view class="sub_title">申请获取以下权限，以提供更优质的服务</view>
-        <view class="logint_desc">
-          获取你的公开信息（昵称、头像、地区等）
-          获取你当前地理位置以匹配游戏范围
-        </view>
-        <view class="agreement">
-          <radio :checked="isChecked" @click="handleChecked"></radio>
-          <text>我已阅读并同意</text>
-          <text class="protocol" @click="openProtocol('arg')">用户协议</text>
-          <text>与</text>
-          <text class="protocol" @click="openProtocol('prv')">隐私政策</text>
-        </view>
-        <view class="btns">
-          <view class="def_btn" @click="cancelLogin">取消</view>
-          <view class="def_btn active" @click="userLogin">登录</view>
-        </view>
-      </view>
-    </uni-popup>
-    <popup ref="contact" class="contactPoup" width="500">
-      <view class="">
-        <image
-          src="https://static.roi-cloud.com/base/customerService.png"
-          mode=""
-        ></image>
-      </view>
-    </popup>
-    <popup ref="tip" bgColor="#FFF8DC" class="get_out" width="630">
-      <image
-        @click="$refs.tip.close()"
-        class="icon_close"
-        src="https://static.roi-cloud.com/base/icon_close.png"
-        mode=""
-      >
-      </image>
-      <view class="p_bowl">
-        <image
-          class="img_bowl"
-          src="https://static.roi-cloud.com/base/icon_bowl.png"
-          mode=""
-        ></image>
-        <image
-          class="icon_dice-2"
-          src="https://static.roi-cloud.com/base/p_dice.png"
-          mode=""
-        ></image>
-        <image
-          class="icon_dice-1"
-          src="https://static.roi-cloud.com/base/p_dice-2.png"
-          mode=""
-        ></image>
-        <image
-          class="icon_dice-4"
-          src="https://static.roi-cloud.com/base/icon_dice-4.png"
-          mode=""
-        ></image>
-        <image
-          class="icon_dice-5"
-          src="https://static.roi-cloud.com/base/icon_dice-5.png"
-          mode=""
-        ></image>
-      </view>
-      <image
-        class="icon_dice"
-        src="https://static.roi-cloud.com/base/p_dice.png"
-        mode=""
-      ></image>
-      <image
-        class="icon_dice-3"
-        src="https://static.roi-cloud.com/base/icon_dice-3.png"
-        mode=""
-      ></image>
-      <image
-        class="icon_sad"
-        src="https://static.roi-cloud.com/base/icon_fail.png"
-        mode=""
-      ></image>
-      <view class="m_title">
-        <text>本游戏人数已经达到上限</text>
-      </view>
-      <view class="s_title">
-        <text
-          >很抱歉，{{ gameInfo.gameName }}人数达到上限，新用户无法加入。</text
-        >
-      </view>
-      <view class="btn_know" @click="$refs.tip.close()">我知道</view>
-      <navigator
-        hover-class="none"
-        url="/pages/webView/webView?src=https://mp.weixin.qq.com/s/-vyXSDr_h-OTVsZfkZRf6w"
-        class="bttom_tips"
-      >
-        关闭后依然可以进行奖品相关操作 如有疑问请点击查看
-        <text>更多解决方案</text>
-      </navigator>
-    </popup>
-    <popup ref="network" bgColor="#FFF8DC" class="get_out" width="630">
-      <image
-        @click="$refs.network.close()"
-        class="icon_close"
-        src="https://static.roi-cloud.com/base/icon_close.png"
-        mode=""
-      >
-      </image>
-      <image
-        class="icon_sad"
-        src="https://static.roi-cloud.com/base/icon_fail.png"
-        mode=""
-      ></image>
-      <view class="m_title">
-        <text>无法进行游戏</text>
-      </view>
-      <view class="s_title">
-        <text>很抱歉，因为没有可用的网络连接，不能进行游戏。</text>
-      </view>
-      <view class="btn_know" @click="$refs.network.close()">我知道</view>
-      <navigator
-        hover-class="none"
-        url="/pages/webView/webView?src=https://mp.weixin.qq.com/s/-vyXSDr_h-OTVsZfkZRf6w"
-        class="bttom_tips"
-      >
-        如您正在手机网络不好的地方，请稍后重试 如多次失败，请点击查看
-        <text>更多解决方案</text>
-      </navigator>
-    </popup>
-    <popup ref="position" bgColor="#FFF8DC" class="get_out" width="630">
-      <image
-        @click="$refs.position.close()"
-        class="icon_close"
-        src="https://static.roi-cloud.com/base/icon_close.png"
-        mode=""
-      >
-      </image>
-      <view class="p_bowl">
-        <image
-          class="img_bowl"
-          src="https://static.roi-cloud.com/base/icon_bowl.png"
-          mode=""
-        ></image>
-        <image
-          class="icon_dice-2"
-          src="https://static.roi-cloud.com/base/p_dice.png"
-          mode=""
-        ></image>
-        <image
-          class="icon_dice-1"
-          src="https://static.roi-cloud.com/base/p_dice-2.png"
-          mode=""
-        ></image>
-        <image
-          class="icon_dice-4"
-          src="https://static.roi-cloud.com/base/icon_dice-4.png"
-          mode=""
-        ></image>
-        <image
-          class="icon_dice-5"
-          src="https://static.roi-cloud.com/base/icon_dice-5.png"
-          mode=""
-        ></image>
-      </view>
-      <image
-        class="icon_dice"
-        src="https://static.roi-cloud.com/base/p_dice.png"
-        mode=""
-      ></image>
-      <image
-        class="icon_dice-3"
-        src="https://static.roi-cloud.com/base/icon_dice-3.png"
-        mode=""
-      ></image>
-      <image
-        class="icon_sad"
-        src="https://static.roi-cloud.com/base/icon_fail.png"
-        mode=""
-      ></image>
-      <!-- <view class="m_title">
+                }}数量有限，对完即止</view>
+						</view>
+						<navigator :url="'/pages/conversion/conversion?gameId=' + gameId" class="get_btn">点我去兑换
+						</navigator>
+					</view>
+				</view>
+			</popup>
+		</view>
+		<uni-popup ref="login_popup" type="bottom">
+			<view class="login_poup">
+				<view class="login_title">登录小程序</view>
+				<view class="sub_title">申请获取以下权限，以提供更优质的服务</view>
+				<view class="logint_desc">
+					获取你的公开信息（昵称、头像、地区等）
+					获取你当前地理位置以匹配游戏范围
+				</view>
+				<view class="agreement">
+					<radio :checked="isChecked" @click="handleChecked"></radio>
+					<text>我已阅读并同意</text>
+					<text class="protocol" @click="openProtocol('arg')">用户协议</text>
+					<text>与</text>
+					<text class="protocol" @click="openProtocol('prv')">隐私政策</text>
+				</view>
+				<view class="btns">
+					<view class="def_btn" @click="cancelLogin">取消</view>
+					<view class="def_btn active" @click="userLogin">登录</view>
+				</view>
+			</view>
+		</uni-popup>
+		<popup ref="contact" class="contactPoup" width="500">
+			<view class="">
+				<image src="https://static.roi-cloud.com/base/customerService.png" mode=""></image>
+			</view>
+		</popup>
+		<popup ref="tip" bgColor="#FFF8DC" class="get_out" width="630">
+			<image @click="$refs.tip.close()" class="icon_close" src="https://static.roi-cloud.com/base/icon_close.png"
+				mode="">
+			</image>
+			<view class="p_bowl">
+				<image class="img_bowl" src="https://static.roi-cloud.com/base/icon_bowl.png" mode=""></image>
+				<image class="icon_dice-2" src="https://static.roi-cloud.com/base/p_dice.png" mode=""></image>
+				<image class="icon_dice-1" src="https://static.roi-cloud.com/base/p_dice-2.png" mode=""></image>
+				<image class="icon_dice-4" src="https://static.roi-cloud.com/base/icon_dice-4.png" mode=""></image>
+				<image class="icon_dice-5" src="https://static.roi-cloud.com/base/icon_dice-5.png" mode=""></image>
+			</view>
+			<image class="icon_dice" src="https://static.roi-cloud.com/base/p_dice.png" mode=""></image>
+			<image class="icon_dice-3" src="https://static.roi-cloud.com/base/icon_dice-3.png" mode=""></image>
+			<image class="icon_sad" src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
+			<view class="m_title">
+				<text>本游戏人数已经达到上限</text>
+			</view>
+			<view class="s_title">
+				<text>很抱歉，{{ gameInfo.gameName }}人数达到上限，新用户无法加入。</text>
+			</view>
+			<view class="btn_know" @click="$refs.tip.close()">我知道</view>
+			<navigator hover-class="none"
+				url="/pages/webView/webView?src=https://mp.weixin.qq.com/s/-vyXSDr_h-OTVsZfkZRf6w" class="bttom_tips">
+				关闭后依然可以进行奖品相关操作 如有疑问请点击查看
+				<text>更多解决方案</text>
+			</navigator>
+		</popup>
+		<popup ref="network" bgColor="#FFF8DC" class="get_out" width="630">
+			<image @click="$refs.network.close()" class="icon_close"
+				src="https://static.roi-cloud.com/base/icon_close.png" mode="">
+			</image>
+			<image class="icon_sad" src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
+			<view class="m_title">
+				<text>无法进行游戏</text>
+			</view>
+			<view class="s_title">
+				<text>很抱歉，因为没有可用的网络连接，不能进行游戏。</text>
+			</view>
+			<view class="btn_know" @click="$refs.network.close()">我知道</view>
+			<navigator hover-class="none"
+				url="/pages/webView/webView?src=https://mp.weixin.qq.com/s/-vyXSDr_h-OTVsZfkZRf6w" class="bttom_tips">
+				如您正在手机网络不好的地方，请稍后重试 如多次失败，请点击查看
+				<text>更多解决方案</text>
+			</navigator>
+		</popup>
+		<popup ref="position" bgColor="#FFF8DC" class="get_out" width="630">
+			<image @click="$refs.position.close()" class="icon_close"
+				src="https://static.roi-cloud.com/base/icon_close.png" mode="">
+			</image>
+			<view class="p_bowl">
+				<image class="img_bowl" src="https://static.roi-cloud.com/base/icon_bowl.png" mode=""></image>
+				<image class="icon_dice-2" src="https://static.roi-cloud.com/base/p_dice.png" mode=""></image>
+				<image class="icon_dice-1" src="https://static.roi-cloud.com/base/p_dice-2.png" mode=""></image>
+				<image class="icon_dice-4" src="https://static.roi-cloud.com/base/icon_dice-4.png" mode=""></image>
+				<image class="icon_dice-5" src="https://static.roi-cloud.com/base/icon_dice-5.png" mode=""></image>
+			</view>
+			<image class="icon_dice" src="https://static.roi-cloud.com/base/p_dice.png" mode=""></image>
+			<image class="icon_dice-3" src="https://static.roi-cloud.com/base/icon_dice-3.png" mode=""></image>
+			<image class="icon_sad" src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
+			<!-- <view class="m_title">
 				<text>本游戏人数已经达到上限</text>
 			</view> -->
-      <view class="s_title">
-        <text>{{ positionMsg }}</text>
-      </view>
-      <view class="btn_know" @click="$refs.position.close()">我知道</view>
-      <view style="height: 24px"></view>
-    </popup>
-    <popup ref="location" bgColor="#FFF8DC" class="get_out" width="630">
-      <image
-        @click="$refs.location.close()"
-        class="icon_close"
-        src="https://static.roi-cloud.com/base/icon_close.png"
-        mode=""
-      >
-      </image>
-      <view class="p_bowl">
-        <image
-          class="img_bowl"
-          src="https://static.roi-cloud.com/base/icon_bowl.png"
-          mode=""
-        ></image>
-        <image
-          class="icon_dice-2"
-          src="https://static.roi-cloud.com/base/p_dice.png"
-          mode=""
-        ></image>
-        <image
-          class="icon_dice-1"
-          src="https://static.roi-cloud.com/base/p_dice-2.png"
-          mode=""
-        ></image>
-        <image
-          class="icon_dice-4"
-          src="https://static.roi-cloud.com/base/icon_dice-4.png"
-          mode=""
-        ></image>
-        <image
-          class="icon_dice-5"
-          src="https://static.roi-cloud.com/base/icon_dice-5.png"
-          mode=""
-        ></image>
-      </view>
-      <image
-        class="icon_dice"
-        src="https://static.roi-cloud.com/base/p_dice.png"
-        mode=""
-      ></image>
-      <image
-        class="icon_dice-3"
-        src="https://static.roi-cloud.com/base/icon_dice-3.png"
-        mode=""
-      ></image>
-      <image
-        class="icon_sad"
-        src="https://static.roi-cloud.com/base/icon_fail.png"
-        mode=""
-      ></image>
-      <view class="m_title">
-        <text>无法进行游戏游戏</text>
-      </view>
-      <view class="s_title">
-        <text>很抱歉，因为无法获取您当前的地理位置，不能进行游戏游戏。</text>
-      </view>
-      <view class="btn_know" @click="openLocationSetting">我知道</view>
-      <navigator
-        hover-class="none"
-        url="/pages/webView/webView?src=https://mp.weixin.qq.com/s/-vyXSDr_h-OTVsZfkZRf6w"
-        class="bttom_tips"
-      >
-        如您正在手机网络不好的地方，请稍后重试 如多次失败，请点击查看
-        <text>更多解决方案</text>
-      </navigator>
-    </popup>
-    <uni-popup :maskClick="false" type="dialog" ref="dialog">
-      <view class="phone-wrap">
-        <view class="phone-container">
-          <image
-            @click="onClose"
-            src="https://static.roi-cloud.com/base/close.png"
-            class="phone-close"
-          />
-          <view class="phone-title">
-            <text>请留个备用手机号</text>
-          </view>
-          <view class="phone-subtitle">
-            <text>作为兑奖备用联系方式，我们会保护你的隐私</text>
-          </view>
-          <view class="phone-input-wrap">
-            <input
-              :value="phone"
-              cursor-spacing="10"
-              @input="changePhone"
-              class="phone-input"
-              placeholder="填写手机号"
-            />
-          </view>
-          <view v-if="phoneError" class="phone-error-msg"
-            ><text>{{ phoneError }}</text></view
-          >
-          <view class="phone-input-wrap">
-            <input
-              :value="verifyCode"
-              cursor-spacing="10"
-              @input="changeVerifyCode"
-              maxlength="6"
-              class="phone-code-input"
-              placeholder="填写验证码"
-            />
-            <view
-              :class="[
+			<view class="s_title">
+				<text>{{ positionMsg }}</text>
+			</view>
+			<view class="btn_know" @click="$refs.position.close()">我知道</view>
+			<view style="height: 24px"></view>
+		</popup>
+		<popup ref="location" bgColor="#FFF8DC" class="get_out" width="630">
+			<image @click="$refs.location.close()" class="icon_close"
+				src="https://static.roi-cloud.com/base/icon_close.png" mode="">
+			</image>
+			<view class="p_bowl">
+				<image class="img_bowl" src="https://static.roi-cloud.com/base/icon_bowl.png" mode=""></image>
+				<image class="icon_dice-2" src="https://static.roi-cloud.com/base/p_dice.png" mode=""></image>
+				<image class="icon_dice-1" src="https://static.roi-cloud.com/base/p_dice-2.png" mode=""></image>
+				<image class="icon_dice-4" src="https://static.roi-cloud.com/base/icon_dice-4.png" mode=""></image>
+				<image class="icon_dice-5" src="https://static.roi-cloud.com/base/icon_dice-5.png" mode=""></image>
+			</view>
+			<image class="icon_dice" src="https://static.roi-cloud.com/base/p_dice.png" mode=""></image>
+			<image class="icon_dice-3" src="https://static.roi-cloud.com/base/icon_dice-3.png" mode=""></image>
+			<image class="icon_sad" src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
+			<view class="m_title">
+				<text>无法进行游戏游戏</text>
+			</view>
+			<view class="s_title">
+				<text>很抱歉，因为无法获取您当前的地理位置，不能进行游戏游戏。</text>
+			</view>
+			<view class="btn_know" @click="openLocationSetting">我知道</view>
+			<navigator hover-class="none"
+				url="/pages/webView/webView?src=https://mp.weixin.qq.com/s/-vyXSDr_h-OTVsZfkZRf6w" class="bttom_tips">
+				如您正在手机网络不好的地方，请稍后重试 如多次失败，请点击查看
+				<text>更多解决方案</text>
+			</navigator>
+		</popup>
+		<uni-popup :maskClick="false" type="dialog" ref="dialog">
+			<view class="phone-wrap">
+				<view class="phone-container">
+					<image @click="onClose" src="https://static.roi-cloud.com/base/close.png" class="phone-close" />
+					<view class="phone-title">
+						<text>请留个备用手机号</text>
+					</view>
+					<view class="phone-subtitle">
+						<text>作为兑奖备用联系方式，我们会保护你的隐私</text>
+					</view>
+					<view class="phone-input-wrap">
+						<input :value="phone" cursor-spacing="10" @input="changePhone" class="phone-input"
+							placeholder="填写手机号" />
+					</view>
+					<view v-if="phoneError" class="phone-error-msg"><text>{{ phoneError }}</text></view>
+					<view class="phone-input-wrap">
+						<input :value="verifyCode" cursor-spacing="10" @input="changeVerifyCode" maxlength="6"
+							class="phone-code-input" placeholder="填写验证码" />
+						<view :class="[
                 'phone-code-button',
                 { 'phone-code-button-disabled': verifyCodeTime !== 0 },
-              ]"
-              @click="sendCode"
-            >
-              <text>{{ verifyCodeText }}</text>
-            </view>
-          </view>
-          <view v-if="codeError" class="phone-error-msg"
-            ><text>{{ codeError }}</text></view
-          >
+              ]" @click="sendCode">
+							<text>{{ verifyCodeText }}</text>
+						</view>
+					</view>
+					<view v-if="codeError" class="phone-error-msg"><text>{{ codeError }}</text></view>
 
-          <view v-if="agreeError" class="agree-error-msg"
-            ><text>{{ agreeError }}</text></view
-          >
-          <view
-            :class="[
+					<view v-if="agreeError" class="agree-error-msg"><text>{{ agreeError }}</text></view>
+					<view :class="[
               'phone-button',
               { 'button-disabled': !phone || !verifyCode },
-            ]"
-            @click="savePhone"
-          >
-            <text>保存</text>
-          </view>
-        </view>
-      </view>
-    </uni-popup>
-  </view>
+            ]" @click="savePhone">
+						<text>保存</text>
+					</view>
+				</view>
+			</view>
+		</uni-popup>
+	</view>
 </template>
 
 <script>
@@ -1106,9 +759,14 @@ export default {
     }
     this.inviteCode = this.$storage.get('invite')
     if (options.share) {
-      this.share = true
-      this.toLogin()
-    }
+				this.share = true
+				if (!user.userId) {
+					this.toLogin()
+				} else {
+
+					this.$refs.onceShare.show()
+				}
+		}
     console.log(this.inviteCode, '邀请码')
     if (this.inviteCode) {
       let list = this.$storage.get('inviteList')
@@ -2304,1521 +1962,1452 @@ export default {
       this.$refs.onceShare.hide()
       return
     }
-	if (this.gameInfo.status > 5 ) {
-		uni.showToast({
-		  title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
-		  icon: 'error',
-		})
-		return
-	}
-    if (this.share && this.onceShare) {
-      const path = `/pages/index/index?gameId=${this.gameId}`
-      this.onceShare = false
-      this.$refs.onceShare.hide()
-      return {
-        title: this.gameInfo.name,
-        path,
-      }
+    if (this.gameInfo.status > 5 ) {
+      uni.showToast({
+        title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
+        icon: 'error',
+      })
+      return
     }
-    let type, rank
-    if (e.from === 'button') {
-      // 来自页面内分享按钮
-      console.log(e.target)
-      type = e.target.dataset.type
-      rank = e.target.dataset.rank
-    }
-    let params = {
-      game_id: this.gameId,
-      type,
-    }
-    if (type == 1) {
-      // 礼品
-      params = {
-        ...params,
-        prize_id: this.gameResult.prize.game_award_id,
-      }
-    }
-    if (type == 2) {
-      // 排名
-      params = {
-        ...params,
-        rank,
-      }
-    }
-    // 获取邀请码
-    const inviteData = await inviteHelp(params)
-
-    const path =
-      '/pages/index/index?gameId=' +
-      this.gameId +
-      '&type=' +
-      type +
-      '&code=' +
-      inviteData.code
-    return {
-      title: this.gameInfo.name,
-      path,
-    }
-  },
-  watch: {
-    currentScoreItem: {
-      handler(value, old) {
-        const user = this.$storage.getUser()
-        if (user.userId) {
-          if (Number(value) === 1) {
-            this.getAward()
-          }
-          if (Number(value) === 2) {
-            this.getExchange()
-          }
-        }
-      },
-
-      deep: true,
-    },
-  },
+  }
 }
 </script>
 
 <style lang="scss">
-.diy_logo {
-  width: 150px;
-  height: 35px;
-}
-
-#shareCanvas {
-  position: fixed;
-  top: -9999999999999px;
-  background: #fff;
-  width: 260px;
-  height: 198px;
-  z-index: 999;
-}
-
-.ad_wrap {
-  width: 580upx;
-  height: 140upx;
-  margin: 40upx auto;
-  overflow: hidden;
-  background: linear-gradient(137deg, #95ffdc 0%, #ff8944 99%, #ff8944 100%);
-  border-radius: 20upx;
-
-  swiper,
-  image,
-  .swiper-item {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.contactPoup {
-  padding: 40upx;
-  text-align: center;
-
-  image {
-    padding: 40upx;
-    width: 400upx;
-    height: 400upx;
-  }
-}
-
-.no_data {
-  padding: 40upx 0;
-  text-align: center;
-  color: #aaa;
-  font-size: 30upx;
-}
-
-.bottom-button-wrap {
-  position: fixed;
-  background: #e6e6e6;
-  z-index: 10;
-  width: 100%;
-  height: 50px;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-
-  .bottom-button-container {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 16px;
-  }
-
-  .bottom-setting-wrap {
-    display: flex;
-    flex-direction: column;
-    font-size: 10px;
-    color: #666;
-    align-items: center;
-
-    .bottom-setting-icon {
-      width: 22px;
-      height: 22px;
-      margin: 0 0 4px;
-    }
-  }
-
-  .bottom-button-action {
-    display: flex;
-
-    .bottom-button-edit {
-      text-align: center;
-      padding: 4px 12px;
-      border: 1px solid #e83d3d;
-      color: #e83d3d;
-      font-size: 14px;
-      margin: 0 12px 0 0;
-      border-radius: 20px;
-    }
-
-    .bottom-button-share {
-      background-color: #e83d3d;
-      text-align: center;
-      padding: 4px 16px;
-      color: #fff;
-      font-size: 14px;
-      border-radius: 20px;
-    }
-  }
-}
-
-.login_poup {
-  padding: 54upx 40upx;
-  background: #fff;
-  border-radius: 24upx 24upx 0px 0px;
-
-  .login_title {
-    font-size: 32upx;
-    font-weight: 600;
-  }
-
-  .sub_title {
-    font-size: 30upx;
-    font-weight: 400;
-    margin-top: 24upx;
-  }
-
-  .logint_desc {
-    font-weight: 400;
-    color: #b2b2b2;
-    margin-top: 12upx;
-    font-size: 26upx;
-  }
-
-  .agreement {
-    margin-top: 82upx;
-    color: #b2b2b2;
-    font-size: 26rpx;
-
-    .protocol {
-      color: #0059ff;
-      font-size: 26rpx;
-    }
-  }
-
-  .btns {
-    display: flex;
-    justify-content: space-around;
-
-    .def_btn {
-      width: 240upx;
-      height: 80upx;
-      line-height: 80upx;
-      color: #07c160;
-      margin-top: 90upx;
-      border-radius: 8upx;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.05);
-
-      &.active {
-        color: #fff;
-        margin-left: 32upx;
-        background: #07c160;
-      }
-    }
-  }
-}
-
-.login_content {
-  padding: 40upx;
-
-  text-align: center;
-}
-
-.confirm_login {
-  padding: 20upx;
-  color: #e83d3d;
-  border-top: 1upx solid #f2f2f2;
-  text-align: center;
-}
-
-.share_img_wrap {
-  text-align: center;
-
-  image {
-    width: 424upx;
-    height: 444upx;
-    margin-top: 20upx;
-  }
-}
-
-.gift_swiper {
-  width: 690upx;
-  height: 167upx;
-  margin: 0 auto;
-  overflow: hidden;
-  background: linear-gradient(137deg, #95ffdc 0%, #ff8944 99%, #ff8944 100%);
-  border-radius: 24upx;
-
-  swiper,
-  image,
-  .swiper-item {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.over_popup {
-  .over_header {
-    height: 186upx;
-    background: url(https://static.roi-cloud.com/base/over_bg.png) no-repeat
-      100%;
-    background-position: top;
-    background-size: 100% 100%;
-
-    .over_title {
-      height: 118upx;
-      text-align: center;
-      line-height: 118upx;
-      color: #fff;
-      position: relative;
-      text-align: center;
-
-      .icon_close {
-        width: 40upx;
-        height: 40upx;
-        position: absolute;
-        right: 40upx;
-        top: 40upx;
-        display: flex;
-        align-items: center;
-      }
-    }
-  }
-
-  .o_avatar {
-    width: 122upx;
-    height: 122upx;
-    border-radius: 50%;
-    margin: -61upx auto 0;
-    background: #eee;
-    overflow: hidden;
-  }
-
-  .o_username {
-    text-align: center;
-    margin-top: 12upx;
-    font-weight: 600;
-    font-size: 30upx;
-  }
-
-  .o_rank {
-    font-size: 30upx;
-    margin-top: 26upx;
-    text-align: center;
-    font-weight: 400;
-
-    text {
-      font-weight: 600;
-    }
-  }
-
-  .o_prize {
-    background-color: #fefcf1;
-    border-radius: 20upx;
-    min-height: 152upx;
-    align-items: center;
-    display: flex;
-    width: 540upx;
-    margin: 20rpx auto;
-    box-sizing: border-box;
-    padding: 20rpx 20rpx 20rpx 20rpx;
-    align-items: center;
-    box-shadow: 0 10rpx 40rpx 0 rgba(0, 0, 0, 0.06);
-
-    image {
-      width: 100rpx;
-      height: 100rpx;
-      margin-right: 30rpx;
-      border-radius: 16rpx;
-    }
-
-    .o_prize_text {
-      display: flex;
-      flex-direction: column;
-
-      .ranke_name {
-        background: #ff7948;
-        border-radius: 21rpx;
-        font-size: 26rpx;
-        color: #ffffff;
-        height: 40rpx;
-        line-height: 40rpx;
-        text-align: center;
-        width: 140rpx;
-      }
-
-      .prize_name {
-        margin-top: 14rpx;
-        font-size: 28rpx;
-        color: #333333;
-        width: 360rpx;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
-    }
-  }
-
-  .svip_end_tips {
-    width: 100%;
-    margin: 40upx auto 0;
-    text-align: center;
-    font-size: 24upx;
-  }
-
-  .icon_gift_box {
-    width: 286upx;
-    margin: 0 auto;
-
-    image {
-      width: 100%;
-      height: 326upx;
-    }
-
-    .gift_box_tips {
-      width: 242upx;
-      text-align: center;
-      margin: -68upx auto 0;
-      font-size: 24upx;
-    }
-  }
-
-  .get_goods_wrap {
-    padding: 20upx;
-    display: flex;
-    margin: 30upx 30upx 0;
-    border-radius: 16upx;
-    background: #fffcf1;
-    box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.06);
-
-    .get_img {
-      width: 112upx;
-      height: 112upx;
-      background: #eee;
-      border-radius: 16upx;
-    }
-
-    .get_right {
-      width: 1upx;
-      flex: 1;
-      margin-left: 30upx;
-      padding: 12upx 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      .get_level {
-        font-size: 24upx;
-        width: 140upx;
-        height: 42upx;
-        color: #fff;
-        background: #ff7948;
-        line-height: 42upx;
-        border-radius: 42upx;
-        text-align: center;
-      }
-
-      .get_title {
-        width: 90%;
-        font-size: 28upx;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
-  }
-
-  .get_tip {
-    width: 434upx;
-    font-size: 24upx;
-    text-align: center;
-    margin: 86upx auto 0;
-  }
-
-  .get_btn {
-    width: 406upx;
-    height: 80upx;
-    text-align: center;
-    color: #fff;
-    margin: 44upx auto 72upx;
-    font-size: 34upx;
-    font-weight: 600;
-    line-height: 80upx;
-    background: linear-gradient(180deg, #ff7657 0%, #e93e3d 100%);
-    box-shadow: 0 10upx 20upx 0 #f96650;
-    border-radius: 51upx;
-  }
-}
-
-.get_out {
-  position: relative;
-  text-align: center;
-
-  .icon_close {
-    width: 40upx;
-    height: 40upx;
-    position: absolute;
-    right: 40upx;
-    top: 40upx;
-  }
-
-  .icon_dice-3 {
-    position: absolute;
-    top: 104upx;
-    right: -28upx;
-    transform: rotate(-30deg);
-    width: 70upx;
-    height: 70upx;
-  }
-
-  .icon_sad {
-    width: 104upx;
-    height: 104upx;
-    margin-top: 90rpx;
-  }
-
-  .m_title {
-    margin-top: 24upx;
-    font-size: 34upx;
-    font-weight: 600;
-    color: #333333;
-  }
-
-  .s_title {
-    width: 428upx;
-    font-weight: 400;
-    color: #333333;
-    margin: 8upx auto 0;
-    font-size: 28upx;
-  }
-
-  .btn_know {
-    width: 406upx;
-    height: 80upx;
-    color: #fff;
-    line-height: 80upx;
-    margin: 80upx auto 0;
-    background: linear-gradient(180deg, #ff7657 0%, #e93e3d 100%);
-    box-shadow: 0 10upx 20upx 0 #f96650;
-    border-radius: 51upx;
-  }
-
-  .bttom_tips {
-    width: 372upx;
-    margin: 40upx auto 70upx;
-    line-height: 40upx;
-    font-size: 24upx;
-    font-weight: 400;
-    color: #333333;
-
-    text {
-      color: red;
-      margin-left: 10upx;
-    }
-  }
-
-  .p_bowl {
-    width: 400upx;
-    height: 400upx;
-    margin: -64upx auto 0;
-    position: relative;
-
-    .img_bowl {
-      width: 100%;
-      height: 100%;
-    }
-
-    .icon_dice-1 {
-      position: absolute;
-      top: 142upx;
-      left: 84upx;
-      width: 106upx;
-      height: 106upx;
-    }
-
-    .icon_dice-2 {
-      position: absolute;
-      top: 64upx;
-      left: 128upx;
-      width: 106upx;
-      height: 106upx;
-    }
-
-    .icon_dice-5 {
-      position: absolute;
-      top: 144upx;
-      left: 228upx;
-      width: 70upx;
-      transform: rotate(-15deg);
-      height: 70upx;
-    }
-
-    .icon_dice-4 {
-      position: absolute;
-      top: 204upx;
-      left: 178upx;
-      width: 70upx;
-      height: 70upx;
-    }
-  }
-}
-
-.mt50 {
-  margin-top: 50upx !important;
-}
-
-.mt100 {
-  margin-top: 100upx !important;
-}
-
-.p_bowl {
-  width: 400upx;
-  height: 400upx;
-  margin: -64upx auto 0;
-  position: relative;
-
-  .img_bowl {
-    width: 100%;
-    height: 100%;
-  }
-
-  .icon_dice-1 {
-    position: absolute;
-    top: 142upx;
-    left: 84upx;
-    width: 106upx;
-    height: 106upx;
-  }
-
-  .icon_dice-2 {
-    position: absolute;
-    top: 64upx;
-    left: 128upx;
-    width: 106upx;
-    height: 106upx;
-  }
-
-  .icon_dice-5 {
-    position: absolute;
-    top: 144upx;
-    left: 228upx;
-    width: 70upx;
-    transform: rotate(-15deg);
-    height: 70upx;
-  }
-
-  .icon_dice-4 {
-    position: absolute;
-    top: 204upx;
-    left: 178upx;
-    width: 70upx;
-    height: 70upx;
-  }
-}
-
-.icon_dice {
-  position: absolute;
-  top: -44upx;
-  left: 24upx;
-  width: 106upx;
-  height: 106upx;
-}
-
-.assistance_pop,
-.help_other,
-.help_other_faile {
-  text-align: center;
-
-  .avatar,
-  .help_status_icon {
-    width: 160upx;
-    height: 160upx;
-    border-radius: 50%;
-    margin: -80upx auto 28upx;
-    background: #eee;
-    overflow: hidden;
-    border: 4upx solid #fff;
-
-    image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  .help_m_title {
-    font-weight: 600;
-    color: #333333;
-    margin-top: 38upx;
-    font-size: 34upx;
-  }
-
-  .help_sub_title {
-    color: #999999;
-    margin-top: 10upx;
-  }
-
-  .username {
-    margin-top: 76upx;
-    color: #333;
-    font-size: 32upx;
-    margin-bottom: 38upx;
-  }
-
-  .ass_m_title {
-    font-weight: 600;
-    color: #333333;
-    font-size: 34upx;
-  }
-
-  .mt10 {
-    font-family: PingFangSC-Regular;
-    font-size: 28rpx;
-    color: #333333;
-    letter-spacing: 0;
-    text-align: center;
-    margin-top: 20rpx;
-  }
-
-  .play_btn {
-    width: 338upx;
-    margin: 22upx auto 20upx;
-    background: #ff4343;
-    height: 88upx;
-    line-height: 88upx;
-    border-radius: 88upx;
-    color: #fff;
-    margin-top: 22upx;
-    text-align: center;
-  }
-
-  .g_rank_no {
-    font-size: 64upx;
-    font-weight: 600;
-    color: #333333;
-    text-align: center;
-    padding: 20upx 0 40upx;
-  }
-
-  .g_img {
-    .goods_wrap {
-      display: flex;
-      margin: 40upx 30upx;
-      padding: 20upx;
-      background: #fff;
-      box-shadow: 0 10upx 40upx 0 rgba(0, 0, 0, 0.06);
-      border-radius: 16px;
-
-      image {
-        width: 112upx;
-        height: 112upx;
-        border-radius: 16upx;
-        margin-right: 30upx;
-        border: 2upx solid #f0f0f0;
-      }
-
-      .prizeName {
-        font-size: 28upx;
-        font-weight: 400;
-        color: #333333;
-        line-height: 58upx;
-        width: 1upx;
-        flex: 1;
-        text-overflow: -o-ellipsis-lastline;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-      }
-    }
-  }
-}
-
-.pop_share_btn {
-  background: none;
-  width: 112upx;
-  margin: 0 auto;
-  padding: 50upx 0;
-
-  &:after {
-    border: none;
-  }
-
-  image {
-    width: 112upx;
-    height: 112upx;
-  }
-
-  .share_text {
-    font-size: 24upx;
-    color: #999999;
-  }
-}
-
-.score_menu,
-.help_menu {
-  display: flex;
-  margin: 0 30upx;
-  height: 80upx;
-  color: #ff3d3d;
-  line-height: 80upx;
-  border: 1upx solid #ff3d3d;
-  border-radius: 16upx;
-  overflow: hidden;
-
-  .score_item,
-  .help_item {
-    flex: 1;
-    text-align: center;
-
-    &.active {
-      color: #fff;
-      background-color: #ff3d3d;
-    }
-  }
-}
-
-.score_list {
-  margin-top: 18upx;
-  padding: 0 30upx;
-  max-height: 500upx;
-  overflow-y: scroll;
-
-  .score_list_item {
-    display: flex;
-    min-height: 108upx;
-    justify-content: space-between;
-    align-items: center;
-
-    .item_left {
-      width: 40%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .item_right {
-      color: #666666;
-      font-size: 24upx;
-      flex: 1;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .t_blod {
-        margin-right: 40upx;
-        font-weight: bold;
-        font-size: 28upx;
-        color: #333333;
-      }
-
-      .item_right_time {
-        display: flex;
-        flex-direction: column;
-
-        &_date {
-          // margin-bottom: 30rpx;
-        }
-      }
-    }
-  }
-}
-
-.bg_level-6 {
-  width: 100%;
-  height: 186upx;
-  margin-top: -126upx;
-
-  image {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.p_title {
-  height: 120upx;
-  font-weight: 600;
-  line-height: 120upx;
-  text-align: center;
-  font-size: 34upx;
-  position: relative;
-
-  .icon_close {
-    height: 40upx;
-    width: 40upx;
-    position: absolute;
-    right: 40upx;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-}
-
-.f-normal {
-  font-weight: normal !important;
-}
-
-.help_tip {
-  margin: 28upx 30upx 0;
-  color: #999999;
-  font-size: 12px;
-
-  image {
-    width: 30upx;
-    height: 30upx;
-  }
-}
-
-.dice_result {
-  display: flex;
-  margin: 46upx 30upx 0;
-  align-items: center;
-  justify-content: space-between;
-
-  .dice_item {
-    width: 80upx;
-    height: 80upx;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    image {
-      width: 100%;
-      height: 100%;
-    }
-  }
-}
-
-.award_title {
-  padding: 30upx 0;
-  font-weight: 600;
-  font-size: 34upx;
-  text-align: center;
-}
-
-.goods_wrap {
-  display: flex;
-  margin: 0 30upx;
-  padding: 20upx;
-  background: #fffcf1;
-  box-shadow: 0 10upx 40upx 0 rgba(0, 0, 0, 0.06);
-  border-radius: 16px;
-
-  image {
-    width: 112upx;
-    height: 112upx;
-    border-radius: 16upx;
-    margin-right: 30upx;
-    border: 2upx solid #f0f0f0;
-  }
-
-  .prizeName {
-    font-size: 28upx;
-    font-weight: 400;
-    color: #333333;
-    line-height: 58upx;
-    width: 1upx;
-    flex: 1;
-    text-overflow: -o-ellipsis-lastline;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-}
-
-.integral {
-  margin: 60upx 0 60upx;
-  font-size: 36upx;
-  color: #333333;
-  font-weight: bold;
-  text-align: center;
-}
-
-.again {
-  font-size: 30upx;
-  height: 88upx;
-  line-height: 88upx;
-  text-align: center;
-  background: #ff4343;
-  color: #fff;
-  width: 290upx;
-  margin: 0 auto 54upx;
-  border-radius: 88upx;
-}
-
-.help_tips {
-  display: flex;
-  color: #999999;
-  margin-top: 24upx;
-  font-size: 24upx;
-  padding-bottom: 24upx;
-  align-items: center;
-  justify-content: center;
-
-  image {
-    width: 24upx;
-    height: 24upx;
-    margin-left: 10upx;
-  }
-}
-
-.bo_center {
-  color: #ff4343;
-  font-size: 24upx;
-  text-align: center;
-  padding: 20upx 0 50upx;
-}
-
-.award_level {
-  width: 266upx;
-  height: 128upx;
-  margin: 0 auto;
-
-  image {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.icon_cry {
-  width: 182upx;
-  height: 156upx;
-  margin: 0 auto;
-
-  image {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.help_list {
-  height: 250px;
-  overflow-y: auto;
-  padding: 0 30upx;
-  box-sizing: border-box;
-
-  .help_list_item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 108upx;
-    line-height: 108upx;
-    color: #666666;
-    font-size: 24upx;
-
-    .ml10 {
-      margin-left: 10upx;
-    }
-
-    .help_left {
-      display: flex;
-      align-items: center;
-
-      .avatar {
-        width: 60upx;
-        height: 60upx;
-        margin-right: 10upx;
-        border-radius: 50%;
-        background: #eee;
-        overflow: hidden;
-
-        image {
-          width: 100%;
-          height: 100%;
-        }
-      }
-
-      .username {
-        color: #333333;
-        margin-left: 10upx;
-      }
-    }
-  }
-}
-
-page {
-  box-sizing: border-box;
-  min-height: 100vh;
-  background: #ff2626;
-}
-
-.wrap {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  overflow-y: auto;
-  // height: calc(100vh);
-}
-
-#main {
-  box-sizing: border-box;
-
-  .tips {
-    color: #fff;
-    text-align: center;
-    font-size: 24upx;
-    margin: 18upx 0 8upx;
-  }
-
-  .bowl_title {
-    width: 580upx;
-    height: 350upx;
-    margin: 0 auto;
-    position: relative;
-
-    image {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .bowl {
-    width: 100%;
-    height: 738upx;
-    position: relative;
-
-    .rule {
-      height: 56upx;
-      line-height: 56upx;
-      padding: 0 30upx;
-      color: #fff;
-      position: absolute;
-      right: 36upx;
-      top: 20upx;
-      font-size: 24upx;
-      border-radius: 56upx;
-      background: rgba($color: #000000, $alpha: 0.3);
-    }
-
-    .dice_wrap {
-      position: absolute;
-      width: 68%;
-      height: 57%;
-      top: 21%;
-      left: 14%;
-
-      .dice {
-        width: 70upx;
-        height: 70upx;
-        transform: rotate(360deg);
-
-        &.playAnimation {
-          opacity: 0;
-          animation: diceAnimate 0.4s forwards linear;
-          transform: translate(0, -800%) rotate(0deg) scale(0.8);
-        }
-
-        &.playAnimation:nth-child(1) {
-          animation-delay: 0.2s;
-        }
-
-        &:nth-child(1) {
-          position: absolute;
-          left: 160upx;
-          top: 113upx;
-          animation-delay: 0.2s;
-        }
-
-        &.playAnimation:nth-child(2) {
-          animation-delay: 0.3s;
-          animation: diceAnimate1 0.4s forwards linear;
-        }
-
-        &:nth-child(2) {
-          position: absolute;
-          left: 310upx;
-          top: 110upx;
-        }
-
-        &.playAnimation:nth-child(3) {
-          animation-delay: 0.2s;
-        }
-
-        &:nth-child(3) {
-          position: absolute;
-          left: 120upx;
-          top: 240upx;
-        }
-
-        &.playAnimation:nth-child(4) {
-          animation-delay: 0.1s;
-          animation: diceAnimate1 0.6s forwards linear;
-        }
-
-        &:nth-child(4) {
-          position: absolute;
-          left: 210upx;
-          top: 330upx;
-        }
-
-        &.playAnimation:nth-child(5) {
-          animation-delay: 0.3s;
-        }
-
-        &:nth-child(5) {
-          position: absolute;
-          left: 350upx;
-          top: 250upx;
-        }
-
-        &.playAnimation:nth-child(6) {
-          animation-delay: 0.1s;
-        }
-
-        &:nth-child(6) {
-          position: absolute;
-          left: 240upx;
-          top: 230upx;
-        }
-      }
-    }
-
-    .icon_bowl {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .gift_wrap {
-    position: absolute;
-    right: 10upx;
-    width: 106upx;
-    top: -30upx;
-    z-index: 99;
-
-    .icon_gift {
-      width: 134upx;
-      height: 146upx;
-      position: absolute;
-      left: 50%;
-      top: -46%;
-      transform: translateX(-50%);
-      z-index: 1;
-    }
-
-    .shadow {
-      width: 106upx;
-      height: 106upx;
-      line-height: 150upx;
-      color: #fff;
-      font-size: 20upx;
-      text-align: center;
-      background: linear-gradient(180deg, #c872d7 0%, #a031d6 100%);
-      border-radius: 21upx;
-    }
-  }
-
-  .chance {
-    display: flex;
-    align-items: center;
-    color: #fff;
-    justify-content: center;
-    margin-top: 20upx;
-
-    .number {
-      background: #b13737;
-      padding: 0 10upx;
-      height: 48upx;
-      margin: 0 14upx;
-      line-height: 48upx;
-      border-radius: 8upx;
-      color: #fff;
-    }
-  }
-
-  .de_btn {
-    width: 406upx;
-    height: 80upx;
-    border-radius: 50upx;
-    margin: 0 auto;
-    margin-top: 40upx;
-    font-weight: 600;
-    line-height: 80upx;
-    text-align: center;
-    font-size: 34rpx;
-    color: #976f1d;
-  }
-
-  .zl_btn {
-    border: 2px solid #976f1d;
-  }
-
-  .btn_primary {
-    color: #976f1d;
-    background: linear-gradient(180deg, #fff6b1 0%, #ffcf79 100%);
-    box-shadow: 0px 0px 20rpx #979797;
-  }
-  
-  .recorde_ad_wrap {
-    background-image: linear-gradient(180deg, #FECBB7 55%, rgba(255, 255, 255, 0) 100%);
-  }
-
-  .record_wrap {
-    display: flex;
-    color: #976f1d;
-    align-items: center;
-    justify-content: center;
-    margin: 46upx auto;
-    font-size: 32upx;
-    padding: 80rpx 0 20rpx 0;
-    box-sizing: border-box;
-    // background-color: #fdccb9;
-    .line {
-      width: 1upx;
-      height: 30upx;
-      margin: 0 30px;
-      background-color: #976f1d;
-    }
-  }
-
-  .swiper_wrap {
-    margin: 16upx 30upx;
-    background: rgba($color: #000000, $alpha: 0.35);
-    color: #fff;
-    box-sizing: border-box;
-    position: relative;
-    border-radius: 60upx;
-  }
-
-  .rank_ad_wrap {
-    box-sizing: border-box;
-    padding: 0 30rpx;
-  }
-
-  .rank_wrap {
-    position: relative;
-    background: #fff4da;
-    border-radius: 24rpx;
-    box-sizing: border-box;
-    margin: 40rpx 0;
-    padding: 30rpx 26rpx 80rpx 30rpx;
-
-    .rule {
-      position: absolute;
-      right: 30upx;
-      top: 0;
-      height: 56upx;
-      line-height: 56upx;
-      padding: 0 30upx;
-      color: #fff;
-      border-radius: 56upx;
-      border: 1upx solid #fff;
-    }
-
-    .rank_time {
-      height: 60rpx;
-      line-height: 60rpx;
-      border-radius: 52upx;
-      text-align: center;
-      background: #ffe2cb;
-      font-size: 24rpx;
-      width: 440rpx;
-      margin: 0 auto;
-    }
-
-    .my_rank {
-      border-radius: 36upx;
-      padding: 40upx 0;
-      background: #fff4da;
-    }
-
-    .rank_list {
-      margin-top: 20upx;
-
-      .rank_box {
-        padding: 20upx;
-        background: #ffd2ba;
-        margin-bottom: 30upx;
-        border-radius: 36upx;
-        display: flex;
-        font-size: 24upx;
-
-        .gift_image {
-          width: 108upx;
-          height: 108upx;
-          border-radius: 16upx;
-          background: #aaa;
-        }
-
-        .gift_right {
-          display: flex;
-          margin-left: 26upx;
-          flex-direction: column;
-          justify-content: space-around;
-        }
-
-        .gift_title {
-          display: flex;
-
-          .gift_level {
-            padding: 0 30upx;
-            height: 42upx;
-            line-height: 42upx;
-            color: #fff;
-            font-size: 26upx;
-            background: #ff7948;
-            border-radius: 42upx;
-          }
-
-          .no_number {
-            margin-left: 24upx;
-          }
-        }
-      }
-
-      .border_top {
-        margin: 0 30upx;
-        border-top: 1upx solid #f25656;
-      }
-
-      .mlr30 {
-        margin: 0 30upx;
-      }
-
-      .box_item {
-        display: flex;
-        color: #333;
-        font-size: 28upx;
-        align-items: center;
-        padding: 24upx 0;
-        justify-content: space-between;
-
-        .box_item_left {
-          display: flex;
-          align-items: center;
-
-          .no_icon {
-            width: 40upx;
-            height: 36upx;
-            text-align: center;
-            margin-right: 10upx;
-          }
-
-          .avatar {
-            width: 64upx;
-            height: 64upx;
-            border-radius: 50%;
-            margin-right: 44upx;
-          }
-        }
-      }
-    }
-
-    .my_rank_top {
-      display: flex;
-    }
-
-    .share_btn {
-      height: 80upx;
-      margin: 42upx 0 0 102upx;
-      line-height: 80upx;
-      background: linear-gradient(180deg, #fd7d57 0%, #fe3c1b 100%);
-      box-shadow: 0 10upx 20upx 0 #fea190;
-      border-radius: 51upx;
-      align-items: center;
-      display: flex;
-      color: #fff;
-      font-weight: 600;
-      font-size: 34upx;
-      justify-content: center;
-      width: 400rpx;
-
-      .icon_wechat {
-        width: 34upx;
-        height: 34upx;
-        margin-right: 10upx;
-      }
-    }
-
-    .rank_avatar {
-      width: 90upx;
-      height: 90upx;
-      padding-right: 40upx;
-      border-right: 1upx solid #cecece;
-
-      image {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-      }
-    }
-
-    .my_rank_title {
-      font-size: 24upx;
-      font-weight: 400;
-      color: #666666;
-      line-height: 34upx;
-    }
-
-    .my_rank_item {
-      flex: 1;
-      text-align: center;
-
-      .rank_item_number {
-        color: #333333;
-        font-size: 46upx;
-      }
-    }
-
-    .rank_title {
-      color: #333;
-      font-weight: normal;
-      font-size: 34rpx;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      margin-bottom: 24rpx;
-
-      .icon_rangk {
-        width: 60upx;
-        height: 60upx;
-        margin-right: 20upx;
-        border-radius: 50%;
-        background: url(https://static.roi-cloud.com/base/icon_rank.png);
-        background-size: 200%;
-        background-position: center;
-      }
-
-      &_left {
-        display: flex;
-        align-items: center;
-
-        view {
-          margin-right: 20rpx;
-        }
-      }
-    }
-  }
-}
+	.diy_logo {
+		width: 150px;
+		height: 35px;
+	}
+
+	#shareCanvas {
+		position: fixed;
+		top: -9999999999999px;
+		background: #fff;
+		width: 260px;
+		height: 198px;
+		z-index: 999;
+	}
+
+	.ad_wrap {
+		width: 580upx;
+		height: 140upx;
+		margin: 40upx auto;
+		overflow: hidden;
+		background: linear-gradient(137deg, #95ffdc 0%, #ff8944 99%, #ff8944 100%);
+		border-radius: 20upx;
+
+		swiper,
+		image,
+		.swiper-item {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.contactPoup {
+		padding: 40upx;
+		text-align: center;
+
+		image {
+			padding: 40upx;
+			width: 400upx;
+			height: 400upx;
+		}
+	}
+
+	.no_data {
+		padding: 40upx 0;
+		text-align: center;
+		color: #aaa;
+		font-size: 30upx;
+	}
+
+	.bottom-button-wrap {
+		position: fixed;
+		background: #e6e6e6;
+		z-index: 10;
+		width: 100%;
+		height: 50px;
+		left: 0;
+		bottom: 0;
+		display: flex;
+		align-items: center;
+
+		.bottom-button-container {
+			width: 100%;
+			height: 100%;
+			box-sizing: border-box;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 16px;
+		}
+
+		.bottom-setting-wrap {
+			display: flex;
+			flex-direction: column;
+			font-size: 10px;
+			color: #666;
+			align-items: center;
+
+			.bottom-setting-icon {
+				width: 22px;
+				height: 22px;
+				margin: 0 0 4px;
+			}
+		}
+
+		.bottom-button-action {
+			display: flex;
+
+			.bottom-button-edit {
+				text-align: center;
+				padding: 4px 12px;
+				border: 1px solid #e83d3d;
+				color: #e83d3d;
+				font-size: 14px;
+				margin: 0 12px 0 0;
+				border-radius: 20px;
+			}
+
+			.bottom-button-share {
+				background-color: #e83d3d;
+				text-align: center;
+				padding: 4px 16px;
+				color: #fff;
+				font-size: 14px;
+				border-radius: 20px;
+			}
+		}
+	}
+
+	.login_poup {
+		padding: 54upx 40upx;
+		background: #fff;
+		border-radius: 24upx 24upx 0px 0px;
+
+		.login_title {
+			font-size: 32upx;
+			font-weight: 600;
+		}
+
+		.sub_title {
+			font-size: 30upx;
+			font-weight: 400;
+			margin-top: 24upx;
+		}
+
+		.logint_desc {
+			font-weight: 400;
+			color: #b2b2b2;
+			margin-top: 12upx;
+			font-size: 26upx;
+		}
+
+		.agreement {
+			margin-top: 82upx;
+			color: #b2b2b2;
+			font-size: 26rpx;
+
+			.protocol {
+				color: #0059ff;
+				font-size: 26rpx;
+			}
+		}
+
+		.btns {
+			display: flex;
+			justify-content: space-around;
+
+			.def_btn {
+				width: 240upx;
+				height: 80upx;
+				line-height: 80upx;
+				color: #07c160;
+				margin-top: 90upx;
+				border-radius: 8upx;
+				text-align: center;
+				background: rgba(0, 0, 0, 0.05);
+
+				&.active {
+					color: #fff;
+					margin-left: 32upx;
+					background: #07c160;
+				}
+			}
+		}
+	}
+
+	.login_content {
+		padding: 40upx;
+
+		text-align: center;
+	}
+
+	.confirm_login {
+		padding: 20upx;
+		color: #e83d3d;
+		border-top: 1upx solid #f2f2f2;
+		text-align: center;
+	}
+
+	.share_img_wrap {
+		text-align: center;
+
+		image {
+			width: 424upx;
+			height: 444upx;
+			margin-top: 20upx;
+		}
+	}
+
+	.gift_swiper {
+		width: 690upx;
+		height: 167upx;
+		margin: 0 auto;
+		overflow: hidden;
+		background: linear-gradient(137deg, #95ffdc 0%, #ff8944 99%, #ff8944 100%);
+		border-radius: 24upx;
+
+		swiper,
+		image,
+		.swiper-item {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.over_popup {
+		.over_header {
+			height: 186upx;
+			background: url(https://static.roi-cloud.com/base/over_bg.png) no-repeat 100%;
+			background-position: top;
+			background-size: 100% 100%;
+
+			.over_title {
+				height: 118upx;
+				text-align: center;
+				line-height: 118upx;
+				color: #fff;
+				position: relative;
+				text-align: center;
+
+				.icon_close {
+					width: 40upx;
+					height: 40upx;
+					position: absolute;
+					right: 40upx;
+					top: 40upx;
+					display: flex;
+					align-items: center;
+				}
+			}
+		}
+
+		.o_avatar {
+			width: 122upx;
+			height: 122upx;
+			border-radius: 50%;
+			margin: -61upx auto 0;
+			background: #eee;
+			overflow: hidden;
+		}
+
+		.o_username {
+			text-align: center;
+			margin-top: 12upx;
+			font-weight: 600;
+			font-size: 30upx;
+		}
+
+		.o_rank {
+			font-size: 30upx;
+			margin-top: 26upx;
+			text-align: center;
+			font-weight: 400;
+
+			text {
+				font-weight: 600;
+			}
+		}
+
+		.o_prize {
+			background-color: #fefcf1;
+			border-radius: 20upx;
+			min-height: 152upx;
+			align-items: center;
+			display: flex;
+			width: 540upx;
+			margin: 20rpx auto;
+			box-sizing: border-box;
+			padding: 20rpx 20rpx 20rpx 20rpx;
+			align-items: center;
+			box-shadow: 0 10rpx 40rpx 0 rgba(0, 0, 0, 0.06);
+
+			image {
+				width: 100rpx;
+				height: 100rpx;
+				margin-right: 30rpx;
+				border-radius: 16rpx;
+			}
+
+			.o_prize_text {
+				display: flex;
+				flex-direction: column;
+
+				.ranke_name {
+					background: #ff7948;
+					border-radius: 21rpx;
+					font-size: 26rpx;
+					color: #ffffff;
+					height: 40rpx;
+					line-height: 40rpx;
+					text-align: center;
+					width: 140rpx;
+				}
+
+				.prize_name {
+					margin-top: 14rpx;
+					font-size: 28rpx;
+					color: #333333;
+					width: 360rpx;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
+			}
+		}
+
+		.svip_end_tips {
+			width: 100%;
+			margin: 40upx auto 0;
+			text-align: center;
+			font-size: 24upx;
+		}
+
+		.icon_gift_box {
+			width: 286upx;
+			margin: 0 auto;
+
+			image {
+				width: 100%;
+				height: 326upx;
+			}
+
+			.gift_box_tips {
+				width: 242upx;
+				text-align: center;
+				margin: -68upx auto 0;
+				font-size: 24upx;
+			}
+		}
+
+		.get_goods_wrap {
+			padding: 20upx;
+			display: flex;
+			margin: 30upx 30upx 0;
+			border-radius: 16upx;
+			background: #fffcf1;
+			box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.06);
+
+			.get_img {
+				width: 112upx;
+				height: 112upx;
+				background: #eee;
+				border-radius: 16upx;
+			}
+
+			.get_right {
+				width: 1upx;
+				flex: 1;
+				margin-left: 30upx;
+				padding: 12upx 0;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+
+				.get_level {
+					font-size: 24upx;
+					width: 140upx;
+					height: 42upx;
+					color: #fff;
+					background: #ff7948;
+					line-height: 42upx;
+					border-radius: 42upx;
+					text-align: center;
+				}
+
+				.get_title {
+					width: 90%;
+					font-size: 28upx;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+		}
+
+		.get_tip {
+			width: 434upx;
+			font-size: 24upx;
+			text-align: center;
+			margin: 86upx auto 0;
+		}
+
+		.get_btn {
+			width: 406upx;
+			height: 80upx;
+			text-align: center;
+			color: #fff;
+			margin: 44upx auto 72upx;
+			font-size: 34upx;
+			font-weight: 600;
+			line-height: 80upx;
+			background: linear-gradient(180deg, #ff7657 0%, #e93e3d 100%);
+			box-shadow: 0 10upx 20upx 0 #f96650;
+			border-radius: 51upx;
+		}
+	}
+
+	.get_out {
+		position: relative;
+		text-align: center;
+
+		.icon_close {
+			width: 40upx;
+			height: 40upx;
+			position: absolute;
+			right: 40upx;
+			top: 40upx;
+		}
+
+		.icon_dice-3 {
+			position: absolute;
+			top: 104upx;
+			right: -28upx;
+			transform: rotate(-30deg);
+			width: 70upx;
+			height: 70upx;
+		}
+
+		.icon_sad {
+			width: 104upx;
+			height: 104upx;
+			margin-top: 90rpx;
+		}
+
+		.m_title {
+			margin-top: 24upx;
+			font-size: 34upx;
+			font-weight: 600;
+			color: #333333;
+		}
+
+		.s_title {
+			width: 428upx;
+			font-weight: 400;
+			color: #333333;
+			margin: 8upx auto 0;
+			font-size: 28upx;
+		}
+
+		.btn_know {
+			width: 406upx;
+			height: 80upx;
+			color: #fff;
+			line-height: 80upx;
+			margin: 80upx auto 0;
+			background: linear-gradient(180deg, #ff7657 0%, #e93e3d 100%);
+			box-shadow: 0 10upx 20upx 0 #f96650;
+			border-radius: 51upx;
+		}
+
+		.bttom_tips {
+			width: 372upx;
+			margin: 40upx auto 70upx;
+			line-height: 40upx;
+			font-size: 24upx;
+			font-weight: 400;
+			color: #333333;
+
+			text {
+				color: red;
+				margin-left: 10upx;
+			}
+		}
+
+		.p_bowl {
+			width: 400upx;
+			height: 400upx;
+			margin: -64upx auto 0;
+			position: relative;
+
+			.img_bowl {
+				width: 100%;
+				height: 100%;
+			}
+
+			.icon_dice-1 {
+				position: absolute;
+				top: 142upx;
+				left: 84upx;
+				width: 106upx;
+				height: 106upx;
+			}
+
+			.icon_dice-2 {
+				position: absolute;
+				top: 64upx;
+				left: 128upx;
+				width: 106upx;
+				height: 106upx;
+			}
+
+			.icon_dice-5 {
+				position: absolute;
+				top: 144upx;
+				left: 228upx;
+				width: 70upx;
+				transform: rotate(-15deg);
+				height: 70upx;
+			}
+
+			.icon_dice-4 {
+				position: absolute;
+				top: 204upx;
+				left: 178upx;
+				width: 70upx;
+				height: 70upx;
+			}
+		}
+	}
+
+	.mt50 {
+		margin-top: 50upx !important;
+	}
+
+	.mt100 {
+		margin-top: 100upx !important;
+	}
+
+	.p_bowl {
+		width: 400upx;
+		height: 400upx;
+		margin: -64upx auto 0;
+		position: relative;
+
+		.img_bowl {
+			width: 100%;
+			height: 100%;
+		}
+
+		.icon_dice-1 {
+			position: absolute;
+			top: 142upx;
+			left: 84upx;
+			width: 106upx;
+			height: 106upx;
+		}
+
+		.icon_dice-2 {
+			position: absolute;
+			top: 64upx;
+			left: 128upx;
+			width: 106upx;
+			height: 106upx;
+		}
+
+		.icon_dice-5 {
+			position: absolute;
+			top: 144upx;
+			left: 228upx;
+			width: 70upx;
+			transform: rotate(-15deg);
+			height: 70upx;
+		}
+
+		.icon_dice-4 {
+			position: absolute;
+			top: 204upx;
+			left: 178upx;
+			width: 70upx;
+			height: 70upx;
+		}
+	}
+
+	.icon_dice {
+		position: absolute;
+		top: -44upx;
+		left: 24upx;
+		width: 106upx;
+		height: 106upx;
+	}
+
+	.assistance_pop,
+	.help_other,
+	.help_other_faile {
+		text-align: center;
+
+		.avatar,
+		.help_status_icon {
+			width: 160upx;
+			height: 160upx;
+			border-radius: 50%;
+			margin: -80upx auto 28upx;
+			background: #eee;
+			overflow: hidden;
+			border: 4upx solid #fff;
+
+			image {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+
+		.help_m_title {
+			font-weight: 600;
+			color: #333333;
+			margin-top: 38upx;
+			font-size: 34upx;
+		}
+
+		.help_sub_title {
+			color: #999999;
+			margin-top: 10upx;
+		}
+
+		.username {
+			margin-top: 76upx;
+			color: #333;
+			font-size: 32upx;
+			margin-bottom: 38upx;
+		}
+
+		.ass_m_title {
+			font-weight: 600;
+			color: #333333;
+			font-size: 34upx;
+		}
+
+		.mt10 {
+			font-family: PingFangSC-Regular;
+			font-size: 28rpx;
+			color: #333333;
+			letter-spacing: 0;
+			text-align: center;
+			margin-top: 20rpx;
+		}
+
+		.play_btn {
+			width: 338upx;
+			margin: 22upx auto 20upx;
+			background: #ff4343;
+			height: 88upx;
+			line-height: 88upx;
+			border-radius: 88upx;
+			color: #fff;
+			margin-top: 22upx;
+			text-align: center;
+		}
+
+		.g_rank_no {
+			font-size: 64upx;
+			font-weight: 600;
+			color: #333333;
+			text-align: center;
+			padding: 20upx 0 40upx;
+		}
+
+		.g_img {
+			.goods_wrap {
+				display: flex;
+				margin: 40upx 30upx;
+				padding: 20upx;
+				background: #fff;
+				box-shadow: 0 10upx 40upx 0 rgba(0, 0, 0, 0.06);
+				border-radius: 16px;
+
+				image {
+					width: 112upx;
+					height: 112upx;
+					border-radius: 16upx;
+					margin-right: 30upx;
+					border: 2upx solid #f0f0f0;
+				}
+
+				.prizeName {
+					font-size: 28upx;
+					font-weight: 400;
+					color: #333333;
+					line-height: 58upx;
+					width: 1upx;
+					flex: 1;
+					text-overflow: -o-ellipsis-lastline;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+				}
+			}
+		}
+	}
+
+	.pop_share_btn {
+		background: none;
+		width: 112upx;
+		margin: 0 auto;
+		padding: 50upx 0;
+
+		&:after {
+			border: none;
+		}
+
+		image {
+			width: 112upx;
+			height: 112upx;
+		}
+
+		.share_text {
+			font-size: 24upx;
+			color: #999999;
+		}
+	}
+
+	.score_menu,
+	.help_menu {
+		display: flex;
+		margin: 0 30upx;
+		height: 80upx;
+		color: #ff3d3d;
+		line-height: 80upx;
+		border: 1upx solid #ff3d3d;
+		border-radius: 16upx;
+		overflow: hidden;
+
+		.score_item,
+		.help_item {
+			flex: 1;
+			text-align: center;
+
+			&.active {
+				color: #fff;
+				background-color: #ff3d3d;
+			}
+		}
+	}
+
+	.score_list {
+		margin-top: 18upx;
+		padding: 0 30upx;
+		max-height: 500upx;
+		overflow-y: scroll;
+
+		.score_list_item {
+			display: flex;
+			min-height: 108upx;
+			justify-content: space-between;
+			align-items: center;
+
+			.item_left {
+				width: 40%;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+
+			.item_right {
+				color: #666666;
+				font-size: 24upx;
+				flex: 1;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+
+				.t_blod {
+					margin-right: 40upx;
+					font-weight: bold;
+					font-size: 28upx;
+					color: #333333;
+				}
+
+				.item_right_time {
+					display: flex;
+					flex-direction: column;
+
+					&_date {
+						// margin-bottom: 30rpx;
+					}
+				}
+			}
+		}
+	}
+
+	.bg_level-6 {
+		width: 100%;
+		height: 186upx;
+		margin-top: -126upx;
+
+		image {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.p_title {
+		height: 120upx;
+		font-weight: 600;
+		line-height: 120upx;
+		text-align: center;
+		font-size: 34upx;
+		position: relative;
+
+		.icon_close {
+			height: 40upx;
+			width: 40upx;
+			position: absolute;
+			right: 40upx;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	}
+
+	.f-normal {
+		font-weight: normal !important;
+	}
+
+	.help_tip {
+		margin: 28upx 30upx 0;
+		color: #999999;
+		font-size: 12px;
+
+		image {
+			width: 30upx;
+			height: 30upx;
+		}
+	}
+
+	.dice_result {
+		display: flex;
+		margin: 46upx 30upx 0;
+		align-items: center;
+		justify-content: space-between;
+
+		.dice_item {
+			width: 80upx;
+			height: 80upx;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			image {
+				width: 100%;
+				height: 100%;
+			}
+		}
+	}
+
+	.award_title {
+		padding: 30upx 0;
+		font-weight: 600;
+		font-size: 34upx;
+		text-align: center;
+	}
+
+	.goods_wrap {
+		display: flex;
+		margin: 0 30upx;
+		padding: 20upx;
+		background: #fffcf1;
+		box-shadow: 0 10upx 40upx 0 rgba(0, 0, 0, 0.06);
+		border-radius: 16px;
+
+		image {
+			width: 112upx;
+			height: 112upx;
+			border-radius: 16upx;
+			margin-right: 30upx;
+			border: 2upx solid #f0f0f0;
+		}
+
+		.prizeName {
+			font-size: 28upx;
+			font-weight: 400;
+			color: #333333;
+			line-height: 58upx;
+			width: 1upx;
+			flex: 1;
+			text-overflow: -o-ellipsis-lastline;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+		}
+	}
+
+	.integral {
+		margin: 60upx 0 60upx;
+		font-size: 36upx;
+		color: #333333;
+		font-weight: bold;
+		text-align: center;
+	}
+
+	.again {
+		font-size: 30upx;
+		height: 88upx;
+		line-height: 88upx;
+		text-align: center;
+		background: #ff4343;
+		color: #fff;
+		width: 290upx;
+		margin: 0 auto 54upx;
+		border-radius: 88upx;
+	}
+
+	.help_tips {
+		display: flex;
+		color: #999999;
+		margin-top: 24upx;
+		font-size: 24upx;
+		padding-bottom: 24upx;
+		align-items: center;
+		justify-content: center;
+
+		image {
+			width: 24upx;
+			height: 24upx;
+			margin-left: 10upx;
+		}
+	}
+
+	.bo_center {
+		color: #ff4343;
+		font-size: 24upx;
+		text-align: center;
+		padding: 20upx 0 50upx;
+	}
+
+	.award_level {
+		width: 266upx;
+		height: 128upx;
+		margin: 0 auto;
+
+		image {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.icon_cry {
+		width: 182upx;
+		height: 156upx;
+		margin: 0 auto;
+
+		image {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.help_list {
+		height: 250px;
+		overflow-y: auto;
+		padding: 0 30upx;
+		box-sizing: border-box;
+
+		.help_list_item {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			height: 108upx;
+			line-height: 108upx;
+			color: #666666;
+			font-size: 24upx;
+
+			.ml10 {
+				margin-left: 10upx;
+			}
+
+			.help_left {
+				display: flex;
+				align-items: center;
+
+				.avatar {
+					width: 60upx;
+					height: 60upx;
+					margin-right: 10upx;
+					border-radius: 50%;
+					background: #eee;
+					overflow: hidden;
+
+					image {
+						width: 100%;
+						height: 100%;
+					}
+				}
+
+				.username {
+					color: #333333;
+					margin-left: 10upx;
+				}
+			}
+		}
+	}
+
+	page {
+		box-sizing: border-box;
+		min-height: 100vh;
+		background: #ff2626;
+	}
+
+	.wrap {
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		overflow-x: hidden;
+		overflow-y: auto;
+		// height: calc(100vh);
+	}
+
+	#main {
+		box-sizing: border-box;
+
+		.tips {
+			color: #fff;
+			text-align: center;
+			font-size: 24upx;
+			margin: 18upx 0 8upx;
+		}
+
+		.bowl_title {
+			width: 580upx;
+			height: 350upx;
+			margin: 0 auto;
+			position: relative;
+
+			image {
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		.bowl {
+			width: 100%;
+			height: 738upx;
+			position: relative;
+
+			.rule {
+				height: 56upx;
+				line-height: 56upx;
+				padding: 0 30upx;
+				color: #fff;
+				position: absolute;
+				right: 36upx;
+				top: 20upx;
+				font-size: 24upx;
+				border-radius: 56upx;
+				background: rgba($color: #000000, $alpha: 0.3);
+			}
+
+			.dice_wrap {
+				position: absolute;
+				width: 68%;
+				height: 57%;
+				top: 21%;
+				left: 14%;
+
+				.dice {
+					width: 70upx;
+					height: 70upx;
+					transform: rotate(360deg);
+
+					&.playAnimation {
+						opacity: 0;
+						animation: diceAnimate 0.4s forwards linear;
+						transform: translate(0, -800%) rotate(0deg) scale(0.8);
+					}
+
+					&.playAnimation:nth-child(1) {
+						animation-delay: 0.2s;
+					}
+
+					&:nth-child(1) {
+						position: absolute;
+						left: 160upx;
+						top: 113upx;
+						animation-delay: 0.2s;
+					}
+
+					&.playAnimation:nth-child(2) {
+						animation-delay: 0.3s;
+						animation: diceAnimate1 0.4s forwards linear;
+					}
+
+					&:nth-child(2) {
+						position: absolute;
+						left: 310upx;
+						top: 110upx;
+					}
+
+					&.playAnimation:nth-child(3) {
+						animation-delay: 0.2s;
+					}
+
+					&:nth-child(3) {
+						position: absolute;
+						left: 120upx;
+						top: 240upx;
+					}
+
+					&.playAnimation:nth-child(4) {
+						animation-delay: 0.1s;
+						animation: diceAnimate1 0.6s forwards linear;
+					}
+
+					&:nth-child(4) {
+						position: absolute;
+						left: 210upx;
+						top: 330upx;
+					}
+
+					&.playAnimation:nth-child(5) {
+						animation-delay: 0.3s;
+					}
+
+					&:nth-child(5) {
+						position: absolute;
+						left: 350upx;
+						top: 250upx;
+					}
+
+					&.playAnimation:nth-child(6) {
+						animation-delay: 0.1s;
+					}
+
+					&:nth-child(6) {
+						position: absolute;
+						left: 240upx;
+						top: 230upx;
+					}
+				}
+			}
+
+			.icon_bowl {
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		.gift_wrap {
+			position: absolute;
+			right: 10upx;
+			width: 106upx;
+			top: -30upx;
+			z-index: 99;
+
+			.icon_gift {
+				width: 134upx;
+				height: 146upx;
+				position: absolute;
+				left: 50%;
+				top: -46%;
+				transform: translateX(-50%);
+				z-index: 1;
+			}
+
+			.shadow {
+				width: 106upx;
+				height: 106upx;
+				line-height: 150upx;
+				color: #fff;
+				font-size: 20upx;
+				text-align: center;
+				background: linear-gradient(180deg, #c872d7 0%, #a031d6 100%);
+				border-radius: 21upx;
+			}
+		}
+
+		.chance {
+			display: flex;
+			align-items: center;
+			color: #fff;
+			justify-content: center;
+			margin-top: 20upx;
+
+			.number {
+				background: #b13737;
+				padding: 0 10upx;
+				height: 48upx;
+				margin: 0 14upx;
+				line-height: 48upx;
+				border-radius: 8upx;
+				color: #fff;
+			}
+		}
+
+		.de_btn {
+			width: 406upx;
+			height: 80upx;
+			border-radius: 50upx;
+			margin: 0 auto;
+			margin-top: 40upx;
+			font-weight: 600;
+			line-height: 80upx;
+			text-align: center;
+			font-size: 34rpx;
+			color: #976f1d;
+		}
+
+		.zl_btn {
+			border: 2px solid #976f1d;
+		}
+
+		.btn_primary {
+			color: #976f1d;
+			background: linear-gradient(180deg, #fff6b1 0%, #ffcf79 100%);
+			box-shadow: 0px 0px 20rpx #979797;
+		}
+
+		.record_wrap {
+			display: flex;
+			color: #976f1d;
+			align-items: center;
+			justify-content: center;
+			margin: 46upx auto;
+			font-size: 32upx;
+			padding: 160rpx 0 70rpx 0;
+			box-sizing: border-box;
+			background-color: #fdccb9;
+
+			.line {
+				width: 1upx;
+				height: 30upx;
+				margin: 0 30px;
+				background-color: #976f1d;
+			}
+		}
+
+		.swiper_wrap {
+			margin: 16upx 30upx;
+			background: rgba($color: #000000, $alpha: 0.35);
+			color: #fff;
+			box-sizing: border-box;
+			position: relative;
+			border-radius: 60upx;
+		}
+
+		.rank_ad_wrap {
+			box-sizing: border-box;
+			padding: 0 30rpx;
+		}
+
+		.rank_wrap {
+			position: relative;
+			background: #fff4da;
+			border-radius: 24rpx;
+			box-sizing: border-box;
+			margin: 0 10rpx;
+			padding: 30rpx 26rpx 80rpx 30rpx;
+
+			.rule {
+				position: absolute;
+				right: 30upx;
+				top: 0;
+				height: 56upx;
+				line-height: 56upx;
+				padding: 0 30upx;
+				color: #fff;
+				border-radius: 56upx;
+				border: 1upx solid #fff;
+			}
+
+			.rank_time {
+				height: 60rpx;
+				line-height: 60rpx;
+				border-radius: 52upx;
+				text-align: center;
+				background: #ffe2cb;
+				font-size: 24rpx;
+				width: 440rpx;
+				margin: 0 auto;
+			}
+
+			.my_rank {
+				border-radius: 36upx;
+				padding: 40upx 0;
+				background: #fff4da;
+			}
+
+			.rank_list {
+				margin-top: 20upx;
+
+				.rank_box {
+					padding: 20upx;
+					background: #ffd2ba;
+					margin-bottom: 30upx;
+					border-radius: 36upx;
+					display: flex;
+					font-size: 24upx;
+
+					.gift_image {
+						width: 108upx;
+						height: 108upx;
+						border-radius: 16upx;
+						background: #aaa;
+					}
+
+					.gift_right {
+						display: flex;
+						margin-left: 26upx;
+						flex-direction: column;
+						justify-content: space-around;
+					}
+
+					.gift_title {
+						display: flex;
+
+						.gift_level {
+							padding: 0 30upx;
+							height: 42upx;
+							line-height: 42upx;
+							color: #fff;
+							font-size: 26upx;
+							background: #ff7948;
+							border-radius: 42upx;
+						}
+
+						.no_number {
+							margin-left: 24upx;
+						}
+					}
+				}
+
+				.border_top {
+					margin: 0 30upx;
+					border-top: 1upx solid #f25656;
+				}
+
+				.mlr30 {
+					margin: 0 30upx;
+				}
+
+				.box_item {
+					display: flex;
+					color: #333;
+					font-size: 28upx;
+					align-items: center;
+					padding: 24upx 0;
+					justify-content: space-between;
+
+					.box_item_left {
+						display: flex;
+						align-items: center;
+
+						.no_icon {
+							width: 40upx;
+							height: 36upx;
+							text-align: center;
+							margin-right: 10upx;
+						}
+
+						.avatar {
+							width: 64upx;
+							height: 64upx;
+							border-radius: 50%;
+							margin-right: 44upx;
+						}
+					}
+				}
+			}
+
+			.my_rank_top {
+				display: flex;
+			}
+
+			.share_btn {
+				height: 80upx;
+				margin: 42upx 0 0 102upx;
+				line-height: 80upx;
+				background: linear-gradient(180deg, #fd7d57 0%, #fe3c1b 100%);
+				box-shadow: 0 10upx 20upx 0 #fea190;
+				border-radius: 51upx;
+				align-items: center;
+				display: flex;
+				color: #fff;
+				font-weight: 600;
+				font-size: 34upx;
+				justify-content: center;
+				width: 400rpx;
+
+				.icon_wechat {
+					width: 34upx;
+					height: 34upx;
+					margin-right: 10upx;
+				}
+			}
+
+			.rank_avatar {
+				width: 90upx;
+				height: 90upx;
+				padding-right: 40upx;
+				border-right: 1upx solid #cecece;
+
+				image {
+					width: 100%;
+					height: 100%;
+					border-radius: 50%;
+				}
+			}
+
+			.my_rank_title {
+				font-size: 24upx;
+				font-weight: 400;
+				color: #666666;
+				line-height: 34upx;
+			}
+
+			.my_rank_item {
+				flex: 1;
+				text-align: center;
+
+				.rank_item_number {
+					color: #333333;
+					font-size: 46upx;
+				}
+			}
+
+			.rank_title {
+				color: #333;
+				font-weight: normal;
+				font-size: 34rpx;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				width: 100%;
+				margin-bottom: 24rpx;
+
+				.icon_rangk {
+					width: 60upx;
+					height: 60upx;
+					margin-right: 20upx;
+					border-radius: 50%;
+					background: url(https://static.roi-cloud.com/base/icon_rank.png);
+					background-size: 200%;
+					background-position: center;
+				}
+
+				&_left {
+					display: flex;
+					align-items: center;
+
+					view {
+						margin-right: 20rpx;
+					}
+				}
+			}
+		}
+	}
 </style>
