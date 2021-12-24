@@ -20,7 +20,7 @@
         paddingTop: navbarHeight + 'px',
         background: `url(${
           gameInfo.backgroundInfo.backgroundUrl ||
-          'https://static.roi-cloud.com/upload/20211211/60935669180404'
+          'https://static.roi-cloud.com/upload/20211224/60935669160142'
         }) no-repeat`,
         backgroundSize: '100%',
       }">
@@ -3153,7 +3153,6 @@
 			font-size: 32upx;
 			padding: 160rpx 0 70rpx 0;
 			box-sizing: border-box;
-			background-color: #fdccb9;
 
 			.line {
 				width: 1upx;
