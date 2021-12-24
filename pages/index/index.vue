@@ -732,7 +732,6 @@
 				this.$storage.set('invite', options.code)
 			}
 			this.inviteCode = this.$storage.get('invite')
-			options.share = true
 			if (options.share) {
 				this.share = true
 				if (!user.userId) {
