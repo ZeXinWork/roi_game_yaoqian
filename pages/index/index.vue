@@ -108,40 +108,33 @@
       </view>
       <redEnvelope
         @handleGameResult="handleGameResult"
-		@play="play"
+		    @play="play"
         ref="redEnvelope"
         :result="gameResult.result"
         :prize="gameResult.prize"
-		:playTime="playTime"
-		:type="gameInfo.lottery_type"
-		:openShare="isOpenShareContent"
-      ></redEnvelope>
+		    :playTime="playTime"
+		    :type="gameInfo.lottery_type"
+		    :openShare="isOpenShareContent"
+      />
 
       <view v-if="isOpenShareContent" class="de_btn zl_btn" @click="popShow('share')">喊好友来游戏</view>
-      <view class="record_wrap">
-        <text @click="popShow('score')">积分明细</text>
-        <view class="line"></view>
-        <text @click="onMy">个人中心</text>
-        <view class="line"></view>
-        <text @click="onHelper">助力记录</text>
-      </view>
-      <view class="gift_swiper" v-if="advertList[1].length > 0">
-        <swiper
-          :circular="true"
-          :autoplay="true"
-          :interval="3000"
-          :duration="1000"
-        >
-          <swiper-item
-            v-for="item in advertList[1]"
-            :key="item"
-            v-if="item.locationType == 1"
-          >
-            <view class="swiper-item">
-              <image :src="item.uploadImgInfo.img" mode="aspectFill"></image>
-            </view>
-          </swiper-item>
-        </swiper>
+      <view class="recorde_ad_wrap">
+        <view class="record_wrap">
+          <text @click="popShow('score')">积分明细</text>
+          <view class="line"></view>
+          <text @click="onMy">个人中心</text>
+          <view class="line"></view>
+          <text @click="onHelper">助力记录</text>
+        </view>
+        <view class="gift_swiper" v-if="advertList.length > 0">
+          <swiper :circular="true" :autoplay="true" :interval="3000" :duration="1000" >
+            <swiper-item v-for="item in advertList" :key="item">
+              <view class="swiper-item">
+                <image :src="item.ad_pic_url" mode="aspectFill"></image>
+              </view>
+            </swiper-item>
+          </swiper>
+        </view>
       </view>
       <view
         class="rank_ad_wrap"
@@ -2066,6 +2059,18 @@ export default {
               'MM月DD日  HH:mm'
             ),
           }
+          if (res.ad_type == 1) {
+            this.advertList = res.ad_info
+          } else {
+            if (res.ad_info.length > 0) {
+              res.ad_info.forEach(item => {
+                if (Number(item.ad_location) == 1) {
+                  this.advertList = [item]
+                  return
+                }
+              })
+            }
+          }
           this.$storage.set('gameInfo', this.gameInfo)
 
           this.showGamePopup(Number(res.status))
@@ -3518,6 +3523,10 @@ page {
     background: linear-gradient(180deg, #fff6b1 0%, #ffcf79 100%);
     box-shadow: 0px 0px 20rpx #979797;
   }
+  
+  .recorde_ad_wrap {
+    background-image: linear-gradient(180deg, #FECBB7 55%, rgba(255, 255, 255, 0) 100%);
+  }
 
   .record_wrap {
     display: flex;
@@ -3526,10 +3535,9 @@ page {
     justify-content: center;
     margin: 46upx auto;
     font-size: 32upx;
-    padding: 160rpx 0 70rpx 0;
+    padding: 80rpx 0 20rpx 0;
     box-sizing: border-box;
-    background-color: #fdccb9;
-
+    // background-color: #fdccb9;
     .line {
       width: 1upx;
       height: 30upx;
@@ -3557,7 +3565,7 @@ page {
     background: #fff4da;
     border-radius: 24rpx;
     box-sizing: border-box;
-    margin: 0 10rpx;
+    margin: 40rpx 0;
     padding: 30rpx 26rpx 80rpx 30rpx;
 
     .rule {

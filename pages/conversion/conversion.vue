@@ -40,9 +40,7 @@
               <view class="number">{{ gameInfo.integral || 0 }}</view>
             </view>
           </view>
-          <navigator :url="'../prize/prize?gameId=' + gameId" class="user_right"
-            >我的奖品</navigator
-          >
+          <navigator :url="'/pages/prize/prize?gameId=' + gameId" class="user_right">我的奖品</navigator>
         </view>
       </view>
       <view v-if="prizeList.length > 0">
@@ -111,9 +109,9 @@
           :interval="3000"
           :duration="1000"
         >
-          <swiper-item v-for="item in advertList" :key="item">
+          <swiper-item v-for="item in advertList" :key="item.game_ad_id">
             <view class="swiper-item">
-              <image :src="item.uploadImgInfo.img" mode="aspectFill"></image>
+              <image :src="item.ad_pic_url" mode="aspectFill"></image>
             </view>
           </swiper-item>
         </swiper>
@@ -311,13 +309,6 @@ export default {
         url: "/pages/prize/prize?gameId=" + this.gameId,
       });
     },
-    getAdvert() {
-      apiGetAdvert({
-        gameId: this.gameId,
-      }).then((res) => {
-        this.advertList = res;
-      });
-    },
     showDetail(item) {
       this.curr_show_item = item;
       this.$refs.prizeInfoDetail.show();
@@ -406,6 +397,17 @@ export default {
           "YYYY年MM月DD日"
         );
         this.gameInfo = res;
+        if (res.ad_type == 1) {
+          this.advertList = res.ad_info
+        } else {
+          if (res.ad_info.length > 0) {
+            res.ad_info.forEach(item => {
+              if (Number(item.ad_location) == 2) {
+                this.advertList = [item]
+              }
+            })
+          }
+        }
         // this.gameInfo.integral = res.integral.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
       });
     },
