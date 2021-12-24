@@ -16,20 +16,20 @@
 					<view class="username">{{ contactInfo.nickname }}</view>
 				</view>
 			</view>
-			<!-- <view class="code_content">
+			<view class="code_content" >
 				<view class="m_title">联系商家领奖</view>
 				<view class="code_img">
-					<image :show-menu-by-longpress="true" :src="contactInfo.qrCodeUrl" mode=""></image>
-				</view>
-				<view class="code_tip">长按二维码，扫码领奖</view>
-			</view> -->
-			<view class="code_content" @longtap="saveImage">
-				<view class="m_title">联系商家领奖</view>
-				<view class="code_img">
-					<image :show-menu-by-longpress="false" :src="contactInfo.qr_code_url" mode=""></image>
+					<image :show-menu-by-longpress="true" :src="contactInfo.qr_code_url" mode=""></image>
 				</view>
 				<view class="code_tip">长按二维码，保存图片到相册</view>
 			</view>
+			<!-- <view class="code_content" @longtap="saveImage">
+				<view class="m_title">联系商家领奖</view>
+				<view class="code_img">
+					<image :show-menu-by-longpress="true" :src="contactInfo.qr_code_url" mode=""></image>
+				</view>
+				<view class="code_tip">长按二维码，保存图片到相册</view>
+			</view> -->
 			<view class="prize_item" @click="openCode">
 				<view class="">
 					<view class="m_title">领奖码</view>

@@ -56,7 +56,7 @@
       </view>
     </view>
     <view class="no_data" v-else> 暂无奖品 </view>
-    <navigator url="../index/index" class="go_game">去游戏</navigator>
+    <navigator delta="2" open-type="navigateBack" class="go_game">去游戏</navigator>
     <popup
       ref="prizeDetail"
       class="prizeDetail"
@@ -153,7 +153,8 @@ export default {
       phone: "",
       userPrizeList: [],
       curr_show_item: {},
-	  source: ['','即开即中','积分兑换','粉丝PK排行榜']
+	  source: ['','即开即中','积分兑换','粉丝PK排行榜'],
+	  path: '/pages/index/index?gameId=' + this.gameId
     };
   },
   onReachBottom(e) {
@@ -162,8 +163,12 @@ export default {
       this.getPrizeList(this.current);
     }
   },
+  onshow() {
+	  this.path = '/pages/index/index?gameId=' + this.gameId
+  },
   onLoad(options) {
     this.gameId = options.gameId;
+	this.path = '/pages/index/index?gameId=' + this.gameId
     this.getPrizeList();
     const user = this.$storage.getUser();
     this.phone = user.phone;

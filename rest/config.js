@@ -315,3 +315,6 @@ export const GET_RANK = '/api/game/ranking'
 export const GET_FINAL_RANK = '/api/game/userFinalRanking'
 
 export const GET_MY_RANK = '/api/user/ranking'
+
+// 小程序通知开关
+export const WECHAT_MESSAGE = '/api/subscribe/index'

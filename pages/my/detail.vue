@@ -62,10 +62,13 @@
 			},
 			getMyList() {
 				getMyListMore(this.queryObj).then((res) => {
-					if (this.gameList.length === 0) {
+					if (this.queryObj.offset === 0) {
 						this.gameList = res
 					} else {
 						if (_.isArray(res)){
+							if (res.length < this.queryObj.limit) {
+								this.noData = true
+							}
 							this.gameList = [...this.gameList, ...res]
 						}
 					}
@@ -81,7 +84,7 @@
 				if (this.noData) {
 					return
 				}
-				this.queryObj.offset = this.queryObj.offset + 10
+				this.queryObj.offset = this.queryObj.offset + this.queryObj.limit
 				this.getMyList()
 			}
 		},
