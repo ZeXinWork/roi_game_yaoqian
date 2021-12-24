@@ -1683,61 +1683,63 @@ export default {
           console.log(res.networkType, "res.networkType === 'none'")
           if (res.networkType === 'none') {
             this.$refs.network.show()
-          } else {
-            if (this.playLoading) {
-              return
-            }
-            this.playLoading = true
-            const user = this.$storage.getUser()
-
-            if (!user.userId) {
-              this.playLoading = false
-              this.$refs.login_popup.open('bottom')
-              return
-            }
-
-            if (!this.gameId) {
-              uni.showToast({
-                title: '暂无游戏信息!',
-                icon: 'none',
-              })
-              this.playLoading = false
-              return
-            }
-
-            if (this.gameInfo.status > 5 ) {
-              uni.showToast({
-                title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
-                icon: 'error',
-              })
-              this.playLoading = false
-              return
-            }
-
-            if (!this.isStart) {
-              const status = this.gameInfo.status
-              if (status == 1 || status == 2) {
-                uni.showToast({
-                  title: '游戏未开始!',
-                  icon: 'none',
-                })
-              }
-              this.playLoading = false
-              return
-            }
-
-            if (this.isOpenSendMessage) {
-              wechat.getAuthOfSubscribeMessage(()=> {
-              this.playLoading = false
-                this.getGameResult()
-              })
-            } else {
-              this.playLoading = false
-              this.getGameResult()
-            }
+            return
           }
         },
       })
+      if (this.playLoading) {
+        return
+      }
+      this.playLoading = true
+      const user = this.$storage.getUser()
+
+      if (!user.userId) {
+        this.playLoading = false
+        this.$refs.login_popup.open('bottom')
+        return
+      }
+
+      if (!this.gameId) {
+        uni.showToast({
+          title: '暂无游戏信息!',
+          icon: 'none',
+        })
+        this.playLoading = false
+        return
+      }
+
+      if (this.gameInfo.status > 5 ) {
+        uni.showToast({
+          title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
+          icon: 'error',
+        })
+        this.playLoading = false
+        return
+      }
+
+      if (!this.isStart) {
+        const status = this.gameInfo.status
+        if (status == 1 || status == 2) {
+          uni.showToast({
+            title: '游戏未开始!',
+            icon: 'none',
+          })
+        }
+        this.playLoading = false
+        return
+      }
+
+      if (this.isOpenSendMessage) {
+        console.log("???????????????")
+        wechat.getAuthOfSubscribeMessage(()=> {
+          this.playLoading = false
+          this.getGameResult()
+        })
+      } else {
+        console.log("???????????????")
+        this.playLoading = false
+        this.getGameResult()
+      }
     },
     playSound() {
       this.Audio.seek(0.1)
@@ -2273,6 +2275,7 @@ export default {
             this.getPlayNumber() //获取游戏可玩次数
             this.getHelperList(1) // 助力记录
             this.getMyRank() //获取当前我的排名信息
+            this.getWechatMessage()
             if (this.currentScoreItem === 1) {
               this.getAward()
             }
@@ -3587,6 +3590,10 @@ page {
     box-shadow: 0px 0px 20rpx #979797;
   }
 
+  .recorde_ad_wrap {
+    background-image: linear-gradient(180deg, #FECBB7 55%, rgba(255, 255, 255, 0) 100%);
+  }
+
   .record_wrap {
     display: flex;
     color: #976f1d;
@@ -3594,7 +3601,7 @@ page {
     justify-content: center;
     margin: 46upx auto;
     font-size: 32upx;
-    padding: 160rpx 0 70rpx 0;
+    padding: 80rpx 0 20rpx 0;
     box-sizing: border-box;
     background-color: #fdccb9;
 
@@ -3625,7 +3632,7 @@ page {
     background: #fff4da;
     border-radius: 24rpx;
     box-sizing: border-box;
-    margin: 0 10rpx;
+    margin: 40rpx 0;
     padding: 30rpx 26rpx 80rpx 30rpx;
 
     .rule {
