@@ -531,15 +531,6 @@
 			<image @click="$refs.location.close()" class="icon_close"
 				src="https://static.roi-cloud.com/base/icon_close.png" mode="">
 			</image>
-			<view class="p_bowl">
-				<image class="img_bowl" src="https://static.roi-cloud.com/base/icon_bowl.png" mode=""></image>
-				<image class="icon_dice-2" src="https://static.roi-cloud.com/base/p_dice.png" mode=""></image>
-				<image class="icon_dice-1" src="https://static.roi-cloud.com/base/p_dice-2.png" mode=""></image>
-				<image class="icon_dice-4" src="https://static.roi-cloud.com/base/icon_dice-4.png" mode=""></image>
-				<image class="icon_dice-5" src="https://static.roi-cloud.com/base/icon_dice-5.png" mode=""></image>
-			</view>
-			<image class="icon_dice" src="https://static.roi-cloud.com/base/p_dice.png" mode=""></image>
-			<image class="icon_dice-3" src="https://static.roi-cloud.com/base/icon_dice-3.png" mode=""></image>
 			<image class="icon_sad" src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
 			<view class="m_title">
 				<text>无法进行游戏游戏</text>
@@ -625,6 +616,7 @@
 		getOpenAward,
 		getMyRank,
 		apiWechatMessage,
+		apiSetUserLocation
 	} from '@/rest/api.js'
 	export default {
 		components: {
@@ -854,9 +846,17 @@
 						privacy_clause_url: res.privacy_clause_url,
 						agreement_url: res.agreement_url,
 					}
-					this.$storage.setUser(params)
 					const user = this.$storage.getUser()
-					console.log(user, 'uuuuuuuuuuuuuuuuuuu')
+					if (user.userId) {
+						this.$storage.setUser({
+							...user,
+							...params
+						})
+					} else {
+						this.$storage.setUser(params)
+					}
+
+
 				})
 			},
 			getExchange() {
@@ -1307,66 +1307,74 @@
 			play() {
 				uni.getNetworkType({
 					success: (res) => {
-						console.log(res.networkType, "res.networkType === 'none'")
 						if (res.networkType === 'none') {
 							this.$refs.network.show()
 							return
+						} else {
+							if (this.playLoading) {
+								return
+							}
+							this.playLoading = true
+							const user = this.$storage.getUser()
+							console.log(user, "userr")
+							if (!user.userId) {
+								this.playLoading = false
+								this.$refs.login_popup.open('bottom')
+								return
+							}
+							if (!this.gameId) {
+								uni.showToast({
+									title: '暂无游戏信息!',
+									icon: 'none',
+								})
+								this.playLoading = false
+								return
+							}
+							if (this.$storage.get('getLocationTime') == '') {
+								this.getSetting()
+								return
+							} else {
+								let get_time = this.$storage.get('getLocationTime').get_time
+								let now = new Date().getTime()
+								if ((now - get_time) / 1000 / 60 / 60 > 3) {
+									this.getSetting()
+									return
+								}
+							}
+							if (this.gameInfo.status > 5) {
+								uni.showToast({
+									title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
+									icon: 'error',
+								})
+								this.playLoading = false
+								return
+							}
+
+							if (!this.isStart) {
+								const status = this.gameInfo.status
+								if (status == 1 || status == 2) {
+									uni.showToast({
+										title: '游戏未开始!',
+										icon: 'none',
+									})
+								}
+								this.playLoading = false
+								return
+							}
+
+							if (this.isOpenSendMessage) {
+								wechat.getAuthOfSubscribeMessage(() => {
+									this.playLoading = false
+									this.getGameResult()
+								})
+							} else {
+								this.playLoading = false
+								this.getGameResult()
+							}
 						}
 					},
 				})
-				if (this.playLoading) {
-					return
-				}
-				this.playLoading = true
-				const user = this.$storage.getUser()
 
-				if (!user.userId) {
-					this.playLoading = false
-					this.$refs.login_popup.open('bottom')
-					return
-				}
-
-				if (!this.gameId) {
-					uni.showToast({
-						title: '暂无游戏信息!',
-						icon: 'none',
-					})
-					this.playLoading = false
-					return
-				}
-
-				if (this.gameInfo.status > 5) {
-					uni.showToast({
-						title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
-						icon: 'error',
-					})
-					this.playLoading = false
-					return
-				}
-
-				if (!this.isStart) {
-					const status = this.gameInfo.status
-					if (status == 1 || status == 2) {
-						uni.showToast({
-							title: '游戏未开始!',
-							icon: 'none',
-						})
-					}
-					this.playLoading = false
-					return
-				}
-
-				if (this.isOpenSendMessage) {
-					console.log('???????????????')
-					wechat.getAuthOfSubscribeMessage(() => {
-						this.playLoading = false
-						this.getGameResult()
-					})
-				} else {
-					console.log('???????????????')
-					this.playLoading = false
-					this.getGameResult()
-				}
 			},
 			playSound() {
 				this.Audio.seek(0.1)
@@ -1447,7 +1455,7 @@
 					latitude: res.latitude,
 				}).then((res) => {
 					this.playLoading = false
-					this.addPlay()
+					this.getGameResult()
 					this.$loading.hide()
 				})
 			},
@@ -1461,7 +1469,7 @@
 								altitude: true,
 								success(res) {
 									console.log(res)
-									// that.updateLocation(res)
+									that.updateLocation(res)
 								},
 							})
 						} else {
@@ -1570,8 +1578,7 @@
 						let item = {
 							info: this.gameInfo.game_pk_plugin[index],
 							range: this.gameInfo.game_pk_plugin[index].start_seq == 1 ?
-								'第' + num + '名' :
-								'第' +
+								'第' + num + '名' : '第' +
 								num +
 								'～' +
 								this.gameInfo.game_pk_plugin[index].start_seq +

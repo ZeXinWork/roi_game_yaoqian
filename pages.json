@@ -64,6 +64,13 @@
 				"navigationBarTextStyle": "white"
 			}
 
+		},
+		{
+			"path": "pages/webView/webView",
+			"style": {
+				"navigationBarTitleText": "解答"
+			}
+
 		}
 	],
 	"globalStyle": {
