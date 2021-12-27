@@ -103,7 +103,7 @@
 		},
 		methods: {
 			toGame(game) {
-				uni.navigateTo({ url: `../index/index?gameId=${game.game_id}` })
+				uni.reLaunch({ url: `../index/index?gameId=${game.game_id}` })
 			},
 			momentData(date) {
 				return moment(date * 1000).format('YYYY.MM.DD')
