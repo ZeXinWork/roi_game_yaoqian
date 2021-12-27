@@ -1357,13 +1357,11 @@
 				}
 
 				if (this.isOpenSendMessage) {
-					console.log('???????????????')
 					wechat.getAuthOfSubscribeMessage(() => {
 						this.playLoading = false
 						this.getGameResult()
 					})
 				} else {
-					console.log('???????????????')
 					this.playLoading = false
 					this.getGameResult()
 				}
@@ -3226,7 +3224,7 @@
 			color: #976f1d;
 			align-items: center;
 			justify-content: center;
-			margin: 106upx auto;
+			margin: 69upx auto;
 			font-size: 32upx;
 			padding: 80rpx 0 20rpx 0;
 			box-sizing: border-box;
