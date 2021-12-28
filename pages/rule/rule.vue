@@ -7,7 +7,7 @@
 				<view class="text_center">摇摇树活动</view>
 			</view>
 			<view class="gift_list">
-				<view class="gift_item" v-for="item in gameInfo.game_award">
+				<view class="gift_item" v-for="item in gameAward" :key="item.game_award_id">
 					<view class="gift_img">
 						<image :src="item.prize_url" mode=""></image>
 					</view>
@@ -128,11 +128,13 @@
 				},
 				gameInfo: {},
 				openShare: false,
+				gameAward: []
 			};
 		},
 		onLoad(options) {
 			let gameInfo = this.$storage.get("gameInfo")
 			this.gameInfo = gameInfo
+			this.gameAward = gameInfo.game_award.slice(0,3)
 			console.log(options)
 			this.openShare = options.openShare
 			if (!gameInfo.game_id) {

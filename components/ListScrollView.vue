@@ -1,6 +1,6 @@
 <!-- 垂直滚动区域 -->
 <template>
-	<scroll-view scroll-y class="scroll-container" refresher-enabled="true" :refresher-triggered="triggered"
+	<scroll-view scroll-y class="scroll-container" :refresher-triggered="triggered"
 		:refresher-threshold="100" refresher-background="lightgreen" @refresherpulling="onPulling"
 		@refresherrefresh="onRefresh" @refresherrestore="onRestore" @refresherabort="onAbort"
 		@scrolltolower="scrollLower">

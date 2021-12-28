@@ -71,7 +71,7 @@
 			const user = this.$storage.getUser()
 			this.user = user
 			getMyList({
-				offset: 1,
+				offset: 0,
 				limit: 3
 			}).then((res) => {
 				if (Array.isArray(res)) {
