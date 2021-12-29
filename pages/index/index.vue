@@ -1337,73 +1337,132 @@
 				}
 			},
 			play() {
-				uni.getNetworkType({
-					success: (res) => {
-						if (res.networkType === 'none') {
-							this.$refs.network.show()
-							return
-						} else {
-							if (this.playLoading) {
-								return
-							}
-							this.playLoading = true
-							const user = this.$storage.getUser()
-							console.log(user, 'userr')
-							if (!user.userId) {
-								this.playLoading = false
-								this.$refs.login_popup.open('bottom')
-								return
-							}
-							if (!this.gameId) {
-								uni.showToast({
-									title: '暂无游戏信息!',
-									icon: 'none',
-								})
-								this.playLoading = false
-								return
-							}
-							if (this.gameInfo.status > 5) {
-								this.playLoading = false
-								if (this.gameInfo.status === 7) {
-									this.$refs.get_out.show()
+				if (this.isOpenSendMessage) {
+					wechat.getAuthOfSubscribeMessage(() => {
+						this.playLoading = false
+						uni.getNetworkType({
+							success: (res) => {
+								if (res.networkType === 'none') {
+									this.$refs.network.show()
+									return
 								} else {
-									this.$refs.get_over.show()
+									if (this.playLoading) {
+										return
+									}
+									this.playLoading = true
+									const user = this.$storage.getUser()
+									console.log(user, 'userr')
+									if (!user.userId) {
+										this.playLoading = false
+										this.$refs.login_popup.open('bottom')
+										return
+									}
+									if (!this.gameId) {
+										uni.showToast({
+											title: '暂无游戏信息!',
+											icon: 'none',
+										})
+										this.playLoading = false
+										return
+									}
+									if (this.gameInfo.status > 5) {
+										this.playLoading = false
+										if (this.gameInfo.status === 7) {
+											this.$refs.get_out.show()
+										} else {
+											this.$refs.get_over.show()
+										}
+										return
+									} else if (!this.isStart) {
+										const status = this.gameInfo.status
+										if (status == 1 || status == 2) {
+											uni.showToast({
+												title: '游戏未开始!',
+												icon: 'none',
+											})
+										}
+										this.playLoading = false
+										return
+									}
+									if (this.$storage.get('getLocationTime') == '') {
+										this.getSetting()
+										return
+									} else {
+										let get_time = this.$storage.get('getLocationTime').get_time
+										let now = new Date().getTime()
+										if ((now - get_time) / 1000 / 60 / 60 > 3) {
+											this.getSetting()
+											return
+										}
+									}
+									this.getGameResult()
 								}
-								return
-							} else if (!this.isStart) {
-								const status = this.gameInfo.status
-								if (status == 1 || status == 2) {
-									uni.showToast({
-										title: '游戏未开始!',
-										icon: 'none',
-									})
-								}
-								this.playLoading = false
-								return
-							}
-							if (this.$storage.get('getLocationTime') == '') {
-								this.getSetting()
+							},
+						})
+
+					})
+				} else {
+					this.playLoading = false
+					uni.getNetworkType({
+						success: (res) => {
+							if (res.networkType === 'none') {
+								this.$refs.network.show()
 								return
 							} else {
-								let get_time = this.$storage.get('getLocationTime').get_time
-								let now = new Date().getTime()
-								if ((now - get_time) / 1000 / 60 / 60 > 3) {
-									this.getSetting()
+								if (this.playLoading) {
 									return
 								}
-							}
-							if (this.isOpenSendMessage) {
-								wechat.getAuthOfSubscribeMessage(() => {
+								this.playLoading = true
+								const user = this.$storage.getUser()
+								console.log(user, 'userr')
+								if (!user.userId) {
 									this.playLoading = false
-									this.getGameResult()
-								})
-							} else {
-								this.playLoading = false
+									this.$refs.login_popup.open('bottom')
+									return
+								}
+								if (!this.gameId) {
+									uni.showToast({
+										title: '暂无游戏信息!',
+										icon: 'none',
+									})
+									this.playLoading = false
+									return
+								}
+								if (this.gameInfo.status > 5) {
+									this.playLoading = false
+									if (this.gameInfo.status === 7) {
+										this.$refs.get_out.show()
+									} else {
+										this.$refs.get_over.show()
+									}
+									return
+								} else if (!this.isStart) {
+									const status = this.gameInfo.status
+									if (status == 1 || status == 2) {
+										uni.showToast({
+											title: '游戏未开始!',
+											icon: 'none',
+										})
+									}
+									this.playLoading = false
+									return
+								}
+								if (this.$storage.get('getLocationTime') == '') {
+									this.getSetting()
+									return
+								} else {
+									let get_time = this.$storage.get('getLocationTime').get_time
+									let now = new Date().getTime()
+									if ((now - get_time) / 1000 / 60 / 60 > 3) {
+										this.getSetting()
+										return
+									}
+								}
 								this.getGameResult()
 							}
-						}
-					},
-				})
+						},
+					})
+				}
 			},
 			playSound() {
 				this.Audio.seek(0.1)
@@ -1485,9 +1544,11 @@
 				}).then((res) => {
 					this.playLoading = false
 					this.$loading.hide()
+					this.getGameResult()
 				}).catch(err => {
 					this.playLoading = false
 					this.$loading.hide()
+					this.getGameResult()
 				})
 			},
 			getSetting() {
