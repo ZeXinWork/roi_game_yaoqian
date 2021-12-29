@@ -24,6 +24,13 @@
         }) no-repeat`,
         backgroundSize: '100%'
       }">
+			<image class="levl-1" src="https://static.roi-cloud.com/upload/20211229/60935669183338" mode="aspectFill">
+			</image>
+			<image class="levl-2" src="https://static.roi-cloud.com/upload/20211229/60935669181927" mode="aspectFill">
+			</image>
+			<image class="levl-3" src="https://static.roi-cloud.com/upload/20211229/60935669183947" mode="aspectFill">
+			</image>
+
 			<view class="swiper_wrap">
 				<uni-notice-bar showIcon="true" color="#fff" background-color="transparent" scrollable="true"
 					single="true"
@@ -2121,7 +2128,33 @@
 </script>
 
 <style lang="scss">
-	
+	.levl-1 {
+		width: 200rpx;
+		height: 146rpx;
+		position: absolute;
+		left: 140rpx;
+		top: 150rpx;
+		z-index: 10
+	}
+
+	.levl-3 {
+		width: 280rpx;
+		height: 280rpx;
+		top: 230rpx;
+		left: 50rpx;
+		position: absolute;
+		z-index: 30;
+	}
+
+	.levl-2 {
+		width: 540rpx;
+		height: 446rpx;
+		position: absolute;
+		left: 170rpx;
+		z-index: 20;
+		// display: none;
+	}
+
 	.element {
 		color: #f35626;
 		background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
@@ -3231,6 +3264,7 @@
 
 	#main {
 		box-sizing: border-box;
+		position: relative;
 
 		.tips {
 			color: #fff;
