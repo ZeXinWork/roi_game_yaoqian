@@ -732,7 +732,6 @@
 			this.context = uni.createCanvasContext('shareCanvas', this)
 		},
 		onLoad(options) {
-
 			this.navbarHeight =
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
@@ -794,6 +793,15 @@
 		},
 		computed: {
 			gameOver() {
+				if (this.gameInfo.status > 5) {
+					this.playLoading = false
+					if (this.gameInfo.status === 7) {
+						this.$refs.get_out.show()
+					} else {
+						this.$refs.get_over.show()
+					}
+					return
+				}
 				return gameInfo.status !== 3
 			}
 		},
@@ -1354,6 +1362,25 @@
 								this.playLoading = false
 								return
 							}
+							if (this.gameInfo.status > 5) {
+								this.playLoading = false
+								if (this.gameInfo.status === 7) {
+									this.$refs.get_out.show()
+								} else {
+									this.$refs.get_over.show()
+								}
+								return
+							} else if (!this.isStart) {
+								const status = this.gameInfo.status
+								if (status == 1 || status == 2) {
+									uni.showToast({
+										title: '游戏未开始!',
+										icon: 'none',
+									})
+								}
+								this.playLoading = false
+								return
+							}
 							if (this.$storage.get('getLocationTime') == '') {
 								this.getSetting()
 								return
@@ -1365,28 +1392,6 @@
 									return
 								}
 							}
-							if (this.gameInfo.status > 5) {
-								this.playLoading = false
-								if (this.gameInfo.status === 7) {
-									this.$refs.get_out.show()
-								} else {
-									this.$refs.get_over.show()
-								}
-								return
-							}
-
-							if (!this.isStart) {
-								const status = this.gameInfo.status
-								if (status == 1 || status == 2) {
-									uni.showToast({
-										title: '游戏未开始!',
-										icon: 'none',
-									})
-								}
-								this.playLoading = false
-								return
-							}
-
 							if (this.isOpenSendMessage) {
 								wechat.getAuthOfSubscribeMessage(() => {
 									this.playLoading = false
@@ -1399,37 +1404,6 @@
 						}
 					},
 				})
-
-				if (this.gameInfo.status > 5) {
-					uni.showToast({
-						title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
-						icon: 'error',
-					})
-					this.playLoading = false
-					return
-				}
-
-				if (!this.isStart) {
-					const status = this.gameInfo.status
-					if (status == 1 || status == 2) {
-						uni.showToast({
-							title: '游戏未开始!',
-							icon: 'none',
-						})
-					}
-					this.playLoading = false
-					return
-				}
-
-				if (this.isOpenSendMessage) {
-					wechat.getAuthOfSubscribeMessage(() => {
-						this.playLoading = false
-						this.getGameResult()
-					})
-				} else {
-					this.playLoading = false
-					this.getGameResult()
-				}
 			},
 			playSound() {
 				this.Audio.seek(0.1)
@@ -1510,7 +1484,15 @@
 					latitude: res.latitude,
 				}).then((res) => {
 					this.playLoading = false
-					this.getGameResult()
+					if (this.isOpenSendMessage) {
+						wechat.getAuthOfSubscribeMessage(() => {
+							this.playLoading = false
+							this.getGameResult()
+						})
+					} else {
+						this.playLoading = false
+						this.getGameResult()
+					}
 					this.$loading.hide()
 				})
 			},
@@ -1597,6 +1579,9 @@
 					...query,
 				}).then(async (kingList) => {
 					let userList = kingList
+					if (!Array.isArray(userList)) {
+						userList = []
+					}
 					this.kingRankList = userList
 					let numIndex = userList.length
 					let kingofKingsList = []
@@ -1629,6 +1614,7 @@
 							numIndex = userList.length + numIndex
 						}
 
+						console.log(userList, "userListuserListuserListuserListuserList")
 						let item = {
 							info: this.gameInfo.game_pk_plugin[index],
 							range: this.gameInfo.game_pk_plugin[index].start_seq == 1 ?
@@ -1873,6 +1859,7 @@
 					if (res.errno === '1') {
 						uni.showToast({
 							title: `${res.errmsg}`,
+							icon: "error"
 						})
 						return
 					}

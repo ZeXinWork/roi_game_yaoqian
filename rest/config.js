@@ -261,7 +261,7 @@ export const GET_GAME_INFO = '/api/game/info'
 export const GET_MIN_SETTING = '/Api/Common/SystemConfig/getMiniSetting'
 
 // 获取用户地址
-export const SET_USER_LOCATION = '/Api/User/User/UserInfo/setMap'
+export const SET_USER_LOCATION = '/api/user/map'
 
 
 // 广告
