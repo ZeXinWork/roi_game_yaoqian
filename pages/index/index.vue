@@ -1484,15 +1484,9 @@
 					latitude: res.latitude,
 				}).then((res) => {
 					this.playLoading = false
-					if (this.isOpenSendMessage) {
-						wechat.getAuthOfSubscribeMessage(() => {
-							this.playLoading = false
-							this.getGameResult()
-						})
-					} else {
-						this.playLoading = false
-						this.getGameResult()
-					}
+					this.$loading.hide()
+				}).catch(err => {
+					this.playLoading = false
 					this.$loading.hide()
 				})
 			},
