@@ -2189,7 +2189,7 @@
 		height: 240rpx;
 		position: absolute;
 		top: 627rpx;
-		left: 250rpx;
+		left: 260rpx;
 		z-index: 90
 	}
 
