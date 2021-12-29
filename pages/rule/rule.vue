@@ -38,11 +38,8 @@
 			</view>
 			<view class="radius_item">
 				<view class="radiu_title">活动范围</view>
-				<view class="radiu_line" v-if="rule.provinceInfo">
-					<text>{{ (rule.provinceInfo.region_name || '')+ (rule.cityInfo.region_name || '') + (rule.areaInfo.region_name || '')}}</text>
-				</view>
-				<view class="radiu_line" v-else>
-					<text>全国</text>
+				<view class="radiu_line">
+					<text>{{area}}</text>
 				</view>
 			</view>
 			<view class="radius_item">
@@ -80,31 +77,23 @@
 				<view class="row_text">累计的总游戏积分还将计入首页【排行榜】，活动结束后，排行榜得分最高的前几位将额外获得大奖。</view>
 			</view>
 		</view>
-		<view v-if="gameInfo.gameType === 1" class="rule_box">
+		<view class="rule_box">
 			<view class="radiu_title">奖品兑换</view>
 			<view class="row_line">
 				<view class="number">1</view>
-				<view class="row_text">奖品兑换及查看：点击首页【兑换奖品】可兑换奖品，奖品使用方式详见兑换详情页。奖品兑换处点击【我的奖品】可查看已兑换的奖品。</view>
+				<view class="row_text">奖品品兑换及查看：点击首页【兑换奖品】可
+					兑换奖品，奖品使用发誓详见兑换详情页。
+					奖品兑换处点击【我的奖品】可查看已兑换的
+					奖品。</view>
 			</view>
-			<view class="row_line" v-if="gameInfo.isSvip">
+			<view class="row_line" v-if="gameInfo.game_pk_plugin.length!==0">
 				<view class="number">2</view>
 				<view class="row_text">
-					排行榜奖品领取：请于活动结束后7天内确认最终排名情况，联系发起人领取奖品，逾期将视为放弃。
+					粉丝PK排行榜奖品领取：请于活动结束后7
+					天内确认最终排名情况，联系发起人【发起人
+					名称】领取奖品，逾期将视为放弃。
+					如有疑问，请点击这里联系发起人。
 				</view>
-			</view>
-		</view>
-		<view v-if="Number(gameInfo.gameType) === 1" class="rule_box">
-			<view class="radiu_title">游戏玩法</view>
-			<view class="row_line">
-				<view class="number">1</view>
-				<view class="row_text">游戏赢对应级别奖品</view>
-			</view>
-		</view>
-		<view v-if="Number(gameInfo.gameType) === 1" class="rule_box">
-			<view class="radiu_title">奖品领取</view>
-			<view class="row_line">
-				<view class="number">1</view>
-				<view class="row_text">奖品查看及领取：点击首页【兑换奖品】可查看已获得的奖品。点击【去领奖】进入详细页面查看领取方式。</view>
 			</view>
 		</view>
 		<view @click="back" class="btn">
@@ -128,13 +117,26 @@
 				},
 				gameInfo: {},
 				openShare: false,
-				gameAward: []
+				gameAward: [],
+
 			};
+		},
+		computed: {
+			area() {
+				if (this.gameInfo.areas) {
+					if (this.gameInfo.areas.length === 1) {
+						return this.gameInfo.areas[0].address
+					} else {
+						return `${this.gameInfo.areas[0].address}等${this.gameInfo.areas.length}个区域`
+					}
+				}
+
+			}
 		},
 		onLoad(options) {
 			let gameInfo = this.$storage.get("gameInfo")
 			this.gameInfo = gameInfo
-			this.gameAward = gameInfo.game_award.slice(0,3)
+			this.gameAward = gameInfo.game_award.slice(0, 3)
 			console.log(options)
 			this.openShare = options.openShare
 			if (!gameInfo.game_id) {
