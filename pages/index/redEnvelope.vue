@@ -54,7 +54,7 @@
 		</view>
 		<view class="p_bottom">
 			<image @click="$refs.prizeDetail.close()" class="icon_close"
-				src="https://static.roi-cloud.com/base/close.png" mode=""></image>
+				src="https://static.roi-cloud.com/upload/20211229/60935669091530" mode=""></image>
 		</view>
 	</uni-popup>
 </template>
@@ -221,8 +221,8 @@
 			padding: 40upx;
 
 			.icon_close {
-				width: 40upx;
-				height: 40upx;
+				width: 80upx;
+				height: 80upx;
 			}
 		}
 	}

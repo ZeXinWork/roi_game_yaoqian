@@ -1072,6 +1072,7 @@ export default {
     this.context = uni.createCanvasContext('shareCanvas', this)
   },
   onLoad(options) {
+	   this.$refs.redEnvelope.open()
     this.navbarHeight =
       getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
     let localGameId = this.$storage.get('gameId')
