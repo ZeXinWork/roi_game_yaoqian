@@ -54,7 +54,7 @@
 				</view>
 				<view class="row_line" v-if="!openShare == 'false'">
 					<view class="number">3</view>
-					<view class="row_text">{{`邀请好友助力成功，双方各加一次游戏次数（多邀多得，上不封顶），每天可助力他人${help_times}次（当天不可重复助力）。`}}</view>
+					<view class="row_text">{{`邀请好友助力成功，双方各加一次游戏次数（多邀多得，上不封顶），每天可助力他人${gameInfo.help_times}次（当天不可重复助力）。`}}</view>
 				</view>
 			</view>
 		</view>
