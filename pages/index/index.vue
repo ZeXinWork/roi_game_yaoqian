@@ -30,7 +30,17 @@
 			</image>
 			<image class="levl-3" src="https://static.roi-cloud.com/upload/20211229/60935669183947" mode="aspectFill">
 			</image>
-
+			<image class="levl-4" src="https://static.roi-cloud.com/upload/20211229/60935669184846" mode="aspectFill">
+			</image>
+			<image class="levl-5" src="https://static.roi-cloud.com/upload/20211229/60935669185456" mode="aspectFill">
+			</image>
+			<image class="levl-6" src="https://static.roi-cloud.com/upload/20211229/60935669190151" mode="aspectFill">
+			</image>
+			<image class="levl-7" src="https://static.roi-cloud.com/upload/20211229/60935669191217" mode="aspectFill">
+			</image>
+			<image class="levl-8" src="https://static.roi-cloud.com/upload/20211229/60935669191506" mode="aspectFill">
+			</image>
+			
 			<view class="swiper_wrap">
 				<uni-notice-bar showIcon="true" color="#fff" background-color="transparent" scrollable="true"
 					single="true"
@@ -2137,14 +2147,6 @@
 		z-index: 10
 	}
 
-	.levl-3 {
-		width: 280rpx;
-		height: 280rpx;
-		top: 230rpx;
-		left: 50rpx;
-		position: absolute;
-		z-index: 30;
-	}
 
 	.levl-2 {
 		width: 540rpx;
@@ -2153,6 +2155,59 @@
 		left: 170rpx;
 		z-index: 20;
 		// display: none;
+	}
+
+	.levl-3 {
+		width: 280rpx;
+		height: 280rpx;
+		top: 220rpx;
+		left: 50rpx;
+		position: absolute;
+		z-index: 30;
+	}
+
+	.levl-4 {
+		width: 300rpx;
+		height: 208rpx;
+		top: 450rpx;
+		position: absolute;
+		z-index: 20;
+		left: 40rpx;
+	}
+
+	.levl-5 {
+		width: 440rpx;
+		height: 340rpx;
+		position: absolute;
+		z-index: 10;
+		top: 552rpx;
+		left: 40rpx;
+	}
+
+	.levl-6 {
+		width: 360rpx;
+		height: 240rpx;
+		position: absolute;
+		top: 627rpx;
+		left: 250rpx;
+		z-index: 90
+	}
+
+	.levl-7 {
+		width: 210rpx;
+		height: 160rpx;
+		position: absolute;
+		top: 517rpx;
+		right: 130rpx;
+		z-index: 50;
+	}
+	.levl-8{
+		width: 340rpx;
+		height: 300rpx;
+		position: absolute;
+		top: 437rpx;
+		right: 50rpx;
+		z-index: 40;
 	}
 
 	.element {
