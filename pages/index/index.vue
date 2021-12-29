@@ -727,6 +727,17 @@
 		},
 		onShow() {
 			this.getData()
+			this.$uma.trackEvent('viewHomePage',{
+				"gameID_evar": 0,
+				"gameName_evar": '',
+				"userOpenID_evar": '',
+				"sceneID_evar": '',
+				"referrerInfo_evar": '',
+				"timeStamp_evar": '',
+				"locationLongitude_evar": 0,
+				"locationLatitude_evar": 0,
+				"3rdpartyUserID_evar": 0,
+			})
 		},
 		onReady() {
 			this.context = uni.createCanvasContext('shareCanvas', this)
