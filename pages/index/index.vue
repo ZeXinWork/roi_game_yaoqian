@@ -20,9 +20,9 @@
         paddingTop: navbarHeight + 'px',
         background: `url(${
           gameInfo.backgroundInfo.backgroundUrl ||
-          'https://static.roi-cloud.com/upload/20211224/60935669160142'
+          'https://static.roi-cloud.com/upload/20211229/60935669175808'
         }) no-repeat`,
-        backgroundSize: '100%',
+        backgroundSize: '100%'
       }">
 			<view class="swiper_wrap">
 				<uni-notice-bar showIcon="true" color="#fff" background-color="transparent" scrollable="true"
@@ -2121,6 +2121,106 @@
 </script>
 
 <style lang="scss">
+	
+	.element {
+		color: #f35626;
+		background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		-webkit-animation: hue 60s infinite linear;
+		margin-bottom: 1.5rem;
+		font-size: 3rem;
+		font-weight: 100;
+		line-height: 1;
+		letter-spacing: -.05em;
+	}
+
+	.animated {
+		-webkit-animation-duration: 3s;
+		animation-duration: 3s;
+		-webkit-animation-fill-mode: both;
+		animation-fill-mode: both;
+	}
+
+	@-webkit-keyframes wobble {
+		from {
+			-webkit-transform: none;
+			transform: none;
+		}
+
+		15% {
+			-webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+			transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+		}
+
+		30% {
+			-webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+			transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+		}
+
+		45% {
+			-webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+			transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+		}
+
+		60% {
+			-webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+			transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+		}
+
+		75% {
+			-webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+			transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+		}
+
+		to {
+			-webkit-transform: none;
+			transform: none;
+		}
+	}
+
+	@keyframes wobble {
+		from {
+			-webkit-transform: none;
+			transform: none;
+		}
+
+		15% {
+			-webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+			transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+		}
+
+		30% {
+			-webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+			transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+		}
+
+		45% {
+			-webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+			transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+		}
+
+		60% {
+			-webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+			transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+		}
+
+		75% {
+			-webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+			transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+		}
+
+		to {
+			-webkit-transform: none;
+			transform: none;
+		}
+	}
+
+	.wobble {
+		-webkit-animation-name: wobble;
+		animation-name: wobble;
+	}
+
 	.diy_logo {
 		width: 150px;
 		height: 35px;
