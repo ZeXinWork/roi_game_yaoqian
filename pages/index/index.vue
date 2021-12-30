@@ -5,6 +5,7 @@
           ? '#ff2626'
           : '#fdccb9',
     }">
+
 		<navbar :params="{
         navColor: navColor,
         titleColor: '#fff',
@@ -24,23 +25,52 @@
         }) no-repeat`,
         backgroundSize: '100%'
       }">
-			<image class="levl-1" src="https://static.roi-cloud.com/upload/20211229/60935669183338" mode="aspectFill">
+			<!-- 	<image class="levl-1 trunk" src="https://static.roi-cloud.com/upload/20211229/60935669183338"
+				mode="aspectFill">
+			</image> -->
+			<image id='trunkId' :class="['levl-1', {'trunk_slow': playAnimation}]"
+				src="https://static.roi-cloud.com/upload/20211230/60935669143532" mode="aspectFill">
 			</image>
-			<image class="levl-2" src="https://static.roi-cloud.com/upload/20211229/60935669181927" mode="aspectFill">
+			<image :class="['levl-2', {'trunk_most': playAnimation}]"
+				src="https://static.roi-cloud.com/upload/20211229/60935669181927" mode="aspectFill">
 			</image>
-			<image class="levl-3" src="https://static.roi-cloud.com/upload/20211229/60935669183947" mode="aspectFill">
+			<image :class="['levl-3', {'trunk_slow': playAnimation}]"
+				src="https://static.roi-cloud.com/upload/20211230/60935669144124" mode="aspectFill">
 			</image>
-			<image class="levl-4" src="https://static.roi-cloud.com/upload/20211229/60935669184846" mode="aspectFill">
+			<image :class="['levl-4', {'trunk': playAnimation}]"
+				src="https://static.roi-cloud.com/upload/20211229/60935669184846" mode="aspectFill">
 			</image>
-			<image class="levl-5" src="https://static.roi-cloud.com/upload/20211229/60935669185456" mode="aspectFill">
+			<image :class="['levl-5', {'trunk_slow': playAnimation}]"
+				src="https://static.roi-cloud.com/upload/20211230/60935669145511" mode="aspectFill">
 			</image>
-			<image class="levl-6" src="https://static.roi-cloud.com/upload/20211229/60935669190151" mode="aspectFill">
+			<image :class="['levl-6', {'trunk': playAnimation}]"
+				src="https://static.roi-cloud.com/upload/20211230/60935669145930" mode="aspectFill">
 			</image>
-			<image class="levl-7" src="https://static.roi-cloud.com/upload/20211229/60935669191217" mode="aspectFill">
+			<image :class="['levl-7', {'trunk': playAnimation}]"
+				src="https://static.roi-cloud.com/upload/20211229/60935669191217" mode="aspectFill">
 			</image>
-			<image class="levl-8" src="https://static.roi-cloud.com/upload/20211229/60935669191506" mode="aspectFill">
+			<image :class="['levl-8', {'trunk_slow': playAnimation}]"
+				src="https://static.roi-cloud.com/upload/20211229/60935669191506" mode="aspectFill">
 			</image>
-			
+
+			<image :class="['hongbao1', {'Wobble_move': playAnimation}]"
+				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
+			</image>
+			<image :class="['hongbao2', {'Wobble_move': playAnimation}]"
+				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
+			</image>
+			<image :class="['hongbao3', {'Wobble_move': playAnimation}]"
+				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
+			</image>
+			<image :class="['hongbao4', {'Wobble_move': playAnimation}]"
+				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
+			</image>
+			<image :class="['hongbao5', {'Wobble': playAnimation}]"
+				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
+			</image>
+			<image :class="['hongbao6', {'Wobble': playAnimation}]"
+				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
+			</image>
 			<view class="swiper_wrap">
 				<uni-notice-bar showIcon="true" color="#fff" background-color="transparent" scrollable="true"
 					single="true"
@@ -655,6 +685,7 @@
 		apiWechatMessage,
 		apiSetUserLocation,
 	} from '@/rest/api.js'
+	import 'animate.css';
 	export default {
 		components: {
 			popup,
@@ -663,6 +694,7 @@
 		},
 		data() {
 			return {
+				playAnimation: false,
 				share: false,
 				onceShare: true,
 				isChecked: false,
@@ -752,7 +784,6 @@
 			this.navbarHeight =
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
-			localGameId = '211229151310216570'
 			if (options.gameId && options.gameId !== localGameId) {
 				localGameId = options.gameId
 				this.$storage.set('gameId', options.gameId)
@@ -824,6 +855,15 @@
 			}
 		},
 		methods: {
+			handlePlayAnimation() {
+				this.playAnimation = true
+				const _this = this
+				setTimeout(function() {
+					_this.playAnimation = false
+					_this.$refs.redEnvelope.open()
+				}, 2000)
+
+			},
 			gameStatus(code) {
 				const orderStatus = {
 					1: '待设置',
@@ -1942,7 +1982,7 @@
 						this.getMyRank()
 						this.getRankScore()
 					}
-					this.$refs.redEnvelope.open()
+					this.handlePlayAnimation()
 					this.getPlayNumber()
 					this.playLoading = false
 				})
@@ -2138,176 +2178,231 @@
 </script>
 
 <style lang="scss">
-	.levl-1 {
-		width: 200rpx;
-		height: 146rpx;
-		position: absolute;
-		left: 140rpx;
-		top: 150rpx;
-		z-index: 10
+	.trunk {
+		animation: move 0.7s ease-in 0.5s 2 forwards;
 	}
 
+	.trunk_slow {
+		animation: move_slow 0.7s ease-in 0.5s 2 forwards;
+	}
+
+	.trunk_most {
+		animation: move_most 0.7s ease-in 0.5s 2 forwards;
+	}
+
+	@keyframes move {
+
+		0% {
+			transform: translateX(0px);
+
+		}
+
+
+		40% {
+			transform: translateX(10px);
+
+		}
+
+		80% {
+			transform: translateX(0px);
+		}
+	}
+
+	@keyframes move_most {
+
+		0% {
+			transform: translateX(0px);
+
+		}
+
+
+		40% {
+			transform: translateX(8px);
+
+		}
+
+		80% {
+			transform: translateX(0px);
+		}
+	}
+
+
+	@keyframes move_slow {
+		0% {
+			transform: translateX(0px);
+
+		}
+
+
+		40% {
+			transform: translateX(5px);
+
+		}
+
+		80% {
+			transform: translateX(0px);
+		}
+	}
+
+	.Wobble {
+		animation: Wobbles 0.7s ease-in 0.5s 2 forwards;
+	}
+
+	.Wobble_move {
+		animation: Wobbles_nove 0.7s ease-in 0.5s 2 forwards;
+	}
+
+	@keyframes Wobbles {
+		0% {
+			transform: translate(0px) rotate(0deg) scale(1)
+		}
+
+		50% {
+			transform: translate(3px) rotate(6deg) scale(1)
+		}
+
+		100% {
+			transform: translate(0px) rotate(0deg) scale(1)
+		}
+	}
+
+	@keyframes Wobbles_nove {
+		0% {
+			transform: translate(0px) rotate(0deg) scale(1)
+		}
+
+		50% {
+			transform: translate(7px) rotate(6deg) scale(1)
+		}
+
+		100% {
+			transform: translate(0px) rotate(0deg) scale(1)
+		}
+	}
+
+
+	.levl-1 {
+		width: 200rpx;
+		height: 140rpx;
+		position: absolute;
+		left: 170rpx;
+		top: 120rpx
+	}
 
 	.levl-2 {
 		width: 540rpx;
 		height: 446rpx;
 		position: absolute;
 		left: 170rpx;
+		top: 100rpx;
 		z-index: 20;
 		// display: none;
 	}
 
 	.levl-3 {
 		width: 280rpx;
-		height: 280rpx;
-		top: 220rpx;
+		height: 190rpx;
+		top: 228rpx;
 		left: 50rpx;
 		position: absolute;
 		z-index: 30;
 	}
 
 	.levl-4 {
-		width: 300rpx;
-		height: 208rpx;
-		top: 450rpx;
+		width: 360rpx;
+		height: 240rpx;
+		top: 360rpx;
 		position: absolute;
-		z-index: 20;
-		left: 40rpx;
+		z-index: 40;
+		left: 22rpx;
+		left: 22rpx
 	}
 
 	.levl-5 {
-		width: 440rpx;
-		height: 340rpx;
+		width: 360rpx;
+		height: 280rpx;
 		position: absolute;
 		z-index: 10;
-		top: 552rpx;
-		left: 40rpx;
+		top: 522rpx;
+		left: 10rpx;
 	}
 
 	.levl-6 {
-		width: 360rpx;
-		height: 240rpx;
+		width: 320rpx;
+		height: 210rpx;
 		position: absolute;
-		top: 627rpx;
-		left: 260rpx;
-		z-index: 90
+		top: 637rpx;
+		left: 150rpx;
+		z-index: 00;
 	}
 
 	.levl-7 {
-		width: 210rpx;
+		width: 220rpx;
 		height: 160rpx;
 		position: absolute;
-		top: 517rpx;
-		right: 130rpx;
+		top: 507rpx;
+		right: 90rpx;
 		z-index: 50;
 	}
-	.levl-8{
+
+	.levl-8 {
 		width: 340rpx;
 		height: 300rpx;
 		position: absolute;
-		top: 437rpx;
-		right: 50rpx;
-		z-index: 40;
+		top: 432rpx;
+		right: 0rpx;
 	}
 
-	.element {
-		color: #f35626;
-		background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		-webkit-animation: hue 60s infinite linear;
-		margin-bottom: 1.5rem;
-		font-size: 3rem;
-		font-weight: 100;
-		line-height: 1;
-		letter-spacing: -.05em;
+
+
+	@mixin hongbao {
+		width: 60rpx;
+		height: 80rpx;
+		position: absolute;
+		z-index: 90;
 	}
 
-	.animated {
-		-webkit-animation-duration: 3s;
-		animation-duration: 3s;
-		-webkit-animation-fill-mode: both;
-		animation-fill-mode: both;
+	.hongbao1 {
+		@include hongbao;
+		top: 220rpx;
+		left: 290rpx;
 	}
 
-	@-webkit-keyframes wobble {
-		from {
-			-webkit-transform: none;
-			transform: none;
-		}
-
-		15% {
-			-webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
-			transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
-		}
-
-		30% {
-			-webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
-			transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
-		}
-
-		45% {
-			-webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
-			transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
-		}
-
-		60% {
-			-webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
-			transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
-		}
-
-		75% {
-			-webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
-			transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
-		}
-
-		to {
-			-webkit-transform: none;
-			transform: none;
-		}
+	.hongbao2 {
+		@include hongbao;
+		right: 180rpx;
+		top: 330rpx;
 	}
 
-	@keyframes wobble {
-		from {
-			-webkit-transform: none;
-			transform: none;
-		}
-
-		15% {
-			-webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
-			transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
-		}
-
-		30% {
-			-webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
-			transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
-		}
-
-		45% {
-			-webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
-			transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
-		}
-
-		60% {
-			-webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
-			transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
-		}
-
-		75% {
-			-webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
-			transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
-		}
-
-		to {
-			-webkit-transform: none;
-			transform: none;
-		}
+	.hongbao3 {
+		@include hongbao;
+		left: 150rpx;
+		top: 440rpx;
 	}
 
-	.wobble {
-		-webkit-animation-name: wobble;
-		animation-name: wobble;
+	.hongbao4 {
+		@include hongbao;
+		z-index: 0;
+		top: 500rpx;
+		left: 364rpx;
+		z-index: 11
 	}
+
+	.hongbao5 {
+		@include hongbao;
+		top: 750rpx;
+		left: 120rpx;
+		z-index: 0
+	}
+
+	.hongbao6 {
+		@include hongbao;
+		z-index: 90;
+		right: 120rpx;
+		top: 640rpx;
+	}
+
+
 
 	.diy_logo {
 		width: 150px;
