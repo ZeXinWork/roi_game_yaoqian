@@ -10,7 +10,6 @@
 						<view>{{prize.prize_name}}</view>
 					</view>
 					<view class="p_body_mid_prize_item">
-
 						<image src="https://static.roi-cloud.com/upload/20211213/60935669182359" mode="aspectFill">
 						</image>
 						<view class="bet">
@@ -21,15 +20,15 @@
 					</view>
 				</view>
 				<view class="p_body_mid_prize" v-else>
-					<view class="p_body_mid_prize_item">
-						<image src="https://static.roi-cloud.com/upload/20211213/60935669182359" mode="aspectFill">
-						</image>
-						<view class="bet">
-							<text>积分</text>
-							<text>{{`+ ${prize.award_point}`}}</text>
+					<view class="p_body_mid_prize_integral">
+						<image src="https://static.roi-cloud.com/upload/20211230/60935669171019" mode="aspectFill"></image>
+						<view class="get_integral">
+							<view><span>{{`+ ${prize.award_point} `}}</span> 积分</view>
 						</view>
-
 					</view>
+				</view>
+				<view class="one_coin_view" v-if="prize.template_award_id == 1">
+					<image class="one_coin" src="https://static.roi-cloud.com/upload/20211230/60935669173535" mode=""></image>
 				</view>
 			</view>
 			<view v-else class="p_body_mid">
@@ -50,11 +49,19 @@
 				</view>
 				<view class="p_body_top_button" @click="close" v-if="playTime > 0 || !openShare"> 再来一把 </view>
 				<button class="p_body_top_button" open-type='share' data-type='1' v-else> 喊好友加好运 </button>
+				<view class="two_coin_view" v-if="prize.template_award_id == 2">
+					<image  class="two_coin"
+						src="https://static.roi-cloud.com/upload/20211230/60935669173307" mode=""></image>
+				</view>
 			</view>
 		</view>
 		<view class="p_bottom">
 			<image @click="$refs.prizeDetail.close()" class="icon_close"
 				src="https://static.roi-cloud.com/upload/20211229/60935669091530" mode=""></image>
+		</view>
+		<view class="three_coin_view" v-if="prize.template_award_id >=3">
+			<image class="three_coin"
+				src="https://static.roi-cloud.com/upload/20211230/60935669173445" mode=""></image>
 		</view>
 	</uni-popup>
 </template>
@@ -103,6 +110,37 @@
 		width: 100%;
 	}
 
+	.one_coin_view {
+		position: absolute;
+		top: 114rpx;
+		left: 23%;
+		.one_coin {
+			width: 300rpx;
+			height: 250rpx;
+		}
+	}
+
+	.two_coin_view{
+		position: absolute;
+		z-index: 3;
+		top: 50%;
+		.two_coin {
+			width: 560rpx;
+			height: 440rpx;
+		}
+	}
+	
+	.three_coin_view {
+		position: absolute;
+		margin-top: 20%;
+		.three_coin {
+			width: 560rpx;
+			height: 440rpx;
+		}
+	}
+
+	
+
 	.prizeDetail {
 		.p_body {
 			width: 600upx;
@@ -114,7 +152,7 @@
 			.p_body_mid {
 				width: 510upx;
 				position: absolute;
-				min-height: 780upx;
+				min-height: 910upx;
 				border-radius: 32upx;
 				left: 0;
 				right: 0;
@@ -147,7 +185,7 @@
 				.p_body_mid_prize {
 					display: flex;
 					flex-direction: column;
-
+					margin-top: 90rpx;
 					.p_body_mid_prize_item {
 						background-color: #fefcf1;
 						border-radius: 20upx;
@@ -172,6 +210,28 @@
 						view {
 							font-size: 28rpx;
 							flex: 1;
+						}
+					}
+
+					.p_body_mid_prize_integral {
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						image {
+							 width: 400rpx;
+							height: 200rpx;
+							margin: 40rpx;
+						}
+						.get_integral {
+							font-size: 28rpx;
+							view {
+								display: flex;
+								line-height: 100rpx;
+							}
+							span {
+								font-size: 60rpx;
+								padding-right: 20rpx;
+							}		
 						}
 					}
 				}
@@ -203,7 +263,6 @@
 					position: absolute;
 					width: 400rpx;
 					z-index: 3;
-					background-color: #f7eeb2;
 					border-radius: 80rpx;
 					text-align: center;
 					line-height: 80rpx;
@@ -211,6 +270,7 @@
 					right: 0;
 					bottom: 50rpx;
 					margin: auto;
+					background-image: linear-gradient(180deg, #F7EEB2 0%, #ECD87A 100%);
 				}
 			}
 		}
