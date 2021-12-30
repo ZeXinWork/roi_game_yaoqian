@@ -222,9 +222,9 @@
         </view>
       </view>
       <view class="g_content">
-        <view class="m_content">{{
-          curr_show_item.prize_desc || "暂无详细说明"
-        }}</view>
+        <view class="g_content_text">
+          <text class="m_content">{{curr_show_item.prize_desc || "暂无详细说明"}}</text>
+        </view>
         <view class="g_btn" @click="hideDetail">我知道了</view>
       </view>
     </popup>
@@ -578,11 +578,14 @@ export default {
   }
   .g_content {
     padding: 70upx;
+    .g_content_text{
+      padding: 20rpx 0;
+      border-top: 1upx solid #d8d8d8;
+    }
     .m_content {
       padding-top: 40upx;
       max-height: 300upx;
       overflow: hidden;
-      border-top: 1upx solid #d8d8d8;
       color: #666666;
       overflow-y: scroll;
       font-size: 28upx;
