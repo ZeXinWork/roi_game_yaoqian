@@ -783,6 +783,10 @@
 				}
 			}
 
+			// 初始化音频组件
+			this.Audio = uni.createInnerAudioContext();
+			this.Audio.src = 'https://static.roi-cloud.com/game/music/reveive_point.m4a'; //音频地址
+
 			this.user = user
 			console.log(localGameId, 'localGameIdlocalGameIdlocalGameId')
 
@@ -868,7 +872,10 @@
 			handleChecked() {
 				this.isChecked = !this.isChecked
 			},
-
+			playSound() {
+				this.Audio.seek(0.1)
+				this.Audio.play(); //执行播放
+			},
 			getMyRank() {
 				getMyRank({
 					gameId: this.gameId,
@@ -1946,6 +1953,7 @@
 						this.gameResult.prize = res.prize
 						this.getMyRank()
 						this.getRankScore()
+						this.playSound()
 					}
 					this.trackEvent('playGame',{})
 					this.$refs.redEnvelope.open()
