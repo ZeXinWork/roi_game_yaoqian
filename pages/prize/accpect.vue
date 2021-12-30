@@ -19,7 +19,7 @@
 			<view class="code_content" >
 				<view class="m_title">联系商家领奖</view>
 				<view class="code_img">
-					<image :show-menu-by-longpress="true" :src="contactInfo.qr_code_url" mode=""></image>
+					<image :show-menu-by-longpress="true" @longpress="longtap" :src="contactInfo.qr_code_url" mode=""></image>
 				</view>
 				<view class="code_tip">长按二维码，保存图片到相册</view>
 			</view>
@@ -325,7 +325,8 @@
 				this.$refs.qrcode.crtQrCode(codeMsg)
 				this.prizeInfo = {
 					prizeName: options.prizeName,
-					prizeLevel: 1
+					prizeLevel: 1,
+					...JSON.parse(options.prizeItem)
 				}
 				// 获取联系方式
 				gameContact({
@@ -336,6 +337,20 @@
 						// this.createPoster()
 						this.$loading.hide()
 					}, 1000)
+				})
+			},
+			longtap() {
+				this.$uma.trackEvent('scanSponsorQRcode',{
+					'prizeId_evar': this.prizeInfo.award_id,
+					'prizeName_evar': this.prizeInfo.prize_name,
+					'prizeType_evar': this.prizeInfo.prize_type,
+					'prizeExchangePoint_evar': this.prizeInfo.prize_point,
+					'prizeLevel_evar': this.prizeInfo.award_seq,
+					'3rdpartyUserID_evar': this.userInfo.userId,
+					'gameID_evar': this.gameId,
+					'gameName_evar': this.gameInfo.name,
+					'userOpenID_evar': this.userInfo.openid + '',
+					'timeStamp_evar': Date.parse( new Date())  + ''
 				})
 			}
 		}

@@ -305,12 +305,19 @@ export default {
       });
     },
     toGetAward() {
+      this.trackEvent('claimPrizeInExchangeSuccessPopup',{})
       uni.navigateTo({
         url: "/pages/prize/prize?gameId=" + this.gameId,
       });
     },
     showDetail(item) {
       this.curr_show_item = item;
+      this.trackEvent('priceImpression',{
+        'gameID_evar': this.gameId,
+				'gameName_evar': this.gameInfo.name,
+        'prizeId_evar': item.game_award_id,
+        'prizePage_evar': '/pages/conversion/conversion',
+      })
       this.$refs.prizeInfoDetail.show();
     },
     hideDetail() {
@@ -487,6 +494,7 @@ export default {
     },
     exchangePrise() {
       this.$loading.show();
+      console.log(this.exchangeGoddsInfo)
       addExchangeGamePrize({
         gameId: this.gameId,
         gameAwardId: this.exchangeGoddsInfo.game_award_id,
@@ -502,6 +510,7 @@ export default {
         }
         this.getGameInfo();
         this.getPrizeList();
+        this.trackEvent("exchangePrize",{})
         this.$loading.hide();
         this.$refs.finish.show();
       });
@@ -530,6 +539,27 @@ export default {
         this.$toast.error(e);
       }
     },
+    trackEvent(name, data){
+      const locationTime = this.$storage.get('getLocationTime')
+      if (_.isEmpty(data)){
+        this.$uma.trackEvent(name,{
+          'prizeId_evar': this.exchangeGoddsInfo.game_award_id,
+          'prizeName_evar': this.exchangeGoddsInfo.game_award_name,
+          'prizeType_evar': this.exchangeGoddsInfo.prize_type,
+          'prizeExchangePoint_evar': this.exchangeGoddsInfo.prize_point,
+          'prizeLevel_evar': this.exchangeGoddsInfo.template_award_id,
+          '3rdpartyUserID_evar': this.user_info.userId,
+          'locationLongitude_evar': locationTime.longitude,
+          'locationLatitude_evar': locationTime.latitude,
+          'gameID_evar': this.gameId,
+          'gameName_evar': this.gameInfo.name,
+          'userOpenID_evar': this.user_info.openid + '',
+          'timeStamp_evar': Date.parse( new Date())  + ''
+        })
+      } else {
+        this.$uma.trackEvent(name,data)
+      }
+		}
   },
 };
 </script>

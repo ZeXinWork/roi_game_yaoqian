@@ -153,8 +153,10 @@ export default {
       phone: "",
       userPrizeList: [],
       curr_show_item: {},
-	  source: ['','即开即中','积分兑换','粉丝PK排行榜'],
-	  path: '/pages/index/index?gameId=' + this.gameId
+	    source: ['','即开即中','积分兑换','粉丝PK排行榜'],
+	    path: '/pages/index/index?gameId=' + this.gameId,
+      goReceiveItem: {},
+      user_info: {}
     };
   },
   onReachBottom(e) {
@@ -168,10 +170,12 @@ export default {
   },
   onLoad(options) {
     this.gameId = options.gameId;
-	this.path = '/pages/index/index?gameId=' + this.gameId
+	  this.path = '/pages/index/index?gameId=' + this.gameId
     this.getPrizeList();
     const user = this.$storage.getUser();
+    this.user_info = user
     this.phone = user.phone;
+    this.gameInfo = this.$storage.get('gameInfo')
   },
   methods: {
     changeType(type) {
@@ -216,6 +220,7 @@ export default {
     },
     receivePrize(item) {
       if (this.phone) {
+        this.goReceiveItem = item
         this.toReceive(item);
       } else {
         const _this = this;
@@ -297,6 +302,7 @@ export default {
       this.$refs.dialog.close();
     },
     toReceive(item) {
+      this.trackEvent('claimPrizeInMyPrizePage',{})
       uni.navigateTo({
         url:
           "./accpect?uid=" +
@@ -308,9 +314,28 @@ export default {
           "&prizeName=" +
           item.prize_name +
           "&awardName=" +
-          item.award_name,
+          item.award_name + 
+          "&prizeItem=" +
+          JSON.stringify(this.goReceiveItem),
       });
     },
+    trackEvent(name, data){
+      const locationTime = this.$storage.get('getLocationTime')
+			this.$uma.trackEvent(name,{
+				'prizeId_evar': this.goReceiveItem.award_id,
+        'prizeName_evar': this.goReceiveItem.prize_name,
+        'prizeType_evar': this.goReceiveItem.prize_type,
+        'prizeExchangePoint_evar': this.goReceiveItem.prize_point,
+        'prizeLevel_evar': this.goReceiveItem.award_seq,
+        '3rdpartyUserID_evar': this.user_info.userId,
+        'locationLongitude_evar': locationTime.longitude,
+        'locationLatitude_evar': locationTime.latitude,
+				'gameID_evar': this.gameId,
+				'gameName_evar': this.gameInfo.name,
+				'userOpenID_evar': this.user_info.openid + '',
+				'timeStamp_evar': Date.parse( new Date())  + ''
+			})
+		}
   },
 };
 </script>

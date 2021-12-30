@@ -4,6 +4,8 @@ export default {
     console.log('App Launch')
     // 获取手机系统信息
     const info = uni.getSystemInfoSync()
+    const options = uni.getLaunchOptionsSync()
+    this.$storage.set("options", options)
     // 设置状态栏高度（H5顶部无状态栏小程序有状态栏需要撑起高度）
     this.globalData.statusBarHeight = info.statusBarHeight
     // 除了h5 app mp-alipay的情况下执行

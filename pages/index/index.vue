@@ -727,17 +727,18 @@
 		},
 		onShow() {
 			this.getData()
-			this.$uma.trackEvent('viewHomePage',{
-				"gameID_evar": 0,
-				"gameName_evar": '',
-				"userOpenID_evar": '',
-				"sceneID_evar": '',
-				"referrerInfo_evar": '',
-				"timeStamp_evar": '',
-				"locationLongitude_evar": 0,
-				"locationLatitude_evar": 0,
-				"3rdpartyUserID_evar": 0,
-			})
+			if (this.user && this.user.userId){
+				const launchOptions = this.$storage.get('options')
+				const locationTime = this.$storage.get('getLocationTime')
+				console.log(this.gameInfo)
+				this.trackEvent('viewHomePage',{
+					"sceneID_evar": launchOptions.scene + '',
+					"referrerInfo_evar": JSON.stringify(launchOptions.referrerInfo),
+					"locationLongitude_evar": locationTime.longitude,
+					"locationLatitude_evar": locationTime.latitude,
+					"3rdpartyUserID_evar": this.user.userId,
+				})
+			}
 		},
 		onReady() {
 			this.context = uni.createCanvasContext('shareCanvas', this)
@@ -853,6 +854,7 @@
 							rankNumber: res.rank,
 						},
 						gameName: res.game_name,
+						helpOpenid: res.openid
 					}
 					const user = this.$storage.getUser()
 					if (user && user.userId) {
@@ -1291,6 +1293,13 @@
 							this.inviteCode = ''
 							this.getGameInfo()
 							this.getPlayNumber()
+							const locationTime = this.$storage.get('getLocationTime')
+							this.trackEvent('helpOtherPerson',{
+								"userBeenHelpedOpenID_evar": this.helperInfo.helpOpenid,
+								"locationLongitude_evar": locationTime.longitude,
+								"locationLatitude_evar": locationTime.latitude,
+								"3rdpartyUserID_evar": this.user.userId,
+							})
 							this.$refs.help_other.show()
 						} else {
 							this.helpFaileMsg = res.errmsg
@@ -1396,10 +1405,7 @@
 										this.playLoading = false
 										return
 									}
-									if (this.$storage.get('getLocationTime') == '') {
-										this.getSetting()
-										return
-									} else {
+									if (this.$storage.get('getLocationTime') != '') {
 										let get_time = this.$storage.get('getLocationTime').get_time
 										let now = new Date().getTime()
 										if ((now - get_time) / 1000 / 60 / 60 > 3) {
@@ -1556,14 +1562,14 @@
 				}).then((res) => {
 					this.playLoading = false
 					this.$loading.hide()
-					this.getGameResult()
+					// this.getGameResult()
 				}).catch(err => {
 					this.playLoading = false
 					this.$loading.hide()
-					this.getGameResult()
+					// this.getGameResult()
 				})
 			},
-			getSetting() {
+			getSetting(handler) {
 				const that = this
 				uni.getSetting({
 					success: (res) => {
@@ -1573,16 +1579,17 @@
 								altitude: true,
 								success(res) {
 									that.updateLocation(res)
+									handler && handler()
 								},
 							})
 						} else {
-							that.getAuthorize()
+							that.getAuthorize(handler)
 						}
 					},
 				})
 			},
 			// 用户授权
-			getAuthorize() {
+			getAuthorize(handler) {
 				const that = this
 				uni.authorize({
 					scope: 'scope.userLocation',
@@ -1592,6 +1599,7 @@
 							altitude: true,
 							success(res) {
 								that.updateLocation(res)
+								handler && handler()
 							},
 						})
 					},
@@ -1936,6 +1944,7 @@
 						this.getMyRank()
 						this.getRankScore()
 					}
+					this.trackEvent('playGame',{})
 					this.$refs.redEnvelope.open()
 					this.getPlayNumber()
 					this.playLoading = false
@@ -2021,14 +2030,36 @@
 							}
 							this.isOpenShareContent = res.show_share_btn == 1
 						}
-						if (this.isOpenAssistance) {
-							this.isOpenAssistance = false
-							this.getInviteInfo(this.inviteCode, this.gameId)
+						if (this.$storage.get('getLocationTime') == '') {
+							this.getSetting(() => {
+								if (this.isOpenAssistance) {
+									this.isOpenAssistance = false
+									this.getInviteInfo(this.inviteCode, this.gameId)
+								}
+								if (this.share && this.onceShare) {
+									console.log(this.user, '分享用户登录')
+									this.$refs.onceShare.show()
+								}
+							})
+						} else {
+							if (this.isOpenAssistance) {
+								this.isOpenAssistance = false
+								this.getInviteInfo(this.inviteCode, this.gameId)
+							}
+							if (this.share && this.onceShare) {
+								console.log(this.user, '分享用户登录')
+								this.$refs.onceShare.show()
+							}
 						}
-						if (this.share && this.onceShare) {
-							console.log(this.user, '分享用户登录')
-							this.$refs.onceShare.show()
-						}
+						const locationTime = this.$storage.get('getLocationTime')
+						const launchOptions = this.$storage.get('options')
+						this.trackEvent('loginGame',{
+							"sceneID_evar": launchOptions.scene + '',
+							"referrerInfo_evar": JSON.stringify(launchOptions.referrerInfo),
+							'locationLongitude_evar': locationTime.longitude,
+							'locationLatitude_evar': locationTime.latitude,
+							'3rdpartyUserID_evar': this.user.userId
+						})
 					})
 					.catch((res) => {
 						this.logining = false
@@ -2045,6 +2076,16 @@
 					handler && handler()
 				})
 			},
+			trackEvent(name, data){
+				const gameInfo = this.$storage.get('gameInfo')
+				this.$uma.trackEvent(name,{
+					...data,
+					"gameID_evar": this.gameId,
+					"gameName_evar": gameInfo.name,
+					"userOpenID_evar": this.user.openid + '',
+					"timeStamp_evar": Date.parse( new Date())  + ''
+				})
+			}
 		},
 		async onShareAppMessage(e) {
 			if (!this.gameId) {
@@ -2098,6 +2139,12 @@
 			}
 			// 获取邀请码
 			const inviteData = await inviteHelp(params)
+			const locationTime = this.$storage.get('getLocationTime')
+			this.trackEvent('shareGame',{
+				"locationLongitude_evar": locationTime.longitude,
+				"locationLatitude_evar": locationTime.latitude,
+				"3rdpartyUserID_evar": this.user.userId,
+			})
 
 			const path =
 				'/pages/index/index?gameId=' +
