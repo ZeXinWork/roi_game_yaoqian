@@ -801,6 +801,7 @@
 			this.navbarHeight =
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
+			localGameId = '211229151310216570'
 			if (options.gameId && options.gameId !== localGameId) {
 				localGameId = options.gameId
 				this.$storage.set('gameId', options.gameId)
@@ -1762,8 +1763,7 @@
 						let item = {
 							info: this.gameInfo.game_pk_plugin[index],
 							range: this.gameInfo.game_pk_plugin[index].start_seq == 1 ?
-								'第' + num + '名' :
-								'第' +
+								'第' + num + '名' : '第' +
 								num +
 								'～' +
 								this.gameInfo.game_pk_plugin[index].start_seq +
