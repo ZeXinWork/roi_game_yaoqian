@@ -27,47 +27,47 @@
 			<!-- 	<image class="levl-1 trunk" src="https://static.roi-cloud.com/upload/20211229/60935669183338"
 				mode="aspectFill">
 			</image> -->
-			<image id="trunkId" :class="['levl-1', { trunk_slow: playAnimation }]"
+			<image id="trunkId" :class="['levl-1',{swiper_anumation:!playAnimation}, { trunk_slow: playAnimation }]"
 				src="https://static.roi-cloud.com/upload/20211230/60935669143532" mode="aspectFill">
 			</image>
-			<image :class="['levl-2', { trunk_most: playAnimation }]"
+			<image :class="['levl-2 ', { swiper_anumation_slow: !playAnimation }, { trunk_most: playAnimation }]"
 				src="https://static.roi-cloud.com/upload/20211229/60935669181927" mode="aspectFill">
 			</image>
-			<image :class="['levl-3', { trunk_slow: playAnimation }]"
+			<image :class="['levl-3 ', { swiper_anumation_most: !playAnimation }, { trunk_slow: playAnimation }]"
 				src="https://static.roi-cloud.com/upload/20211230/60935669144124" mode="aspectFill">
 			</image>
-			<image :class="['levl-4', { trunk: playAnimation }]"
+			<image :class="['levl-4 ', { swiper_anumation: !playAnimation },{ trunk: playAnimation }]"
 				src="https://static.roi-cloud.com/upload/20211229/60935669184846" mode="aspectFill">
 			</image>
-			<image :class="['levl-5', { trunk_slow: playAnimation }]"
+			<image :class="['levl-5 ',{ swiper_anumation_slow: !playAnimation }, { trunk_slow: playAnimation }]"
 				src="https://static.roi-cloud.com/upload/20211230/60935669145511" mode="aspectFill">
 			</image>
-			<image :class="['levl-6', { trunk: playAnimation }]"
+			<image :class="['levl-6 ',  { swiper_anumation_most: !playAnimation },{ trunk: playAnimation }]"
 				src="https://static.roi-cloud.com/upload/20211230/60935669145930" mode="aspectFill">
 			</image>
-			<image :class="['levl-7', { trunk: playAnimation }]"
+			<image :class="['levl-7 ',{swiper_anumation:!playAnimation}, { trunk: playAnimation }]"
 				src="https://static.roi-cloud.com/upload/20211229/60935669191217" mode="aspectFill">
 			</image>
-			<image :class="['levl-8', { trunk_slow: playAnimation }]"
+			<image :class="['levl-8 ',{ swiper_anumation_slow: !playAnimation },{ trunk_slow: playAnimation }]"
 				src="https://static.roi-cloud.com/upload/20211229/60935669191506" mode="aspectFill">
 			</image>
 
-			<image :class="['hongbao1', { Wobble_move: playAnimation }]"
+			<image :class="['hongbao1', { swiper_anumation_slow: playAnimation },{ Wobble_move: playAnimation }]"
 				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
 			</image>
-			<image :class="['hongbao2', { Wobble_move: playAnimation }]"
+			<image :class="['hongbao2',{ swiper_anumation_slow: !playAnimation }, { Wobble_move: playAnimation }]"
 				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
 			</image>
-			<image :class="['hongbao3', { Wobble_move: playAnimation }]"
+			<image :class="['hongbao3 ' , { swiper_anumation: !playAnimation },{ Wobble_move: playAnimation }]"
 				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
 			</image>
-			<image :class="['hongbao4', { Wobble_move: playAnimation }]"
+			<image :class="['hongbao4  ', { swiper_anumation_slow: !playAnimation },{ Wobble_move: playAnimation }]"
 				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
 			</image>
-			<image :class="['hongbao5', { Wobble: playAnimation }]"
+			<image :class="['hongbao5 ',{swiper_anumation:!playAnimation} ,{ Wobble: playAnimation }]"
 				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
 			</image>
-			<image :class="['hongbao6', { Wobble: playAnimation }]"
+			<image :class="['hongbao6 ', {swiper_anumation_most:!playAnimation},{ Wobble: playAnimation }]"
 				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
 			</image>
 			<view class="swiper_wrap">
@@ -880,6 +880,9 @@
 				this.playAnimation = true
 				const _this = this
 				setTimeout(function() {
+					if (_this.gameResult.result) {
+						_this.playSound()
+					}
 					_this.playAnimation = false
 					_this.$refs.redEnvelope.open()
 				}, 2000)
@@ -2015,7 +2018,6 @@
 						this.gameResult.prize = res.prize
 						this.getMyRank()
 						this.getRankScore()
-						this.playSound()
 					}
 					this.trackEvent('playGame', {})
 					this.handlePlayAnimation()
@@ -2229,7 +2231,7 @@
 			return {
 				title: this.gameInfo.name,
 				path,
-				imageUrl:'https://static.roi-cloud.com/upload/20211230/60935669180626'
+				imageUrl: 'https://static.roi-cloud.com/upload/20211230/60935669180626'
 			}
 		},
 		watch: {
@@ -2254,32 +2256,90 @@
 
 <style lang="scss">
 	.trunk {
-		animation: move 0.7s ease-in 0.5s 2 forwards;
+		animation: move 0.5s ease-in 2 forwards;
 	}
 
+
 	.trunk_slow {
-		animation: move_slow 0.7s ease-in 0.5s 2 forwards;
+		animation: move_slow 0.5s ease-in 2 forwards;
 	}
 
 	.trunk_most {
-		animation: move_most 0.7s ease-in 0.5s 2 forwards;
+		animation: move_most 0.5s ease-in 2 forwards;
 	}
+
+	.swiper_anumation {
+		animation: swiper 5s ease-out infinite forwards;
+	}
+
+	.swiper_anumation_slow {
+		animation: swiper_slow 5s ease-out infinite forwards;
+	}
+
+	@keyframes swiper_slow {
+		0% {
+			transform: translateX(0px) rotate(-2deg);
+		}
+
+
+		50% {
+			transform: translateX(3px) rotate(0deg);
+		}
+
+		75% {
+			transform: translateX(-3px) rotate(2deg);
+		}
+
+		100% {
+			transform: translateX(0px) rotate(-2deg);
+		}
+	}
+
+
+	.swiper_anumation_most {
+		animation: swiper_most 5s ease-out infinite forwards;
+	}
+
+	@keyframes swiper_most {
+		0% {
+			transform: translateX(0px) rotate(4deg);
+		}
+
+
+		50% {
+			transform: translateX(6px) rotate(0deg);
+		}
+
+		75% {
+			transform: translateX(-6px) rotate(-4deg);
+		}
+
+		100% {
+			transform: translateX(0px) rotate(4deg);
+		}
+	}
+
+	@keyframes swiper {
+		0% {
+			transform: translateX(0px) rotate(-3deg);
+		}
+
+
+		50% {
+			transform: translateX(4px) rotate(0deg);
+		}
+
+		75% {
+			transform: translateX(-4px) rotate(3deg);
+		}
+
+		100% {
+			transform: translateX(0px) rotate(-3deg);
+		}
+	}
+
 
 	@keyframes move {
-		0% {
-			transform: translateX(0px);
-		}
-
-		40% {
-			transform: translateX(10px);
-		}
-
-		80% {
-			transform: translateX(0px);
-		}
-	}
-
-	@keyframes move_most {
 		0% {
 			transform: translateX(0px);
 		}
@@ -2293,13 +2353,27 @@
 		}
 	}
 
+	@keyframes move_most {
+		0% {
+			transform: translateX(0px);
+		}
+
+		40% {
+			transform: translateX(12px);
+		}
+
+		80% {
+			transform: translateX(0px);
+		}
+	}
+
 	@keyframes move_slow {
 		0% {
 			transform: translateX(0px);
 		}
 
 		40% {
-			transform: translateX(5px);
+			transform: translateX(6px);
 		}
 
 		80% {
