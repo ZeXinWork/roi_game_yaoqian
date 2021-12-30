@@ -1902,6 +1902,9 @@
 					// 进行中
 					this.isStart = true
 				}
+				if (status == 4) {
+					this.$refs.get_over.show()
+				}
 				if (status == 6) {
 					// 已结束
 					if (Number(this.gameInfo.lottery_type) == 1) {
