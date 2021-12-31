@@ -63,7 +63,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: 99;
+		z-index: 199;
 		width: 100%;
 		background-color: #fff;
 		box-sizing: border-box;

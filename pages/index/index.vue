@@ -88,7 +88,7 @@
 			<!-- <view class="bowl_title">
 				<image src="https://static.roi-cloud.com/base/icon_bo-title.png" mode=""></image>
 			</view> -->
-			<view class="bowl">
+			<view class="bowl rule-wrapper">
 				<view :data-url="
             '/pages/rule/rule?gameId=' +
             gameId +
@@ -690,7 +690,6 @@
 		apiWechatMessage,
 		apiSetUserLocation,
 	} from '@/rest/api.js'
-	import 'animate.css'
 	export default {
 		components: {
 			popup,
@@ -3775,6 +3774,12 @@
 			box-sizing: border-box;
 			position: relative;
 			border-radius: 60upx;
+			z-index: 100;
+
+		}
+
+		.rule-wrapper {
+			z-index: 100;
 		}
 
 		.rank_ad_wrap {
