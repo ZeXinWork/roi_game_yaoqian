@@ -7,7 +7,6 @@
     }">
 		<navbar :params="{
         navColor: navColor,
-        titleColor: '#fff',
         title: gameInfo.logo_url ? '' : `${gameInfo.name || ''}`,
       }" class="">
 			<view v-if="gameInfo.logo_url" class="diy_logo" :style="
@@ -429,6 +428,8 @@
 					关闭后依然可进行奖品相关操作 如有疑问请 <text>点击查看</text>
 				</navigator>
 			</popup>
+
+
 			<popup ref="over_popup" bgColor="#FFF8DC" class="over_popup" width="630">
 				<view>
 					<view class="over_header">
@@ -884,11 +885,13 @@
 				this.playAnimation = true
 				const _this = this
 				setTimeout(function() {
-					if (_this.gameResult.result) {
-						_this.playSound()
-					} else {
-						_this.playUnpublishedSound()
-					}
+					setTimeout(function() {
+						if (_this.gameResult.result) {
+							_this.playSound()
+						} else {
+							_this.playUnpublishedSound()
+						}
+					}, 500)
 					_this.playAnimation = false
 					_this.$refs.redEnvelope.open()
 				}, 2000)
@@ -1463,6 +1466,7 @@
 										this.$refs.login_popup.open('bottom')
 										return
 									}
+									console.log("??")
 									if (!this.gameId) {
 										uni.showToast({
 											title: '暂无游戏信息!',
@@ -1471,7 +1475,7 @@
 										this.playLoading = false
 										return
 									}
-									if (this.gameInfo.status > 5) {
+									if (this.gameInfo.status > 3) {
 										this.playLoading = false
 										if (this.gameInfo.status === 7) {
 											this.$refs.get_out.show()
@@ -1517,12 +1521,14 @@
 								}
 								this.playLoading = true
 								const user = this.$storage.getUser()
-								console.log(user, 'userr')
+
 								if (!user.userId) {
+									console.log(user.userId, "31313131312")
 									this.playLoading = false
 									this.$refs.login_popup.open('bottom')
 									return
 								}
+
 								if (!this.gameId) {
 									uni.showToast({
 										title: '暂无游戏信息!',
@@ -1531,7 +1537,8 @@
 									this.playLoading = false
 									return
 								}
-								if (this.gameInfo.status > 5) {
+
+								if (this.gameInfo.status > 3) {
 									this.playLoading = false
 									if (this.gameInfo.status === 7) {
 										this.$refs.get_out.show()
@@ -1550,6 +1557,7 @@
 									this.playLoading = false
 									return
 								}
+
 								if (this.$storage.get('getLocationTime') == '') {
 									this.getSetting()
 									return
