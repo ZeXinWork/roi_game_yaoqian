@@ -253,34 +253,41 @@
 					confirmColor: '#33CCCC',
 					success: res => {
 						if (res.confirm) {
-							uni.canvasToTempFilePath({
-								x: 0,
-								y: 0,
-								width: this.posterWidth,
-								height: this.posterHeight,
-								canvasId: 'accpectCanvas',
-								success: res => {
-									console.log(res.tempFilePath)
-									uni.saveImageToPhotosAlbum({
-										filePath: res.tempFilePath,
-										success: function() {
-											uni.showToast({
-												title: "保存成功",
-												icon: "none"
-											});
-										},
-										fail: function() {
-											uni.showToast({
-												title: "保存失败，请稍后重试",
-												icon: "none"
-											});
-										}
-									});
-								},
-								fail: function() {
-									//TODO
-								}
-							})
+							setTimeout(()=>{
+								uni.canvasToTempFilePath({
+									x: 0,
+									y: 0,
+									width: this.posterWidth,
+									height: this.posterHeight,
+									canvasId: 'accpectCanvas',
+									success: res => {
+										console.log(res.tempFilePath)
+										uni.saveImageToPhotosAlbum({
+											filePath: res.tempFilePath,
+											success: function() {
+												uni.showToast({
+													title: "保存成功",
+													icon: "none"
+												});
+											},
+											fail: function() {
+												uni.showToast({
+													title: "保存失败，请稍后重试",
+													icon: "none"
+												});
+											}
+										});
+									},
+									fail: function(res) {
+										console.log(res)
+										uni.showToast({
+											title: "保存失败，请稍后重试!!!",
+											icon: "none"
+										});
+										//TODO
+									}
+								})
+							}, this)
 						}
 					}
 				})
