@@ -690,7 +690,6 @@
 		apiWechatMessage,
 		apiSetUserLocation,
 	} from '@/rest/api.js'
-	import 'animate.css'
 	export default {
 		components: {
 			popup,
