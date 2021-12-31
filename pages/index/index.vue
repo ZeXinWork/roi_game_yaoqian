@@ -755,6 +755,7 @@
 				loadImagePath: '',
 				showItem: 1,
 				Audio: null,
+				UnpublishedAudio: null,
 				context: null,
 				sharePath: 'https://static.roi-cloud.com/base/share_bg.png',
 				kingPrize: null,
@@ -836,8 +837,12 @@
 			}
 
 			// 初始化音频组件
-			this.Audio = uni.createInnerAudioContext()
+			this.Audio = uni.createInnerAudioContext() // 获奖
 			this.Audio.src = 'https://static.roi-cloud.com/game/music/reveive_point.m4a' //音频地址
+			this.ShakeAudio = uni.createInnerAudioContext() // 摇树
+			this.ShakeAudio.src = 'https://static.roi-cloud.com/game/music/rocking_tree.m4a'
+			this.UnpublishedAudio = uni.createInnerAudioContext() // 未获奖
+			this.UnpublishedAudio.src = 'https://static.roi-cloud.com/game/music/fail_prize.wav' //音频地址
 
 			this.user = user
 			console.log(localGameId, 'localGameIdlocalGameIdlocalGameId')
@@ -881,6 +886,8 @@
 				setTimeout(function() {
 					if (_this.gameResult.result) {
 						_this.playSound()
+					} else {
+						_this.playUnpublishedSound()
 					}
 					_this.playAnimation = false
 					_this.$refs.redEnvelope.open()
@@ -938,6 +945,14 @@
 			playSound() {
 				this.Audio.seek(0.1)
 				this.Audio.play() //执行播放
+			},
+			playUnpublishedSound() {
+				this.UnpublishedAudio.seek(0.1)
+				this.UnpublishedAudio.play() //执行播放
+			},
+			playShackSound() {
+				this.ShakeAudio.seek(0.1)
+				this.ShakeAudio.play() //执行播放
 			},
 			getMyRank() {
 				getMyRank({
@@ -1483,6 +1498,7 @@
 											return
 										}
 									}
+									this.playShackSound()
 									this.getGameResult()
 								}
 							},
@@ -1550,10 +1566,6 @@
 						},
 					})
 				}
-			},
-			playSound() {
-				this.Audio.seek(0.1)
-				this.Audio.play() //执行播放
 			},
 			toLogin() {
 				this.$refs.login_popup.open('bottom')
