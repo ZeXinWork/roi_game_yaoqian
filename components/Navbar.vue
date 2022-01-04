@@ -4,7 +4,8 @@
 			<!-- 状态栏小程序撑起高度 -->
 			<view :style="{ height: statusBarHeight + 'px' }"></view>
 			<view class="cu_bar" :style="{ height:navBarHeight + 'px'}">
-				<uni-icons v-if="params.back" class="action_back" type="arrowleft" size="24" :color="params.backColor" @click="returnPage()"></uni-icons>
+				<uni-icons v-if="params.back" class="action_back" type="arrowleft" size="24" :color="params.backColor"
+					@click="returnPage()"></uni-icons>
 				<view class="content">
 					<text v-if="params.title" :style="{color:params.titleColor || '#333'}">{{ params.title }}</text>
 					<slot></slot>
@@ -63,13 +64,27 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: 99;
+		z-index: 199;
 		width: 100%;
-		background-color: #fff;
+		background-color: #000;
 		box-sizing: border-box;
+		overflow: hidden
 	}
-	
-	.action_back{
+
+	.navbar-fixed:before {
+		content: '';
+		width: 100%;
+		background: inherit;
+		position: absolute;
+		left: -50rpx; //giving minus -25px left position
+		right: 0;
+		top: -50rpx; //giving minus -25px top position 
+		bottom: 0;
+		box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.9);
+		filter: blur(10px)
+	}
+
+	.action_back {
 		position: absolute;
 		left: 10upx;
 		top: 50%;
@@ -81,7 +96,8 @@
 		position: relative;
 		align-items: center;
 		min-height: 0;
-		.content{
+
+		.content {
 			width: 60%;
 			height: 100%;
 			display: flex;

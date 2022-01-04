@@ -889,7 +889,7 @@ page {
             bottom: 0;
             left: 0;
             border-radius: 20upx;
-            background: $uni-color-primary;
+            background: #e83d3d;
           }
         }
       }
@@ -916,7 +916,7 @@ page {
         color: #fff;
         border-radius: 56upx;
         margin: 30upx auto 0;
-        background: $uni-color-primary;
+        background: #e83d3d;
         text-align: center;
         height: 56upx;
         line-height: 56upx;

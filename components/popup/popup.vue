@@ -80,7 +80,7 @@
 		top: 0;
 		/* #ifdef MP-WEIXIN */
 		height: 100vh;
-		z-index: 99;
+		z-index: 500;
 		/* #endif */
 	}
 
