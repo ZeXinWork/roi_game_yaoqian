@@ -799,7 +799,7 @@ page {
         padding: 0 26upx;
         border-radius: 58upx;
         line-height: 58upx;
-        border: 1upx solid #e83d3d;
+        border: 1px solid #e83d3d;
       }
     }
   }
