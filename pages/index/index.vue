@@ -954,6 +954,9 @@
 				this.UnpublishedAudio.play() //执行播放
 			},
 			playShackSound() {
+				if (!Number(this.playTime)) {
+					return
+				}
 				this.ShakeAudio.seek(0.1)
 				this.ShakeAudio.play() //执行播放
 			},
@@ -1501,6 +1504,13 @@
 											this.getSetting()
 											return
 										}
+									}
+									if (!Number(this.playTime)) {
+										uni.showToast({
+											title: "你的次数已用完",
+											icon: "error"
+										})
+										return
 									}
 									this.playShackSound()
 									this.getGameResult()
