@@ -23,7 +23,7 @@
 					<view class="p_body_mid_prize_integral">
 						<image v-if="prize.template_award_id == 1" src="https://static.roi-cloud.com/upload/20211230/60935669173307" mode="aspectFill"></image>
 						<image v-if="prize.template_award_id == 2" src="https://static.roi-cloud.com/upload/20211231/60935669105816" mode="aspectFill"></image>
-						<image v-if="prize.template_award_id >= 3" src="https://static.roi-cloud.com/upload/20211230/60935669173445" mode="aspectFill"></image>
+						<image v-if="prize.template_award_id >= 3 || prize.template_award_id == 0" src="https://static.roi-cloud.com/upload/20211230/60935669173445" mode="aspectFill"></image>
 						<view class="get_integral">
 							<view><span>{{`+ ${prize.award_point} `}}</span> 积分</view>
 						</view>

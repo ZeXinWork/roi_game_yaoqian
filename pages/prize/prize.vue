@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view style="padding-bottom: 40rpx;">
     <view class="tips">
       奖品领奖需自行联系商家。
       可通过“去领奖”进入详细页面扫二维码添加商家微信或者直接电话（如果商家开放电话）
@@ -429,7 +429,7 @@ page {
   justify-content: space-between;
 
   .default_btn {
-    width: 176upx;
+    width: 178upx;
     height: 70upx;
     text-align: center;
     line-height: 70upx;

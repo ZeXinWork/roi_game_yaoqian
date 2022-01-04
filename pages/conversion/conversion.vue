@@ -733,7 +733,7 @@ page {
 }
 
 #main {
-  padding: 46upx 30upx 0;
+  padding: 46upx 30upx;
 
   .card {
     background: #fff;
@@ -795,27 +795,26 @@ page {
       .user_right {
         color: #e83d3d;
         font-size: 28upx;
-        height: 56upx;
+        height: 58upx;
         padding: 0 26upx;
-        border-radius: 56upx;
-        line-height: 56upx;
+        border-radius: 58upx;
+        line-height: 58upx;
         border: 1upx solid #e83d3d;
       }
     }
   }
 
   .btn_part {
-    width: 284upx;
-    height: 68upx;
+    width: 286upx;
+    height: 70rpx;
     display: flex;
     color: #fff;
     font-size: 30upx;
     margin: 30upx auto;
     justify-content: center;
     border: 1upx solid #fff;
-    border-radius: 68upx;
-    line-height: 68upx;
-
+    border-radius: 70rpx;
+    line-height: 70rpx;
     .arrow {
       margin-left: 10upx;
     }
@@ -839,6 +838,7 @@ page {
     .swiper-item {
       width: 100%;
       height: 100%;
+      border-radius: 24upx;
     }
   }
 

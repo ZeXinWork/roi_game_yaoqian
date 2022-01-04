@@ -13,7 +13,8 @@
 				"navigationBarTextStyle": "white",
 				"navigationBarBackgroundColor": "#E83D3D",
 				"navigationBarTitleText": "兑换奖品",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"backgroundColor": "#E83D3D"
 			}
 		},
 		{
@@ -22,7 +23,8 @@
 				"navigationBarTextStyle": "white",
 				"navigationBarBackgroundColor": "#E83D3D",
 				"navigationBarTitleText": "我的奖品",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"backgroundColor": "#E83D3D"
 			}
 		},
 		{
@@ -31,7 +33,9 @@
 				"navigationBarTextStyle": "white",
 				"navigationBarBackgroundColor": "#E83D3D",
 				"navigationBarTitleText": "奖品领取",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"backgroundColor": "#E83D3D",
+				"disableScroll":true
 			}
 		},
 		{
@@ -60,8 +64,9 @@
 			"style": {
 				"navigationBarTitleText": "游戏规则",
 				"enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#b43b2d",
-				"navigationBarTextStyle": "white"
+				"navigationBarBackgroundColor": "#E83D3D",
+				"navigationBarTextStyle": "white",
+				"backgroundColor": "#E83D3D"
 			}
 
 		},
