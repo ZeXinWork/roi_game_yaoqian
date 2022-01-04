@@ -1,9 +1,12 @@
 <template>
-	<view class="wrap" :style="{
+	<!-- <view class="wrap" :style="{
       backgroundColor:
         gameInfo.game_pk_plugin && gameInfo.game_pk_plugin.length !== 0
           ? '#ff2626'
           : '#fdccb9',
+    }"> -->
+	<view class="wrap" :style="{
+      backgroundColor: '#ff1500'
     }">
 		<navbar :params="{
         navColor: navColor,
@@ -15,11 +18,20 @@
           ') center center no-repeat;background-size:contain'
         " />
 		</navbar>
-		<view id="main" :style="{
+		<!-- <view id="main" :style="{
         paddingTop: navbarHeight + 'px',
         background: `url(${
           gameInfo.backgroundInfo.backgroundUrl ||
           'https://static.roi-cloud.com/upload/20211229/60935669175808'
+        }) no-repeat`,
+        backgroundSize: '100%',
+      }"> -->
+	  <view id="main" :style="{
+		paddingTop: navbarHeight + 'px',
+		minHeight: minHeight + 'px',
+        background: `url(${
+          gameInfo.backgroundInfo.backgroundUrl ||
+          'https://static.roi-cloud.com/upload/20220104/60935669174234'
         }) no-repeat`,
         backgroundSize: '100%',
       }">
@@ -779,6 +791,7 @@
 				isOpenAssistance: false,
 				isOpenShareContent: false,
 				isOpenSendMessage: false,
+				minHeight: 0,
 			}
 		},
 		onShow() {
@@ -795,6 +808,15 @@
 					'3rdpartyUserID_evar': this.user.userId,
 				})
 			}
+			const _this = this
+			uni.getSystemInfo({
+                success: function (res) {
+                    _this.minHeight = res.screenHeight
+                    _this.minHeight = res.windowHeight
+					console.log(res.screenHeight,"res.screenHeightres.screenHeightres.screenHeight")
+					console.log(res.windowHeight,"res.windowHeightres.windowHeightres.windowHeight")
+                }
+            });
 		},
 		onReady() {
 			this.context = uni.createCanvasContext('shareCanvas', this)
@@ -959,6 +981,7 @@
 				if (!Number(this.playTime)) {
 					return
 				}
+				console.log("SoundSoundSoundSoundSoundSoundSoundSound")
 				this.ShakeAudio.seek(0.1)
 				this.ShakeAudio.play() //执行播放
 			},
@@ -1451,7 +1474,7 @@
 				}
 			},
 			play() {
-				if (false) {
+				if (this.isOpenSendMessage) {
 					wechat.getAuthOfSubscribeMessage(() => {
 						this.playLoading = false
 						uni.getNetworkType({
@@ -1580,6 +1603,7 @@
 										return
 									}
 								}
+								this.playShackSound()
 								this.getGameResult()
 							}
 						},
@@ -2132,7 +2156,6 @@
 							if (this.currentScoreItem === 1) {
 								this.getAward()
 							}
-							this.isOpenShareContent = res.show_share_btn == 1
 						}
 						if (this.$storage.get('getLocationTime') == '') {
 							this.getSetting(() => {
@@ -2177,6 +2200,7 @@
 			getWechatMessage(handler) {
 				apiWechatMessage().then((res) => {
 					this.isOpenSendMessage = res.high_frequency_notice == 1
+					this.isOpenShareContent = res.show_share_btn == 1
 					handler && handler()
 				})
 			},
@@ -2260,7 +2284,7 @@
 			return {
 				title: this.gameInfo.name,
 				path,
-				imageUrl: 'https://static.roi-cloud.com/upload/20211230/60935669180626'
+				imageUrl: 'https://static.roi-cloud.com/upload/20220104/60935669181512'
 			}
 		},
 		watch: {
@@ -2451,7 +2475,7 @@
 		height: 140rpx;
 		position: absolute;
 		left: 170rpx;
-		top: 120rpx;
+		top: 320rpx;
 	}
 
 	.levl-2 {
@@ -2459,7 +2483,7 @@
 		height: 446rpx;
 		position: absolute;
 		left: 170rpx;
-		top: 100rpx;
+		top: 300rpx;
 		z-index: 20;
 		// display: none;
 	}
@@ -2467,7 +2491,7 @@
 	.levl-3 {
 		width: 280rpx;
 		height: 190rpx;
-		top: 228rpx;
+		top: 428rpx;
 		left: 50rpx;
 		position: absolute;
 		z-index: 30;
@@ -2476,7 +2500,7 @@
 	.levl-4 {
 		width: 360rpx;
 		height: 240rpx;
-		top: 360rpx;
+		top: 560rpx;
 		position: absolute;
 		z-index: 40;
 		left: 22rpx;
@@ -2488,7 +2512,7 @@
 		height: 280rpx;
 		position: absolute;
 		z-index: 10;
-		top: 522rpx;
+		top: 722rpx;
 		left: 10rpx;
 	}
 
@@ -2496,7 +2520,7 @@
 		width: 320rpx;
 		height: 210rpx;
 		position: absolute;
-		top: 637rpx;
+		top: 837rpx;
 		left: 150rpx;
 		z-index: 00;
 	}
@@ -2505,7 +2529,7 @@
 		width: 220rpx;
 		height: 160rpx;
 		position: absolute;
-		top: 507rpx;
+		top: 707rpx;
 		right: 90rpx;
 		z-index: 50;
 	}
@@ -2514,7 +2538,7 @@
 		width: 340rpx;
 		height: 300rpx;
 		position: absolute;
-		top: 432rpx;
+		top: 632rpx;
 		right: 0rpx;
 	}
 
@@ -2528,33 +2552,33 @@
 
 	.hongbao1 {
 		@include hongbao;
-		top: 220rpx;
+		top: 420rpx;
 		left: 290rpx;
 	}
 
 	.hongbao2 {
 		@include hongbao;
 		right: 180rpx;
-		top: 330rpx;
+		top: 530rpx;
 	}
 
 	.hongbao3 {
 		@include hongbao;
 		left: 150rpx;
-		top: 440rpx;
+		top: 640rpx;
 	}
 
 	.hongbao4 {
 		@include hongbao;
 		z-index: 0;
-		top: 500rpx;
+		top: 700rpx;
 		left: 364rpx;
 		z-index: 11;
 	}
 
 	.hongbao5 {
 		@include hongbao;
-		top: 750rpx;
+		top: 950rpx;
 		left: 120rpx;
 		z-index: 0;
 	}
@@ -2563,7 +2587,7 @@
 		@include hongbao;
 		z-index: 90;
 		right: 135rpx;
-		top: 640rpx;
+		top: 840rpx;
 	}
 
 	.diy_logo {
@@ -2601,7 +2625,7 @@
 	}
 
 	.contactPoup {
-		padding: 40upx;
+		// padding: 40upx;
 		text-align: center;
 
 		image {
@@ -2764,7 +2788,7 @@
 		overflow: hidden;
 		background: linear-gradient(137deg, #95ffdc 0%, #ff8944 99%, #ff8944 100%);
 		border-radius: 24upx;
-
+		margin-bottom: 30rpx;
 		swiper,
 		image,
 		.swiper-item {
@@ -3588,7 +3612,8 @@
 			color: #fff;
 			text-align: center;
 			font-size: 24upx;
-			margin: 18upx 0 8upx;
+			margin: 0upx 0 8upx;
+			z-index: 21;
 		}
 
 		.bowl_title {
@@ -3605,7 +3630,7 @@
 
 		.bowl {
 			width: 100%;
-			height: 738upx;
+			height: 788upx;
 			position: relative;
 
 			.rule {
@@ -3781,15 +3806,16 @@
 		}
 
 		.recorde_ad_wrap {
-			background-image: linear-gradient(180deg,
-					#fecbb7 55%,
-					rgba(255, 255, 255, 0) 100%);
-			padding: 80rpx 0 40rpx;
+			// background-image: linear-gradient(180deg,
+			// 		#fecbb7 55%,
+			// 		rgba(255, 255, 255, 0) 100%);
+			padding: 0rpx 0 0rpx;
 		}
 
 		.record_wrap {
 			display: flex;
-			color: #976f1d;
+			// color: #976f1d;
+			color: #ffffff;
 			align-items: center;
 			justify-content: center;
 			// margin: 50upx auto;
@@ -3801,7 +3827,8 @@
 				width: 1upx;
 				height: 30upx;
 				margin: 0 30px;
-				background-color: #976f1d;
+				// background-color: #976f1d;
+				background-color: #ffffff;
 			}
 		}
 
@@ -3813,7 +3840,9 @@
 			position: relative;
 			border-radius: 60upx;
 			z-index: 100;
-
+			.uni-noticebar {
+				padding: 8rpx 12rpx !important;
+			}
 		}
 
 		.rule-wrapper {
@@ -3830,7 +3859,7 @@
 			background: #fff4da;
 			border-radius: 24rpx;
 			box-sizing: border-box;
-			margin: 40rpx 0;
+			// margin: 40rpx 0;
 			padding: 30rpx 26rpx 80rpx 30rpx;
 
 			.rule {

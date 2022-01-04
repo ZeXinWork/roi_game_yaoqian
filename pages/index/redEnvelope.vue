@@ -135,7 +135,7 @@
 	.prizeDetail {
 		.p_body {
 			width: 600upx;
-			min-height: 700upx;
+			min-height: 650upx;
 			border-radius: 32upx;
 			background-image: linear-gradient(#eba278, #ff2626);
 			position: relative;
@@ -143,7 +143,7 @@
 			.p_body_mid {
 				width: 510upx;
 				position: absolute;
-				min-height: 910upx;
+				min-height: 750upx;
 				border-radius: 32upx;
 				left: 0;
 				right: 0;
@@ -162,6 +162,7 @@
 					width: 220rpx !important;
 					height: 196rpx !important;
 					margin: 0 auto !important;
+					padding-top: 40px;
 					display: block;
 				}
 
@@ -209,8 +210,8 @@
 						flex-direction: column;
 						align-items: center;
 						image {
-							 width: 500rpx;
-							height: 400rpx;
+							width: 450rpx;
+							height: 330rpx;
 							// margin: auto 40rpx;
 						}
 						.get_integral {
