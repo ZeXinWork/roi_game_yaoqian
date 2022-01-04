@@ -122,7 +122,7 @@
 				:openShare="isOpenShareContent" />
 
 			<view v-if="isOpenShareContent" class="de_btn zl_btn" @click="popShow('share')">喊好友来游戏</view>
-			<view class="recorde_ad_wrap">
+			<view class="recorde_ad_wrap" :style="{'min-height': gameInfo && gameInfo.ad_info.length > 0 ? '400rpx' : '200rpx'}">
 				<view class="record_wrap">
 					<text @click="popShow('score')">积分明细</text>
 					<view class="line"></view>
@@ -3776,7 +3776,6 @@
 			background-image: linear-gradient(180deg,
 					#fecbb7 55%,
 					rgba(255, 255, 255, 0) 100%);
-			min-height: 400rpx;
 		}
 
 		.record_wrap {
@@ -3784,9 +3783,9 @@
 			color: #976f1d;
 			align-items: center;
 			justify-content: center;
-			margin: 69upx auto;
+			margin: 50upx auto;
 			font-size: 32upx;
-			padding: 80rpx 0 20rpx 0;
+			padding: 50rpx 0 20rpx 0;
 			box-sizing: border-box;
 
 			.line {
