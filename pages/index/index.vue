@@ -895,6 +895,7 @@
 					}, 500)
 					_this.playAnimation = false
 					_this.$refs.redEnvelope.open()
+					_this.playLoading = false
 				}, 2000)
 			},
 			gameStatus(code) {
@@ -1450,7 +1451,7 @@
 				}
 			},
 			play() {
-				if (this.isOpenSendMessage) {
+				if (false) {
 					wechat.getAuthOfSubscribeMessage(() => {
 						this.playLoading = false
 						uni.getNetworkType({
@@ -1520,7 +1521,6 @@
 						})
 					})
 				} else {
-					this.playLoading = false
 					uni.getNetworkType({
 						success: (res) => {
 							if (res.networkType === 'none') {
@@ -2052,7 +2052,6 @@
 					this.trackEvent('playGame', {})
 					this.handlePlayAnimation()
 					this.getPlayNumber()
-					this.playLoading = false
 				})
 			},
 			getTime: function(time, format = 'YYYY-MM-DD') {
