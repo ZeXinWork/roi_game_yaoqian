@@ -2592,6 +2592,7 @@
 		.swiper-item {
 			width: 100%;
 			height: 100%;
+			border-radius: 20upx;
 		}
 	}
 
@@ -3785,7 +3786,7 @@
 			justify-content: center;
 			margin: 50upx auto;
 			font-size: 32upx;
-			padding: 50rpx 0 20rpx 0;
+			padding: 40rpx 0 20rpx 0;
 			box-sizing: border-box;
 
 			.line {

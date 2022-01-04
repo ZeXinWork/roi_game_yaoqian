@@ -108,6 +108,7 @@
 		apiGetGameInfo
 	} from '@/rest/api.js'
 	import moment from 'moment'
+	import _ from 'lodash'
 	export default {
 		data() {
 			return {
@@ -123,12 +124,15 @@
 		},
 		computed: {
 			area() {
-				if (this.gameInfo.areas) {
+				if (!_.isEmpty(this.gameInfo.areas)) {
+					console.log(this.gameInfo.areas)
 					if (this.gameInfo.areas.length === 1) {
 						return this.gameInfo.areas[0].address
 					} else {
 						return `${this.gameInfo.areas[0].address}等${this.gameInfo.areas.length}个区域`
 					}
+				} else {
+					return `不限地区`
 				}
 
 			}
