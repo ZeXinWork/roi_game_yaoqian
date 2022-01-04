@@ -2523,6 +2523,7 @@
 		height: 80rpx;
 		position: absolute;
 		z-index: 90;
+		border-radius: 6rpx;
 	}
 
 	.hongbao1 {
@@ -2561,7 +2562,7 @@
 	.hongbao6 {
 		@include hongbao;
 		z-index: 90;
-		right: 120rpx;
+		right: 135rpx;
 		top: 640rpx;
 	}
 
