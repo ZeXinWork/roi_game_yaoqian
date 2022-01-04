@@ -68,20 +68,21 @@
 		width: 100%;
 		background-color: #000;
 		box-sizing: border-box;
-		overflow: hidden
+		overflow: hidden;
+
 	}
 
 	.navbar-fixed:before {
 		content: '';
-		width: 100%;
+		width: 100vw;
 		background: inherit;
 		position: absolute;
-		left: -50rpx; //giving minus -25px left position
+		// left: -50rpx; //giving minus -25px left position
 		right: 0;
 		top: -50rpx; //giving minus -25px top position 
 		bottom: 0;
-		box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.9);
-		filter: blur(10px)
+		background: transparent;
+		backdrop-filter: blur(15px);
 	}
 
 	.action_back {
