@@ -1818,19 +1818,19 @@
 						console.log(userList, 'userListuserListuserListuserListuserList')
 						let item = {
 							info: this.gameInfo.game_pk_plugin[index],
-							range: this.gameInfo.game_pk_plugin[index].start_seq == 1 ?
+							range: this.gameInfo.game_pk_plugin[index].end_seq == 1 ?
 								'第' + num + '名' : '第' +
 								num +
 								'～' +
-								this.gameInfo.game_pk_plugin[index].start_seq +
+								this.gameInfo.game_pk_plugin[index].end_seq +
 								'名',
 							list: userList.slice(
 								0,
-								this.gameInfo.game_pk_plugin[index].start_seq
+								this.gameInfo.game_pk_plugin[index].end_seq
 							),
 						}
-						num += this.gameInfo.game_pk_plugin[index].start_seq
-						userList.splice(0, this.gameInfo.game_pk_plugin[index].start_seq)
+						num += Number(this.gameInfo.game_pk_plugin[index].end_seq)
+						userList.splice(0, this.gameInfo.game_pk_plugin[index].end_seq)
 						kingofKingsList.push(item)
 					}
 
@@ -3802,7 +3802,6 @@
 		.btn_primary {
 			color: #976f1d;
 			background: linear-gradient(180deg, #fff6b1 0%, #ffcf79 100%);
-			box-shadow: 0px 0px 20rpx #979797;
 		}
 
 		.recorde_ad_wrap {
