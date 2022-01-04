@@ -122,7 +122,8 @@
 				:openShare="isOpenShareContent" />
 
 			<view v-if="isOpenShareContent" class="de_btn zl_btn" @click="popShow('share')">喊好友来游戏</view>
-			<view class="recorde_ad_wrap" :style="{'min-height': gameInfo && gameInfo.ad_info.length > 0 ? '400rpx' : '200rpx'}">
+			<view class="recorde_ad_wrap">
+			<!-- <view class="recorde_ad_wrap" :style="{'min-height': gameInfo && gameInfo.ad_info.length > 0 ? '400rpx' : '200rpx'}"> -->
 				<view class="record_wrap">
 					<text @click="popShow('score')">积分明细</text>
 					<view class="line"></view>
@@ -2593,6 +2594,9 @@
 			width: 100%;
 			height: 100%;
 			border-radius: 20upx;
+			image {
+				border-radius: 20upx;
+			}
 		}
 	}
 
@@ -2766,6 +2770,9 @@
 		.swiper-item {
 			width: 100%;
 			height: 100%;
+			image {
+				border-radius: 24upx;
+			}
 		}
 	}
 
@@ -3777,6 +3784,7 @@
 			background-image: linear-gradient(180deg,
 					#fecbb7 55%,
 					rgba(255, 255, 255, 0) 100%);
+			padding: 80rpx 0 40rpx;
 		}
 
 		.record_wrap {
@@ -3784,9 +3792,9 @@
 			color: #976f1d;
 			align-items: center;
 			justify-content: center;
-			margin: 50upx auto;
+			// margin: 50upx auto;
 			font-size: 32upx;
-			padding: 40rpx 0 20rpx 0;
+			padding: 40rpx 0 70rpx 0;
 			box-sizing: border-box;
 
 			.line {
@@ -3870,6 +3878,10 @@
 						height: 108upx;
 						border-radius: 16upx;
 						background: #aaa;
+
+						image {
+							border-radius: 16upx;
+						}
 					}
 
 					.gift_right {
@@ -3966,7 +3978,7 @@
 				width: 90upx;
 				height: 90upx;
 				padding-right: 40upx;
-				border-right: 1upx solid #cecece;
+				border-right: 1upx solid #e9e2e2;
 
 				image {
 					width: 100%;
@@ -4007,8 +4019,8 @@
 					height: 60upx;
 					margin-right: 20upx;
 					border-radius: 50%;
-					background: url(https://static.roi-cloud.com/base/icon_rank.png);
-					background-size: 200%;
+					background: url(https://static.roi-cloud.com/upload/20220104/60935669143651);
+					background-size: 400%;
 					background-position: center;
 				}
 
