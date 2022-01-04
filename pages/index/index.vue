@@ -1233,7 +1233,6 @@
 					this.getMyRank()
 					//获取游戏可玩次数
 					this.getPlayNumber()
-					this.isOpenShareContent = this.user.show_share_btn == 1
 					this.getWechatMessage()
 				}
 
