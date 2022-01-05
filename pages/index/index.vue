@@ -26,7 +26,7 @@
         }) no-repeat`,
         backgroundSize: '100%',
       }"> -->
-	  <view id="main" :style="{
+		<view id="main" :style="{
 		paddingTop: navbarHeight + 'px',
 		minHeight: minHeight + 'px',
         background: `url(${
@@ -135,7 +135,7 @@
 
 			<view v-if="isOpenShareContent" class="de_btn zl_btn" @click="popShow('share')">喊好友来游戏</view>
 			<view class="recorde_ad_wrap">
-			<!-- <view class="recorde_ad_wrap" :style="{'min-height': gameInfo && gameInfo.ad_info.length > 0 ? '400rpx' : '200rpx'}"> -->
+				<!-- <view class="recorde_ad_wrap" :style="{'min-height': gameInfo && gameInfo.ad_info.length > 0 ? '400rpx' : '200rpx'}"> -->
 				<view class="record_wrap">
 					<text @click="popShow('score')">积分明细</text>
 					<view class="line"></view>
@@ -810,13 +810,11 @@
 			}
 			const _this = this
 			uni.getSystemInfo({
-                success: function (res) {
-                    _this.minHeight = res.screenHeight
-                    _this.minHeight = res.windowHeight
-					console.log(res.screenHeight,"res.screenHeightres.screenHeightres.screenHeight")
-					console.log(res.windowHeight,"res.windowHeightres.windowHeightres.windowHeight")
-                }
-            });
+				success: function(res) {
+					_this.minHeight = res.screenHeight
+					_this.minHeight = res.windowHeight
+				}
+			});
 		},
 		onReady() {
 			this.context = uni.createCanvasContext('shareCanvas', this)
@@ -825,6 +823,7 @@
 			this.navbarHeight =
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
+	
 			if (options.gameId && options.gameId !== localGameId) {
 				localGameId = options.gameId
 				this.$storage.set('gameId', options.gameId)
@@ -870,7 +869,7 @@
 
 			this.user = user
 			console.log(localGameId, 'localGameIdlocalGameIdlocalGameId')
-
+			console.log(user.userId, "user.userIduser.userIduser.userId")
 			if (localGameId && user.userId) {
 				this.gameId = localGameId.trim()
 				this.getGameInfo() //获取游戏信息
@@ -1224,7 +1223,7 @@
 				})
 			},
 			getData() {
-				if (this.gameId) {
+				if (this.gameId && this.user && this.user.userId) {
 					// 获取排行榜
 					this.getRankScore()
 					// 获取我的排行
@@ -1233,7 +1232,7 @@
 					this.getPlayNumber()
 					this.getWechatMessage()
 				}
-
+			
 				//   apiGetMinSetting().then((res) => {
 				//     this.setting = res
 				//     this.gameId = this.$storage.get('gameId')
@@ -1492,7 +1491,6 @@
 										this.$refs.login_popup.open('bottom')
 										return
 									}
-									console.log("??")
 									if (!this.gameId) {
 										uni.showToast({
 											title: '暂无游戏信息!',
@@ -1524,6 +1522,7 @@
 										let get_time = this.$storage.get('getLocationTime').get_time
 										let now = new Date().getTime()
 										if ((now - get_time) / 1000 / 60 / 60 > 3) {
+											console.log("我去更新位置信息了")
 											this.getSetting()
 											return
 										}
@@ -1674,7 +1673,7 @@
 					})
 				} catch (e) {}
 			},
-			updateLocation(res) {
+			updateLocation(res, flag) {
 				res.get_time = new Date().getTime()
 				this.$storage.set('getLocationTime', res)
 				this.$loading.show()
@@ -1685,12 +1684,17 @@
 					.then((res) => {
 						this.playLoading = false
 						this.$loading.hide()
-						// this.getGameResult()
+						if (flag) {
+							this.getGameResult()
+						}
+
 					})
 					.catch((err) => {
 						this.playLoading = false
 						this.$loading.hide()
-						// this.getGameResult()
+						if (flag) {
+							this.getGameResult()
+						}
 					})
 			},
 			getSetting(handler) {
@@ -1702,8 +1706,17 @@
 								type: 'gcj02',
 								altitude: true,
 								success(res) {
-									that.updateLocation(res)
-									handler && handler()
+
+									if (handler) {
+										if (handler instanceof Function) {
+											that.updateLocation(res)
+											handler()
+										} else {
+											that.updateLocation(res, 'play')
+										}
+
+									}
+
 								},
 							})
 						} else {
@@ -2616,6 +2629,7 @@
 			width: 100%;
 			height: 100%;
 			border-radius: 20upx;
+
 			image {
 				border-radius: 20upx;
 			}
@@ -2787,11 +2801,13 @@
 		background: linear-gradient(137deg, #95ffdc 0%, #ff8944 99%, #ff8944 100%);
 		border-radius: 24upx;
 		margin-bottom: 30rpx;
+
 		swiper,
 		image,
 		.swiper-item {
 			width: 100%;
 			height: 100%;
+
 			image {
 				border-radius: 24upx;
 			}
@@ -3837,6 +3853,7 @@
 			position: relative;
 			border-radius: 60upx;
 			z-index: 100;
+
 			.uni-noticebar {
 				padding: 8rpx 12rpx !important;
 			}
