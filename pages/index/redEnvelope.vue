@@ -47,7 +47,7 @@
 					</image>
 				</view>
 				<view class="p_body_top_button" @click="close" v-if="playTime > 0 || !openShare"> 再来一把 </view>
-				<button class="p_body_top_button" open-type='share' data-type='0'> 喊好友加好运 </button>
+				<button class="p_body_top_button" open-type='share' data-type='0' v-else> 喊好友加好运 </button>
 			</view>
 		</view>
 		<view class="p_bottom">
