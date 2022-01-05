@@ -6,7 +6,7 @@
           : '#fdccb9',
     }"> -->
 	<view class="wrap" :style="{
-      backgroundColor: '#ff1500'
+      backgroundColor: '#ff1500',
     }">
 		<navbar :params="{
         navColor: navColor,
@@ -27,8 +27,8 @@
         backgroundSize: '100%',
       }"> -->
 		<view id="main" :style="{
-		paddingTop: navbarHeight + 'px',
-		minHeight: minHeight + 'px',
+        paddingTop: navbarHeight + 'px',
+        minHeight: minHeight + 'px',
         background: `url(${
           gameInfo.backgroundInfo.backgroundUrl ||
           'https://static.roi-cloud.com/upload/20220104/60935669174234'
@@ -38,48 +38,90 @@
 			<!-- 	<image class="levl-1 trunk" src="https://static.roi-cloud.com/upload/20211229/60935669183338"
 				mode="aspectFill">
 			</image> -->
-			<image id="trunkId" :class="['levl-1',{swiper_anumation:!playAnimation}, { trunk_slow: playAnimation }]"
-				src="https://static.roi-cloud.com/upload/20211230/60935669143532" mode="aspectFill">
+			<image id="trunkId" :class="[
+          'levl-1',
+          { swiper_anumation: !playAnimation },
+          { trunk_slow: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20211230/60935669143532" mode="aspectFill">
 			</image>
-			<image :class="['levl-2 ', { swiper_anumation_slow: !playAnimation }, { trunk_most: playAnimation }]"
-				src="https://static.roi-cloud.com/upload/20211229/60935669181927" mode="aspectFill">
+			<image :class="[
+          'levl-2 ',
+          { swiper_anumation_slow: !playAnimation },
+          { trunk_most: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20211229/60935669181927" mode="aspectFill">
 			</image>
-			<image :class="['levl-3 ', { swiper_anumation_most: !playAnimation }, { trunk_slow: playAnimation }]"
-				src="https://static.roi-cloud.com/upload/20211230/60935669144124" mode="aspectFill">
+			<image :class="[
+          'levl-3 ',
+          { swiper_anumation_most: !playAnimation },
+          { trunk_slow: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20211230/60935669144124" mode="aspectFill">
 			</image>
-			<image :class="['levl-4 ', { swiper_anumation: !playAnimation },{ trunk: playAnimation }]"
-				src="https://static.roi-cloud.com/upload/20211229/60935669184846" mode="aspectFill">
+			<image :class="[
+          'levl-4 ',
+          { swiper_anumation: !playAnimation },
+          { trunk: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20211229/60935669184846" mode="aspectFill">
 			</image>
-			<image :class="['levl-5 ',{ swiper_anumation_slow: !playAnimation }, { trunk_slow: playAnimation }]"
-				src="https://static.roi-cloud.com/upload/20211230/60935669145511" mode="aspectFill">
+			<image :class="[
+          'levl-5 ',
+          { swiper_anumation_slow: !playAnimation },
+          { trunk_slow: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20211230/60935669145511" mode="aspectFill">
 			</image>
-			<image :class="['levl-6 ',  { swiper_anumation_most: !playAnimation },{ trunk: playAnimation }]"
-				src="https://static.roi-cloud.com/upload/20211230/60935669145930" mode="aspectFill">
+			<image :class="[
+          'levl-6 ',
+          { swiper_anumation_most: !playAnimation },
+          { trunk: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20211230/60935669145930" mode="aspectFill">
 			</image>
-			<image :class="['levl-7 ',{swiper_anumation:!playAnimation}, { trunk: playAnimation }]"
-				src="https://static.roi-cloud.com/upload/20211229/60935669191217" mode="aspectFill">
+			<image :class="[
+          'levl-7 ',
+          { swiper_anumation: !playAnimation },
+          { trunk: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20211229/60935669191217" mode="aspectFill">
 			</image>
-			<image :class="['levl-8 ',{ swiper_anumation_slow: !playAnimation },{ trunk_slow: playAnimation }]"
-				src="https://static.roi-cloud.com/upload/20211229/60935669191506" mode="aspectFill">
+			<image :class="[
+          'levl-8 ',
+          { swiper_anumation_slow: !playAnimation },
+          { trunk_slow: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20211229/60935669191506" mode="aspectFill">
 			</image>
 
-			<image :class="['hongbao1', { swiper_anumation_slow: playAnimation },{ Wobble_move: playAnimation }]"
-				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
+			<image :class="[
+          'hongbao1',
+          { swiper_anumation_slow: playAnimation },
+          { Wobble_move: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
 			</image>
-			<image :class="['hongbao2',{ swiper_anumation_slow: !playAnimation }, { Wobble_move: playAnimation }]"
-				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
+			<image :class="[
+          'hongbao2',
+          { swiper_anumation_slow: !playAnimation },
+          { Wobble_move: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
 			</image>
-			<image :class="['hongbao3 ' , { swiper_anumation: !playAnimation },{ Wobble_move: playAnimation }]"
-				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
+			<image :class="[
+          'hongbao3 ',
+          { swiper_anumation: !playAnimation },
+          { Wobble_move: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
 			</image>
-			<image :class="['hongbao4  ', { swiper_anumation_slow: !playAnimation },{ Wobble_move: playAnimation }]"
-				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
+			<image :class="[
+          'hongbao4  ',
+          { swiper_anumation_slow: !playAnimation },
+          { Wobble_move: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
 			</image>
-			<image :class="['hongbao5 ',{swiper_anumation:!playAnimation} ,{ Wobble: playAnimation }]"
-				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
+			<image :class="[
+          'hongbao5 ',
+          { swiper_anumation: !playAnimation },
+          { Wobble: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
 			</image>
-			<image :class="['hongbao6 ', {swiper_anumation_most:!playAnimation},{ Wobble: playAnimation }]"
-				src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
+			<image :class="[
+          'hongbao6 ',
+          { swiper_anumation_most: !playAnimation },
+          { Wobble: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
 			</image>
 			<view class="swiper_wrap">
 				<uni-notice-bar showIcon="true" color="#fff" background-color="transparent" scrollable="true"
@@ -441,7 +483,6 @@
 					关闭后依然可进行奖品相关操作 如有疑问请 <text>点击查看</text>
 				</navigator>
 			</popup>
-
 
 			<popup ref="over_popup" bgColor="#FFF8DC" class="over_popup" width="630">
 				<view>
@@ -813,8 +854,8 @@
 				success: function(res) {
 					_this.minHeight = res.screenHeight
 					_this.minHeight = res.windowHeight
-				}
-			});
+				},
+			})
 		},
 		onReady() {
 			this.context = uni.createCanvasContext('shareCanvas', this)
@@ -863,13 +904,15 @@
 			this.Audio = uni.createInnerAudioContext() // 获奖
 			this.Audio.src = 'https://static.roi-cloud.com/game/music/reveive_point.m4a' //音频地址
 			this.ShakeAudio = uni.createInnerAudioContext() // 摇树
-			this.ShakeAudio.src = 'https://static.roi-cloud.com/game/music/rocking_tree.m4a'
+			this.ShakeAudio.src =
+				'https://static.roi-cloud.com/game/music/rocking_tree.m4a'
 			this.UnpublishedAudio = uni.createInnerAudioContext() // 未获奖
-			this.UnpublishedAudio.src = 'https://static.roi-cloud.com/game/music/fail_prize.wav' //音频地址
+			this.UnpublishedAudio.src =
+				'https://static.roi-cloud.com/game/music/fail_prize.wav' //音频地址
 
 			this.user = user
 			console.log(localGameId, 'localGameIdlocalGameIdlocalGameId')
-			console.log(user.userId, "user.userIduser.userIduser.userId")
+			console.log(user.userId, 'user.userIduser.userIduser.userId')
 			if (localGameId && user.userId) {
 				this.gameId = localGameId.trim()
 				this.getGameInfo() //获取游戏信息
@@ -979,7 +1022,7 @@
 				if (!Number(this.playTime)) {
 					return
 				}
-				console.log("SoundSoundSoundSoundSoundSoundSoundSound")
+				console.log('SoundSoundSoundSoundSoundSoundSoundSound')
 				this.ShakeAudio.seek(0.1)
 				this.ShakeAudio.play() //执行播放
 			},
@@ -1519,20 +1562,40 @@
 										return
 									}
 									if (this.$storage.get('getLocationTime') == '') {
-										this.getSetting(true)
+										this.getSetting(() => {
+											if (!Number(this.playTime)) {
+												uni.showToast({
+													title: "你的次数已用完",
+													icon: "error"
+												})
+												return
+											}
+											this.playShackSound()
+											this.getGameResult()
+										})
 										return
 									} else {
 										let get_time = this.$storage.get('getLocationTime').get_time
 										let now = new Date().getTime()
 										if ((now - get_time) / 1000 / 60 / 60 > 3) {
-											this.getSetting(true)
+											this.getSetting(() => {
+												if (!Number(this.playTime)) {
+													uni.showToast({
+														title: '你的次数已用完',
+														icon: 'error',
+													})
+													return
+												}
+												this.playShackSound()
+												this.getGameResult()
+											})
 											return
 										}
 									}
 									if (!Number(this.playTime)) {
 										uni.showToast({
-											title: "你的次数已用完",
-											icon: "error"
+											title: '你的次数已用完',
+											icon: 'error',
 										})
 										return
 									}
@@ -1556,7 +1619,7 @@
 								const user = this.$storage.getUser()
 
 								if (!user.userId) {
-									console.log(user.userId, "31313131312")
+									console.log(user.userId, '31313131312')
 									this.playLoading = false
 									this.$refs.login_popup.open('bottom')
 									return
@@ -1592,13 +1655,33 @@
 								}
 
 								if (this.$storage.get('getLocationTime') == '') {
-									this.getSetting(true)
+									this.getSetting(() => {
+										if (!Number(this.playTime)) {
+											uni.showToast({
+												title: "你的次数已用完",
+												icon: "error"
+											})
+											return
+										}
+										this.playShackSound()
+										this.getGameResult()
+									})
 									return
 								} else {
 									let get_time = this.$storage.get('getLocationTime').get_time
 									let now = new Date().getTime()
 									if ((now - get_time) / 1000 / 60 / 60 > 3) {
-										this.getSetting(true)
+										this.getSetting(() => {
+											if (!Number(this.playTime)) {
+												uni.showToast({
+													title: "你的次数已用完",
+													icon: "error"
+												})
+												return
+											}
+											this.playShackSound()
+											this.getGameResult()
+										})
 										return
 									}
 								}
@@ -1675,7 +1758,7 @@
 					})
 				} catch (e) {}
 			},
-			updateLocation(res, flag) {
+			updateLocation(res) {
 				res.get_time = new Date().getTime()
 				this.$storage.set('getLocationTime', res)
 				this.$loading.show()
@@ -1686,17 +1769,12 @@
 					.then((res) => {
 						this.playLoading = false
 						this.$loading.hide()
-						if (flag) {
-							this.getGameResult()
-						}
 
 					})
 					.catch((err) => {
 						this.playLoading = false
 						this.$loading.hide()
-						if (flag) {
-							this.getGameResult()
-						}
+
 					})
 			},
 			getSetting(handler) {
@@ -1708,18 +1786,10 @@
 								type: 'gcj02',
 								altitude: true,
 								success(res) {
+									that.updateLocation(res)
+									handler && handler()
+								}
 
-									if (handler) {
-										if (handler instanceof Function) {
-											that.updateLocation(res)
-											handler()
-										} else {
-											that.updateLocation(res, 'play')
-										}
-
-									}
-
-								},
 							})
 						} else {
 							that.getAuthorize(handler)
@@ -1737,15 +1807,9 @@
 							type: 'gcj02',
 							altitude: true,
 							success(res) {
-								if (handler) {
-									if (handler instanceof Function) {
-										that.updateLocation(res)
-										handler()
-									} else {
-										that.updateLocation(res, 'play')
-									}
+								that.updateLocation(res)
+								handler && handler()
 
-								}
 							},
 						})
 					},
@@ -2306,7 +2370,7 @@
 			return {
 				title: this.gameInfo.name,
 				path,
-				imageUrl: 'https://static.roi-cloud.com/upload/20220104/60935669181512'
+				imageUrl: 'https://static.roi-cloud.com/upload/20220104/60935669181512',
 			}
 		},
 		watch: {
@@ -2334,7 +2398,6 @@
 		animation: move 0.5s ease-in 2 forwards;
 	}
 
-
 	.trunk_slow {
 		animation: move_slow 0.5s ease-in 2 forwards;
 	}
@@ -2356,7 +2419,6 @@
 			transform: translateX(0px) rotate(-2deg);
 		}
 
-
 		50% {
 			transform: translateX(3px) rotate(0deg);
 		}
@@ -2370,7 +2432,6 @@
 		}
 	}
 
-
 	.swiper_anumation_most {
 		animation: swiper_most 5s ease-out infinite forwards;
 	}
@@ -2379,7 +2440,6 @@
 		0% {
 			transform: translateX(0px) rotate(4deg);
 		}
-
 
 		50% {
 			transform: translateX(6px) rotate(0deg);
@@ -2399,7 +2459,6 @@
 			transform: translateX(0px) rotate(-3deg);
 		}
 
-
 		50% {
 			transform: translateX(4px) rotate(0deg);
 		}
@@ -2412,7 +2471,6 @@
 			transform: translateX(0px) rotate(-3deg);
 		}
 	}
-
 
 	@keyframes move {
 		0% {
