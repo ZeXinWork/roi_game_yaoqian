@@ -1,7 +1,16 @@
 // 基础地址
 // export const BASE_URL = 'https://bobing.roi-cloud.com';
 // 测试
-export const BASE_URL = 'https://game0.roi-cloud.com';
+
+let domainUrl = ""
+if (process.env.NODE_ENV === 'development') {
+	// 测试环境
+	domainUrl = "https://game0.roi-cloud.com";
+} else {
+	// 正式环境
+	domainUrl = "https://game.roi-cloud.com";
+}
+export const BASE_URL = domainUrl;
 
 export const QINIU_UPLOAD_URL = 'https://up.qiniup.com';
 
