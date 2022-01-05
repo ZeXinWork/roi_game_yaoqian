@@ -1523,7 +1523,17 @@
 										let now = new Date().getTime()
 										if ((now - get_time) / 1000 / 60 / 60 > 3) {
 											console.log("我去更新位置信息了")
-											this.getSetting()
+											this.getSetting(() => {
+												if (!Number(this.playTime)) {
+													uni.showToast({
+														title: "你的次数已用完",
+														icon: "error"
+													})
+													return
+												}
+												this.playShackSound()
+												this.getGameResult()
+											})
 											return
 										}
 									}
