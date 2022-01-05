@@ -48,9 +48,7 @@
         </view>
         <view class="item_bottom">
           <text>奖品来源：{{ source[item.prize_source] }}</text>
-          <text v-if="item.verify_time != 0"
-            >领取日期：{{ item.verify_time }}</text
-          >
+          <text v-if="item.is_verify != 0">领取日期：{{ item.verify_time }}</text>
           <text v-else>领奖截止日期：{{ item.last_receive_time }}</text>
         </view>
       </view>
