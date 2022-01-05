@@ -31,7 +31,7 @@
 		minHeight: minHeight + 'px',
         background: `url(${
           gameInfo.backgroundInfo.backgroundUrl ||
-          'https://static.roi-cloud.com/upload/20220104/60935669174234'
+          'https://static.roi-cloud.com/upload/20220105/60935669144135'
         }) no-repeat`,
         backgroundSize: '100%',
       }">
