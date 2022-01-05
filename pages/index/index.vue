@@ -266,56 +266,59 @@
 			</popup>
 
 			<!-- 分数排行 -->
-			<popup ref="score" width="650">
-				<view class="p_title f-normal">积分明细
-					<image @click="$refs.score.hide()" class="icon_close"
-						src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
-				</view>
-				<view class="score_menu">
-					<view :class="['score_item', { active: currentScoreItem == 1 }]" @click="changeItem(1)">中奖明细</view>
-					<view :class="['score_item', { active: currentScoreItem == 2 }]" @click="changeItem(2)">兑奖明细</view>
-				</view>
-				<view v-if="currentScoreItem == 1">
-					<view class="score_list" v-if="scoreDetailList.length > 0">
-						<view class="score_list_item" v-for="item in scoreDetailList" :key="item.id">
-							<view class="item_left" v-if="Number(gameInfo.lottery_type) === 1">{{ item.name }}</view>
-							<view class="item_right">
-								<text class="t_blod" v-if="item.integral">{{
-                  `+${item.integral}`
-                }}</text>
-								<view class="item_right_time">
-									<view class="item_right_time_date">{{ item.date }}</view>
-									<view class="">
-										{{ item.time }}
+			<uni-popup ref="score" width="650">
+				<view class="score_detail">
+					<view class="p_title f-normal">积分明细
+						<image @click="$refs.score.close()" class="icon_close"
+							src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
+					</view>
+					<view class="score_menu">
+						<view :class="['score_item', { active: currentScoreItem == 1 }]" @click="changeItem(1)">中奖明细</view>
+						<view :class="['score_item', { active: currentScoreItem == 2 }]" @click="changeItem(2)">兑奖明细</view>
+					</view>
+					<view v-if="currentScoreItem == 1">
+						<scroll-view scroll-y style="height: 500rpx">
+							<view class="score_list" v-if="scoreDetailList.length > 0">
+								<view class="score_list_item" v-for="item in scoreDetailList" :key="item.id">
+									<view class="item_left" v-if="Number(gameInfo.lottery_type) === 1">{{ item.name }}</view>
+									<view class="item_right">
+										<text class="t_blod" v-if="item.integral">{{`+${item.integral}`}}</text>
+										<view class="item_right_time">
+											<view class="item_right_time_date">{{ item.date }}</view>
+											<view class="">
+												{{ item.time }}
+											</view>
+										</view>
 									</view>
 								</view>
 							</view>
-						</view>
+							<view class="no_data" v-else>暂无数据</view>
+						</scroll-view>
 					</view>
-					<view class="no_data" v-else>暂无数据</view>
-				</view>
-				<view v-if="currentScoreItem == 2">
-					<view class="score_list" v-if="exchangeList.length > 0">
-						<view class="score_list_item" v-for="item in exchangeList" :key="item">
-							<view class="item_left">{{ item.name }}</view>
-							<view class="item_right">
-								<text class="t_blod" v-if="item.integral">{{
-                  `-${item.integral}`
-                }}</text>
-								<view class="item_right_time">
-									<view class="item_right_time_date">{{ item.date }}</view>
-									<view class="">
-										{{ item.time }}
+					<view v-if="currentScoreItem == 2">
+						<scroll-view scroll-y style="height: 500rpx">
+							<view class="score_list" v-if="exchangeList.length > 0">
+								<view class="score_list_item" v-for="item in exchangeList" :key="item">
+									<view class="item_left">{{ item.name }}</view>
+									<view class="item_right">
+										<text class="t_blod" v-if="item.integral">{{`-${item.integral}`}}</text>
+										<view class="item_right_time">
+											<view class="item_right_time_date">{{ item.date }}</view>
+											<view class="">
+												{{ item.time }}
+											</view>
+										</view>
 									</view>
 								</view>
 							</view>
-						</view>
+							<view class="no_data" v-else>暂无数据</view>
+						</scroll-view>
 					</view>
-					<view class="no_data" v-else>暂无数据</view>
 				</view>
-			</popup>
+			</uni-popup>
 
-			<popup ref="help" width="650" :canClose="false">
+			<uni-popup ref="help" width="650" :canClose="false">
+				<view class="help_pop">
 				<view class="p_title">
 					<text>助力记录</text>
 					<image @click.stop="closeHelp" class="icon_close"
@@ -365,7 +368,8 @@
 					</scroll-view>
 				</view>
 				<view v-else class="no_data"> 暂无数据 </view>
-			</popup>
+				</view>
+			</uni-popup>
 
 			<popup ref="assistance" class="assistance_pop" width="630">
 				<view class="avatar">
@@ -1160,10 +1164,10 @@
 				this.show = true
 				if (this.isOpenSendMessage) {
 					wechat.getAuthOfSubscribeMessage(() => {
-						this.popShow('help')
+						this.$refs.help.open()
 					})
 				} else {
-					this.popShow('help')
+					this.$refs.help.open()
 				}
 			},
 			getKingOfKingPrize() {
@@ -1716,7 +1720,6 @@
 								type: 'gcj02',
 								altitude: true,
 								success(res) {
-
 									if (handler) {
 										if (handler instanceof Function) {
 											that.updateLocation(res)
@@ -1782,7 +1785,7 @@
 					if (ref == 'score') {
 						if (this.isOpenSendMessage) {
 							wechat.getAuthOfSubscribeMessage(() => {
-								this.$refs[ref].show()
+								this.$refs[ref].open()
 							})
 							return
 						}
@@ -3340,7 +3343,7 @@
 		height: 80upx;
 		color: #ff3d3d;
 		line-height: 80upx;
-		border: 1upx solid #ff3d3d;
+		border: 1px solid #ff3d3d;
 		border-radius: 16upx;
 		overflow: hidden;
 
@@ -3411,6 +3414,18 @@
 			width: 100%;
 			height: 100%;
 		}
+	}
+
+	.score_detail {
+		width: 600rpx;
+		border-radius: 16rpx;
+    	background-color: #fff;
+	}
+
+	.help_pop {
+		width: 600rpx;
+		border-radius: 16rpx;
+    	background-color: #fff;
 	}
 
 	.p_title {
