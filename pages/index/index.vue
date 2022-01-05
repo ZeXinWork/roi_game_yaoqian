@@ -823,7 +823,7 @@
 			this.navbarHeight =
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
-	
+
 			if (options.gameId && options.gameId !== localGameId) {
 				localGameId = options.gameId
 				this.$storage.set('gameId', options.gameId)
@@ -1232,7 +1232,7 @@
 					this.getPlayNumber()
 					this.getWechatMessage()
 				}
-			
+
 				//   apiGetMinSetting().then((res) => {
 				//     this.setting = res
 				//     this.gameId = this.$storage.get('gameId')
@@ -1518,12 +1518,14 @@
 										this.playLoading = false
 										return
 									}
-									if (this.$storage.get('getLocationTime') != '') {
+									if (this.$storage.get('getLocationTime') == '') {
+										this.getSetting(true)
+										return
+									} else {
 										let get_time = this.$storage.get('getLocationTime').get_time
 										let now = new Date().getTime()
 										if ((now - get_time) / 1000 / 60 / 60 > 3) {
-											console.log("我去更新位置信息了")
-											this.getSetting()
+											this.getSetting(true)
 											return
 										}
 									}
@@ -1590,13 +1592,13 @@
 								}
 
 								if (this.$storage.get('getLocationTime') == '') {
-									this.getSetting()
+									this.getSetting(true)
 									return
 								} else {
 									let get_time = this.$storage.get('getLocationTime').get_time
 									let now = new Date().getTime()
 									if ((now - get_time) / 1000 / 60 / 60 > 3) {
-										this.getSetting()
+										this.getSetting(true)
 										return
 									}
 								}
@@ -1735,8 +1737,15 @@
 							type: 'gcj02',
 							altitude: true,
 							success(res) {
-								that.updateLocation(res)
-								handler && handler()
+								if (handler) {
+									if (handler instanceof Function) {
+										that.updateLocation(res)
+										handler()
+									} else {
+										that.updateLocation(res, 'play')
+									}
+
+								}
 							},
 						})
 					},
@@ -2103,7 +2112,7 @@
 					})
 					return
 				}
-				if (!this.logining){
+				if (!this.logining) {
 					this.logining = true
 					uni.getUserProfile({
 						desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
