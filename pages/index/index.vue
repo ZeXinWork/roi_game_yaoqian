@@ -2103,35 +2103,37 @@
 					})
 					return
 				}
-				this.logining = true
-				uni.getUserProfile({
-					desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-					success: (res) => {
-						const params = {
-							avatarUrl: res.userInfo.avatarUrl,
-							nickName: res.userInfo.nickName,
-							platform: 'yaoyaoshu',
-						}
-						this.$loading.show()
-						uni.login({
-							success: (result) => {
-								this.wxLogin({
-									code: result.code,
-									...params,
-								})
-							},
-							fail: (err) => {
-								uni.showToast({
-									title: '错误！！',
-								})
-								this.logining = false
-							},
-						})
-					},
-					fail: (res) => {
-						this.logining = false
-					},
-				})
+				if (!this.logining){
+					this.logining = true
+					uni.getUserProfile({
+						desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+						success: (res) => {
+							const params = {
+								avatarUrl: res.userInfo.avatarUrl,
+								nickName: res.userInfo.nickName,
+								platform: 'yaoyaoshu',
+							}
+							this.$loading.show()
+							uni.login({
+								success: (result) => {
+									this.wxLogin({
+										code: result.code,
+										...params,
+									})
+								},
+								fail: (err) => {
+									uni.showToast({
+										title: '错误！！',
+									})
+									this.logining = false
+								},
+							})
+						},
+						fail: (res) => {
+							this.logining = false
+						},
+					})
+				}
 			},
 			wxLogin: function(wxData) {
 				userLogin(wxData)
