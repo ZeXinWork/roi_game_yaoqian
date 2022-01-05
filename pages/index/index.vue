@@ -825,7 +825,6 @@
 			this.navbarHeight =
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
-			localGameId = '211221074055329951'
 			if (options.gameId && options.gameId !== localGameId) {
 				localGameId = options.gameId
 				this.$storage.set('gameId', options.gameId)
@@ -881,7 +880,6 @@
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
-				return
 			}
 			this.getPrivacy()
 		},

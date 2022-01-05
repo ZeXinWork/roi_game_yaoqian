@@ -15,15 +15,19 @@
 			</view>
 			<view class="user-info-game-wrap">
 				<view class="user-info-game-wrap_title">我的游戏</view>
-				<view class="user-info-game-wrap_content" v-for="item of gameList" :key='item.game_id' @click="toGame(item)">
-					<image src="https://static.roi-cloud.com/upload/20211223/60935669155516" mode="aspectFill" class="user-info-game-wrap_content_img"></image>
+				<view class="user-info-game-wrap_content" v-for="item of gameList" :key='item.game_id'
+					@click="toGame(item)">
+					<image src="https://static.roi-cloud.com/upload/20211223/60935669155516" mode="aspectFill"
+						class="user-info-game-wrap_content_img"></image>
 					<view class="user-info-game-wrap_content_body">
 						<view class="user-info-game-wrap_content_body_header">
 							<view class="user-info-game-wrap_content_body_header_title">{{item.name}}</view>
 							<view class="user-info-game-wrap_content_body_header_status">
-								<image v-if="item.status == 3" src="https://static.roi-cloud.com/upload/20211212/60935669153723"
-									mode="aspectFill"></image>
-								<text :class="item.status == 3 ? 'doing_text': 'did_text'">{{getStatus(item.status)}}</text>
+								<image v-if="item.status == 3"
+									src="https://static.roi-cloud.com/upload/20211212/60935669153723" mode="aspectFill">
+								</image>
+								<text
+									:class="item.status == 3 ? 'doing_text': 'did_text'">{{getStatus(item.status)}}</text>
 							</view>
 						</view>
 						<view class="user-info-game-wrap_content_body_header_content">
@@ -103,7 +107,9 @@
 		},
 		methods: {
 			toGame(game) {
-				uni.reLaunch({ url: `../index/index?gameId=${game.game_id}` })
+				uni.reLaunch({
+					url: `../index/index?gameId=${game.game_id}`
+				})
 			},
 			momentData(date) {
 				return moment(date * 1000).format('YYYY.MM.DD')
@@ -118,6 +124,7 @@
 				})
 			},
 			openProtocol(flag) {
+				console.log("??????")
 				const privacy = {
 					url: this.user.privacy_clause_url,
 					id: this.user.privacy_clause_id,
@@ -141,6 +148,10 @@
 							complete() {},
 						})
 					},
+					fail(err) {
+						console.log(err, "Errrrrrk")
+
+					}
 				})
 			},
 		}
