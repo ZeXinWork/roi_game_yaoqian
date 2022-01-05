@@ -923,7 +923,7 @@
 			this.user = user
 			console.log(localGameId, 'localGameIdlocalGameIdlocalGameId')
 			console.log(user.userId, 'user.userIduser.userIduser.userId')
-			if (localGameId && user.userId) {
+			if (user.userId) {
 				this.gameId = localGameId.trim()
 				this.getGameInfo() //获取游戏信息
 				this.getPlayNumber() //获取游戏可玩次数
@@ -2057,11 +2057,17 @@
 					this.userPlayInfo = res
 				})
 			},
-			getGameInfo() {
+			getGameInfo(handler) {
 				let localGameId = this.$storage.get('gameId')
-				const params = {
-					game_id: localGameId ? localGameId : this.gameId,
+				let params = {
 					template_id: '2021110901',
+				}
+				const game_id = localGameId ? localGameId : this.gameId
+				if (game_id) {
+					params = {
+						...params,
+						game_id
+					}
 				}
 				gameInfo(params)
 					.then((res) => {
@@ -2095,10 +2101,14 @@
 							}
 						}
 						this.$storage.set('gameInfo', this.gameInfo)
-
+						this.gameId = this.gameInfo.game_id
+						this.$storage.set('gameId', this.gameId)
 						this.showGamePopup(Number(res.status))
 
 						this.getRankScore() // 排行榜信息
+
+						console.log(handler)
+						handler && handler()
 					})
 					.catch((err) => {
 						uni.showToast({
@@ -2239,8 +2249,9 @@
 						this.logining = false
 						this.$refs.login_popup.close()
 						this.user = this.$storage.getUser()
-						if (this.gameId) {
-							this.getGameInfo() //获取游戏信息
+
+						this.getGameInfo(() => { //获取游戏信息
+							console.log("怎么回事？？？")
 							this.getPlayNumber() //获取游戏可玩次数
 							this.getHelperList(1) // 助力记录
 							this.getMyRank() //获取当前我的排名信息
@@ -2248,7 +2259,8 @@
 							if (this.currentScoreItem === 1) {
 								this.getAward()
 							}
-						}
+						})
+							
 						if (this.$storage.get('getLocationTime') == '') {
 							this.getSetting(() => {
 								if (this.isOpenAssistance) {
