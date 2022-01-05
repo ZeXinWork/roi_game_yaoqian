@@ -2630,7 +2630,7 @@
 
 	.levl-8 {
 		width: 340rpx;
-		height: 300rpx;
+		height: 310rpx;
 		position: absolute;
 		top: 632rpx;
 		right: 0rpx;
