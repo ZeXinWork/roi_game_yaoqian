@@ -3961,7 +3961,7 @@
 
 		.rank_ad_wrap {
 			box-sizing: border-box;
-			padding: 0 30rpx;
+			padding: 0 30rpx 30rpx;
 		}
 
 		.rank_wrap {
