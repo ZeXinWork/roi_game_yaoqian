@@ -3459,6 +3459,7 @@
 					font-weight: bold;
 					font-size: 28upx;
 					color: #333333;
+					margin-left: 20rpx;
 				}
 
 				.item_right_time {
