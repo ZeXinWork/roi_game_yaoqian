@@ -331,10 +331,7 @@
                       `+${item.integral}`
                     }}</text>
 										<view class="item_right_time">
-											<view class="item_right_time_date">{{ item.date }}</view>
-											<view class="">
-												{{ item.time }}
-											</view>
+											<view class="item_right_time_date">{{ item.date }} {{ item.time }}</view>
 										</view>
 									</view>
 								</view>
@@ -3432,7 +3429,7 @@
 
 	.score_list {
 		margin-top: 18upx;
-		padding: 0 30upx;
+		padding: 0 60upx;
 		max-height: 500upx;
 		overflow-y: scroll;
 
