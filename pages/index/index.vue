@@ -1946,7 +1946,7 @@
 							numIndex = userList.length + numIndex
 						}
 
-						console.log(userList, 'userListuserListuserListuserListuserList')
+						console.log(this.gameInfo.game_pk_plugin[index], 'userListuserListuserListuserListuserList')
 						let item = {
 							info: this.gameInfo.game_pk_plugin[index],
 							range: this.gameInfo.game_pk_plugin[index].end_seq == 1 ?
@@ -1957,11 +1957,11 @@
 								'名',
 							list: userList.slice(
 								0,
-								this.gameInfo.game_pk_plugin[index].end_seq
+								Number(this.gameInfo.game_pk_plugin[index].prize_num)
 							),
 						}
 						num += Number(this.gameInfo.game_pk_plugin[index].end_seq)
-						userList.splice(0, this.gameInfo.game_pk_plugin[index].end_seq)
+						userList.splice(0, Number(this.gameInfo.game_pk_plugin[index].prize_num))
 						kingofKingsList.push(item)
 					}
 
