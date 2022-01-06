@@ -858,6 +858,7 @@
 				isOpenShareContent: false,
 				isOpenSendMessage: false,
 				minHeight: 0,
+				lastAcc: {}, // 陀螺仪
 			}
 		},
 		onShow() {
@@ -873,6 +874,32 @@
 					locationLatitude_evar: locationTime.latitude,
 					'3rdpartyUserID_evar': this.user.userId,
 				})
+				uni.onGyroscopeChange((res) => {
+					var delA = Math.abs(res.x - this.lastAcc.x);    // x轴偏转角
+					var delB = Math.abs(res.y - this.lastAcc.y);    // y轴偏转角
+					var delG = Math.abs(res.z - this.lastAcc.z);    // z轴偏转角
+					
+					if ( (delA > 5 && delB > 5) || (delA > 5 && delG > 5) || (delB > 5 || delG > 5)) {
+						// 用户设备摇动了，触发响应操作
+						// 此处的判断依据是任意两个轴篇转角度大于15度
+						console.log(delA)
+						console.log(delB)
+						console.log(delG)
+						console.log('摇了')
+
+						this.play(true)
+					}
+					this.lastAcc = res;    // 存储上一次的event
+				});
+				uni.startGyroscope({
+					interval: "game",
+					success() {
+						console.log('success')
+					},
+					fail() {
+						console.log('fail')
+					}
+				})
 			}
 			const _this = this
 			uni.getSystemInfo({
@@ -880,6 +907,16 @@
 					_this.minHeight = res.screenHeight
 					_this.minHeight = res.windowHeight
 				},
+			})
+		},
+		onHide() {
+			uni.stGyroscope({
+				success() {
+					console.log('stop success!')
+				},
+				fail() {
+					console.log('stop fail!')
+				}
 			})
 		},
 		onReady() {
@@ -1538,8 +1575,8 @@
 					this.changeHelpMyList(1)
 				}
 			},
-			play() {
-				if (this.isOpenSendMessage) {
+			play(isShake) {
+				if (!isShake && this.isOpenSendMessage) {
 					wechat.getAuthOfSubscribeMessage(() => {
 						this.playLoading = false
 						uni.getNetworkType({
@@ -1708,6 +1745,7 @@
 						return false
 					}
 				}
+				return true
 			},
 			toLogin() {
 				this.$refs.login_popup.open('bottom')
