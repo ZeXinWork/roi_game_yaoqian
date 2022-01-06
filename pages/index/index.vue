@@ -859,6 +859,7 @@
 				isOpenSendMessage: false,
 				minHeight: 0,
 				lastAcc: {}, // 陀螺仪
+				shakePlay: false,
 			}
 		},
 		onShow() {
@@ -883,7 +884,9 @@
 						// 用户设备摇动了，触发响应操作
 						// 此处的判断依据是任意两个轴篇转角度大于15度
 						console.log('摇了')
-						this.play(true)
+						this.shakePlay = true
+						console.log(this.shakePlay)
+						// this.play(true)
 					}
 					this.lastAcc = res;    // 存储上一次的event
 				});
@@ -903,16 +906,6 @@
 					_this.minHeight = res.screenHeight
 					_this.minHeight = res.windowHeight
 				},
-			})
-		},
-		onHide() {
-			uni.stGyroscope({
-				success() {
-					console.log('stop success!')
-				},
-				fail() {
-					console.log('stop fail!')
-				}
 			})
 		},
 		onReady() {
@@ -987,6 +980,14 @@
 		onHide() {
 			this.$refs.help.close()
 			this.currentHelpItem = 1
+			uni.stGyroscope({
+				success() {
+					console.log('stop success!')
+				},
+				fail() {
+					console.log('stop fail!')
+				}
+			})
 		},
 		computed: {
 			gameOver() {
@@ -2455,6 +2456,12 @@
 				},
 
 				deep: true,
+			},
+			shakePlay : function (val, oldVal) {
+				if (val) {
+					this.play(true)
+					this.shakePlay = false
+				}
 			},
 		},
 	}
