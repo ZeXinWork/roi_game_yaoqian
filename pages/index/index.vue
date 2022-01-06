@@ -478,7 +478,22 @@
 				<view class="help_sub_title">{{ helpFaileMsg }}</view>
 				<view class="play_btn mt100" @click="$refs.help_other_faile.hide()">去游戏</view>
 			</popup>
-
+			<uni-popup ref="no_play_num">
+				<view class="no_play_num">
+					<view class="over_title">
+							<text></text>
+							<uni-icons @click="$refs.no_play_num.close()" class="icon_close" type="closeempty" size="30"
+								color="#9e9c9c"></uni-icons>
+						</view>
+					<view class="help_status_icon">
+						<image src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
+					</view>
+					<view class="help_m_title">游戏次数已用完</view>
+					<view class="help_sub_title">您今日的游戏次数已用完</view>
+					<view class="help_sub_title">可通过分享好友助力获得游戏次数</view>
+					<button class="share_btn" @click="$refs.no_play_num.close()" open-type="share" data-type="0">分享助力</button>
+				</view>
+			</uni-popup>
 			<popup ref="get_out" bgColor="#FFF8DC" class="get_out" width="630">
 				<image @click="closeThisPage" class="icon_close" src="https://static.roi-cloud.com/base/icon_close.png"
 					mode="">
@@ -1573,15 +1588,10 @@
 									}
 									if (this.$storage.get('getLocationTime') == '') {
 										this.getSetting(() => {
-											if (!Number(this.playTime)) {
-												uni.showToast({
-													title: '你的次数已用完',
-													icon: 'error',
-												})
-												return
+											if (this.showNoPlayNum()) {
+												this.playShackSound()
+												this.getGameResult()
 											}
-											this.playShackSound()
-											this.getGameResult()
 										})
 										return
 									} else {
@@ -1589,28 +1599,18 @@
 										let now = new Date().getTime()
 										if ((now - get_time) / 1000 / 60 / 60 > 3) {
 											this.getSetting(() => {
-												if (!Number(this.playTime)) {
-													uni.showToast({
-														title: '你的次数已用完',
-														icon: 'error',
-													})
-													return
+												if (this.showNoPlayNum()) {
+													this.playShackSound()
+													this.getGameResult()
 												}
-												this.playShackSound()
-												this.getGameResult()
 											})
 											return
 										}
 									}
-									if (!Number(this.playTime)) {
-										uni.showToast({
-											title: '你的次数已用完',
-											icon: 'error',
-										})
-										return
+									if (this.showNoPlayNum()) {
+										this.playShackSound()
+										this.getGameResult()
 									}
-									this.playShackSound()
-									this.getGameResult()
 								}
 							},
 						})
@@ -1666,15 +1666,10 @@
 
 								if (this.$storage.get('getLocationTime') == '') {
 									this.getSetting(() => {
-										if (!Number(this.playTime)) {
-											uni.showToast({
-												title: '你的次数已用完',
-												icon: 'error',
-											})
-											return
+										if (this.showNoPlayNum()) {
+											this.playShackSound()
+											this.getGameResult()
 										}
-										this.playShackSound()
-										this.getGameResult()
 									})
 									return
 								} else {
@@ -1682,24 +1677,36 @@
 									let now = new Date().getTime()
 									if ((now - get_time) / 1000 / 60 / 60 > 3) {
 										this.getSetting(() => {
-											if (!Number(this.playTime)) {
-												uni.showToast({
-													title: '你的次数已用完',
-													icon: 'error',
-												})
-												return
+											if (this.showNoPlayNum()) {
+												this.playShackSound()
+												this.getGameResult()
 											}
-											this.playShackSound()
-											this.getGameResult()
 										})
 										return
 									}
 								}
-								this.playShackSound()
-								this.getGameResult()
+								if (this.showNoPlayNum()) {
+									this.playShackSound()
+									this.getGameResult()
+								}
 							}
 						},
 					})
+				}
+			},
+			showNoPlayNum() {
+				console.log(this.isOpenShareContent)
+				if (this.isOpenShareContent) {
+					this.$refs.no_play_num.open()
+					return true
+				} else {
+					if (!Number(this.playTime)) {
+						uni.showToast({
+							title: '你的次数已用完',
+							icon: 'error',
+						})
+						return false
+					}
 				}
 			},
 			toLogin() {
@@ -2161,10 +2168,10 @@
 					game_id: this.gameId,
 				}).then((res) => {
 					if (res.errno === '1') {
-						uni.showToast({
-							title: `${res.errmsg}`,
-							icon: 'error',
-						})
+						// uni.showToast({
+						// 	title: `${res.errmsg}`,
+						// 	icon: 'error',
+						// })
 						return
 					}
 					this.gameResult.result = res.result
@@ -3392,6 +3399,52 @@
 					-webkit-box-orient: vertical;
 				}
 			}
+		}
+	}
+
+	.no_play_num {
+		width: 600rpx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		background: #FFF8DC;
+		border-radius: 26rpx;
+		.over_title {
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+
+			.icon_close{
+				margin: 20rpx;
+			}
+		}
+		.help_status_icon{
+			width: 104rpx;
+			height: 104rpx;
+		}
+
+		.help_m_title {
+			font-size: 34rpx;
+			color: #333333;
+			letter-spacing: 0.13px;
+			margin: 30rpx 0 20rpx;
+		}
+		.help_sub_title {
+			font-size: 28rpx;
+			color: #333333;
+			letter-spacing: 0.11px;
+			text-align: center;
+		}
+		.share_btn {
+			background-image: linear-gradient(180deg, #FF7657 0%, #E93E3D 100%);
+			box-shadow: 0 10rpx 20rpx 0 #F96650;
+			border-radius: 51rpx;
+			width: 406rpx;
+			height: 80rpx;
+			text-align: center;
+			line-height: 80rpx;
+			color: #fff;
+			margin: 60rpx;
 		}
 	}
 
