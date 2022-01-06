@@ -491,8 +491,9 @@
 					<view class="help_m_title">游戏次数已用完</view>
 					<view class="help_sub_title">您今日的游戏次数已用完</view>
 					<view class="help_sub_title">可通过分享好友助力获得游戏次数</view>
-					<button class="share_btn" @click="$refs.no_play_num.close()" open-type="share"
-						data-type="0">分享助力</button>
+					<button class="share_btn" @click="$refs.no_play_num.close()" open-type="share" data-type="0">
+						分享助力
+					</button>
 				</view>
 			</uni-popup>
 			<popup ref="get_out" bgColor="#FFF8DC" class="get_out" width="630">
@@ -860,7 +861,7 @@
 				isOpenSendMessage: false,
 				minHeight: 0,
 				lastAcc: {}, // 陀螺仪
-				
+				shakePlay: false,
 			}
 		},
 		onShow() {
@@ -877,26 +878,33 @@
 					'3rdpartyUserID_evar': this.user.userId,
 				})
 				uni.onGyroscopeChange((res) => {
-					var delA = Math.abs(res.x - this.lastAcc.x); // x轴偏转角
-					var delB = Math.abs(res.y - this.lastAcc.y); // y轴偏转角
-					var delG = Math.abs(res.z - this.lastAcc.z); // z轴偏转角
+					var delA = Math.abs(res.x - this.lastAcc.x) // x轴偏转角
+					var delB = Math.abs(res.y - this.lastAcc.y) // y轴偏转角
+					var delG = Math.abs(res.z - this.lastAcc.z) // z轴偏转角
 
-					if ((delA > 7 && delB > 7) || (delA > 7 && delG > 7) || (delB > 7 || delG > 7)) {
+					if (
+						(delA > 7 && delB > 7) ||
+						(delA > 7 && delG > 7) ||
+						delB > 7 ||
+						delG > 7
+					) {
 						// 用户设备摇动了，触发响应操作
 						// 此处的判断依据是任意两个轴篇转角度大于15度
 						console.log('摇了')
-						this.play(true)
+						this.shakePlay = true
+						console.log(this.shakePlay)
+						// this.play(true)
 					}
-					this.lastAcc = res; // 存储上一次的event
-				});
+					this.lastAcc = res // 存储上一次的event
+				})
 				uni.startGyroscope({
-					interval: "game",
+					interval: 'game',
 					success() {
 						console.log('success')
 					},
 					fail() {
 						console.log('fail')
-					}
+					},
 				})
 			}
 			const _this = this
@@ -905,16 +913,6 @@
 					_this.minHeight = res.screenHeight
 					_this.minHeight = res.windowHeight
 				},
-			})
-		},
-		onHide() {
-			uni.stGyroscope({
-				success() {
-					console.log('stop success!')
-				},
-				fail() {
-					console.log('stop fail!')
-				}
 			})
 		},
 		onReady() {
@@ -989,6 +987,14 @@
 		onHide() {
 			this.$refs.help.close()
 			this.currentHelpItem = 1
+			uni.stGyroscope({
+				success() {
+					console.log('stop success!')
+				},
+				fail() {
+					console.log('stop fail!')
+				},
+			})
 		},
 		computed: {
 			gameOver() {
@@ -1948,12 +1954,15 @@
 							numIndex = userList.length + numIndex
 						}
 
-						console.log(this.gameInfo.game_pk_plugin[index],
-							'userListuserListuserListuserListuserList')
+						console.log(
+							this.gameInfo.game_pk_plugin[index],
+							'userListuserListuserListuserListuserList'
+						)
 						let item = {
 							info: this.gameInfo.game_pk_plugin[index],
 							range: this.gameInfo.game_pk_plugin[index].end_seq == 1 ?
-								'第' + num + '名' : '第' +
+								'第' + num + '名' :
+								'第' +
 								num +
 								'～' +
 								this.gameInfo.game_pk_plugin[index].end_seq +
@@ -1964,7 +1973,10 @@
 							),
 						}
 						num += Number(this.gameInfo.game_pk_plugin[index].end_seq)
-						userList.splice(0, Number(this.gameInfo.game_pk_plugin[index].prize_num))
+						userList.splice(
+							0,
+							Number(this.gameInfo.game_pk_plugin[index].prize_num)
+						)
 						kingofKingsList.push(item)
 					}
 
@@ -2110,7 +2122,7 @@
 				if (game_id) {
 					params = {
 						...params,
-						game_id
+						game_id,
 					}
 				}
 				gameInfo(params)
@@ -2294,8 +2306,9 @@
 						this.$refs.login_popup.close()
 						this.user = this.$storage.getUser()
 
-						this.getGameInfo(() => { //获取游戏信息
-							console.log("怎么回事？？？")
+						this.getGameInfo(() => {
+							//获取游戏信息
+							console.log('怎么回事？？？')
 							this.getPlayNumber() //获取游戏可玩次数
 							this.getHelperList(1) // 助力记录
 							this.getMyRank() //获取当前我的排名信息
@@ -2458,6 +2471,12 @@
 				},
 
 				deep: true,
+			},
+			shakePlay: function(val, oldVal) {
+				if (val) {
+					this.play(true)
+					this.shakePlay = false
+				}
 			},
 		},
 	}
@@ -3444,7 +3463,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		background: #FFF8DC;
+		background: #fff8dc;
 		border-radius: 26rpx;
 
 		.over_title {
@@ -3477,8 +3496,8 @@
 		}
 
 		.share_btn {
-			background-image: linear-gradient(180deg, #FF7657 0%, #E93E3D 100%);
-			box-shadow: 0 10rpx 20rpx 0 #F96650;
+			background-image: linear-gradient(180deg, #ff7657 0%, #e93e3d 100%);
+			box-shadow: 0 10rpx 20rpx 0 #f96650;
 			border-radius: 51rpx;
 			width: 406rpx;
 			height: 80rpx;
