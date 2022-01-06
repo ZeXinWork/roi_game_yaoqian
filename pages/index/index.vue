@@ -879,14 +879,10 @@
 					var delB = Math.abs(res.y - this.lastAcc.y);    // y轴偏转角
 					var delG = Math.abs(res.z - this.lastAcc.z);    // z轴偏转角
 					
-					if ( (delA > 5 && delB > 5) || (delA > 5 && delG > 5) || (delB > 5 || delG > 5)) {
+					if ( (delA > 7 && delB > 7) || (delA > 7 && delG > 7) || (delB > 7 || delG > 7)) {
 						// 用户设备摇动了，触发响应操作
 						// 此处的判断依据是任意两个轴篇转角度大于15度
-						console.log(delA)
-						console.log(delB)
-						console.log(delG)
 						console.log('摇了')
-
 						this.play(true)
 					}
 					this.lastAcc = res;    // 存储上一次的event
