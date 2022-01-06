@@ -1728,12 +1728,11 @@
 				}
 			},
 			showNoPlayNum() {
-				console.log(this.isOpenShareContent)
-				if (this.isOpenShareContent) {
-					this.$refs.no_play_num.open()
-					return true
-				} else {
-					if (!Number(this.playTime)) {
+				if (!Number(this.playTime)) {
+					if (this.isOpenShareContent) {
+						this.$refs.no_play_num.open()
+						return false
+					} else {
 						uni.showToast({
 							title: '你的次数已用完',
 							icon: 'error',
@@ -1896,6 +1895,7 @@
 							})
 							return
 						}
+						this.$refs[ref].open()
 					}
 					this.$refs[ref].show()
 				}
