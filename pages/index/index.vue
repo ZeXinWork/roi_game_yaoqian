@@ -481,17 +481,18 @@
 			<uni-popup ref="no_play_num">
 				<view class="no_play_num">
 					<view class="over_title">
-							<text></text>
-							<uni-icons @click="$refs.no_play_num.close()" class="icon_close" type="closeempty" size="30"
-								color="#9e9c9c"></uni-icons>
-						</view>
+						<text></text>
+						<uni-icons @click="$refs.no_play_num.close()" class="icon_close" type="closeempty" size="30"
+							color="#9e9c9c"></uni-icons>
+					</view>
 					<view class="help_status_icon">
 						<image src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
 					</view>
 					<view class="help_m_title">游戏次数已用完</view>
 					<view class="help_sub_title">您今日的游戏次数已用完</view>
 					<view class="help_sub_title">可通过分享好友助力获得游戏次数</view>
-					<button class="share_btn" @click="$refs.no_play_num.close()" open-type="share" data-type="0">分享助力</button>
+					<button class="share_btn" @click="$refs.no_play_num.close()" open-type="share"
+						data-type="0">分享助力</button>
 				</view>
 			</uni-popup>
 			<popup ref="get_out" bgColor="#FFF8DC" class="get_out" width="630">
@@ -859,6 +860,7 @@
 				isOpenSendMessage: false,
 				minHeight: 0,
 				lastAcc: {}, // 陀螺仪
+				
 			}
 		},
 		onShow() {
@@ -875,17 +877,17 @@
 					'3rdpartyUserID_evar': this.user.userId,
 				})
 				uni.onGyroscopeChange((res) => {
-					var delA = Math.abs(res.x - this.lastAcc.x);    // x轴偏转角
-					var delB = Math.abs(res.y - this.lastAcc.y);    // y轴偏转角
-					var delG = Math.abs(res.z - this.lastAcc.z);    // z轴偏转角
-					
-					if ( (delA > 7 && delB > 7) || (delA > 7 && delG > 7) || (delB > 7 || delG > 7)) {
+					var delA = Math.abs(res.x - this.lastAcc.x); // x轴偏转角
+					var delB = Math.abs(res.y - this.lastAcc.y); // y轴偏转角
+					var delG = Math.abs(res.z - this.lastAcc.z); // z轴偏转角
+
+					if ((delA > 7 && delB > 7) || (delA > 7 && delG > 7) || (delB > 7 || delG > 7)) {
 						// 用户设备摇动了，触发响应操作
 						// 此处的判断依据是任意两个轴篇转角度大于15度
 						console.log('摇了')
 						this.play(true)
 					}
-					this.lastAcc = res;    // 存储上一次的event
+					this.lastAcc = res; // 存储上一次的event
 				});
 				uni.startGyroscope({
 					interval: "game",
@@ -1946,7 +1948,8 @@
 							numIndex = userList.length + numIndex
 						}
 
-						console.log(this.gameInfo.game_pk_plugin[index], 'userListuserListuserListuserListuserList')
+						console.log(this.gameInfo.game_pk_plugin[index],
+							'userListuserListuserListuserListuserList')
 						let item = {
 							info: this.gameInfo.game_pk_plugin[index],
 							range: this.gameInfo.game_pk_plugin[index].end_seq == 1 ?
@@ -2301,7 +2304,7 @@
 								this.getAward()
 							}
 						})
-							
+
 						if (this.$storage.get('getLocationTime') == '') {
 							this.getSetting(() => {
 								if (this.isOpenAssistance) {
@@ -3443,16 +3446,18 @@
 		align-items: center;
 		background: #FFF8DC;
 		border-radius: 26rpx;
+
 		.over_title {
 			display: flex;
 			justify-content: space-between;
 			width: 100%;
 
-			.icon_close{
+			.icon_close {
 				margin: 20rpx;
 			}
 		}
-		.help_status_icon{
+
+		.help_status_icon {
 			width: 104rpx;
 			height: 104rpx;
 		}
@@ -3463,12 +3468,14 @@
 			letter-spacing: 0.13px;
 			margin: 30rpx 0 20rpx;
 		}
+
 		.help_sub_title {
 			font-size: 28rpx;
 			color: #333333;
 			letter-spacing: 0.11px;
 			text-align: center;
 		}
+
 		.share_btn {
 			background-image: linear-gradient(180deg, #FF7657 0%, #E93E3D 100%);
 			box-shadow: 0 10rpx 20rpx 0 #F96650;
