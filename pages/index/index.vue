@@ -1731,7 +1731,7 @@
 				if (!Number(this.playTime)) {
 					if (this.isOpenShareContent) {
 						this.$refs.no_play_num.open()
-						return true
+						return false
 					} else {
 						uni.showToast({
 							title: '你的次数已用完',
