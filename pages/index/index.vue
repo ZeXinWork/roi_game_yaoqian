@@ -1330,6 +1330,7 @@
 			},
 			getData() {
 				if (this.gameId && this.user && this.user.userId) {
+					this.getGameInfo()
 					// 获取排行榜
 					this.getRankScore()
 					// 获取我的排行
