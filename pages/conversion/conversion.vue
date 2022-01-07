@@ -934,8 +934,8 @@ page {
         overflow: hidden;
 
         image {
-          width: 110upx;
-          height: 110upx;
+          width: 100%;
+          height: 100%;
           object-fit: cover;
           border-radius: 16rpx;
         }
