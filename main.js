@@ -6,8 +6,17 @@ import loading from '@/utils/loading.js'
 import request from '@/rest/simple.js'
 import uma from 'umtrack-wx'
 
+var appKey = ""
+if (process.env.NODE_ENV === 'development') {
+  // 测试环境
+  appKey = "61cabb8ce0f9bb492bafae0f";
+ } else {
+  // 正式环境
+  appKey = "61d8061fe0f9bb492bc26e70";
+ }
+
 uma.init({
-  appKey: '61cabb8ce0f9bb492bafae0f', //由友盟分配的APP_KEY
+  appKey,
   // 使用Openid进行统计，此项为false时将使用友盟+uuid进行用户统计。
   // 使用Openid来统计微信小程序的用户，会使统计的指标更为准确，对系统准确性要求高的应用推荐使用Openid。
   useOpenid: true,
@@ -16,6 +25,7 @@ uma.init({
   autoGetOpenid: true,
   debug: true, //是否打开调试模式
   uploadUserInfo: false, // 自动上传用户信息，设为false取消上传，默认为false
+  enableVerify: false, // 埋点验证
 })
 
 // 此处用来挂载入uma到组件实例上，方便组件内使用this.$uma
