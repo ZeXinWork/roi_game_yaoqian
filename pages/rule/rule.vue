@@ -81,8 +81,8 @@
 			<view class="radiu_title">奖品兑换</view>
 			<view class="row_line">
 				<view class="number">1</view>
-				<view class="row_text">奖品品兑换及查看：点击首页【兑换奖品】可
-					兑换奖品，奖品使用发誓详见兑换详情页。
+				<view class="row_text">奖品兑换及查看：点击首页【兑换奖品】可
+					兑换奖品，奖品使用方式详见兑换详情页。
 					奖品兑换处点击【我的奖品】可查看已兑换的
 					奖品。</view>
 			</view>
