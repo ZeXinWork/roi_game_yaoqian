@@ -89,10 +89,7 @@
 			<view class="row_line" v-if="gameInfo.game_pk_plugin.length!==0">
 				<view class="number">2</view>
 				<view class="row_text">
-					粉丝PK排行榜奖品领取：请于活动结束后7
-					天内确认最终排名情况，联系发起人【发起人
-					名称】领取奖品，逾期将视为放弃。
-					如有疑问，请点击这里联系发起人。
+					粉丝PK排行榜奖品领取：游戏结束后，请于领奖期限内联系游戏客服领取奖品，逾期视为放弃。
 				</view>
 			</view>
 		</view>

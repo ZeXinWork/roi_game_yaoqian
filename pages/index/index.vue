@@ -870,7 +870,7 @@
 			if (this.user && this.user.userId) {
 				const launchOptions = this.$storage.get('options')
 				const locationTime = this.$storage.get('getLocationTime')
-				console.log(this.gameInfo)
+
 				this.trackEvent('viewHomePage', {
 					sceneID_evar: launchOptions.scene + '',
 					referrerInfo_evar: JSON.stringify(launchOptions.referrerInfo),
@@ -891,21 +891,17 @@
 					) {
 						// 用户设备摇动了，触发响应操作
 						// 此处的判断依据是任意两个轴篇转角度大于15度
-						console.log('摇了')
+
 						this.shakePlay = true
-						console.log(this.shakePlay)
+
 						// this.play(true)
 					}
 					this.lastAcc = res // 存储上一次的event
 				})
 				uni.startGyroscope({
 					interval: 'game',
-					success() {
-						console.log('success')
-					},
-					fail() {
-						console.log('fail')
-					},
+					success() {},
+					fail() {},
 				})
 			}
 		},
@@ -944,11 +940,11 @@
 					this.$refs.onceShare.show()
 				}
 			}
-			console.log(this.inviteCode, '邀请码')
+
 			if (this.inviteCode) {
 				let list = this.$storage.get('inviteList')
 				const isInvite = list && list.indexOf(this.inviteCode) > -1
-				console.log(isInvite, '是否邀请过')
+
 				if (user.userId && !(isInvite == true)) {
 					this.getInviteInfo(this.inviteCode, localGameId.trim())
 				}
@@ -969,8 +965,7 @@
 				'https://static.roi-cloud.com/game/music/fail_prize.wav' //音频地址
 
 			this.user = user
-			console.log(localGameId, 'localGameIdlocalGameIdlocalGameId')
-			console.log(user.userId, 'user.userIduser.userIduser.userId')
+
 			if (user.userId) {
 				this.gameId = localGameId.trim()
 				this.getGameInfo() //获取游戏信息
@@ -989,10 +984,10 @@
 			this.currentHelpItem = 1
 			// uni.stGyroscope({
 			// 	success() {
-			// 		console.log('stop success!')
+			//
 			// 	},
 			// 	fail() {
-			// 		console.log('stop fail!')
+			//
 			// 	},
 			// })
 		},
@@ -1040,15 +1035,12 @@
 				return orderStatus[Number(code)] || ''
 			},
 			getInviteInfo(code, gameId) {
-				console.log(code, 'code')
-				console.log(gameId, 'gameId')
 				const params = {
 					invite_code: code,
 					game_id: gameId,
 				}
 				inviteInfo(params).then((res) => {
 					if (res.errno) {
-						console.log(res, '获取邀请信息出错了！！！')
 						return
 					}
 					this.helperInfo = {
@@ -1088,7 +1080,7 @@
 				if (!Number(this.playTime)) {
 					return
 				}
-				console.log('SoundSoundSoundSoundSoundSoundSoundSound')
+
 				this.ShakeAudio.seek(0.1)
 				this.ShakeAudio.play() //执行播放
 			},
@@ -1254,15 +1246,6 @@
 					}
 				})
 			},
-			getAdvertList() {
-				let params = {}
-				if (this.gameId) {
-					params.gameId = this.gameId
-				}
-				apiGetAdvert(params).then((res) => {
-					this.advertList = res
-				})
-			},
 			onHelper: function() {
 				this.helpTop = 0
 				this.hasMore = true
@@ -1342,32 +1325,9 @@
 					this.getPlayNumber()
 					this.getWechatMessage()
 				}
-
-				//   apiGetMinSetting().then((res) => {
-				//     this.setting = res
-				//     this.gameId = this.$storage.get('gameId')
-				//     if (JSON.stringify(this.$storage.getUser()) == '{}') {
-				//       // this.$refs.login_popup.open('bottom')
-				//       this.getAdvertList()
-				//     } else if (this.gameId == '') {
-				//       this.$refs.login_popup.close()
-				//       this.$storage.set('gameId', res.DEFAULT.GAME_ID)
-				//       this.gameId = res.DEFAULT.GAME_ID
-				//       this.initData()
-				//     } else {
-				//       this.initData()
-				//     }
-				//   })
 			},
 			// 初始化
-			initData() {
-				this.$refs.login_popup.close()
-				this.user = this.$storage.getUser()
-				this.getUserPlayInfo()
-				this.getGameInfo()
-				this.getAdvertList() // 广告
-				this.getHelperList(1) // 助力记录
-			},
+
 			openLocationSetting() {
 				uni.openSetting({
 					success: (res) => {
@@ -1389,31 +1349,7 @@
 			changeItem(type) {
 				this.currentScoreItem = type
 			},
-			toCreate() {
-				statisticsAllGameList().then((res) => {
-					let list = res.list
-					let _this = this
-					if (list.length > 0) {
-						this.$storage.set('gameId', res.list[0].gameId)
-						this.gameId = res.list[0].gameId
-						this.initData()
-					} else {
-						uni.showModal({
-							content: '请先创建游戏',
-							confirmText: '确定',
-							success: function(res) {
-								if (res.confirm) {
-									uni.navigateTo({
-										url: '/pages/sponsor/sponsorSetting',
-									})
-								} else {
-									_this.closeThisPage()
-								}
-							},
-						})
-					}
-				})
-			},
+
 			toPage(e) {
 				if (!this.gameId) {
 					uni.showToast({
@@ -1488,12 +1424,7 @@
 				prizeDetail({
 					game_id: this.gameId,
 				}).then((res) => {
-					console.log(res.list, 'res.listres.listres.list')
 					this.scoreDetailList = res.list
-					console.log(
-						this.scoreDetailList,
-						'this.scoreDetailListthis.scoreDetailList'
-					)
 				})
 			},
 			checkLogin() {
@@ -1535,11 +1466,10 @@
 						} else {
 							list = [params.invite_code]
 						}
-						console.log(list)
+
 						this.$storage.set('inviteList', list)
 					})
 					.catch((error) => {
-						console.log(error)
 						this.$refs.assistance.hide()
 						this.helpFaileMsg = error.msg
 						this.$refs.help_other_faile.show()
@@ -1556,7 +1486,7 @@
 						if (list.length < this.helper.pageSize) {
 							this.hasMore = false
 						}
-						console.log(list.length < this.helper.pageSize)
+
 						if (page !== 1) {
 							list = [...this.helper.list, ...list]
 						}
@@ -1595,7 +1525,7 @@
 									}
 									this.playLoading = true
 									const user = this.$storage.getUser()
-									console.log(user, 'userr')
+
 									if (!user.userId) {
 										this.playLoading = false
 										this.$refs.login_popup.open('bottom')
@@ -1671,7 +1601,6 @@
 								const user = this.$storage.getUser()
 
 								if (!user.userId) {
-									console.log(user.userId, '31313131312')
 									this.playLoading = false
 									this.$refs.login_popup.open('bottom')
 									return
@@ -1955,15 +1884,10 @@
 							numIndex = userList.length + numIndex
 						}
 
-						console.log(
-							this.gameInfo.game_pk_plugin[index],
-							'userListuserListuserListuserListuserList'
-						)
 						let item = {
 							info: this.gameInfo.game_pk_plugin[index],
 							range: this.gameInfo.game_pk_plugin[index].end_seq == 1 ?
-								'第' + num + '名' :
-								'第' +
+								'第' + num + '名' : '第' +
 								num +
 								'～' +
 								this.gameInfo.game_pk_plugin[index].end_seq +
@@ -1982,10 +1906,6 @@
 					}
 
 					this.kingofKingsList = kingofKingsList
-					console.log(
-						this.kingofKingsList,
-						'this.kingofKingsListthis.kingofKingsList'
-					)
 					let lnum = 0
 					this.kingofKingsList.forEach((item) => {
 						item.list.forEach((value) => {
@@ -2145,12 +2065,14 @@
 								'MM月DD日  HH:mm'
 							),
 						}
+						console.log(">>>>>>>>>>>>>>", res.ad_info)
 						if (res.ad_type == 1) {
 							this.advertList = res.ad_info
+
 						} else {
 							if (res.ad_info.length > 0) {
 								res.ad_info.forEach((item) => {
-									if (Number(item.ad_location) == 1) {
+									if (Number(item.ad_location) == 1 && item.ad_pic_url) {
 										this.advertList = [item]
 										return
 									}
@@ -2164,7 +2086,6 @@
 
 						this.getRankScore() // 排行榜信息
 
-						console.log(handler)
 						handler && handler()
 					})
 					.catch((err) => {
@@ -2309,7 +2230,7 @@
 
 						this.getGameInfo(() => {
 							//获取游戏信息
-							console.log('怎么回事？？？')
+
 							this.getPlayNumber() //获取游戏可玩次数
 							this.getHelperList(1) // 助力记录
 							this.getMyRank() //获取当前我的排名信息
@@ -2326,7 +2247,6 @@
 									this.getInviteInfo(this.inviteCode, this.gameId)
 								}
 								if (this.share && this.onceShare) {
-									console.log(this.user, '分享用户登录')
 									this.$refs.onceShare.show()
 								}
 							})
@@ -2336,7 +2256,6 @@
 								this.getInviteInfo(this.inviteCode, this.gameId)
 							}
 							if (this.share && this.onceShare) {
-								console.log(this.user, '分享用户登录')
 								this.$refs.onceShare.show()
 							}
 						}
@@ -2413,7 +2332,7 @@
 			let type, rank
 			if (e.from === 'button') {
 				// 来自页面内分享按钮
-				console.log(e.target)
+
 				type = e.target.dataset.type
 				rank = e.target.dataset.rank
 			}
