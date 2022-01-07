@@ -321,33 +321,29 @@
 						</view>
 					</view>
 					<view v-if="currentScoreItem == 1">
-						<scroll-view scroll-y style="height: 500rpx">
-							<view class="score_list" v-if="scoreDetailList.length > 0">
+						<view class="score_list" v-if="scoreDetailList.length > 0">
+							<scroll-view scroll-y style="height: 500rpx" :scroll-top="0" scroll-top>
 								<view class="score_list_item" v-for="item in scoreDetailList" :key="item.id">
 									<view class="item_left" v-if="Number(gameInfo.lottery_type) === 1">{{ item.name }}
 									</view>
 									<view class="item_right">
-										<text class="t_blod" v-if="item.integral">{{
-                      `+${item.integral}`
-                    }}</text>
+										<text class="t_blod" v-if="item.integral">{{`+${item.integral}`}}</text>
 										<view class="item_right_time">
 											<view class="item_right_time_date">{{ item.date }} {{ item.time }}</view>
 										</view>
 									</view>
 								</view>
-							</view>
-							<view class="no_data" v-else>暂无数据</view>
-						</scroll-view>
+							</scroll-view>
+						</view>
+						<view class="no_data" v-else>暂无数据</view>
 					</view>
 					<view v-if="currentScoreItem == 2">
-						<scroll-view scroll-y style="height: 500rpx">
-							<view class="score_list" v-if="exchangeList.length > 0">
+						<view class="score_list" v-if="exchangeList.length > 0">
+							<scroll-view scroll-y style="height: 500rpx">
 								<view class="score_list_item" v-for="item in exchangeList" :key="item">
 									<view class="item_left">{{ item.name }}</view>
 									<view class="item_right">
-										<text class="t_blod" v-if="item.integral">{{
-                      `-${item.integral}`
-                    }}</text>
+										<text class="t_blod" v-if="item.integral">{{`-${item.integral}`}}</text>
 										<view class="item_right_time">
 											<view class="item_right_time_date">{{ item.date }}</view>
 											<view class="">
@@ -356,9 +352,9 @@
 										</view>
 									</view>
 								</view>
-							</view>
-							<view class="no_data" v-else>暂无数据</view>
-						</scroll-view>
+							</scroll-view>
+						</view>
+						<view class="no_data" v-else>暂无数据</view>
 					</view>
 				</view>
 			</uni-popup>
@@ -862,6 +858,7 @@
 				minHeight: 0,
 				lastAcc: {}, // 陀螺仪
 				shakePlay: false,
+				scrollTop: 0,
 			}
 		},
 		onShow() {
@@ -987,7 +984,7 @@
 		onHide() {
 			this.$refs.help.close()
 			this.currentHelpItem = 1
-			uni.stGyroscope({
+			uni.stopGyroscope({
 				success() {
 					console.log('stop success!')
 				},
@@ -3554,7 +3551,6 @@
 
 	.score_list {
 		margin-top: 18upx;
-		padding: 0 60upx;
 		max-height: 500upx;
 		overflow-y: scroll;
 
@@ -3563,7 +3559,7 @@
 			min-height: 108upx;
 			justify-content: space-between;
 			align-items: center;
-
+			padding: 0 60upx;
 			.item_left {
 				width: 40%;
 				white-space: nowrap;
