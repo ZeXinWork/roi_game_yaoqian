@@ -907,15 +907,15 @@
 					},
 				})
 			}
+
+		},
+		onReady() {
 			const _this = this
 			uni.getSystemInfo({
 				success: function(res) {
-					_this.minHeight = res.screenHeight
 					_this.minHeight = res.windowHeight
 				},
 			})
-		},
-		onReady() {
 			this.context = uni.createCanvasContext('shareCanvas', this)
 		},
 		onLoad(options) {
@@ -987,14 +987,14 @@
 		onHide() {
 			this.$refs.help.close()
 			this.currentHelpItem = 1
-			uni.stGyroscope({
-				success() {
-					console.log('stop success!')
-				},
-				fail() {
-					console.log('stop fail!')
-				},
-			})
+			// uni.stGyroscope({
+			// 	success() {
+			// 		console.log('stop success!')
+			// 	},
+			// 	fail() {
+			// 		console.log('stop fail!')
+			// 	},
+			// })
 		},
 		computed: {
 			gameOver() {
@@ -1961,8 +1961,7 @@
 						let item = {
 							info: this.gameInfo.game_pk_plugin[index],
 							range: this.gameInfo.game_pk_plugin[index].end_seq == 1 ?
-								'第' + num + '名' :
-								'第' +
+								'第' + num + '名' : '第' +
 								num +
 								'～' +
 								this.gameInfo.game_pk_plugin[index].end_seq +

@@ -5,7 +5,7 @@
 let domainUrl = ""
 if (process.env.NODE_ENV === 'development') {
 	// 测试环境
-	domainUrl = "https://game.roi-cloud.com";
+	domainUrl = "https://game0.roi-cloud.com";
 } else {
 	// 正式环境
 	domainUrl = "https://game.roi-cloud.com";
