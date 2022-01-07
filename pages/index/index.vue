@@ -863,6 +863,7 @@
 				lastAcc: {}, // 陀螺仪
 				shakePlay: false,
 				scrollTop: 0,
+				gameHelpClick: false,
 			}
 		},
 		onShow() {
@@ -1438,42 +1439,45 @@
 				let params = {
 					invite_code: this.inviteCode,
 				}
-
-				addGameHelp(params)
-					.then((res) => {
-						this.$refs.assistance.hide()
-						// 助力结果弹出
-						if (JSON.stringify(res) == '{}') {
-							this.inviteCode = ''
-							this.getGameInfo()
-							this.getPlayNumber()
-							const locationTime = this.$storage.get('getLocationTime')
-							this.trackEvent('helpOtherPerson', {
-								userBeenHelpedOpenID_evar: this.helperInfo.helpOpenid,
-								locationLongitude_evar: locationTime.longitude,
-								locationLatitude_evar: locationTime.latitude,
-								'3rdpartyUserID_evar': this.user.userId,
-							})
-							this.$refs.help_other.show()
-						} else {
-							this.helpFaileMsg = res.errmsg
+				if (!this.gameHelpClick){
+					this.gameHelpClick = true
+					addGameHelp(params)
+						.then((res) => {
+							this.$refs.assistance.hide()
+							// 助力结果弹出
+							if (JSON.stringify(res) == '{}') {
+								this.inviteCode = ''
+								this.getGameInfo()
+								this.getPlayNumber()
+								const locationTime = this.$storage.get('getLocationTime')
+								this.trackEvent('helpOtherPerson', {
+									userBeenHelpedOpenID_evar: this.helperInfo.helpOpenid,
+									locationLongitude_evar: locationTime.longitude,
+									locationLatitude_evar: locationTime.latitude,
+									'3rdpartyUserID_evar': this.user.userId,
+								})
+								this.$refs.help_other.show()
+							} else {
+								this.helpFaileMsg = res.errmsg
+								this.$refs.help_other_faile.show()
+							}
+							this.$storage.clear('invite')
+							let list = this.$storage.get('inviteList')
+							if (list && _.isArray(list)) {
+								list.push(params.invite_code)
+							} else {
+								list = [params.invite_code]
+							}
+							this.gameHelpClick = false
+							this.$storage.set('inviteList', list)
+						})
+						.catch((error) => {
+							this.gameHelpClick = false
+							this.$refs.assistance.hide()
+							this.helpFaileMsg = error.msg
 							this.$refs.help_other_faile.show()
-						}
-						this.$storage.clear('invite')
-						let list = this.$storage.get('inviteList')
-						if (list && _.isArray(list)) {
-							list.push(params.invite_code)
-						} else {
-							list = [params.invite_code]
-						}
-
-						this.$storage.set('inviteList', list)
-					})
-					.catch((error) => {
-						this.$refs.assistance.hide()
-						this.helpFaileMsg = error.msg
-						this.$refs.help_other_faile.show()
-					})
+						})
+				}
 			},
 			changeHelpMyList(page) {
 				userHelpRecordMyList({
