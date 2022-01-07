@@ -115,10 +115,8 @@ const fileRequest = (type, url, params, extra, showTips) => {
 
 const formatResponse = (response, type, resolve, reject, showTips) => {
   if (response.statusCode) {
-	  console.log("response",response)
     let { data } = response
     if (response.statusCode == 200) {
-      console.log(data, 'data')
       if (data.errno === '100013') {
         uni.showToast({
           title: '登录过期!',
