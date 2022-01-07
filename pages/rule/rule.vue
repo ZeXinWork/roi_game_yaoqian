@@ -125,7 +125,6 @@
 		computed: {
 			area() {
 				if (!_.isEmpty(this.gameInfo.areas)) {
-					console.log(this.gameInfo.areas)
 					if (this.gameInfo.areas.length === 1) {
 						return this.gameInfo.areas[0].address
 					} else {

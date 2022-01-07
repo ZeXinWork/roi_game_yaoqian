@@ -327,7 +327,9 @@
 									<view class="item_left" v-if="Number(gameInfo.lottery_type) === 1">{{ item.name }}
 									</view>
 									<view class="item_right">
-										<text class="t_blod" v-if="item.integral">{{`+${item.integral}`}}</text>
+										<text class="t_blod" v-if="item.integral">{{
+                      `+${item.integral}`
+                    }}</text>
 										<view class="item_right_time">
 											<view class="item_right_time_date">{{ item.date }} {{ item.time }}</view>
 										</view>
@@ -343,7 +345,9 @@
 								<view class="score_list_item" v-for="item in exchangeList" :key="item">
 									<view class="item_left">{{ item.name }}</view>
 									<view class="item_right">
-										<text class="t_blod" v-if="item.integral">{{`-${item.integral}`}}</text>
+										<text class="t_blod" v-if="item.integral">{{
+                      `-${item.integral}`
+                    }}</text>
 										<view class="item_right_time">
 											<view class="item_right_time_date">{{ item.date }}</view>
 											<view class="">
@@ -904,15 +908,14 @@
 					},
 				})
 			}
+		},
+		onReady() {
 			const _this = this
 			uni.getSystemInfo({
 				success: function(res) {
-					_this.minHeight = res.screenHeight
 					_this.minHeight = res.windowHeight
 				},
 			})
-		},
-		onReady() {
 			this.context = uni.createCanvasContext('shareCanvas', this)
 		},
 		onLoad(options) {
@@ -984,14 +987,14 @@
 		onHide() {
 			this.$refs.help.close()
 			this.currentHelpItem = 1
-			uni.stopGyroscope({
-				success() {
-					console.log('stop success!')
-				},
-				fail() {
-					console.log('stop fail!')
-				},
-			})
+			// uni.stGyroscope({
+			// 	success() {
+			// 		console.log('stop success!')
+			// 	},
+			// 	fail() {
+			// 		console.log('stop fail!')
+			// 	},
+			// })
 		},
 		computed: {
 			gameOver() {
@@ -3561,6 +3564,7 @@
 			justify-content: space-between;
 			align-items: center;
 			padding: 0 60upx;
+
 			.item_left {
 				width: 40%;
 				white-space: nowrap;
