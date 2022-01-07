@@ -982,14 +982,14 @@
 		onHide() {
 			this.$refs.help.close()
 			this.currentHelpItem = 1
-			// uni.stGyroscope({
-			// 	success() {
-			//
-			// 	},
-			// 	fail() {
-			//
-			// 	},
-			// })
+			uni.stopGyroscope({
+				success() {
+					console.log('stop success!')
+				},
+				fail() {
+					console.log('stop fail!')
+				},
+			})
 		},
 		computed: {
 			gameOver() {
@@ -1887,7 +1887,8 @@
 						let item = {
 							info: this.gameInfo.game_pk_plugin[index],
 							range: this.gameInfo.game_pk_plugin[index].end_seq == 1 ?
-								'第' + num + '名' : '第' +
+								'第' + num + '名' :
+								'第' +
 								num +
 								'～' +
 								this.gameInfo.game_pk_plugin[index].end_seq +
@@ -2065,10 +2066,9 @@
 								'MM月DD日  HH:mm'
 							),
 						}
-						console.log(">>>>>>>>>>>>>>", res.ad_info)
+						console.log('>>>>>>>>>>>>>>', res.ad_info)
 						if (res.ad_type == 1) {
 							this.advertList = res.ad_info
-
 						} else {
 							if (res.ad_info.length > 0) {
 								res.ad_info.forEach((item) => {
