@@ -927,8 +927,8 @@ page {
       display: flex;
 
       .goods_img {
-        width: 88upx;
-        height: 88upx;
+        width: 98upx;
+        height: 98upx;
         border-radius: 16upx;
         margin-right: 20upx;
         overflow: hidden;
