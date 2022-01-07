@@ -987,14 +987,14 @@
 		onHide() {
 			this.$refs.help.close()
 			this.currentHelpItem = 1
-			// uni.stGyroscope({
-			// 	success() {
-			// 		console.log('stop success!')
-			// 	},
-			// 	fail() {
-			// 		console.log('stop fail!')
-			// 	},
-			// })
+			uni.stopGyroscope({
+				success() {
+					console.log('stop success!')
+				},
+				fail() {
+					console.log('stop fail!')
+				},
+			})
 		},
 		computed: {
 			gameOver() {
