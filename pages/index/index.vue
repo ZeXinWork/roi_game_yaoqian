@@ -290,7 +290,11 @@
 			</popup>
 
 			<popup ref="share" width="650" bgColor="#FFF8DC">
-				<view class="p_title">多邀多得上不封顶
+				<view class="p_title"  v-if="playTime == 0">邀请好友，赢游戏次数
+					<image @click="$refs.share.hide()" class="icon_close"
+						src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
+				</view>
+				<view class="p_title" v-else>多邀多得上不封顶
 					<image @click="$refs.share.hide()" class="icon_close"
 						src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
 				</view>
@@ -1672,7 +1676,8 @@
 			showNoPlayNum() {
 				if (!Number(this.playTime)) {
 					if (this.isOpenShareContent) {
-						this.$refs.no_play_num.open()
+						// this.$refs.no_play_num.open()
+						this.$refs.share.show()
 						this.playLoading = false
 						return false
 					} else {
