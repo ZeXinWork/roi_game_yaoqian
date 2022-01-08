@@ -131,7 +131,7 @@
 			</view>
 			<view class="tips" v-if="Number(gameInfo.status) == 3">
 				游戏时间：{{
-          gameInfo.game_start_time + ' - ' + gameInfo.game_end_time
+          gameInfo.game_start_time + " - " + gameInfo.game_end_time
         }}
 			</view>
 			<view class="tips" v-else-if="Number(gameInfo.status) > 3">
@@ -673,7 +673,7 @@
 			</image>
 			<image class="icon_sad" src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
 			<view class="m_title">{{
-        gameInfo.status === 6 ? '游戏已关闭' : '游戏已结束'
+        gameInfo.status === 6 ? "游戏已关闭" : "游戏已结束"
       }}</view>
 			<view class="s_title">
 				游戏已经结束，请及时查看中奖情况进行兑奖和领奖。
@@ -740,19 +740,19 @@
 </template>
 
 <script>
-	import '@/static/css/game.scss'
-	import Modal from '@/components/Modal.vue'
-	import startsWith from 'lodash/startsWith'
+	import "@/static/css/game.scss";
+	import Modal from "@/components/Modal.vue";
+	import startsWith from "lodash/startsWith";
 	import {
 		validPhone,
 		relativePath
-	} from '@/utils/tool.js'
-	import wechat from '@/utils/wechatUtils.js'
-	import popup from '@/components/popup/popup.vue'
-	import navbar from '@/components/Navbar.vue'
-	import redEnvelope from './redEnvelope'
-	import moment from 'moment'
-	import _ from 'lodash'
+	} from "@/utils/tool.js";
+	import wechat from "@/utils/wechatUtils.js";
+	import popup from "@/components/popup/popup.vue";
+	import navbar from "@/components/Navbar.vue";
+	import redEnvelope from "./redEnvelope";
+	import moment from "moment";
+	import _ from "lodash";
 	import {
 		userLogin,
 		gameInfo,
@@ -771,7 +771,7 @@
 		getMyRank,
 		apiWechatMessage,
 		apiSetUserLocation,
-	} from '@/rest/api.js'
+	} from "@/rest/api.js";
 	export default {
 		components: {
 			popup,
@@ -788,7 +788,7 @@
 				playLoading: false,
 				getGift: 2,
 				canClose: false,
-				navColor: 'transparent',
+				navColor: "transparent",
 				currentScoreItem: 1,
 				currentHelpItem: 1,
 				level: 1, //中奖登记
@@ -799,7 +799,7 @@
 					prize: {},
 					result: 0,
 				},
-				helpFaileMsg: '您的助力次数已用完',
+				helpFaileMsg: "您的助力次数已用完",
 				helper: {
 					page: 1,
 					pageSize: 10,
@@ -811,17 +811,17 @@
 					},
 				}, //游戏配置
 				pointsImages: [
-					'/static/images/icon_dice-3.png',
-					'/static/images/icon_dice-5.png',
-					'/static/images/icon_dice-3.png',
-					'/static/images/icon_dice-1.png',
-					'/static/images/icon_dice-5.png',
-					'/static/images/icon_dice-6.png',
+					"/static/images/icon_dice-3.png",
+					"/static/images/icon_dice-5.png",
+					"/static/images/icon_dice-3.png",
+					"/static/images/icon_dice-1.png",
+					"/static/images/icon_dice-5.png",
+					"/static/images/icon_dice-6.png",
 				],
 				bgmPlay: false,
 				logining: false,
 				canGetUserProfile: false,
-				gameId: '',
+				gameId: "",
 				helperInfo: {}, //助力人信息
 				loadOptions: {},
 				kingofKingsList: [],
@@ -834,24 +834,24 @@
 				helpLoading: false,
 				helperTop: 0,
 				hasMore: true,
-				loadImagePath: '',
+				loadImagePath: "",
 				showItem: 1,
 				Audio: null,
 				UnpublishedAudio: null,
 				context: null,
-				sharePath: 'https://static.roi-cloud.com/base/share_bg.png',
+				sharePath: "https://static.roi-cloud.com/base/share_bg.png",
 				kingPrize: null,
-				phone: '',
-				verifyCode: '',
-				verifyCodeText: '发送验证码',
+				phone: "",
+				verifyCode: "",
+				verifyCodeText: "发送验证码",
 				verifyCodeTime: 0,
-				codeError: '',
+				codeError: "",
 				timer: null,
 				verifyCodeResult: {},
-				gameId: '',
+				gameId: "",
 				gameInfo: {},
 				playTime: 0,
-				inviteCode: '',
+				inviteCode: "",
 				isInvite: false,
 				user: {},
 				isStart: false,
@@ -864,25 +864,25 @@
 				shakePlay: false,
 				scrollTop: 0,
 				gameHelpClick: false,
-			}
+			};
 		},
 		onShow() {
-			this.getData()
+			this.getData();
 			if (this.user && this.user.userId) {
-				const launchOptions = this.$storage.get('options')
-				const locationTime = this.$storage.get('getLocationTime')
+				const launchOptions = this.$storage.get("options");
+				const locationTime = this.$storage.get("getLocationTime");
 
-				this.trackEvent('viewHomePage', {
-					sceneID_evar: launchOptions.scene + '',
+				this.trackEvent("viewHomePage", {
+					sceneID_evar: launchOptions.scene + "",
 					referrerInfo_evar: JSON.stringify(launchOptions.referrerInfo),
 					locationLongitude_evar: locationTime.longitude,
 					locationLatitude_evar: locationTime.latitude,
-					'3rdpartyUserID_evar': this.user.userId,
-				})
+					"3rdpartyUserID_evar": this.user.userId,
+				});
 				uni.onGyroscopeChange((res) => {
-					var delA = Math.abs(res.x - this.lastAcc.x) // x轴偏转角
-					var delB = Math.abs(res.y - this.lastAcc.y) // y轴偏转角
-					var delG = Math.abs(res.z - this.lastAcc.z) // z轴偏转角
+					var delA = Math.abs(res.x - this.lastAcc.x); // x轴偏转角
+					var delB = Math.abs(res.y - this.lastAcc.y); // y轴偏转角
+					var delG = Math.abs(res.z - this.lastAcc.z); // z轴偏转角
 
 					if (
 						(delA > 7 && delB > 7) ||
@@ -893,156 +893,161 @@
 						// 用户设备摇动了，触发响应操作
 						// 此处的判断依据是任意两个轴篇转角度大于15度
 
-						this.shakePlay = true
+						this.shakePlay = true;
 
 						// this.play(true)
 					}
-					this.lastAcc = res // 存储上一次的event
-				})
+					this.lastAcc = res; // 存储上一次的event
+				});
 				uni.startGyroscope({
-					interval: 'game',
+					interval: "game",
 					success() {},
 					fail() {},
-				})
+				});
 			}
 		},
 		onReady() {
-			const _this = this
+			const _this = this;
 			uni.getSystemInfo({
 				success: function(res) {
-					_this.minHeight = res.windowHeight
+					_this.minHeight = res.windowHeight;
 				},
-			})
-			this.context = uni.createCanvasContext('shareCanvas', this)
+			});
+			this.context = uni.createCanvasContext("shareCanvas", this);
 		},
 		onLoad(options) {
+			console.log(
+				process.env.NODE_ENV,
+				"process.env.NODE_ENVprocess.env.NODE_ENVprocess.env.NODE_ENVprocess.env.NODE_ENV"
+			);
 			this.navbarHeight =
-				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
-			let localGameId = this.$storage.get('gameId')
+				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight;
+			let localGameId = this.$storage.get("gameId");
 
 			if (options.gameId && options.gameId !== localGameId) {
-				localGameId = options.gameId
-				this.$storage.set('gameId', options.gameId)
+				localGameId = options.gameId;
+				this.$storage.set("gameId", options.gameId);
 			}
-			this.gameId = localGameId.trim()
-			this.$storage.set('gameId', this.gameId)
-			const user = this.$storage.getUser()
+			this.gameId = localGameId.trim();
+			this.$storage.set("gameId", this.gameId);
+			const user = this.$storage.getUser();
 			if (options.code) {
-				this.gameId = options.gameId
-				this.$storage.set('gameId', options.gameId)
-				this.$storage.set('invite', options.code)
+				this.gameId = options.gameId;
+				this.$storage.set("gameId", options.gameId);
+				this.$storage.set("invite", options.code);
 			}
-			this.inviteCode = this.$storage.get('invite')
+			this.inviteCode = this.$storage.get("invite");
 			if (options.share) {
-				this.share = true
+				this.share = true;
 				if (!user.userId) {
-					this.toLogin()
+					this.toLogin();
 				} else {
-					this.$refs.onceShare.show()
+					this.$refs.onceShare.show();
 				}
 			}
 
 			if (this.inviteCode) {
-				let list = this.$storage.get('inviteList')
-				const isInvite = list && list.indexOf(this.inviteCode) > -1
+				let list = this.$storage.get("inviteList");
+				const isInvite = list && list.indexOf(this.inviteCode) > -1;
 
 				if (user.userId && !(isInvite == true)) {
-					this.getInviteInfo(this.inviteCode, localGameId.trim())
+					this.getInviteInfo(this.inviteCode, localGameId.trim());
 				}
 				if (!user.userId) {
-					this.isOpenAssistance = true
-					this.toLogin()
+					this.isOpenAssistance = true;
+					this.toLogin();
 				}
 			}
 
 			// 初始化音频组件
-			this.Audio = uni.createInnerAudioContext() // 获奖
-			this.Audio.src = 'https://static.roi-cloud.com/game/music/reveive_point.m4a' //音频地址
-			this.ShakeAudio = uni.createInnerAudioContext() // 摇树
+			this.Audio = uni.createInnerAudioContext(); // 获奖
+			this.Audio.src =
+				"https://static.roi-cloud.com/game/music/reveive_point.m4a"; //音频地址
+			this.ShakeAudio = uni.createInnerAudioContext(); // 摇树
 			this.ShakeAudio.src =
-				'https://static.roi-cloud.com/game/music/rocking_tree.m4a'
-			this.UnpublishedAudio = uni.createInnerAudioContext() // 未获奖
+				"https://static.roi-cloud.com/game/music/rocking_tree.m4a";
+			this.UnpublishedAudio = uni.createInnerAudioContext(); // 未获奖
 			this.UnpublishedAudio.src =
-				'https://static.roi-cloud.com/game/music/fail_prize.wav' //音频地址
+				"https://static.roi-cloud.com/game/music/fail_prize.wav"; //音频地址
 
-			this.user = user
+			this.user = user;
 
 			if (user.userId) {
-				this.gameId = localGameId.trim()
-				this.getGameInfo() //获取游戏信息
-				this.getPlayNumber() //获取游戏可玩次数
-				this.getHelperList(1) // 助力记录
-				this.getMyRank() //获取当前我的排名信息
+				this.gameId = localGameId.trim();
+				this.getGameInfo(); //获取游戏信息
+				this.getPlayNumber(); //获取游戏可玩次数
+				this.getHelperList(1); // 助力记录
+				this.getMyRank(); //获取当前我的排名信息
 				if (this.currentScoreItem === 1) {
-					this.getAward()
+					this.getAward();
 				}
 			}
-			this.getPrivacy()
+			this.getPrivacy();
 		},
 
 		onHide() {
-			this.$refs.help.close()
-			this.currentHelpItem = 1
+			this.$refs.help.close();
+			this.currentHelpItem = 1;
 			uni.stopGyroscope({
 				success() {
-					console.log('stop success!')
+					console.log("stop success!");
 				},
 				fail() {
-					console.log('stop fail!')
+					console.log("stop fail!");
 				},
-			})
+			});
 		},
 		computed: {
 			gameOver() {
 				if (this.gameInfo.status > 5) {
-					this.playLoading = false
+					this.playLoading = false;
 					if (this.gameInfo.status === 7) {
-						this.$refs.get_out.show()
+						this.$refs.get_out.show();
 					} else {
-						this.$refs.get_over.show()
+						this.$refs.get_over.show();
 					}
-					return
+					return;
 				}
-				return gameInfo.status !== 3
+				return gameInfo.status !== 3;
 			},
 		},
 		methods: {
 			handlePlayAnimation() {
-				this.playAnimation = true
-				const _this = this
+				this.playAnimation = true;
+				const _this = this;
 				setTimeout(function() {
 					setTimeout(function() {
 						if (_this.gameResult.result) {
-							_this.playSound()
+							_this.playSound();
 						} else {
-							_this.playUnpublishedSound()
+							_this.playUnpublishedSound();
 						}
-					}, 500)
-					_this.playAnimation = false
-					_this.$refs.redEnvelope.open()
-					_this.playLoading = false
-				}, 2000)
+					}, 500);
+					_this.playAnimation = false;
+					_this.$refs.redEnvelope.open();
+					_this.playLoading = false;
+				}, 2000);
 			},
 			gameStatus(code) {
 				const orderStatus = {
-					1: '待设置',
-					2: '待开始',
-					3: '进行中',
-					4: '兑奖中',
-					5: '领奖中',
-					6: '已结束',
-					7: '已下架',
-				}
-				return orderStatus[Number(code)] || ''
+					1: "待设置",
+					2: "待开始",
+					3: "进行中",
+					4: "兑奖中",
+					5: "领奖中",
+					6: "已结束",
+					7: "已下架",
+				};
+				return orderStatus[Number(code)] || "";
 			},
 			getInviteInfo(code, gameId) {
 				const params = {
 					invite_code: code,
 					game_id: gameId,
-				}
+				};
 				inviteInfo(params).then((res) => {
 					if (res.errno) {
-						return
+						return;
 					}
 					this.helperInfo = {
 						avatar: res.avatar,
@@ -1056,275 +1061,275 @@
 						},
 						gameName: res.game_name,
 						helpOpenid: res.openid,
-					}
-					const user = this.$storage.getUser()
+					};
+					const user = this.$storage.getUser();
 					if (user && user.userId) {
-						this.$refs.assistance.show()
+						this.$refs.assistance.show();
 					}
-				})
+				});
 			},
 			changeVerifyCode: function(e) {
-				this.verifyCode = e.detail.value
+				this.verifyCode = e.detail.value;
 			},
 			handleChecked() {
-				this.isChecked = !this.isChecked
+				this.isChecked = !this.isChecked;
 			},
 			playSound() {
-				this.Audio.seek(0.1)
-				this.Audio.play() //执行播放
+				this.Audio.seek(0.1);
+				this.Audio.play(); //执行播放
 			},
 			playUnpublishedSound() {
-				this.UnpublishedAudio.seek(0.1)
-				this.UnpublishedAudio.play() //执行播放
+				this.UnpublishedAudio.seek(0.1);
+				this.UnpublishedAudio.play(); //执行播放
 			},
 			playShackSound() {
 				if (!Number(this.playTime)) {
-					return
+					return;
 				}
 
-				this.ShakeAudio.seek(0.1)
-				this.ShakeAudio.play() //执行播放
+				this.ShakeAudio.seek(0.1);
+				this.ShakeAudio.play(); //执行播放
 			},
 			getMyRank() {
 				getMyRank({
 					gameId: this.gameId,
 				}).then((res) => {
-					this.userRank = res
-				})
+					this.userRank = res;
+				});
 			},
 
 			handleGameResult(result) {
 				if (!result) {
-					this.play()
+					this.play();
 				} else {
-					this.$refs.share.show()
+					this.$refs.share.show();
 				}
 			},
 			getPrivacy() {
 				getArg({
-					platform: 'yaoyaoshu',
+					platform: "yaoyaoshu",
 				}).then((res) => {
 					const params = {
 						agreement_id: res.agreement_id,
 						privacy_clause_id: res.privacy_clause_id,
 						privacy_clause_url: res.privacy_clause_url,
 						agreement_url: res.agreement_url,
-					}
-					const user = this.$storage.getUser()
+					};
+					const user = this.$storage.getUser();
 					if (user.userId) {
 						this.$storage.setUser({
 							...user,
 							...params,
-						})
+						});
 					} else {
-						this.$storage.setUser(params)
+						this.$storage.setUser(params);
 					}
-				})
+				});
 			},
 			getExchange() {
 				cashDetail({
 					game_id: this.gameId,
 				}).then((res) => {
-					this.exchangeList = res.list
-				})
+					this.exchangeList = res.list;
+				});
 			},
 			onMy() {
-				const user = this.$storage.getUser()
+				const user = this.$storage.getUser();
 				if (!user.userId) {
-					this.toLogin()
-					return
+					this.toLogin();
+					return;
 				}
 				if (this.isOpenSendMessage) {
 					wechat.getAuthOfSubscribeMessage(() => {
 						uni.navigateTo({
-							url: '/pages/my/my',
-						})
-					})
+							url: "/pages/my/my",
+						});
+					});
 				} else {
 					uni.navigateTo({
-						url: '/pages/my/my',
-					})
+						url: "/pages/my/my",
+					});
 				}
 			},
 			savePhone: function() {
 				if (!this.phone) {
-					this.phoneError = '请填写手机号'
-					return false
+					this.phoneError = "请填写手机号";
+					return false;
 				} else if (!validPhone(this.phone)) {
-					this.phoneError = '手机号格式错误'
-					return false
+					this.phoneError = "手机号格式错误";
+					return false;
 				} else {
-					this.phoneError = ''
+					this.phoneError = "";
 				}
 				if (!this.verifyCode) {
-					this.codeError = '请填写验证码'
-					return false
+					this.codeError = "请填写验证码";
+					return false;
 				} else {
-					this.codeError = ''
+					this.codeError = "";
 				}
 				let params = {
 					phone: this.phone,
 					verifyCode: this.verifyCode,
 					time: this.verifyCodeResult.time,
 					hash: this.verifyCodeResult.hash,
-				}
-				this.$loading.show()
+				};
+				this.$loading.show();
 				updateUserPhone(params)
 					.then((response) => {
-						clearInterval(this.timer)
+						clearInterval(this.timer);
 						this.user = {
 							...this.user,
 							phone: this.phone,
-						}
+						};
 						// let user = this.$storage.getUser();
 						// this.$storage.setUser({
 						// 	...user,
 						// 	phone: this.phone
 						// });
-						this.$refs.dialog.close()
-						this.$loading.hide()
+						this.$refs.dialog.close();
+						this.$loading.hide();
 					})
 					.catch((error) => {
-						this.$loading.hide()
-						this.$toast.error(error.msg || '短信验证码验证失败')
-					})
+						this.$loading.hide();
+						this.$toast.error(error.msg || "短信验证码验证失败");
+					});
 			},
 			changePhone: function(e) {
-				this.phone = e.detail.value
+				this.phone = e.detail.value;
 			},
 			sendCode: function() {
 				if (this.verifyCodeTime === 0) {
 					if (!this.phone) {
-						this.phoneError = '请填写手机号'
-						return false
+						this.phoneError = "请填写手机号";
+						return false;
 					} else if (!validPhone(this.phone)) {
-						this.phoneError = '手机号格式错误'
-						return false
+						this.phoneError = "手机号格式错误";
+						return false;
 					} else {
-						this.phoneError = ''
+						this.phoneError = "";
 					}
 					let params = {
 						phone: this.phone,
-					}
+					};
 					smsBindUserVerifyCode(params).then((response) => {
-						this.verifyCodeResult = response
-						let code = 60
-						this.verifyCodeTime = code
-						this.verifyCodeText = code
+						this.verifyCodeResult = response;
+						let code = 60;
+						this.verifyCodeTime = code;
+						this.verifyCodeText = code;
 						this.timer = setInterval(() => {
-							code = code - 1
-							this.verifyCodeTime = code
+							code = code - 1;
+							this.verifyCodeTime = code;
 							if (code <= 0) {
-								this.verifyCodeTime = 0
-								this.verifyCodeText = '重新发送'
-								clearInterval(this.timer)
+								this.verifyCodeTime = 0;
+								this.verifyCodeText = "重新发送";
+								clearInterval(this.timer);
 							} else {
-								this.verifyCodeText = code
+								this.verifyCodeText = code;
 							}
-						}, 1000)
-					})
+						}, 1000);
+					});
 				}
 			},
 			onClose: function() {
-				clearInterval(this.timer)
-				this.$refs.dialog.close()
+				clearInterval(this.timer);
+				this.$refs.dialog.close();
 			},
 			checkPhone() {
-				this.$loading.show()
+				this.$loading.show();
 				userInfo().then((res) => {
-					this.$loading.hide()
+					this.$loading.hide();
 					if (res.phone) {
-						this.$refs.over_popup.close()
+						this.$refs.over_popup.close();
 					} else {
-						this.phone = ''
-						this.verifyCode = ''
-						this.verifyCodeText = '发送验证码'
-						this.verifyCodeTime = 0
-						this.phoneError = ''
-						this.codeError = ''
-						this.agreeError = ''
-						this.$refs.dialog.open()
+						this.phone = "";
+						this.verifyCode = "";
+						this.verifyCodeText = "发送验证码";
+						this.verifyCodeTime = 0;
+						this.phoneError = "";
+						this.codeError = "";
+						this.agreeError = "";
+						this.$refs.dialog.open();
 					}
-				})
+				});
 			},
 			onHelper: function() {
-				this.helpTop = 0
-				this.hasMore = true
-				this.show = true
+				this.helpTop = 0;
+				this.hasMore = true;
+				this.show = true;
 				if (this.isOpenSendMessage) {
 					wechat.getAuthOfSubscribeMessage(() => {
-						this.$refs.help.open()
-					})
+						this.$refs.help.open();
+					});
 				} else {
-					this.$refs.help.open()
+					this.$refs.help.open();
 				}
 			},
 			getKingOfKingPrize() {
 				apiKingOfKingPrize({
 					gameId: this.gameId,
 				}).then((res) => {
-					this.kingPrize = res
-					this.$refs.assistance.hide()
-					this.$refs.over_popup.show()
-				})
+					this.kingPrize = res;
+					this.$refs.assistance.hide();
+					this.$refs.over_popup.show();
+				});
 			},
 			closeHelp: function() {
-				this.$refs.help.close()
+				this.$refs.help.close();
 			},
 			helpMeListMore() {
 				if (!this.helpLoading && this.hasMore) {
 					if (this.currentHelpItem == 1) {
-						this.getHelperList(this.helper.page + 1)
+						this.getHelperList(this.helper.page + 1);
 					} else {
-						this.changeHelpMyList(this.helper.page + 1)
+						this.changeHelpMyList(this.helper.page + 1);
 					}
 				}
 			},
 			helpScroll: function(e) {
-				this.helpTop = e.detail.scrollTop
+				this.helpTop = e.detail.scrollTop;
 			},
 			closeThisPage() {
 				uni.switchTab({
-					url: '/pages/sponsor/sponsor',
-				})
+					url: "/pages/sponsor/sponsor",
+				});
 			},
 			cancelLogin() {
-				this.$refs.login_popup.close()
+				this.$refs.login_popup.close();
 			},
 			openProtocol(flag) {
-				const user = this.$storage.getUser()
-				let query = ''
-				if (flag === 'arg') {
-					query = user.agreement_url
+				const user = this.$storage.getUser();
+				let query = "";
+				if (flag === "arg") {
+					query = user.agreement_url;
 				} else {
-					query = user.privacy_clause_url
+					query = user.privacy_clause_url;
 				}
 				uni.downloadFile({
 					url: query,
 					success(res) {
-						let filePath = res.tempFilePath
+						let filePath = res.tempFilePath;
 						uni.openDocument({
 							filePath: filePath,
-							fileType: 'pdf',
+							fileType: "pdf",
 							success(res) {
 								//
 							},
 							fail(res) {},
 							complete() {},
-						})
+						});
 					},
-				})
+				});
 			},
 			getData() {
 				if (this.gameId && this.user && this.user.userId) {
-					this.getGameInfo()
+					this.getGameInfo();
 					// 获取排行榜
-					this.getRankScore()
+					this.getRankScore();
 					// 获取我的排行
-					this.getMyRank()
+					this.getMyRank();
 					//获取游戏可玩次数
-					this.getPlayNumber()
-					this.getWechatMessage()
+					this.getPlayNumber();
+					this.getWechatMessage();
 				}
 			},
 			// 初始化
@@ -1332,52 +1337,52 @@
 			openLocationSetting() {
 				uni.openSetting({
 					success: (res) => {
-						if (res.authSetting['scope.userLocation']) {
-							this.$refs.location.hide()
+						if (res.authSetting["scope.userLocation"]) {
+							this.$refs.location.hide();
 						}
 					},
 					fail(err) {},
-				})
+				});
 			},
 			onVip: function() {
 				uni.navigateTo({
-					url: '/pages/vip/vip',
-				})
+					url: "/pages/vip/vip",
+				});
 			},
 			cancel: function() {
-				this.$refs.popup.close()
+				this.$refs.popup.close();
 			},
 			changeItem(type) {
-				this.currentScoreItem = type
+				this.currentScoreItem = type;
 			},
 
 			toPage(e) {
 				if (!this.gameId) {
 					uni.showToast({
-						title: '不存在该游戏！',
-						icon: 'error',
-					})
-					return
+						title: "不存在该游戏！",
+						icon: "error",
+					});
+					return;
 				}
-				const user = this.$storage.getUser()
+				const user = this.$storage.getUser();
 				if (user && user.userId) {
 					if (
 						this.isOpenSendMessage &&
-						(e.currentTarget.dataset.url.indexOf('conversion/conversion') >= 1 ||
-							e.currentTarget.dataset.url.indexOf('prize/prize') >= 1)
+						(e.currentTarget.dataset.url.indexOf("conversion/conversion") >= 1 ||
+							e.currentTarget.dataset.url.indexOf("prize/prize") >= 1)
 					) {
 						wechat.getAuthOfSubscribeMessage(() => {
 							uni.navigateTo({
 								url: e.currentTarget.dataset.url,
-							})
-						})
+							});
+						});
 					} else {
 						uni.navigateTo({
 							url: e.currentTarget.dataset.url,
-						})
+						});
 					}
 				} else {
-					this.$refs.login_popup.open('bottom')
+					this.$refs.login_popup.open("bottom");
 				}
 			},
 			getImageInfo(url) {
@@ -1385,98 +1390,98 @@
 					uni.getImageInfo({
 						src: url,
 						success: (res) => {
-							reslove(res)
+							reslove(res);
 						},
 						fail(error) {
-							reject(error)
+							reject(error);
 						},
-					})
-				})
+					});
+				});
 			},
 			createNewImg: async function(gameInfo) {
 				let res = await this.getImageInfo(
-					'https://static.roi-cloud.com/base/share_bg.png'
-				)
-				await this.context.drawImage(res.path, 0, 0, 260, 208)
+					"https://static.roi-cloud.com/base/share_bg.png"
+				);
+				await this.context.drawImage(res.path, 0, 0, 260, 208);
 				if (gameInfo.logoInfo && gameInfo.logoInfo.img) {
-					let logoInfo = await this.getImageInfo(gameInfo.logoInfo.img)
+					let logoInfo = await this.getImageInfo(gameInfo.logoInfo.img);
 					this.context.drawImage(
 						logoInfo.path,
 						10,
 						10,
 						100,
 						(100 / logoInfo.width) * logoInfo.height
-					)
+					);
 				}
-				await this.context.draw()
+				await this.context.draw();
 				setTimeout(() => {
 					uni.canvasToTempFilePath({
-						canvasId: 'shareCanvas',
+						canvasId: "shareCanvas",
 						success: (toImage) => {
-							this.sharePath = toImage.tempFilePath
+							this.sharePath = toImage.tempFilePath;
 						},
 						fail: function() {
 							//TODO
 						},
-					})
-				}, 300)
+					});
+				}, 300);
 			},
 			getAward() {
 				prizeDetail({
 					game_id: this.gameId,
 				}).then((res) => {
-					this.scoreDetailList = res.list
-				})
+					this.scoreDetailList = res.list;
+				});
 			},
 			checkLogin() {
-				let flag = true
+				let flag = true;
 				if (!this.user.userId) {
-					flag = false
+					flag = false;
 				}
-				return flag
+				return flag;
 			},
 			gameHelp() {
 				let params = {
 					invite_code: this.inviteCode,
-				}
-				if (!this.gameHelpClick){
-					this.gameHelpClick = true
+				};
+				if (!this.gameHelpClick) {
+					this.gameHelpClick = true;
 					addGameHelp(params)
 						.then((res) => {
-							this.$refs.assistance.hide()
+							this.$refs.assistance.hide();
 							// 助力结果弹出
-							if (JSON.stringify(res) == '{}') {
-								this.inviteCode = ''
-								this.getGameInfo()
-								this.getPlayNumber()
-								const locationTime = this.$storage.get('getLocationTime')
-								this.trackEvent('helpOtherPerson', {
+							if (JSON.stringify(res) == "{}") {
+								this.inviteCode = "";
+								this.getGameInfo();
+								this.getPlayNumber();
+								const locationTime = this.$storage.get("getLocationTime");
+								this.trackEvent("helpOtherPerson", {
 									userBeenHelpedOpenID_evar: this.helperInfo.helpOpenid,
 									locationLongitude_evar: locationTime.longitude,
 									locationLatitude_evar: locationTime.latitude,
-									'3rdpartyUserID_evar': this.user.userId,
-								})
-								this.$refs.help_other.show()
+									"3rdpartyUserID_evar": this.user.userId,
+								});
+								this.$refs.help_other.show();
 							} else {
-								this.helpFaileMsg = res.errmsg
-								this.$refs.help_other_faile.show()
+								this.helpFaileMsg = res.errmsg;
+								this.$refs.help_other_faile.show();
 							}
-							this.$storage.clear('invite')
-							let list = this.$storage.get('inviteList')
+							this.$storage.clear("invite");
+							let list = this.$storage.get("inviteList");
 							if (list && _.isArray(list)) {
-								list.push(params.invite_code)
+								list.push(params.invite_code);
 							} else {
-								list = [params.invite_code]
+								list = [params.invite_code];
 							}
-							this.gameHelpClick = false
-							this.$storage.set('inviteList', list)
+							this.gameHelpClick = false;
+							this.$storage.set("inviteList", list);
 						})
 						.catch((error) => {
-							this.gameHelpClick = false
-							this.$refs.assistance.hide()
-							this.helpFaileMsg = error.msg
-							this.$refs.help_other_faile.show()
-						})
+							this.gameHelpClick = false;
+							this.$refs.assistance.hide();
+							this.helpFaileMsg = error.msg;
+							this.$refs.help_other_faile.show();
+						});
 				}
 			},
 			changeHelpMyList(page) {
@@ -1486,362 +1491,362 @@
 						page: page,
 					})
 					.then((res) => {
-						let list = res.list || []
+						let list = res.list || [];
 						if (list.length < this.helper.pageSize) {
-							this.hasMore = false
+							this.hasMore = false;
 						}
 
 						if (page !== 1) {
-							list = [...this.helper.list, ...list]
+							list = [...this.helper.list, ...list];
 						}
 						this.helper = {
 							...this.helper,
 							list: list,
 							page: page,
-						}
-						this.helpLoading = false
-						this.$loading.hide()
+						};
+						this.helpLoading = false;
+						this.$loading.hide();
 					})
-					.catch((error) => {})
+					.catch((error) => {});
 			},
 			changeHelpTypeList(type) {
-				this.hasMore = true
-				this.currentHelpItem = type
+				this.hasMore = true;
+				this.currentHelpItem = type;
 				if (type == 1) {
-					this.getHelperList(1, true, type)
+					this.getHelperList(1, true, type);
 				} else {
 					// this.helpTop = 0;
-					this.changeHelpMyList(1)
+					this.changeHelpMyList(1);
 				}
 			},
 			play(isShake) {
 				if (!isShake && this.isOpenSendMessage) {
 					wechat.getAuthOfSubscribeMessage(() => {
-						this.playLoading = false
+						this.playLoading = false;
 						uni.getNetworkType({
 							success: (res) => {
-								if (res.networkType === 'none') {
-									this.$refs.network.show()
-									return
+								if (res.networkType === "none") {
+									this.$refs.network.show();
+									return;
 								} else {
 									if (this.playLoading) {
-										return
+										return;
 									}
-									this.playLoading = true
-									const user = this.$storage.getUser()
+									this.playLoading = true;
+									const user = this.$storage.getUser();
 
 									if (!user.userId) {
-										this.playLoading = false
-										this.$refs.login_popup.open('bottom')
-										return
+										this.playLoading = false;
+										this.$refs.login_popup.open("bottom");
+										return;
 									}
 									if (!this.gameId) {
 										uni.showToast({
-											title: '暂无游戏信息!',
-											icon: 'none',
-										})
-										this.playLoading = false
-										return
+											title: "暂无游戏信息!",
+											icon: "none",
+										});
+										this.playLoading = false;
+										return;
 									}
 									if (this.gameInfo.status > 3) {
-										this.playLoading = false
+										this.playLoading = false;
 										if (this.gameInfo.status === 7) {
-											this.$refs.get_out.show()
+											this.$refs.get_out.show();
 										} else {
-											this.$refs.get_over.show()
+											this.$refs.get_over.show();
 										}
-										return
+										return;
 									} else if (!this.isStart) {
-										const status = this.gameInfo.status
+										const status = this.gameInfo.status;
 										if (status == 1 || status == 2) {
 											uni.showToast({
-												title: '游戏未开始!',
-												icon: 'none',
-											})
+												title: "游戏未开始!",
+												icon: "none",
+											});
 										}
-										this.playLoading = false
-										return
+										this.playLoading = false;
+										return;
 									}
-									if (this.$storage.get('getLocationTime') == '') {
+									if (this.$storage.get("getLocationTime") == "") {
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
-												this.playShackSound()
-												this.getGameResult()
+												this.playShackSound();
+												this.getGameResult();
 											}
-										})
-										return
+										});
+										return;
 									} else {
-										let get_time = this.$storage.get('getLocationTime').get_time
-										let now = new Date().getTime()
+										let get_time = this.$storage.get("getLocationTime").get_time;
+										let now = new Date().getTime();
 										if ((now - get_time) / 1000 / 60 / 60 > 3) {
 											this.getSetting(() => {
 												if (this.showNoPlayNum()) {
-													this.playShackSound()
-													this.getGameResult()
+													this.playShackSound();
+													this.getGameResult();
 												}
-											})
-											return
+											});
+											return;
 										}
 									}
 									if (this.showNoPlayNum()) {
-										this.playShackSound()
-										this.getGameResult()
+										this.playShackSound();
+										this.getGameResult();
 									}
 								}
 							},
-						})
-					})
+						});
+					});
 				} else {
 					uni.getNetworkType({
 						success: (res) => {
-							if (res.networkType === 'none') {
-								this.$refs.network.show()
-								return
+							if (res.networkType === "none") {
+								this.$refs.network.show();
+								return;
 							} else {
 								if (this.playLoading) {
-									return
+									return;
 								}
-								this.playLoading = true
-								const user = this.$storage.getUser()
+								this.playLoading = true;
+								const user = this.$storage.getUser();
 
 								if (!user.userId) {
-									this.playLoading = false
-									this.$refs.login_popup.open('bottom')
-									return
+									this.playLoading = false;
+									this.$refs.login_popup.open("bottom");
+									return;
 								}
 
 								if (!this.gameId) {
 									uni.showToast({
-										title: '暂无游戏信息!',
-										icon: 'none',
-									})
-									this.playLoading = false
-									return
+										title: "暂无游戏信息!",
+										icon: "none",
+									});
+									this.playLoading = false;
+									return;
 								}
 
 								if (this.gameInfo.status > 3) {
-									this.playLoading = false
+									this.playLoading = false;
 									if (this.gameInfo.status === 7) {
-										this.$refs.get_out.show()
+										this.$refs.get_out.show();
 									} else {
-										this.$refs.get_over.show()
+										this.$refs.get_over.show();
 									}
-									return
+									return;
 								} else if (!this.isStart) {
-									const status = this.gameInfo.status
+									const status = this.gameInfo.status;
 									if (status == 1 || status == 2) {
 										uni.showToast({
-											title: '游戏未开始!',
-											icon: 'none',
-										})
+											title: "游戏未开始!",
+											icon: "none",
+										});
 									}
-									this.playLoading = false
-									return
+									this.playLoading = false;
+									return;
 								}
 
-								if (this.$storage.get('getLocationTime') == '') {
+								if (this.$storage.get("getLocationTime") == "") {
 									this.getSetting(() => {
 										if (this.showNoPlayNum()) {
-											this.playShackSound()
-											this.getGameResult()
+											this.playShackSound();
+											this.getGameResult();
 										}
-									})
-									return
+									});
+									return;
 								} else {
-									let get_time = this.$storage.get('getLocationTime').get_time
-									let now = new Date().getTime()
+									let get_time = this.$storage.get("getLocationTime").get_time;
+									let now = new Date().getTime();
 									if ((now - get_time) / 1000 / 60 / 60 > 3) {
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
-												this.playShackSound()
-												this.getGameResult()
+												this.playShackSound();
+												this.getGameResult();
 											}
-										})
-										return
+										});
+										return;
 									}
 								}
 								if (this.showNoPlayNum()) {
-									this.playShackSound()
-									this.getGameResult()
+									this.playShackSound();
+									this.getGameResult();
 								}
 							}
 						},
-					})
+					});
 				}
 			},
 			showNoPlayNum() {
 				if (!Number(this.playTime)) {
 					if (this.isOpenShareContent) {
-						this.$refs.no_play_num.open()
-						this.playLoading = false
-						return false
+						this.$refs.no_play_num.open();
+						this.playLoading = false;
+						return false;
 					} else {
 						uni.showToast({
-							title: '你的次数已用完',
-							icon: 'error',
-						})
-						this.playLoading = false
-						return false
+							title: "你的次数已用完",
+							icon: "error",
+						});
+						this.playLoading = false;
+						return false;
 					}
 				}
-				return true
+				return true;
 			},
 			toLogin() {
-				this.$refs.login_popup.open('bottom')
+				this.$refs.login_popup.open("bottom");
 			},
 			addPlay() {
 				try {
 					if (this.userPlayInfo.playTimes - this.userPlayInfo.playedTimes == 0) {
-						this.playLoading = false
-						this.$refs.share.show()
+						this.playLoading = false;
+						this.$refs.share.show();
 						// this.$refs.award.show()
-						this.$loading.hide()
-						return
+						this.$loading.hide();
+						return;
 					}
-					this.$loading.show()
-					this.playLoading = true
+					this.$loading.show();
+					this.playLoading = true;
 					addUserGameRecord({
 							agreeType: 1,
 							gameId: this.gameId,
 						})
 						.then((res) => {
-							let arr = res.gameResult.split(',')
-							this.pointsImages = []
+							let arr = res.gameResult.split(",");
+							this.pointsImages = [];
 							for (let index in arr) {
 								this.pointsImages.push(
-									'/static/images/icon_dice-' + arr[index] + '.png'
-								)
+									"/static/images/icon_dice-" + arr[index] + ".png"
+								);
 							}
-							this.gameResult = res
-							this.$loading.hide()
-							this.playSound()
-							this.playAnimation = true
+							this.gameResult = res;
+							this.$loading.hide();
+							this.playSound();
+							this.playAnimation = true;
 							this.timer = setTimeout(() => {
-								clearTimeout(this.timer)
-								this.$refs.award.show()
-								this.getUserPlayInfo()
-								this.getGameInfo()
+								clearTimeout(this.timer);
+								this.$refs.award.show();
+								this.getUserPlayInfo();
+								this.getGameInfo();
 								setTimeout(() => {
-									this.playLoading = false
-								}, 500)
-								this.playAnimation = false
-							}, 1200)
+									this.playLoading = false;
+								}, 500);
+								this.playAnimation = false;
+							}, 1200);
 						})
 						.catch((error) => {
-							this.$loading.hide()
+							this.$loading.hide();
 							/* 超过人数 */
-							if (startsWith(error.msg, '该游戏人数已经达到上限')) {
-								this.$refs.tip.show()
-							} else if (startsWith(error.msg, '该游戏指定参与范围')) {
-								this.positionMsg = error.msg
-								this.$refs.position.show()
-							} else if (startsWith(error.msg, '请授权位置进行游戏')) {
-								this.$refs.location.show()
+							if (startsWith(error.msg, "该游戏人数已经达到上限")) {
+								this.$refs.tip.show();
+							} else if (startsWith(error.msg, "该游戏指定参与范围")) {
+								this.positionMsg = error.msg;
+								this.$refs.position.show();
+							} else if (startsWith(error.msg, "请授权位置进行游戏")) {
+								this.$refs.location.show();
 							} else {
-								this.$toast.error(error.msg)
+								this.$toast.error(error.msg);
 							}
-							this.playLoading = false
-						})
+							this.playLoading = false;
+						});
 					uni.requestSubscribeMessage({
 						tmplIds: [
-							'7d-RFgHEirGnN77ZbgGZU5vGfHIUeBpX8hwM8GCEXbM',
-							'mVo4jCV2RqAOb4nZdBjCOfXyTbQs5L3F04XBbEVJroc',
+							"7d-RFgHEirGnN77ZbgGZU5vGfHIUeBpX8hwM8GCEXbM",
+							"mVo4jCV2RqAOb4nZdBjCOfXyTbQs5L3F04XBbEVJroc",
 						],
 						success: (subscribeRes) => {},
 						fail: (res) => {},
-					})
+					});
 				} catch (e) {}
 			},
 			updateLocation(res) {
-				res.get_time = new Date().getTime()
-				this.$storage.set('getLocationTime', res)
-				this.$loading.show()
+				res.get_time = new Date().getTime();
+				this.$storage.set("getLocationTime", res);
+				this.$loading.show();
 				apiSetUserLocation({
 						longitude: res.longitude,
 						latitude: res.latitude,
 					})
 					.then((res) => {
-						this.playLoading = false
-						this.$loading.hide()
+						this.playLoading = false;
+						this.$loading.hide();
 					})
 					.catch((err) => {
-						this.playLoading = false
-						this.$loading.hide()
-					})
+						this.playLoading = false;
+						this.$loading.hide();
+					});
 			},
 			getSetting(handler) {
-				const that = this
+				const that = this;
 				uni.getSetting({
 					success: (res) => {
-						if (res.authSetting['scope.userLocation']) {
+						if (res.authSetting["scope.userLocation"]) {
 							uni.getLocation({
-								type: 'gcj02',
+								type: "gcj02",
 								altitude: true,
 								success(res) {
-									that.updateLocation(res)
-									handler && handler()
+									that.updateLocation(res);
+									handler && handler();
 								},
-							})
+							});
 						} else {
-							that.getAuthorize(handler)
+							that.getAuthorize(handler);
 						}
 					},
-				})
+				});
 			},
 			// 用户授权
 			getAuthorize(handler) {
-				const that = this
+				const that = this;
 				uni.authorize({
-					scope: 'scope.userLocation',
+					scope: "scope.userLocation",
 					success(res) {
 						uni.getLocation({
-							type: 'gcj02',
+							type: "gcj02",
 							altitude: true,
 							success(res) {
-								that.updateLocation(res)
-								handler && handler()
+								that.updateLocation(res);
+								handler && handler();
 							},
-						})
+						});
 					},
 					// 授权失败
 					fail: (err) => {
-						this.playLoading = false
-						this.$refs.location.show()
+						this.playLoading = false;
+						this.$refs.location.show();
 					},
-				})
+				});
 			},
 			closeThisPage() {
 				uni.switchTab({
-					url: '/pages/index/index',
-				})
+					url: "/pages/index/index",
+				});
 			},
 			popShow(ref) {
 				if (!this.gameId) {
 					uni.showToast({
-						title: '不存在该游戏!',
-						icon: 'error',
-					})
-					return
+						title: "不存在该游戏!",
+						icon: "error",
+					});
+					return;
 				}
-				if (ref == 'share' && this.gameInfo.status > 5) {
+				if (ref == "share" && this.gameInfo.status > 5) {
 					uni.showToast({
-						title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
-						icon: 'error',
-					})
-					return
+						title: this.gameInfo.status == 6 ? "游戏已结束!" : "游戏已关闭!",
+						icon: "error",
+					});
+					return;
 				}
 				if (this.checkLogin()) {
-					this.getAward()
-					if (ref == 'score') {
+					this.getAward();
+					if (ref == "score") {
 						if (this.isOpenSendMessage) {
 							wechat.getAuthOfSubscribeMessage(() => {
-								this.$refs[ref].open()
-							})
-							return
+								this.$refs[ref].open();
+							});
+							return;
 						}
-						this.$refs[ref].open()
+						this.$refs[ref].open();
 					}
-					this.$refs[ref].show()
+					this.$refs[ref].show();
 				}
 			},
 
@@ -1849,271 +1854,271 @@
 				const query = {
 					offset: 0,
 					limit: 50,
-				}
+				};
 				getRank({
 					gameId: this.gameId,
 					...query,
 				}).then(async (kingList) => {
-					let userList = kingList
+					let userList = kingList;
 					if (!Array.isArray(userList)) {
-						userList = []
+						userList = [];
 					}
-					this.kingRankList = userList
-					let numIndex = userList.length
-					let kingofKingsList = []
+					this.kingRankList = userList;
+					let numIndex = userList.length;
+					let kingofKingsList = [];
 					for (let index in userList) {
-						userList[index].no_num = parseInt(index) + 1
+						userList[index].no_num = parseInt(index) + 1;
 					}
-					let num = 1
-					let lastFlag = false
+					let num = 1;
+					let lastFlag = false;
 					if (userList.length < 50) {
-						lastFlag = true
+						lastFlag = true;
 					}
 					for (let index in this.gameInfo.game_pk_plugin) {
 						if (
 							!lastFlag &&
 							userList.length < this.gameInfo.game_pk_plugin[index].start_seq
 						) {
-							query.offset = (query.offset + 1) * 50
+							query.offset = (query.offset + 1) * 50;
 							const result = await getRank({
 								gameId: this.gameId,
 								...query,
-							})
+							});
 							for (let index in result) {
-								result[index].no_num = numIndex + parseInt(index) + 1
+								result[index].no_num = numIndex + parseInt(index) + 1;
 							}
 							if (result.length < 50) {
-								lastFlag = true
+								lastFlag = true;
 							}
-							const newList = [...userList, ...result]
-							userList = [...newList]
-							numIndex = userList.length + numIndex
+							const newList = [...userList, ...result];
+							userList = [...newList];
+							numIndex = userList.length + numIndex;
 						}
 
 						let item = {
 							info: this.gameInfo.game_pk_plugin[index],
 							range: this.gameInfo.game_pk_plugin[index].end_seq == 1 ?
-								'第' + num + '名' :
-								'第' +
+								"第" + num + "名" :
+								"第" +
 								num +
-								'～' +
+								"～" +
 								this.gameInfo.game_pk_plugin[index].end_seq +
-								'名',
+								"名",
 							list: userList.slice(
 								0,
 								Number(this.gameInfo.game_pk_plugin[index].prize_num)
 							),
-						}
-						num += Number(this.gameInfo.game_pk_plugin[index].end_seq)
+						};
+						num += Number(this.gameInfo.game_pk_plugin[index].end_seq);
 						userList.splice(
 							0,
 							Number(this.gameInfo.game_pk_plugin[index].prize_num)
-						)
-						kingofKingsList.push(item)
+						);
+						kingofKingsList.push(item);
 					}
 
-					this.kingofKingsList = kingofKingsList
-					let lnum = 0
+					this.kingofKingsList = kingofKingsList;
+					let lnum = 0;
 					this.kingofKingsList.forEach((item) => {
 						item.list.forEach((value) => {
-							lnum = lnum + 1
-						})
-					})
+							lnum = lnum + 1;
+						});
+					});
 					if (lnum > 50 && !lastFlag) {
-						const res = getIntNumber(userList.length)
+						const res = getIntNumber(userList.length);
 						if (userList.length >= 20 + res) {
-							this.otherKingList = userList.splice(0, 20 + res)
+							this.otherKingList = userList.splice(0, 20 + res);
 						} else {
-							const lastIndex = 20 + res - userList.length
-							query.offset = (query.offset + 1) * lastIndex
-							query.limit = lastIndex
+							const lastIndex = 20 + res - userList.length;
+							query.offset = (query.offset + 1) * lastIndex;
+							query.limit = lastIndex;
 							const result = await getRank({
 								gameId: this.gameId,
 								...query,
-							})
+							});
 							for (let index in result) {
-								result[index].no_num = numIndex + parseInt(index) + 1
+								result[index].no_num = numIndex + parseInt(index) + 1;
 							}
-							const newList = [...userList, ...result]
-							this.otherKingList = [...newList]
+							const newList = [...userList, ...result];
+							this.otherKingList = [...newList];
 						}
 					} else {
 						if (!lastFlag) {
-							const lastIndex = 50 - lnum
+							const lastIndex = 50 - lnum;
 							if (userList.length >= lastIndex) {
-								this.otherKingList = userList.splice(0, lastIndex)
+								this.otherKingList = userList.splice(0, lastIndex);
 							} else {
-								const requireIndex = lastIndex - userList.length
-								query.limit = requireIndex
-								query.offset = (query.offset + 1) * requireIndex
+								const requireIndex = lastIndex - userList.length;
+								query.limit = requireIndex;
+								query.offset = (query.offset + 1) * requireIndex;
 								const result = await getRank({
 									gameId: this.gameId,
 									...query,
-								})
+								});
 								for (let index in result) {
-									result[index].no_num = numIndex + parseInt(index) + 1
+									result[index].no_num = numIndex + parseInt(index) + 1;
 								}
-								const newList = [...userList, ...result]
-								this.otherKingList = [...newList]
+								const newList = [...userList, ...result];
+								this.otherKingList = [...newList];
 							}
 						} else {
-							const lastIndex = 50 - lnum
-							this.otherKingList = userList.splice(0, lastIndex)
+							const lastIndex = 50 - lnum;
+							this.otherKingList = userList.splice(0, lastIndex);
 						}
 					}
-				})
+				});
 			},
 			getIntNumber(number) {
 				if (number % 10) {
-					const result = 10 - parseInt(number % 10)
-					return result
+					const result = 10 - parseInt(number % 10);
+					return result;
 				}
-				return 0
+				return 0;
 			},
 			getUserProfile(e) {
 				if (this.logining == true) {
-					return
+					return;
 				}
 				// 推荐使用uni.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
 				// 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-				this.logining = true
+				this.logining = true;
 				uni.getUserProfile({
-					desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+					desc: "用于完善会员资料", // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
 					success: (res) => {
 						let params = {
 							avatarUrl: res.userInfo.avatarUrl,
 							nickName: res.userInfo.nickName,
-						}
-						this.$loading.show()
+						};
+						this.$loading.show();
 						uni.login({
 							success: (result) => {
 								this.wxLogin({
 									code: result.code,
 									...params,
-								})
+								});
 							},
 							fail: () => {
-								this.logining = false
+								this.logining = false;
 							},
-						})
+						});
 					},
 					fail: (res) => {
-						this.logining = false
+						this.logining = false;
 					},
-				})
+				});
 			},
 			getHelperList(page) {
-				this.$loading.show()
-				this.helpLoading = true
+				this.$loading.show();
+				this.helpLoading = true;
 				userHelpRecordList({
 						game_id: this.gameId,
 						limit: this.helper.pageSize,
 						page: page,
 					})
 					.then((res) => {
-						let list = res.list || []
+						let list = res.list || [];
 						if (list.length < this.helper.pageSize) {
-							this.hasMore = false
+							this.hasMore = false;
 						}
 						if (page !== 1) {
-							list = [...this.helper.list, ...list]
+							list = [...this.helper.list, ...list];
 						}
 						this.helper = {
 							...this.helper,
 							list: list,
 							page: page,
-						}
-						this.helpLoading = false
-						this.$loading.hide()
+						};
+						this.helpLoading = false;
+						this.$loading.hide();
 					})
 					.catch(() => {
-						this.helpLoading = false
-						this.$loading.hide()
-					})
+						this.helpLoading = false;
+						this.$loading.hide();
+					});
 			},
 			onGameManager: function() {
-				this.$refs.popup.open()
+				this.$refs.popup.open();
 			},
 			getUserPlayInfo() {
 				userGame({
 					gameId: this.gameId,
 				}).then((res) => {
-					this.userPlayInfo = res
-				})
+					this.userPlayInfo = res;
+				});
 			},
 			getGameInfo(handler) {
-				let localGameId = this.$storage.get('gameId')
+				let localGameId = this.$storage.get("gameId");
 				let params = {
-					template_id: '2021110901',
-				}
-				const game_id = localGameId ? localGameId : this.gameId
+					template_id: "2021110901",
+				};
+				const game_id = localGameId ? localGameId : this.gameId;
 				if (game_id) {
 					params = {
 						...params,
 						game_id,
-					}
+					};
 				}
 				gameInfo(params)
 					.then((res) => {
-						if (res.errno === '1') {
+						if (res.errno === "1") {
 							uni.showToast({
-								title: '不存在该游戏!',
-								icon: 'error',
-							})
-							this.gameId = ''
-							return
+								title: "不存在该游戏!",
+								icon: "error",
+							});
+							this.gameId = "";
+							return;
 						}
 						this.gameInfo = {
 							...res,
 							game_start_time: moment(res.game_start_time * 1000).format(
-								'MM月DD日 HH:mm'
+								"MM月DD日 HH:mm"
 							),
 							game_end_time: moment(res.game_end_time * 1000).format(
-								'MM月DD日  HH:mm'
+								"MM月DD日  HH:mm"
 							),
-						}
-						console.log('>>>>>>>>>>>>>>', res.ad_info)
+						};
+						console.log(">>>>>>>>>>>>>>", res.ad_info);
 						if (res.ad_type == 1) {
-							this.advertList = res.ad_info
+							this.advertList = res.ad_info;
 						} else {
 							if (res.ad_info.length > 0) {
 								res.ad_info.forEach((item) => {
 									if (Number(item.ad_location) == 1 && item.ad_pic_url) {
-										this.advertList = [item]
-										return
+										this.advertList = [item];
+										return;
 									}
-								})
+								});
 							}
 						}
-						this.$storage.set('gameInfo', this.gameInfo)
-						this.gameId = this.gameInfo.game_id
-						this.$storage.set('gameId', this.gameId)
-						this.showGamePopup(Number(res.status))
+						this.$storage.set("gameInfo", this.gameInfo);
+						this.gameId = this.gameInfo.game_id;
+						this.$storage.set("gameId", this.gameId);
+						this.showGamePopup(Number(res.status));
 
-						this.getRankScore() // 排行榜信息
+						this.getRankScore(); // 排行榜信息
 
-						handler && handler()
+						handler && handler();
 					})
 					.catch((err) => {
 						uni.showToast({
-							title: '出错啦',
-						})
-					})
+							title: "出错啦",
+						});
+					});
 			},
 			showGamePopup(status) {
 				if (status == 1 || status == 2) {
 					// 待开始
 					uni.showToast({
-						title: '游戏未开始！',
-						icon: 'none',
-					})
+						title: "游戏未开始！",
+						icon: "none",
+					});
 				}
 				if (status == 3) {
 					// 进行中
-					this.isStart = true
+					this.isStart = true;
 				}
 				if (status == 4) {
-					this.$refs.get_over.show()
+					this.$refs.get_over.show();
 				}
 				if (status == 6) {
 					// 已结束
@@ -2121,14 +2126,14 @@
 						getOpenAward({
 							gameId: this.gameId,
 						}).then((res) => {
-							this.rankeOpenAward = res
-							this.$refs.over_popup.show()
-						})
+							this.rankeOpenAward = res;
+							this.$refs.over_popup.show();
+						});
 					} else {}
 				}
 				if (status == 7) {
 					// 已下架
-					this.$refs.get_out.show()
+					this.$refs.get_out.show();
 				}
 			},
 			//获取游戏可玩次数
@@ -2136,262 +2141,262 @@
 				gameNumber({
 					game_id: this.gameId,
 				}).then((res) => {
-					this.playTime = res.time
-				})
+					this.playTime = res.time;
+				});
 			},
 			//获取游戏结果
 			getGameResult() {
 				gameResult({
 					game_id: this.gameId,
 				}).then((res) => {
-					if (res.errno === '1') {
+					if (res.errno === "1") {
 						// uni.showToast({
 						// 	title: `${res.errmsg}`,
 						// 	icon: 'error',
 						// })
-						return
+						return;
 					}
-					this.gameResult.result = res.result
+					this.gameResult.result = res.result;
 					if (res.result) {
-						this.gameResult.prize = res.prize
-						this.getMyRank()
-						this.getRankScore()
+						this.gameResult.prize = res.prize;
+						this.getMyRank();
+						this.getRankScore();
 					}
-					this.trackEvent('playGame', {})
-					this.handlePlayAnimation()
-					this.getPlayNumber()
-				})
+					this.trackEvent("playGame", {});
+					this.handlePlayAnimation();
+					this.getPlayNumber();
+				});
 			},
-			getTime: function(time, format = 'YYYY-MM-DD') {
-				return time ? moment.unix(time).format(format) : ''
+			getTime: function(time, format = "YYYY-MM-DD") {
+				return time ? moment.unix(time).format(format) : "";
 			},
 			userLogin: function() {
 				// 推荐使用uni.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
 				// 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
 				if (!this.isChecked) {
 					uni.showModal({
-						title: '提示',
-						content: '请先阅读并同意相关服务协议！',
+						title: "提示",
+						content: "请先阅读并同意相关服务协议！",
 						showCancel: false,
-					})
-					return
+					});
+					return;
 				}
 				if (!this.logining) {
-					this.logining = true
+					this.logining = true;
 					uni.getUserProfile({
-						desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+						desc: "用于完善会员资料", // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
 						success: (res) => {
 							const params = {
 								avatarUrl: res.userInfo.avatarUrl,
 								nickName: res.userInfo.nickName,
-								platform: 'yaoyaoshu',
-							}
-							this.$loading.show()
+								platform: "yaoyaoshu",
+							};
+							this.$loading.show();
 							uni.login({
 								success: (result) => {
 									this.wxLogin({
 										code: result.code,
 										...params,
-									})
+									});
 								},
 								fail: (err) => {
 									uni.showToast({
-										title: '错误！！',
-									})
-									this.logining = false
+										title: "错误！！",
+									});
+									this.logining = false;
 								},
-							})
+							});
 						},
 						fail: (res) => {
-							this.logining = false
+							this.logining = false;
 						},
-					})
+					});
 				}
 			},
 			wxLogin: function(wxData) {
 				userLogin(wxData)
 					.then((res) => {
-						if (res.errno === '1') {
+						if (res.errno === "1") {
 							uni.showToast({
 								title: `请求登陆失败！`,
-								icon: 'error',
-							})
-							this.logining = false
-							return
+								icon: "error",
+							});
+							this.logining = false;
+							return;
 						}
-						const user = this.$storage.getUser()
+						const user = this.$storage.getUser();
 						const params = {
 							...user,
 							...res,
-						}
+						};
 
 						this.$storage.setUser({
 							...user,
 							...res,
-						})
-						this.$loading.hide()
-						this.logining = false
-						this.$refs.login_popup.close()
-						this.user = this.$storage.getUser()
+						});
+						this.$loading.hide();
+						this.logining = false;
+						this.$refs.login_popup.close();
+						this.user = this.$storage.getUser();
 
 						this.getGameInfo(() => {
 							//获取游戏信息
 
-							this.getPlayNumber() //获取游戏可玩次数
-							this.getHelperList(1) // 助力记录
-							this.getMyRank() //获取当前我的排名信息
-							this.getWechatMessage()
+							this.getPlayNumber(); //获取游戏可玩次数
+							this.getHelperList(1); // 助力记录
+							this.getMyRank(); //获取当前我的排名信息
+							this.getWechatMessage();
 							if (this.currentScoreItem === 1) {
-								this.getAward()
+								this.getAward();
 							}
-						})
+						});
 
-						if (this.$storage.get('getLocationTime') == '') {
+						if (this.$storage.get("getLocationTime") == "") {
 							this.getSetting(() => {
 								if (this.isOpenAssistance) {
-									this.isOpenAssistance = false
-									this.getInviteInfo(this.inviteCode, this.gameId)
+									this.isOpenAssistance = false;
+									this.getInviteInfo(this.inviteCode, this.gameId);
 								}
 								if (this.share && this.onceShare) {
-									this.$refs.onceShare.show()
+									this.$refs.onceShare.show();
 								}
-							})
+							});
 						} else {
 							if (this.isOpenAssistance) {
-								this.isOpenAssistance = false
-								this.getInviteInfo(this.inviteCode, this.gameId)
+								this.isOpenAssistance = false;
+								this.getInviteInfo(this.inviteCode, this.gameId);
 							}
 							if (this.share && this.onceShare) {
-								this.$refs.onceShare.show()
+								this.$refs.onceShare.show();
 							}
 						}
-						const locationTime = this.$storage.get('getLocationTime')
-						const launchOptions = this.$storage.get('options')
-						this.trackEvent('loginGame', {
-							sceneID_evar: launchOptions.scene + '',
+						const locationTime = this.$storage.get("getLocationTime");
+						const launchOptions = this.$storage.get("options");
+						this.trackEvent("loginGame", {
+							sceneID_evar: launchOptions.scene + "",
 							referrerInfo_evar: JSON.stringify(launchOptions.referrerInfo),
 							locationLongitude_evar: locationTime.longitude,
 							locationLatitude_evar: locationTime.latitude,
-							'3rdpartyUserID_evar': this.user.userId,
-						})
+							"3rdpartyUserID_evar": this.user.userId,
+						});
 					})
 					.catch((res) => {
-						this.logining = false
-						this.$loading.hide()
-						this.$refs.login_popup.close()
+						this.logining = false;
+						this.$loading.hide();
+						this.$refs.login_popup.close();
 						uni.showToast({
 							title: `${res.errmsg}`,
-						})
-					})
+						});
+					});
 			},
 			getWechatMessage(handler) {
 				apiWechatMessage().then((res) => {
-					this.isOpenSendMessage = res.high_frequency_notice == 1
-					this.isOpenShareContent = res.show_share_btn == 1
-					handler && handler()
-				})
+					this.isOpenSendMessage = res.high_frequency_notice == 1;
+					this.isOpenShareContent = res.show_share_btn == 1;
+					handler && handler();
+				});
 			},
 			trackEvent(name, data) {
-				const gameInfo = this.$storage.get('gameInfo')
+				const gameInfo = this.$storage.get("gameInfo");
 				this.$uma.trackEvent(name, {
 					...data,
 					gameID_evar: this.gameId,
 					gameName_evar: gameInfo.name,
-					userOpenID_evar: this.user.openid + '',
-					timeStamp_evar: Date.parse(new Date()) + '',
-				})
+					userOpenID_evar: this.user.openid + "",
+					timeStamp_evar: Date.parse(new Date()) + "",
+				});
 			},
 		},
 		async onShareAppMessage(e) {
 			if (!this.gameId) {
 				uni.showToast({
-					title: '不存在该游戏!',
-					icon: 'error',
-				})
-				this.$refs.onceShare.hide()
-				return
+					title: "不存在该游戏!",
+					icon: "error",
+				});
+				this.$refs.onceShare.hide();
+				return;
 			}
 			if (this.gameInfo.status > 5) {
 				uni.showToast({
-					title: this.gameInfo.status == 6 ? '游戏已结束!' : '游戏已关闭!',
-					icon: 'error',
-				})
-				return
+					title: this.gameInfo.status == 6 ? "游戏已结束!" : "游戏已关闭!",
+					icon: "error",
+				});
+				return;
 			}
 
 			if (this.gameInfo.status == 1 || this.gameInfo.status == 2) {
 				uni.showToast({
-					title: '游戏未开始!',
-					icon: 'none',
-				})
-				return
+					title: "游戏未开始!",
+					icon: "none",
+				});
+				return;
 			}
 			if (this.share && this.onceShare) {
-				const path = `/pages/index/index?gameId=${this.gameId}`
-				this.onceShare = false
-				this.$refs.onceShare.hide()
+				const path = `/pages/index/index?gameId=${this.gameId}`;
+				this.onceShare = false;
+				this.$refs.onceShare.hide();
 				return {
 					title: this.gameInfo.name,
 					path,
-				}
+				};
 			}
-			let type, rank
-			if (e.from === 'button') {
+			let type, rank;
+			if (e.from === "button") {
 				// 来自页面内分享按钮
 
-				type = e.target.dataset.type
-				rank = e.target.dataset.rank
+				type = e.target.dataset.type;
+				rank = e.target.dataset.rank;
 			}
 			let params = {
 				game_id: this.gameId,
 				type,
-			}
+			};
 			if (type == 1) {
 				// 礼品
 				params = {
 					...params,
 					prize_id: this.gameResult.prize.game_award_id,
-				}
+				};
 			}
 			if (type == 2) {
 				// 排名
 				params = {
 					...params,
 					rank,
-				}
+				};
 			}
 			// 获取邀请码
-			const inviteData = await inviteHelp(params)
-			const locationTime = this.$storage.get('getLocationTime')
-			this.trackEvent('shareGame', {
+			const inviteData = await inviteHelp(params);
+			const locationTime = this.$storage.get("getLocationTime");
+			this.trackEvent("shareGame", {
 				locationLongitude_evar: locationTime.longitude,
 				locationLatitude_evar: locationTime.latitude,
-				'3rdpartyUserID_evar': this.user.userId,
-			})
+				"3rdpartyUserID_evar": this.user.userId,
+			});
 
 			const path =
-				'/pages/index/index?gameId=' +
+				"/pages/index/index?gameId=" +
 				this.gameId +
-				'&type=' +
+				"&type=" +
 				type +
-				'&code=' +
-				inviteData.code
+				"&code=" +
+				inviteData.code;
 			return {
 				title: this.gameInfo.name,
 				path,
-				imageUrl: 'https://static.roi-cloud.com/upload/20220104/60935669181512',
-			}
+				imageUrl: "https://static.roi-cloud.com/upload/20220104/60935669181512",
+			};
 		},
 		watch: {
 			currentScoreItem: {
 				handler(value, old) {
-					const user = this.$storage.getUser()
+					const user = this.$storage.getUser();
 					if (user.userId) {
 						if (Number(value) === 1) {
-							this.getAward()
+							this.getAward();
 						}
 						if (Number(value) === 2) {
-							this.getExchange()
+							this.getExchange();
 						}
 					}
 				},
@@ -2400,12 +2405,12 @@
 			},
 			shakePlay: function(val, oldVal) {
 				if (val) {
-					this.play(true)
-					this.shakePlay = false
+					this.play(true);
+					this.shakePlay = false;
 				}
 			},
 		},
-	}
+	};
 </script>
 
 <style lang="scss">
