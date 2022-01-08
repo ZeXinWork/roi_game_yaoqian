@@ -322,7 +322,8 @@
 					</view>
 					<view v-if="currentScoreItem == 1">
 						<view class="score_list" v-if="scoreDetailList.length > 0">
-							<scroll-view scroll-y style="height: 500rpx" :scroll-top="0" scroll-top>
+							<scroll-view @scrolltolower.stop='getAward' scroll-y style="height: 500rpx" :scroll-top="0"
+								scroll-top>
 								<view class="score_list_item" v-for="item in scoreDetailList" :key="item.id">
 									<view class="item_left" v-if="Number(gameInfo.lottery_type) === 1">{{ item.name }}
 									</view>
@@ -341,7 +342,7 @@
 					</view>
 					<view v-if="currentScoreItem == 2">
 						<view class="score_list" v-if="exchangeList.length > 0">
-							<scroll-view scroll-y style="height: 500rpx">
+							<scroll-view @scrolltolower.stop='getExchange' scroll-y style="height: 500rpx">
 								<view class="score_list_item" v-for="item in exchangeList" :key="item">
 									<view class="item_left">{{ item.name }}</view>
 									<view class="item_right">
@@ -747,6 +748,9 @@
 		validPhone,
 		relativePath
 	} from "@/utils/tool.js";
+	import {
+		acceptDataPrevpage,
+	} from '@/utils/utils.js'
 	import wechat from "@/utils/wechatUtils.js";
 	import popup from "@/components/popup/popup.vue";
 	import navbar from "@/components/Navbar.vue";
@@ -864,14 +868,28 @@
 				shakePlay: false,
 				scrollTop: 0,
 				gameHelpClick: false,
+				awardQuery: {
+					hasMore: true,
+					isPlay: false
+				},
+				exchangeQuery: {
+					hasMore: true,
+					isPlay: false
+				}
 			};
 		},
 		onShow() {
 			this.getData();
+
 			if (this.user && this.user.userId) {
 				const launchOptions = this.$storage.get("options");
 				const locationTime = this.$storage.get("getLocationTime");
-
+				const exange = acceptDataPrevpage('exange')
+				if (exange.flag) {
+					this.exchangeQuery.isPlay = true
+					this.exchangeQuery.hasMore = true
+					this.getExchange()
+				}
 				this.trackEvent("viewHomePage", {
 					sceneID_evar: launchOptions.scene + "",
 					referrerInfo_evar: JSON.stringify(launchOptions.referrerInfo),
@@ -1012,6 +1030,9 @@
 			},
 		},
 		methods: {
+			handleTest() {
+				this.awardQuery.hasMore = true
+			},
 			handlePlayAnimation() {
 				this.playAnimation = true;
 				const _this = this;
@@ -1127,11 +1148,48 @@
 				});
 			},
 			getExchange() {
-				cashDetail({
-					game_id: this.gameId,
-				}).then((res) => {
-					this.exchangeList = res.list;
-				});
+				if (this.exchangeQuery.hasMore) {
+					this.$loading.show()
+					cashDetail({
+						game_id: this.gameId,
+						offset: this.exchangeQuery.isPlay ? 0 : this.exchangeList.length,
+						limit: this.exchangeQuery.isPlay ? 1 : 20,
+					}).then((res) => {
+						this.$loading.hide()
+						if (res.list.length === 0) {
+							this.exchangeQuery.hasMore = false
+							this.exchangeQuery.isPlay = false
+							uni.showToast({
+								title: '没有更多啦',
+								icon: 'error'
+							})
+							return
+						}
+						if (res.list.length < 20 && !this.exchangeQuery.isPlay) {
+							this.exchangeQuery.hasMore = false
+						}
+
+						if (this.exchangeQuery.isPlay) {
+							this.exchangeQuery.isPlay = false
+							this.exchangeList = [...res.list, ...this.exchangeList];
+						} else {
+							this.exchangeList = [...this.exchangeList, ...res.list];
+						}
+
+					}).catch(err => {
+						this.$loading.hide()
+						uni.showToast({
+							title: "出错啦",
+							icon: 'error'
+						})
+					});
+				} else {
+					uni.showToast({
+						title: '没有更多啦',
+						icon: 'error'
+					})
+				}
+
 			},
 			onMy() {
 				const user = this.$storage.getUser();
@@ -1427,11 +1485,47 @@
 				}, 300);
 			},
 			getAward() {
-				prizeDetail({
-					game_id: this.gameId,
-				}).then((res) => {
-					this.scoreDetailList = res.list;
-				});
+				if (this.awardQuery.hasMore) {
+					this.$loading.show()
+					prizeDetail({
+						game_id: this.gameId,
+						offset: this.awardQuery.isPlay ? 0 : this.scoreDetailList.length,
+						limit: this.awardQuery.isPlay ? 1 : 20,
+					}).then((res) => {
+						this.$loading.hide()
+						if (res.list.length === 0) {
+							this.awardQuery.hasMore = false
+							this.awardQuery.hasMore = false
+							uni.showToast({
+								title: '没有更多啦',
+								icon: 'error'
+							})
+							return
+						}
+						if (res.list.length < 20 && !this.awardQuery.isPlay) {
+							this.awardQuery.hasMore = false
+						}
+
+						if (this.awardQuery.isPlay) {
+							this.awardQuery.isPlay = false
+							this.scoreDetailList = [...res.list, ...this.scoreDetailList];
+						} else {
+							this.scoreDetailList = [...this.scoreDetailList, ...res.list];
+						}
+
+					}).catch(err => {
+						this.$loading.hide()
+						uni.showToast({
+							title: "出错啦",
+							icon: 'error'
+						})
+					});
+				} else {
+					uni.showToast({
+						title: '没有更多啦',
+						icon: 'error'
+					})
+				}
 			},
 			checkLogin() {
 				let flag = true;
@@ -1681,6 +1775,7 @@
 						this.playLoading = false;
 						return false;
 					} else {
+						console.log("????????????")
 						uni.showToast({
 							title: "你的次数已用完",
 							icon: "error",
@@ -1836,7 +1931,6 @@
 					return;
 				}
 				if (this.checkLogin()) {
-					this.getAward();
 					if (ref == "score") {
 						if (this.isOpenSendMessage) {
 							wechat.getAuthOfSubscribeMessage(() => {
@@ -1898,8 +1992,7 @@
 						let item = {
 							info: this.gameInfo.game_pk_plugin[index],
 							range: this.gameInfo.game_pk_plugin[index].end_seq == 1 ?
-								"第" + num + "名" :
-								"第" +
+								"第" + num + "名" : "第" +
 								num +
 								"～" +
 								this.gameInfo.game_pk_plugin[index].end_seq +
@@ -2150,10 +2243,13 @@
 					game_id: this.gameId,
 				}).then((res) => {
 					if (res.errno === "1") {
-						// uni.showToast({
-						// 	title: `${res.errmsg}`,
-						// 	icon: 'error',
-						// })
+						uni.showToast({
+							title: `${res.errmsg}`,
+							icon: 'error',
+						})
+						this.trackEvent("playGame", {});
+						this.playLoading = false;
+						this.playAnimation = false;
 						return;
 					}
 					this.gameResult.result = res.result;
@@ -2161,6 +2257,10 @@
 						this.gameResult.prize = res.prize;
 						this.getMyRank();
 						this.getRankScore();
+						this.awardQuery.hasMore = true
+						this.awardQuery.isPlay = true
+						this.getAward()
+
 					}
 					this.trackEvent("playGame", {});
 					this.handlePlayAnimation();
@@ -2246,9 +2346,6 @@
 							this.getHelperList(1); // 助力记录
 							this.getMyRank(); //获取当前我的排名信息
 							this.getWechatMessage();
-							if (this.currentScoreItem === 1) {
-								this.getAward();
-							}
 						});
 
 						if (this.$storage.get("getLocationTime") == "") {
@@ -2392,15 +2489,14 @@
 				handler(value, old) {
 					const user = this.$storage.getUser();
 					if (user.userId) {
-						if (Number(value) === 1) {
-							this.getAward();
-						}
+						// if (Number(value) === 1) {
+						// 	this.getAward();
+						// }
 						if (Number(value) === 2) {
 							this.getExchange();
 						}
 					}
 				},
-
 				deep: true,
 			},
 			shakePlay: function(val, oldVal) {
