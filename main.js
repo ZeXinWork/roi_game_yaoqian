@@ -12,7 +12,8 @@ if (process.env.NODE_ENV === 'development') {
   appKey = "61cabb8ce0f9bb492bafae0f";
  } else {
   // 正式环境
-  appKey = "61d8061fe0f9bb492bc26e70";
+  appKey = "61cabb8ce0f9bb492bafae0f"; // 测试
+  // appKey = "61d8061fe0f9bb492bc26e70"; // 生产
  }
 
 uma.init({
