@@ -1,6 +1,6 @@
 <template>
-  <view>
-    <!-- <navbar
+	<view>
+		<!-- <navbar
       :params="{
         lefTitle: 'test',
         back: true,
@@ -23,42 +23,36 @@
       >
       </view>
     </navbar> -->
-    <view id="main">
-      <view class="card">
-        <view class="main_title">奖品兑换</view>
-        <view class="sub_title">
-          <view>兑奖截止时间： {{ gameInfo.redeemEndTime }}</view>
-          <view>数量有限，兑完即止</view>
-        </view>
-        <view class="userinfo">
-          <view class="user_left">
-            <view class="avatar">
-              <image :src="user_info.avatar" mode=""></image>
-            </view>
-            <view class="user_score">
-              <view class="">可兑积分</view>
-              <view class="number">{{ gameInfo.integral || 0 }}</view>
-            </view>
-          </view>
-          <navigator :url="'/pages/prize/prize?gameId=' + gameId" class="user_right">我的奖品</navigator>
-        </view>
-      </view>
-      <view v-if="prizeList.length > 0">
-        <view class="btn_part" @click="orderPrizeList">
-          <text>所需积分</text>
-          <uni-icons
-            class="arrow"
-            :type="points == 'desc' ? 'arrowup' : 'arrowdown'"
-            color="#fff"
-          ></uni-icons>
+		<view id="main">
+			<view class="card">
+				<view class="main_title">奖品兑换</view>
+				<view class="sub_title">
+					<view>兑奖截止时间： {{ gameInfo.redeemEndTime }}</view>
+					<view>数量有限，兑完即止</view>
+				</view>
+				<view class="userinfo">
+					<view class="user_left">
+						<view class="avatar">
+							<image :src="user_info.avatar" mode=""></image>
+						</view>
+						<view class="user_score">
+							<view class="">可兑积分</view>
+							<view class="number">{{ gameInfo.integral || 0 }}</view>
+						</view>
+					</view>
+					<navigator :url="'/pages/prize/prize?gameId=' + gameId" class="user_right">我的奖品</navigator>
+				</view>
+			</view>
+			<view v-if="prizeList.length > 0">
+				<view class="btn_part" @click="orderPrizeList">
+					<text>所需积分</text>
+					<uni-icons class="arrow" :type="points == 'desc' ? 'arrowup' : 'arrowdown'" color="#fff">
+					</uni-icons>
 
-          <!-- <uni-icons v-if="points==DESC" class="arrow" type="arrowup" color="#fff"></uni-icons>
+					<!-- <uni-icons v-if="points==DESC" class="arrow" type="arrowup" color="#fff"></uni-icons>
 					<uni-icons v-else class="arrow" type="arrowdown" color="#fff"></uni-icons> -->
-        </view>
-        <view
-          v-for="item in prizeList"
-          :key="item"
-          :class="[
+				</view>
+				<view v-for="item in prizeList" :key="item" :class="[
             'card',
             'exchange_part',
             { fade: Math.floor((item.left_num / item.prize_num) * 100) == 0 },
@@ -81,488 +75,446 @@
                   :style="{
                     width:
                       Math.floor((item.left_num / item.prize_num) * 100) + '%',
-                  }"
-                >
-                </view>
-              </view>
-              <text
-                >剩余{{
+                  }">
+								</view>
+							</view>
+							<text>剩余{{
                   Math.floor((item.left_num / item.prize_num) * 100)
-                }}%</text
-              >
-            </view>
-          </view>
-          <view class="exchange_right">
-            <view class="score_title">需积分</view>
-            <view class="number">{{ item.prize_point }}</view>
-            <view class="conversion_btn" @click="exchangePrisePoupShow(item)"
-              >兑换</view
-            >
-          </view>
-        </view>
-        <view class="tips"> 奖品数量有限，早兑早拥有! </view>
-      </view>
+                }}%</text>
+						</view>
+					</view>
+					<view class="exchange_right">
+						<view class="score_title">需积分</view>
+						<view class="number">{{ item.prize_point }}</view>
+						<view class="conversion_btn" @click="exchangePrisePoupShow(item)">兑换</view>
+					</view>
+				</view>
+				<view class="tips"> 奖品数量有限，早兑早拥有! </view>
+			</view>
 
-      <view class="award" v-if="advertList.length > 0">
-        <swiper
-          :circular="true"
-          :autoplay="true"
-          :interval="3000"
-          :duration="1000"
-        >
-          <swiper-item v-for="item in advertList" :key="item.game_ad_id">
-            <view class="swiper-item">
-              <image :src="item.ad_pic_url" mode="aspectFill"></image>
-            </view>
-          </swiper-item>
-        </swiper>
-      </view>
-    </view>
-    <popup ref="exchange" class="exchange_poup" width="640" left="56" top="336">
-      <view class="content">
-        是否确认使用 {{ exchangeGoddsInfo.prize_point }} 积分 兑换
-        {{ exchangeGoddsInfo.prize_name }}
-      </view>
-      <view class="action_part">
-        <view class="action_btn" @click="$refs.exchange.hide()">取消</view>
-        <view
-          class="action_btn active"
-          open-type="getPhoneNumber"
-          @getphonenumber="confirmExchange"
-          @click="confirmExchange"
-          >是</view
-        >
-      </view>
-    </popup>
-    <popup ref="finish" class="finish_poup" width="640" left="56" top="336">
-      <view class="finish_content">
-        <view class="title">兑换成功</view>
-        <view class="sub_title"
-          >使用 {{ exchangeGoddsInfo.prize_point }} 积分兑换了</view
-        >
-        <image
-          class="goods_img"
-          :src="exchangeGoddsInfo.prize_url"
-          mode="aspectFit"
-        ></image>
-        <view class="goods_info">{{ exchangeGoddsInfo.prize_name }}</view>
-        <view class="btn active" @click="toGetAward">找商家领奖</view>
-        <view class="btn" @click="$refs.finish.hide()">继续兑换</view>
-      </view>
-    </popup>
-    <uni-popup :maskClick="false" type="dialog" ref="dialog">
-      <view class="phone-wrap">
-        <view class="phone-container">
-          <image
-            @click="onClose"
-            src="https://static.roi-cloud.com/base/close.png"
-            class="phone-close"
-          />
-          <view class="phone-title">
-            <text>请留手机号</text>
-          </view>
-          <view class="phone-subtitle">
-            <text>作为兑奖备用联系方式，我们会保护你的隐私</text>
-          </view>
-          <view class="phone-input-wrap" v-if="phone != ''">
-            <input
-              :value="phone"
-              cursor-spacing="10"
-              @input="changePhone"
-              class="phone-input"
-              placeholder="填写手机号"
-              disabled="true"
-            />
-          </view>
-          <button
-            v-else
-            open-type="getPhoneNumber"
-            @getphonenumber="getphonenumber"
-            type="primary"
-            class="phone_button"
-            :disabled="false"
-          >
-            微信手机号登录
-          </button>
-          <view v-if="codeError" class="phone-error-msg"
-            ><text>{{ codeError }}</text></view
-          >
+			<view class="award" v-if="advertList.length > 0">
+				<swiper :circular="true" :autoplay="true" :interval="3000" :duration="1000">
+					<swiper-item v-for="item in advertList" :key="item.game_ad_id">
+						<view class="swiper-item">
+							<image :src="item.ad_pic_url" mode="aspectFill"></image>
+						</view>
+					</swiper-item>
+				</swiper>
+			</view>
+		</view>
+		<popup ref="exchange" class="exchange_poup" width="640" left="56" top="336">
+			<view class="content">
+				是否确认使用 {{ exchangeGoddsInfo.prize_point }} 积分 兑换
+				{{ exchangeGoddsInfo.prize_name }}
+			</view>
+			<view class="action_part">
+				<view class="action_btn" @click="$refs.exchange.hide()">取消</view>
+				<view class="action_btn active" open-type="getPhoneNumber" @getphonenumber="confirmExchange"
+					@click="confirmExchange">是</view>
+			</view>
+		</popup>
+		<popup ref="finish" class="finish_poup" width="640" left="56" top="336">
+			<view class="finish_content">
+				<view class="title">兑换成功</view>
+				<view class="sub_title">使用 {{ exchangeGoddsInfo.prize_point }} 积分兑换了</view>
+				<image class="goods_img" :src="exchangeGoddsInfo.prize_url" mode="aspectFit"></image>
+				<view class="goods_info">{{ exchangeGoddsInfo.prize_name }}</view>
+				<view class="btn active" @click="toGetAward">找商家领奖</view>
+				<view class="btn" @click="$refs.finish.hide()">继续兑换</view>
+			</view>
+		</popup>
+		<uni-popup :maskClick="false" type="dialog" ref="dialog">
+			<view class="phone-wrap">
+				<view class="phone-container">
+					<image @click="onClose" src="https://static.roi-cloud.com/base/close.png" class="phone-close" />
+					<view class="phone-title">
+						<text>请留手机号</text>
+					</view>
+					<view class="phone-subtitle">
+						<text>作为兑奖备用联系方式，我们会保护你的隐私</text>
+					</view>
+					<view class="phone-input-wrap" v-if="phone != ''">
+						<input :value="phone" cursor-spacing="10" @input="changePhone" class="phone-input"
+							placeholder="填写手机号" disabled="true" />
+					</view>
+					<button v-else open-type="getPhoneNumber" @getphonenumber="getphonenumber" type="primary"
+						class="phone_button" :disabled="false">
+						微信手机号登录
+					</button>
+					<view v-if="codeError" class="phone-error-msg"><text>{{ codeError }}</text></view>
 
-          <view v-if="agreeError" class="agree-error-msg"
-            ><text>{{ agreeError }}</text></view
-          >
-          <view
-            v-if="phone != ''"
-            :class="['phone-button', { 'button-disabled': !phone }]"
-            @click="savePhone"
-          >
-            <text>保存</text>
-          </view>
-        </view>
-      </view>
-    </uni-popup>
-    <popup
-      ref="prizeInfoDetail"
-      class="prizeInfoDetail"
-      width="640"
-      left="56"
-      top="336"
-    >
-      <view class="p_header">
-        <image
-          @click="hideDetail"
-          class="icon_close"
-          src="https://static.roi-cloud.com/base/close.png"
-          mode=""
-        ></image>
-      </view>
-      <view class="g_info">
-        <image :src="curr_show_item.prize_url" mode="aspectFill"></image>
-        <view class="g_info_name">
-          {{ curr_show_item.prize_name }}
-        </view>
-      </view>
-      <view class="g_content">
-        <view class="g_content_text">
-          <text class="m_content">{{curr_show_item.prize_desc || "暂无详细说明"}}</text>
-        </view>
-        <view class="g_btn" @click="hideDetail">我知道了</view>
-      </view>
-    </popup>
-  </view>
+					<view v-if="agreeError" class="agree-error-msg"><text>{{ agreeError }}</text></view>
+					<view v-if="phone != ''" :class="['phone-button', { 'button-disabled': !phone }]"
+						@click="savePhone">
+						<text>保存</text>
+					</view>
+				</view>
+			</view>
+		</uni-popup>
+		<popup ref="prizeInfoDetail" class="prizeInfoDetail" width="640" left="56" top="336">
+			<view class="p_header">
+				<image @click="hideDetail" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode="">
+				</image>
+			</view>
+			<view class="g_info">
+				<image :src="curr_show_item.prize_url" mode="aspectFill"></image>
+				<view class="g_info_name">
+					{{ curr_show_item.prize_name }}
+				</view>
+			</view>
+			<view class="g_content">
+				<view class="g_content_text">
+					<text class="m_content">{{curr_show_item.prize_desc || "暂无详细说明"}}</text>
+				</view>
+				<view class="g_btn" @click="hideDetail">我知道了</view>
+			</view>
+		</popup>
+	</view>
 </template>
 
 <script>
-import "@/static/css/game.scss";
-import {
-  exchangeGamePrizeList,
-  userInfo,
-  apiGetMinSetting,
-  addExchangeGamePrize,
-  smsBindUserVerifyCode,
-  updateUserPhone,
-  apiGetGameInfo,
-  userGame,
-  apiGetAdvert,
-  getPhone,
-  userLogin,
-} from "@/rest/api.js";
-import { validPhone, relativePath } from "@/utils/tool.js";
-import moment from "moment";
-import popup from "@/components/popup/popup.vue";
-import navbar from "../../components/Navbar.vue";
-import _ from "lodash";
+	import "@/static/css/game.scss";
+	import {
+		emitDataPrevpage
+	} from '@/utils/utils.js'
+	import {
+		exchangeGamePrizeList,
+		userInfo,
+		apiGetMinSetting,
+		addExchangeGamePrize,
+		smsBindUserVerifyCode,
+		updateUserPhone,
+		apiGetGameInfo,
+		userGame,
+		apiGetAdvert,
+		getPhone,
+		userLogin,
+	} from "@/rest/api.js";
+	import {
+		validPhone,
+		relativePath
+	} from "@/utils/tool.js";
+	import moment from "moment";
+	import popup from "@/components/popup/popup.vue";
+	import navbar from "../../components/Navbar.vue";
+	import _ from "lodash";
 
-export default {
-  components: {
-    navbar,
-    popup,
-  },
-  data() {
-    return {
-      exchangeGoddsInfo: {},
-      phone: "",
-      gameId: "",
-      prizeList: [],
-      user_info: {},
-      setting: {},
-      verifyCode: "",
-      verifyCodeText: "发送验证码",
-      verifyCodeTime: 0,
-      codeError: "",
-      verifyCodeResult: {},
-      phoneError: "",
-      gameInfo: {},
-      advertList: [],
-      userPlayInfo: {},
-      points: "desc",
-      page: 0,
-      curr_show_item: {},
-    };
-  },
-  onLoad(options) {
-    this.gameId = options.gameId;
-    this.getPrizeList();
-    this.getUserInfo();
-    this.getGameInfo();
+	export default {
+		components: {
+			navbar,
+			popup,
+		},
+		data() {
+			return {
+				exchangeGoddsInfo: {},
+				phone: "",
+				gameId: "",
+				prizeList: [],
+				user_info: {},
+				setting: {},
+				verifyCode: "",
+				verifyCodeText: "发送验证码",
+				verifyCodeTime: 0,
+				codeError: "",
+				verifyCodeResult: {},
+				phoneError: "",
+				gameInfo: {},
+				advertList: [],
+				userPlayInfo: {},
+				points: "desc",
+				page: 0,
+				curr_show_item: {},
+			};
+		},
+		onLoad(options) {
+			this.gameId = options.gameId;
+			this.getPrizeList();
+			this.getUserInfo();
+			this.getGameInfo();
 
-    // this.getUserPlayInfo()
-    // this.getAdvert()
-  },
-  onReachBottom() {
-    if (this.more) {
-      this.page++;
-      this.getPrizeList();
-    }
-  },
-  methods: {
-    getUserPlayInfo() {
-      this.$loading.show();
-      userGame({
-        gameId: this.gameId,
-      }).then((res) => {
-        this.userPlayInfo = res;
-        this.$loading.hide();
-      });
-    },
-    toGetAward() {
-      this.trackEvent('claimPrizeInExchangeSuccessPopup',{})
-      uni.navigateTo({
-        url: "/pages/prize/prize?gameId=" + this.gameId,
-      });
-    },
-    showDetail(item) {
-      this.curr_show_item = item;
-      this.trackEvent('priceImpression',{
-        'gameID_evar': this.gameId,
-				'gameName_evar': this.gameInfo.name,
-        'prizeId_evar': item.game_award_id,
-        'prizePage_evar': '/pages/conversion/conversion',
-      })
-      this.$refs.prizeInfoDetail.show();
-    },
-    hideDetail() {
-      this.$refs.prizeInfoDetail.hide();
-    },
-    orderPrizeList() {
-      this.points == "desc" ? (this.points = "asc") : (this.points = "desc");
-      this.page = 1;
-      this.getPrizeList();
-    },
-    changePhone: function (e) {
-      this.phone = e.detail.value;
-    },
-    changeVerifyCode: function (e) {
-      this.verifyCode = e.detail.value;
-    },
-    sendCode: function () {
-      if (this.verifyCodeTime === 0) {
-        if (!this.phone) {
-          this.phoneError = "请填写手机号";
-          return false;
-        } else if (!validPhone(this.phone)) {
-          this.phoneError = "手机号格式错误";
-          return false;
-        } else {
-          this.phoneError = "";
-        }
-        let params = {
-          phone: this.phone,
-        };
-        smsBindUserVerifyCode(params).then((response) => {
-          this.verifyCodeResult = response;
-          let code = 60;
-          this.verifyCodeTime = code;
-          this.verifyCodeText = code;
-          this.timer = setInterval(() => {
-            code = code - 1;
-            this.verifyCodeTime = code;
-            if (code <= 0) {
-              this.verifyCodeTime = 0;
-              this.verifyCodeText = "重新发送";
-              clearInterval(this.timer);
-            } else {
-              this.verifyCodeText = code;
-            }
-          }, 1000);
-        });
-      }
-    },
-    savePhone() {
-      uni.showToast({
-        title: "保存成功",
-      });
-      this.$refs.dialog.close();
-    },
-    getPrizeList() {
-      this.$loading.show();
-      let params = {
-        page: this.page,
-        gameId: this.gameId,
-        pageSzie: 20,
-      };
-      exchangeGamePrizeList(params).then((res) => {
-        this.$loading.hide();
-		res = _.map(res, (item) => {
-			return {...item, prize_point: Number(item.prize_point)}
-		})
-        this.prizeList = _.orderBy(res, 'prize_point', this.points);
-        // if(params.page == 1) this.prizeList = res
-        // else this.prizeList = [...this.prizeList,...res]
-        // if (res.pageCount == params.page) {
-        // 	this.more = false
-        // } else {
-        // 	this.more = true
-        // }
-      });
-    },
-    getGameInfo() {
-      apiGetGameInfo({
-        game_id: this.gameId,
-        template_id: "2021110901",
-      }).then((res) => {
-        res.redeemEndTime = moment(res.last_receive_time * 1000).format(
-          "YYYY年MM月DD日"
-        );
-        this.gameInfo = res;
-        if (res.ad_type == 1) {
-          this.advertList = res.ad_info
-        } else {
-          if (res.ad_info.length > 0) {
-            res.ad_info.forEach(item => {
-              if (Number(item.ad_location) == 2) {
-                this.advertList = [item]
-              }
-            })
-          }
-        }
-        // this.gameInfo.integral = res.integral.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
-      });
-    },
-    onClose: function () {
-      clearInterval(this.timer);
-      this.$refs.dialog.close();
-    },
-    confirmExchange(e) {
-      try {
-        this.$refs.exchange.hide();
-        if (this.user_info.phone) {
-          this.exchangePrise();
-        } else {
-          const _this = this;
-          uni.login({
-            success(res) {
-              const params = {
-                avatarUrl: _this.user_info.avatar,
-                nickName: _this.user_info.nickname,
-                platform: "yaoyaoshu",
-                code: res.code,
-              };
-              userLogin(params).then((res) => {
-                if (res.errno === "1") {
-                  uni.showToast({
-                    title: `请求异常！`,
-                    icon: "error",
-                  });
-                  return;
-                }
-                const user = _this.$storage.getUser();
+			// this.getUserPlayInfo()
+			// this.getAdvert()
+		},
+		onReachBottom() {
+			if (this.more) {
+				this.page++;
+				this.getPrizeList();
+			}
+		},
+		methods: {
+			getUserPlayInfo() {
+				this.$loading.show();
+				userGame({
+					gameId: this.gameId,
+				}).then((res) => {
+					this.userPlayInfo = res;
+					this.$loading.hide();
+				});
+			},
+			toGetAward() {
+				this.trackEvent('claimPrizeInExchangeSuccessPopup', {})
+				uni.navigateTo({
+					url: "/pages/prize/prize?gameId=" + this.gameId,
+				});
+			},
+			showDetail(item) {
+				this.curr_show_item = item;
+				this.trackEvent('priceImpression', {
+					'gameID_evar': this.gameId,
+					'gameName_evar': this.gameInfo.name,
+					'prizeId_evar': item.game_award_id,
+					'prizePage_evar': '/pages/conversion/conversion',
+				})
+				this.$refs.prizeInfoDetail.show();
+			},
+			hideDetail() {
+				this.$refs.prizeInfoDetail.hide();
+			},
+			orderPrizeList() {
+				this.points == "desc" ? (this.points = "asc") : (this.points = "desc");
+				this.page = 1;
+				this.getPrizeList();
+			},
+			changePhone: function(e) {
+				this.phone = e.detail.value;
+			},
+			changeVerifyCode: function(e) {
+				this.verifyCode = e.detail.value;
+			},
+			sendCode: function() {
+				if (this.verifyCodeTime === 0) {
+					if (!this.phone) {
+						this.phoneError = "请填写手机号";
+						return false;
+					} else if (!validPhone(this.phone)) {
+						this.phoneError = "手机号格式错误";
+						return false;
+					} else {
+						this.phoneError = "";
+					}
+					let params = {
+						phone: this.phone,
+					};
+					smsBindUserVerifyCode(params).then((response) => {
+						this.verifyCodeResult = response;
+						let code = 60;
+						this.verifyCodeTime = code;
+						this.verifyCodeText = code;
+						this.timer = setInterval(() => {
+							code = code - 1;
+							this.verifyCodeTime = code;
+							if (code <= 0) {
+								this.verifyCodeTime = 0;
+								this.verifyCodeText = "重新发送";
+								clearInterval(this.timer);
+							} else {
+								this.verifyCodeText = code;
+							}
+						}, 1000);
+					});
+				}
+			},
+			savePhone() {
+				uni.showToast({
+					title: "保存成功",
+				});
+				this.$refs.dialog.close();
+			},
+			getPrizeList() {
+				this.$loading.show();
+				let params = {
+					page: this.page,
+					gameId: this.gameId,
+					pageSzie: 20,
+				};
+				exchangeGamePrizeList(params).then((res) => {
+					this.$loading.hide();
+					res = _.map(res, (item) => {
+						return {
+							...item,
+							prize_point: Number(item.prize_point)
+						}
+					})
+					this.prizeList = _.orderBy(res, 'prize_point', this.points);
+					// if(params.page == 1) this.prizeList = res
+					// else this.prizeList = [...this.prizeList,...res]
+					// if (res.pageCount == params.page) {
+					// 	this.more = false
+					// } else {
+					// 	this.more = true
+					// }
+				});
+			},
+			getGameInfo() {
+				apiGetGameInfo({
+					game_id: this.gameId,
+					template_id: "2021110901",
+				}).then((res) => {
+					res.redeemEndTime = moment(res.last_receive_time * 1000).format(
+						"YYYY年MM月DD日"
+					);
+					this.gameInfo = res;
+					if (res.ad_type == 1) {
+						this.advertList = res.ad_info
+					} else {
+						if (res.ad_info.length > 0) {
+							res.ad_info.forEach(item => {
+								if (Number(item.ad_location) == 2) {
+									this.advertList = [item]
+								}
+							})
+						}
+					}
+					// this.gameInfo.integral = res.integral.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
+				});
+			},
+			onClose: function() {
+				clearInterval(this.timer);
+				this.$refs.dialog.close();
+			},
+			confirmExchange(e) {
+				try {
+					this.$refs.exchange.hide();
+					emitDataPrevpage('exange', {
+						flag: true
+					})
+					if (this.user_info.phone) {
+						this.exchangePrise();
+					} else {
+						const _this = this;
+						uni.login({
+							success(res) {
+								const params = {
+									avatarUrl: _this.user_info.avatar,
+									nickName: _this.user_info.nickname,
+									platform: "yaoyaoshu",
+									code: res.code,
+								};
+								userLogin(params).then((res) => {
+									if (res.errno === "1") {
+										uni.showToast({
+											title: `请求异常！`,
+											icon: "error",
+										});
+										return;
+									}
+									const user = _this.$storage.getUser();
 
-                _this.$storage.setUser({
-                  ...user,
-                  ...res,
-                });
-              });
-            },
-          });
-          this.$refs.dialog.open();
-        }
-      } catch (e) {
-        this.$toast.error(e);
-      }
-    },
-    getphonenumber(e) {
-      // 不允许授权
-      if (e.detail.errMsg !== "getPhoneNumber:ok") {
-        uni.showToast({
-          title: "请授权！",
-          icon: "error",
-        });
-        return;
-      }
+									_this.$storage.setUser({
+										...user,
+										...res,
+									});
+								});
+							},
+						});
+						this.$refs.dialog.open();
+					}
+				} catch (e) {
+					this.$toast.error(e);
+				}
+			},
+			getphonenumber(e) {
+				// 不允许授权
+				if (e.detail.errMsg !== "getPhoneNumber:ok") {
+					uni.showToast({
+						title: "请授权！",
+						icon: "error",
+					});
+					return;
+				}
 
-      const user = this.$storage.getUser();
-      const params = {
-        encryptedData: e.detail.encryptedData,
-        iv: e.detail.iv,
-        agreement_id: this.user_info.agreement_id,
-        privacy_clause_id: this.user_info.privacy_clause_id,
-        platform: "yaoyaoshu",
-      };
-      getPhone(params)
-        .then((res) => {
-          user.phone = res.phoneNumber;
-          this.phone = res.phoneNumber;
-          this.$storage.setUser(user);
-        })
-        .catch((err) => {
-          uni.showToast({
-            title: "出错啦",
-            icon: "error",
-          });
-        });
-      this.user_info = user;
-    },
-    exchangePrise() {
-      this.$loading.show();
-      console.log(this.exchangeGoddsInfo)
-      addExchangeGamePrize({
-        gameId: this.gameId,
-        gameAwardId: this.exchangeGoddsInfo.game_award_id,
-      }).then((res) => {
-        console.log(res, "resssss");
-        if (res.errno) {
-          this.$loading.hide();
-          uni.showToast({
-            title: res.errmsg,
-            icon: "error",
-          });
-          return;
-        }
-        this.getGameInfo();
-        this.getPrizeList();
-        this.trackEvent("exchangePrize",{})
-        this.$loading.hide();
-        this.$refs.finish.show();
-      });
-    },
-    getAdvert() {
-      apiGetAdvert({
-        gameId: this.gameId,
-      }).then((res) => {
-        this.advertList = res;
-      });
-    },
-    getUserInfo() {
-      this.user_info = this.$storage.getUser();
-      this.phone = this.user_info.phone;
-      console.log(this.user_info);
-    },
-    exchangePrisePoupShow(item) {
-      try {
-        if (Number(item.prize_point) > Number(this.gameInfo.integral)) {
-          this.$toast.error("积分不足");
-        } else {
-          this.exchangeGoddsInfo = item;
-          this.$refs.exchange.show();
-        }
-      } catch (e) {
-        this.$toast.error(e);
-      }
-    },
-    trackEvent(name, data){
-      const locationTime = this.$storage.get('getLocationTime')
-      if (_.isEmpty(data)){
-        this.$uma.trackEvent(name,{
-          'prizeId_evar': this.exchangeGoddsInfo.game_award_id,
-          'prizeName_evar': this.exchangeGoddsInfo.game_award_name,
-          'prizeType_evar': this.exchangeGoddsInfo.prize_type,
-          'prizeExchangePoint_evar': this.exchangeGoddsInfo.prize_point,
-          'prizeLevel_evar': this.exchangeGoddsInfo.template_award_id,
-          '3rdpartyUserID_evar': this.user_info.userId,
-          'locationLongitude_evar': locationTime.longitude,
-          'locationLatitude_evar': locationTime.latitude,
-          'gameID_evar': this.gameId,
-          'gameName_evar': this.gameInfo.name,
-          'userOpenID_evar': this.user_info.openid + '',
-          'timeStamp_evar': Date.parse( new Date())  + ''
-        })
-      } else {
-        this.$uma.trackEvent(name,data)
-      }
-		}
-  },
-};
+				const user = this.$storage.getUser();
+				const params = {
+					encryptedData: e.detail.encryptedData,
+					iv: e.detail.iv,
+					agreement_id: this.user_info.agreement_id,
+					privacy_clause_id: this.user_info.privacy_clause_id,
+					platform: "yaoyaoshu",
+				};
+				getPhone(params)
+					.then((res) => {
+						user.phone = res.phoneNumber;
+						this.phone = res.phoneNumber;
+						this.$storage.setUser(user);
+					})
+					.catch((err) => {
+						uni.showToast({
+							title: "出错啦",
+							icon: "error",
+						});
+					});
+				this.user_info = user;
+			},
+			exchangePrise() {
+				this.$loading.show();
+				console.log(this.exchangeGoddsInfo)
+				addExchangeGamePrize({
+					gameId: this.gameId,
+					gameAwardId: this.exchangeGoddsInfo.game_award_id,
+				}).then((res) => {
+					console.log(res, "resssss");
+					if (res.errno) {
+						this.$loading.hide();
+						uni.showToast({
+							title: res.errmsg,
+							icon: "error",
+						});
+						return;
+					}
+					this.getGameInfo();
+					this.getPrizeList();
+					this.trackEvent("exchangePrize", {})
+					this.$loading.hide();
+					this.$refs.finish.show();
+				});
+			},
+			getAdvert() {
+				apiGetAdvert({
+					gameId: this.gameId,
+				}).then((res) => {
+					this.advertList = res;
+				});
+			},
+			getUserInfo() {
+				this.user_info = this.$storage.getUser();
+				this.phone = this.user_info.phone;
+				console.log(this.user_info);
+			},
+			exchangePrisePoupShow(item) {
+				try {
+					if (Number(item.prize_point) > Number(this.gameInfo.integral)) {
+						this.$toast.error("积分不足");
+					} else {
+						this.exchangeGoddsInfo = item;
+						this.$refs.exchange.show();
+					}
+				} catch (e) {
+					this.$toast.error(e);
+				}
+			},
+			trackEvent(name, data) {
+				const locationTime = this.$storage.get('getLocationTime')
+				if (_.isEmpty(data)) {
+					this.$uma.trackEvent(name, {
+						'prizeId_evar': this.exchangeGoddsInfo.game_award_id,
+						'prizeName_evar': this.exchangeGoddsInfo.game_award_name,
+						'prizeType_evar': this.exchangeGoddsInfo.prize_type,
+						'prizeExchangePoint_evar': this.exchangeGoddsInfo.prize_point,
+						'prizeLevel_evar': this.exchangeGoddsInfo.template_award_id,
+						'3rdpartyUserID_evar': this.user_info.userId,
+						'locationLongitude_evar': locationTime.longitude,
+						'locationLatitude_evar': locationTime.latitude,
+						'gameID_evar': this.gameId,
+						'gameName_evar': this.gameInfo.name,
+						'userOpenID_evar': this.user_info.openid + '',
+						'timeStamp_evar': Date.parse(new Date()) + ''
+					})
+				} else {
+					this.$uma.trackEvent(name, data)
+				}
+			}
+		},
+	};
 </script>
 
 <style lang="scss">
@@ -958,6 +910,7 @@ page {
           -webkit-box-orient: vertical;
           text-overflow: -o-ellipsis-lastline;
           width: 300upx;
+          font-weight: 550;
         }
 
         .content_desc {
