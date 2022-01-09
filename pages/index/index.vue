@@ -290,7 +290,7 @@
 			</popup>
 
 			<popup ref="share" width="650" bgColor="#FFF8DC">
-				<view class="p_title"  v-if="playTime == 0">邀请好友，赢游戏次数
+				<view class="p_title" v-if="playTime == 0">邀请好友，赢游戏次数
 					<image @click="$refs.share.hide()" class="icon_close"
 						src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
 				</view>
@@ -1163,10 +1163,6 @@
 						if (res.list.length === 0) {
 							this.exchangeQuery.hasMore = false
 							this.exchangeQuery.isPlay = false
-							// uni.showToast({
-							// 	title: '没有更多啦',
-							// 	icon: 'error'
-							// })
 							return
 						}
 						if (res.list.length < 20 && !this.exchangeQuery.isPlay) {
@@ -1187,11 +1183,6 @@
 							icon: 'error'
 						})
 					});
-				} else {
-					uni.showToast({
-						title: '没有更多啦',
-						icon: 'error'
-					})
 				}
 
 			},
@@ -1500,10 +1491,6 @@
 						if (res.list.length === 0) {
 							this.awardQuery.hasMore = false
 							this.awardQuery.hasMore = false
-							uni.showToast({
-								title: '没有更多啦',
-								icon: 'error'
-							})
 							return
 						}
 						if (res.list.length < 20 && !this.awardQuery.isPlay) {
@@ -1524,11 +1511,6 @@
 							icon: 'error'
 						})
 					});
-				} else {
-					uni.showToast({
-						title: '没有更多啦',
-						icon: 'error'
-					})
 				}
 			},
 			checkLogin() {
@@ -2176,7 +2158,7 @@
 							),
 						};
 						console.log(">>>>>>>>>>>>>>", res.ad_info);
-						if (res.ad_type == 1) {
+						if (res.ad_type == 1 && res.ad_info.ad_pic_url) {
 							this.advertList = res.ad_info;
 						} else {
 							if (res.ad_info.length > 0) {
@@ -3595,7 +3577,7 @@
 			justify-content: space-between;
 			align-items: center;
 			margin: 0 60rpx;
-   			border-bottom: solid 1px #f3eeee;
+			border-bottom: solid 1px #f3eeee;
 
 			.item_left {
 				width: 40%;

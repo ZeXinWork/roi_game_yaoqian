@@ -56,23 +56,20 @@
             'card',
             'exchange_part',
             { fade: Math.floor((item.left_num / item.prize_num) * 100) == 0 },
-          ]"
-        >
-          <view class="exchange_left" @click="showDetail(item)">
-            <view class="goods_info">
-              <view class="goods_img">
-                <image :src="item.prize_url" mode=""></image>
-              </view>
-              <view class="goods_title">
-                <text class="content_title">{{ item.prize_name }}</text>
-                <text class="content_desc">{{ item.prize_desc }}</text>
-              </view>
-            </view>
-            <view class="godds_progress">
-              <view class="progress">
-                <view
-                  class="line"
-                  :style="{
+          ]">
+					<view class="exchange_left" @click="showDetail(item)">
+						<view class="goods_info">
+							<view class="goods_img">
+								<image :src="item.prize_url" mode=""></image>
+							</view>
+							<view class="goods_title">
+								<text class="content_title">{{ item.prize_name }}</text>
+								<text class="content_desc">{{ item.prize_desc }}</text>
+							</view>
+						</view>
+						<view class="godds_progress">
+							<view class="progress">
+								<view class="line" :style="{
                     width:
                       Math.floor((item.left_num / item.prize_num) * 100) + '%',
                   }">
@@ -518,414 +515,421 @@
 </script>
 
 <style lang="scss">
-.prizeInfoDetail {
-  .p_header {
-    display: flex;
-    padding: 40upx;
-    justify-content: flex-end;
+	.prizeInfoDetail {
+		.p_header {
+			display: flex;
+			padding: 40upx;
+			justify-content: flex-end;
 
-    .icon_close {
-      width: 40upx;
-      height: 40upx;
-    }
-  }
-  .g_content {
-    padding: 70upx;
-    .g_content_text{
-      padding: 20rpx 0;
-      border-top: 1upx solid #d8d8d8;
-    }
-    .m_content {
-      padding-top: 40upx;
-      max-height: 300upx;
-      overflow: hidden;
-      color: #666666;
-      overflow-y: scroll;
-      font-size: 28upx;
-      margin-bottom: 60upx;
-    }
-    .g_btn {
-      width: 406upx;
-      height: 80upx;
-      line-height: 80upx;
-      color: #fff;
-      text-align: center;
-      font-size: 34upx;
-      background: #e83d3d;
-      border-radius: 51upx;
-      margin: 0 auto;
-    }
-  }
+			.icon_close {
+				width: 40upx;
+				height: 40upx;
+			}
+		}
 
-  .g_info {
-    padding: 0 70upx;
-    display: flex;
-    image {
-      width: 130upx;
-      height: 130upx;
-      margin-right: 24upx;
-    }
-    .g_info_name {
-      width: 1upx;
-      flex: 1;
-      text-overflow: -o-ellipsis-lastline;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-  }
-}
-.diy_logo {
-  width: 150px;
-  height: 35px;
-}
+		.g_content {
+			padding: 70upx;
 
-page {
-  background: #e83d3d;
-}
+			.g_content_text {
+				padding: 20rpx 0;
+				border-top: 1upx solid #d8d8d8;
+			}
 
-.exchange_poup {
-  .content {
-    padding: 60upx 48upx;
-    margin: 0 auto;
-    text-align: center;
-    color: #333;
-    font-size: 34upx;
+			.m_content {
+				padding-top: 40upx;
+				max-height: 300upx;
+				overflow: hidden;
+				color: #666666;
+				overflow-y: scroll;
+				font-size: 28upx;
+				margin-bottom: 60upx;
+			}
 
-    .title {
-      font-size: 34upx;
-      font-weight: 500;
-    }
+			.g_btn {
+				width: 406upx;
+				height: 80upx;
+				line-height: 80upx;
+				color: #fff;
+				text-align: center;
+				font-size: 34upx;
+				background: #e83d3d;
+				border-radius: 51upx;
+				margin: 0 auto;
+			}
+		}
 
-    .subtitle {
-      color: #999999;
-      margin-top: 10upx;
-      font-size: 26upx;
-    }
+		.g_info {
+			padding: 0 70upx;
+			display: flex;
 
-    .phone_input {
-      margin-top: 44upx;
-      height: 72upx;
-      text-align: left;
-      line-height: 72upx;
-      border-bottom: 1upx solid rgba(0, 0, 0, 0.1);
-    }
-  }
+			image {
+				width: 130upx;
+				height: 130upx;
+				margin-right: 24upx;
+			}
 
-  .action_part {
-    display: flex;
-    height: 110upx;
-    line-height: 110upx;
-    border-top: 1upx solid rgba(0, 0, 0, 0.1);
+			.g_info_name {
+				width: 1upx;
+				flex: 1;
+				text-overflow: -o-ellipsis-lastline;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				line-clamp: 2;
+				-webkit-box-orient: vertical;
+			}
+		}
+	}
 
-    .action_btn {
-      flex: 1;
-      text-align: center;
-      font-weight: 500;
-      font-size: 34upx;
+	.diy_logo {
+		width: 150px;
+		height: 35px;
+	}
 
-      &.active {
-        color: #576b95;
-        border-left: 1upx solid rgba(0, 0, 0, 0.1);
-      }
-    }
-  }
-}
+	page {
+		background: #e83d3d;
+	}
 
-.phone_button {
-  border-radius: 92upx;
-  // width: 480upx;
-  height: 80upx;
-  line-height: 80upx;
-  margin: 40upx;
-}
+	.exchange_poup {
+		.content {
+			padding: 60upx 48upx;
+			margin: 0 auto;
+			text-align: center;
+			color: #333;
+			font-size: 34upx;
 
-.finish_content {
-  text-align: center;
-  padding: 64upx 118upx;
+			.title {
+				font-size: 34upx;
+				font-weight: 500;
+			}
 
-  .title {
-    font-weight: 500;
-    font-size: 34upx;
-  }
+			.subtitle {
+				color: #999999;
+				margin-top: 10upx;
+				font-size: 26upx;
+			}
 
-  .sub_title {
-    margin-top: 10upx;
-  }
+			.phone_input {
+				margin-top: 44upx;
+				height: 72upx;
+				text-align: left;
+				line-height: 72upx;
+				border-bottom: 1upx solid rgba(0, 0, 0, 0.1);
+			}
+		}
 
-  .goods_img {
-    margin-top: 38upx;
-    width: 240upx;
-    height: 240upx;
-    overflow: hidden;
-  }
+		.action_part {
+			display: flex;
+			height: 110upx;
+			line-height: 110upx;
+			border-top: 1upx solid rgba(0, 0, 0, 0.1);
 
-  .goods_info {
-    width: 320upx;
-    margin: 30upx auto 0;
-  }
+			.action_btn {
+				flex: 1;
+				text-align: center;
+				font-weight: 500;
+				font-size: 34upx;
 
-  .btn {
-    margin-top: 30upx;
-    width: 406upx;
-    height: 80upx;
-    line-height: 80upx;
-    color: #e83d3d;
-    text-align: center;
-    border-radius: 51upx;
-    border: 2upx solid #e83d3d;
+				&.active {
+					color: #576b95;
+					border-left: 1upx solid rgba(0, 0, 0, 0.1);
+				}
+			}
+		}
+	}
 
-    &.active {
-      color: #fff;
-      background: #e83d3d;
-    }
-  }
-}
+	.phone_button {
+		border-radius: 92upx;
+		// width: 480upx;
+		height: 80upx;
+		line-height: 80upx;
+		margin: 40upx;
+	}
 
-#main {
-  padding: 46upx 30upx;
+	.finish_content {
+		text-align: center;
+		padding: 64upx 118upx;
 
-  .card {
-    background: #fff;
-    padding: 30upx;
-    border-radius: 36rpx;
+		.title {
+			font-weight: 500;
+			font-size: 34upx;
+		}
 
-    .main_title {
-      font-size: 34upx;
-      font-weight: bold;
-      color: #333333;
-    }
+		.sub_title {
+			margin-top: 10upx;
+		}
 
-    .sub_title {
-      margin-top: 12upx;
-      font-size: 26upx;
-      color: #666666;
-    }
+		.goods_img {
+			margin-top: 38upx;
+			width: 240upx;
+			height: 240upx;
+			overflow: hidden;
+		}
 
-    .userinfo {
-      height: 146upx;
-      padding-top: 36upx;
-      box-sizing: border-box;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+		.goods_info {
+			width: 320upx;
+			margin: 30upx auto 0;
+		}
 
-      .user_left {
-        display: flex;
-        height: 100%;
-        align-items: center;
+		.btn {
+			margin-top: 30upx;
+			width: 406upx;
+			height: 80upx;
+			line-height: 80upx;
+			color: #e83d3d;
+			text-align: center;
+			border-radius: 51upx;
+			border: 2upx solid #e83d3d;
 
-        .avatar {
-          width: 80upx;
-          height: 80upx;
-          border-radius: 50%;
-          background: #eee;
-          overflow: hidden;
-          margin-right: 20upx;
+			&.active {
+				color: #fff;
+				background: #e83d3d;
+			}
+		}
+	}
 
-          image {
-          }
-        }
+	#main {
+		padding: 46upx 30upx;
 
-        .user_score {
-          color: #999999;
-          font-size: 24upx;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
+		.card {
+			background: #fff;
+			padding: 30upx;
+			border-radius: 36rpx;
 
-          .number {
-            color: #333;
-            font-weight: 600;
-            font-size: 48upx;
-          }
-        }
-      }
+			.main_title {
+				font-size: 34upx;
+				font-weight: bold;
+				color: #333333;
+			}
 
-      .user_right {
-        color: #e83d3d;
-        font-size: 28upx;
-        height: 58upx;
-        padding: 0 26upx;
-        border-radius: 58upx;
-        line-height: 58upx;
-        border: 1px solid #e83d3d;
-      }
-    }
-  }
+			.sub_title {
+				margin-top: 12upx;
+				font-size: 26upx;
+				color: #666666;
+			}
 
-  .btn_part {
-    width: 286upx;
-    height: 70rpx;
-    display: flex;
-    color: #fff;
-    font-size: 30upx;
-    margin: 30upx auto;
-    justify-content: center;
-    border: 1upx solid #fff;
-    border-radius: 70rpx;
-    line-height: 70rpx;
-    .arrow {
-      margin-left: 10upx;
-    }
-  }
+			.userinfo {
+				height: 146upx;
+				padding-top: 36upx;
+				box-sizing: border-box;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
 
-  .tips {
-    color: #fff;
-    padding: 52upx 0 28upx;
-    text-align: center;
-  }
+				.user_left {
+					display: flex;
+					height: 100%;
+					align-items: center;
 
-  .award {
-    height: 167upx;
-    background: linear-gradient(137deg, #95ffdc 0%, #ff8944 99%, #ff8944 100%);
-    border-radius: 24upx;
-    margin-bottom: 116upx;
-    overflow: hidden;
+					.avatar {
+						width: 80upx;
+						height: 80upx;
+						border-radius: 50%;
+						background: #eee;
+						overflow: hidden;
+						margin-right: 20upx;
 
-    swiper,
-    image,
-    .swiper-item {
-      width: 100%;
-      height: 100%;
-      border-radius: 24upx;
-    }
-  }
+						image {}
+					}
 
-  .exchange_part {
-    display: flex;
-    margin-top: 30upx;
+					.user_score {
+						color: #999999;
+						font-size: 24upx;
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
 
-    &.fade {
-      background: url(http://juzhuzhu.top/bobing/chance_over.png) #fff no-repeat;
-      background-position: right bottom;
-      background-size: 206upx 156upx;
+						.number {
+							color: #333;
+							font-weight: 600;
+							font-size: 48upx;
+						}
+					}
+				}
 
-      .goods_info {
-        opacity: 0.3;
-      }
+				.user_right {
+					color: #e83d3d;
+					font-size: 28upx;
+					height: 58upx;
+					padding: 0 26upx;
+					border-radius: 58upx;
+					line-height: 58upx;
+					border: 1px solid #e83d3d;
+				}
+			}
+		}
 
-      .exchange_right {
-        opacity: 0.3;
+		.btn_part {
+			width: 286upx;
+			height: 70rpx;
+			display: flex;
+			color: #fff;
+			font-size: 30upx;
+			margin: 30upx auto;
+			justify-content: center;
+			border: 1upx solid #fff;
+			border-radius: 70rpx;
+			line-height: 70rpx;
 
-        .conversion_btn {
-          display: none;
-        }
-      }
-    }
+			.arrow {
+				margin-left: 10upx;
+			}
+		}
 
-    .exchange_left {
-      width: 1upx;
-      flex: 1;
+		.tips {
+			color: #fff;
+			padding: 52upx 0 28upx;
+			text-align: center;
+		}
 
-      .godds_progress {
-        margin-top: 40upx;
-        display: flex;
-        align-items: center;
-        color: #999999;
-        font-size: 24upx;
+		.award {
+			height: 167upx;
+			background: linear-gradient(137deg, #95ffdc 0%, #ff8944 99%, #ff8944 100%);
+			border-radius: 24upx;
+			margin-bottom: 116upx;
+			overflow: hidden;
 
-        .progress {
-          width: 300upx;
-          height: 20upx;
-          margin-right: 10upx;
-          background: #efefef;
-          border-radius: 20upx;
-          position: relative;
+			swiper,
+			image,
+			.swiper-item {
+				width: 100%;
+				height: 100%;
+				border-radius: 24upx;
+			}
+		}
 
-          .line {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            border-radius: 20upx;
-            background: #e83d3d;
-          }
-        }
-      }
-    }
+		.exchange_part {
+			display: flex;
+			margin-top: 30upx;
 
-    .exchange_right {
-      width: 206upx;
-      text-align: center;
-      border-left: 1upx solid #f5f5f5;
+			&.fade {
+				background: url(http://juzhuzhu.top/bobing/chance_over.png) #fff no-repeat;
+				background-position: right bottom;
+				background-size: 206upx 156upx;
 
-      .score_title {
-        color: #999999;
-        font-size: 20upx;
-      }
+				.goods_info {
+					opacity: 0.3;
+				}
 
-      .number {
-        color: #333333;
-        font-size: 40upx;
-      }
+				.exchange_right {
+					opacity: 0.3;
 
-      .conversion_btn {
-        font-size: 30upx;
-        width: 138upx;
-        color: #fff;
-        border-radius: 56upx;
-        margin: 30upx auto 0;
-        background: #e83d3d;
-        text-align: center;
-        height: 56upx;
-        line-height: 56upx;
-      }
-    }
+					.conversion_btn {
+						display: none;
+					}
+				}
+			}
 
-    .goods_info {
-      display: flex;
+			.exchange_left {
+				width: 1upx;
+				flex: 1;
 
-      .goods_img {
-        width: 98upx;
-        height: 98upx;
-        border-radius: 16upx;
-        margin-right: 20upx;
-        overflow: hidden;
+				.godds_progress {
+					margin-top: 40upx;
+					display: flex;
+					align-items: center;
+					color: #999999;
+					font-size: 24upx;
 
-        image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border-radius: 16rpx;
-        }
-      }
+					.progress {
+						width: 300upx;
+						height: 20upx;
+						margin-right: 10upx;
+						background: #efefef;
+						border-radius: 20upx;
+						position: relative;
 
-      .goods_title {
-        flex: 1;
-        font-size: 28upx;
-        margin-left: 10upx;
-        display: flex;
-        flex-direction: column;
-        
-        .content_title {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp:1;
-          line-clamp: 1;
-          -webkit-box-orient: vertical;
-          text-overflow: -o-ellipsis-lastline;
-          width: 300upx;
-          font-weight: 550;
-        }
+						.line {
+							position: absolute;
+							top: 0;
+							bottom: 0;
+							left: 0;
+							border-radius: 20upx;
+							background: #e83d3d;
+						}
+					}
+				}
+			}
 
-        .content_desc {
-          margin-top: 10rpx;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          overflow: hidden;
-          -webkit-box-orient: vertical;
-          font-size: 20rpx;
-          color: rgb(156, 153, 153);
-          width: 300rpx;
-        }
-      }
-    }
-  }
-}
+			.exchange_right {
+				width: 206upx;
+				text-align: center;
+				border-left: 1upx solid #f5f5f5;
+
+				.score_title {
+					color: #999999;
+					font-size: 20upx;
+				}
+
+				.number {
+					color: #333333;
+					font-size: 40upx;
+				}
+
+				.conversion_btn {
+					font-size: 30upx;
+					width: 138upx;
+					color: #fff;
+					border-radius: 56upx;
+					margin: 30upx auto 0;
+					background: #e83d3d;
+					text-align: center;
+					height: 56upx;
+					line-height: 56upx;
+				}
+			}
+
+			.goods_info {
+				display: flex;
+
+				.goods_img {
+					width: 98upx;
+					height: 98upx;
+					border-radius: 16upx;
+					margin-right: 20upx;
+					overflow: hidden;
+
+					image {
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+						border-radius: 16rpx;
+					}
+				}
+
+				.goods_title {
+					flex: 1;
+					font-size: 28upx;
+					margin-left: 10upx;
+					display: flex;
+					flex-direction: column;
+
+					.content_title {
+						overflow: hidden;
+						text-overflow: ellipsis;
+						display: -webkit-box;
+						-webkit-line-clamp: 1;
+						line-clamp: 1;
+						-webkit-box-orient: vertical;
+						text-overflow: -o-ellipsis-lastline;
+						width: 300upx;
+						font-weight: 550;
+					}
+
+					.content_desc {
+						margin-top: 10rpx;
+						text-overflow: ellipsis;
+						display: -webkit-box;
+						-webkit-line-clamp: 2;
+						overflow: hidden;
+						-webkit-box-orient: vertical;
+						font-size: 20rpx;
+						color: rgb(156, 153, 153);
+						width: 300rpx;
+					}
+				}
+			}
+		}
+	}
 </style>
