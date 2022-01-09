@@ -889,7 +889,7 @@
 				const launchOptions = this.$storage.get("options");
 				const locationTime = this.$storage.get("getLocationTime");
 				const exange = acceptDataPrevpage('exange')
-				if (exange.flag) {
+				if (exange && exange.flag) {
 					this.exchangeQuery.isPlay = true
 					this.exchangeQuery.hasMore = true
 					this.getExchange()
@@ -1183,7 +1183,7 @@
 							icon: 'error'
 						})
 					});
-				} 
+				}
 
 			},
 			onMy() {
@@ -2158,7 +2158,8 @@
 							),
 						};
 						console.log(">>>>>>>>>>>>>>", res.ad_info);
-						if (res.ad_type == 1&&res.ad_info.ad_pic_url) {
+
+						if (res.ad_type == 1 && res.ad_info[0] && res.ad_info[0].ad_pic_url) {
 							this.advertList = res.ad_info;
 						} else {
 							if (res.ad_info.length > 0) {
