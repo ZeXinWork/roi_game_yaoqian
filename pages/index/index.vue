@@ -1163,10 +1163,10 @@
 						if (res.list.length === 0) {
 							this.exchangeQuery.hasMore = false
 							this.exchangeQuery.isPlay = false
-							uni.showToast({
-								title: '没有更多啦',
-								icon: 'error'
-							})
+							// uni.showToast({
+							// 	title: '没有更多啦',
+							// 	icon: 'error'
+							// })
 							return
 						}
 						if (res.list.length < 20 && !this.exchangeQuery.isPlay) {
@@ -3594,7 +3594,8 @@
 			min-height: 108upx;
 			justify-content: space-between;
 			align-items: center;
-			padding: 0 60upx;
+			margin: 0 60rpx;
+   			border-bottom: solid 1px #f3eeee;
 
 			.item_left {
 				width: 40%;
@@ -3825,6 +3826,7 @@
 			line-height: 108upx;
 			color: #666666;
 			font-size: 24upx;
+			border-bottom: solid 1px #f3eeee;
 
 			.ml10 {
 				margin-left: 10upx;
