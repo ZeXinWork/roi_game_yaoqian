@@ -1183,7 +1183,7 @@
 							icon: 'error'
 						})
 					});
-				}
+				} 
 
 			},
 			onMy() {
@@ -2158,7 +2158,7 @@
 							),
 						};
 						console.log(">>>>>>>>>>>>>>", res.ad_info);
-						if (res.ad_type == 1 && res.ad_info.ad_pic_url) {
+						if (res.ad_type == 1&&res.ad_info.ad_pic_url) {
 							this.advertList = res.ad_info;
 						} else {
 							if (res.ad_info.length > 0) {
