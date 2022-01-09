@@ -32,7 +32,10 @@
             <view class="goods_img">
               <image class="goods_img_c" :src="item.prize_url" mode=""></image>
             </view>
-            <view class="goods_title">{{ item.prize_name }}</view>
+            <view class="goods_title">
+              <text class="content_title">{{ item.prize_name }}</text>
+              <text class="content_desc">{{ item.prize_desc }}</text>
+            </view>
           </view>
           <!-- <navigator v-if="item.is_verify==0"  class="prize_btn"
 					:url="'./accpect?uid='+item.user_prize_id+'&gameId='+item.game_id+'&verifyCode='+item.verify_code+'&prizeName='+item.prize_name">
@@ -485,6 +488,31 @@ page {
       .goods_title {
         color: #333333;
         font-weight: 600;
+         display: flex;
+        flex-direction: column;
+        
+        .content_title {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp:1;
+          line-clamp: 1;
+          -webkit-box-orient: vertical;
+          text-overflow: -o-ellipsis-lastline;
+          width: 310upx;
+        }
+
+        .content_desc {
+          margin-top: 10rpx;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+          -webkit-box-orient: vertical;
+          font-size: 20rpx;
+          color: rgb(156, 153, 153);
+          width: 300rpx;
+        }
       }
 
       .goods_info {

@@ -70,7 +70,8 @@
                 <image :src="item.prize_url" mode=""></image>
               </view>
               <view class="goods_title">
-                <text>{{ item.prize_name }}</text>
+                <text class="content_title">{{ item.prize_name }}</text>
+                <text class="content_desc">{{ item.prize_desc }}</text>
               </view>
             </view>
             <view class="godds_progress">
@@ -945,16 +946,31 @@ page {
         flex: 1;
         font-size: 28upx;
         margin-left: 10upx;
-        height: 88upx;
-        line-height: 44upx;
-        text-overflow: -o-ellipsis-lastline;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-        -webkit-box-orient: vertical;
-        width: 1upx;
+        display: flex;
+        flex-direction: column;
+        
+        .content_title {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp:1;
+          line-clamp: 1;
+          -webkit-box-orient: vertical;
+          text-overflow: -o-ellipsis-lastline;
+          width: 300upx;
+        }
+
+        .content_desc {
+          margin-top: 10rpx;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+          -webkit-box-orient: vertical;
+          font-size: 20rpx;
+          color: rgb(156, 153, 153);
+          width: 300rpx;
+        }
       }
     }
   }
