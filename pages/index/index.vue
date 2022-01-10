@@ -2311,6 +2311,7 @@
 								nickName: res.userInfo.nickName,
 								platform: 'yaoyaoshu',
 							}
+							this.$uma.setUserInfo(res.userInfo)
 							this.$loading.show()
 							uni.login({
 								success: (result) => {
@@ -2318,7 +2319,6 @@
 										code: result.code,
 										...params,
 									})
-									this.$uma.setUserInfo(params)
 								},
 								fail: (err) => {
 									uni.showToast({
@@ -2359,7 +2359,7 @@
 						this.logining = false
 						this.$refs.login_popup.close()
 						this.user = this.$storage.getUser()
-						this.$uma.setOpenid(user.openid)
+						this.$uma.setOpenid(this.user.openid)
 						this.getGameInfo(() => {
 							//获取游戏信息
 
@@ -2502,7 +2502,7 @@
 			return {
 				title: this.gameInfo.name,
 				path,
-				imageUrl: 'https://static.roi-cloud.com/upload/20220104/60935669181512',
+				imageUrl: 'https://static.roi-cloud.com/upload/20220110/60935669171127',
 			}
 		},
 		watch: {
