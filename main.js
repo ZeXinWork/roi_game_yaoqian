@@ -12,8 +12,8 @@ if (process.env.NODE_ENV === 'development') {
   appKey = "61cabb8ce0f9bb492bafae0f";
  } else {
   // 正式环境
-  appKey = "61cabb8ce0f9bb492bafae0f"; // 测试
-  // appKey = "61d8061fe0f9bb492bc26e70"; // 生产
+  // appKey = "61cabb8ce0f9bb492bafae0f"; // 测试
+  appKey = "61d8061fe0f9bb492bc26e70"; // 生产
  }
 
 uma.init({
@@ -25,7 +25,7 @@ uma.init({
   // 如若需要，请到友盟后台"设置管理-应用信息"(https://mp.umeng.com/setting/appset)中设置appId及secret
   autoGetOpenid: true,
   debug: true, //是否打开调试模式
-  uploadUserInfo: false, // 自动上传用户信息，设为false取消上传，默认为false
+  uploadUserInfo: true, // 自动上传用户信息，设为false取消上传，默认为false
   enableVerify: false, // 埋点验证
 })
 
