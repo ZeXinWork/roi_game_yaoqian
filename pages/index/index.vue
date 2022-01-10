@@ -31,7 +31,7 @@
         minHeight: minHeight + 'px',
         background: `url(${
           gameInfo.backgroundInfo.backgroundUrl ||
-          'https://static.roi-cloud.com/upload/20220110/60935669111150'
+          'https://static.roi-cloud.com/upload/20220110/60935669121035'
         }) no-repeat`,
         backgroundSize: '100%',
       }">
@@ -909,8 +909,7 @@
 					if (
 						(delA > 7 && delB > 7) ||
 						(delA > 7 && delG > 7) ||
-						delB > 7 ||
-						delG > 7
+						(delB > 7 || delG > 7)
 					) {
 						// 用户设备摇动了，触发响应操作
 						// 此处的判断依据是任意两个轴篇转角度大于15度
@@ -4042,11 +4041,11 @@
 			line-height: 80upx;
 			text-align: center;
 			font-size: 34rpx;
-			color: #ffffff;
+			color: #976f1d;
 		}
 
 		.zl_btn {
-			border: 2px solid #ffffff;
+			border: 2px solid #976f1d;
 		}
 
 		.btn_primary {
