@@ -31,7 +31,7 @@
         minHeight: minHeight + 'px',
         background: `url(${
           gameInfo.backgroundInfo.backgroundUrl ||
-          'https://static.roi-cloud.com/upload/20220105/60935669144135'
+          'https://static.roi-cloud.com/upload/20220110/60935669111150'
         }) no-repeat`,
         backgroundSize: '100%',
       }">
@@ -889,7 +889,7 @@
 				const launchOptions = this.$storage.get("options");
 				const locationTime = this.$storage.get("getLocationTime");
 				const exange = acceptDataPrevpage('exange')
-				if (exange.flag) {
+				if (exange && exange.flag) {
 					this.exchangeQuery.isPlay = true
 					this.exchangeQuery.hasMore = true
 					this.getExchange()
@@ -916,7 +916,6 @@
 						// 此处的判断依据是任意两个轴篇转角度大于15度
 
 						this.shakePlay = true;
-
 						// this.play(true)
 					}
 					this.lastAcc = res; // 存储上一次的event
@@ -4043,11 +4042,11 @@
 			line-height: 80upx;
 			text-align: center;
 			font-size: 34rpx;
-			color: #976f1d;
+			color: #ffffff;
 		}
 
 		.zl_btn {
-			border: 2px solid #976f1d;
+			border: 2px solid #ffffff;
 		}
 
 		.btn_primary {
