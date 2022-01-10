@@ -31,7 +31,7 @@
         minHeight: minHeight + 'px',
         background: `url(${
           gameInfo.backgroundInfo.backgroundUrl ||
-          'https://static.roi-cloud.com/upload/20220110/60935669121035'
+          'https://static.roi-cloud.com/upload/20220110/60935669150412'
         }) no-repeat`,
         backgroundSize: '100%',
       }">
@@ -902,11 +902,10 @@
 			}
 		},
 		onShow() {
-			this.getData()
-
 			if (this.user && this.user.userId) {
-				const launchOptions = this.$storage.get('options')
-				const locationTime = this.$storage.get('getLocationTime')
+				this.getData()
+				const launchOptions = this.$storage.get("options")
+				const locationTime = this.$storage.get("getLocationTime")
 				const exange = acceptDataPrevpage('exange')
 				if (exange && exange.flag) {
 					this.exchangeQuery.isPlay = true
@@ -1392,16 +1391,14 @@
 				})
 			},
 			getData() {
-				if (this.gameId && this.user && this.user.userId) {
-					this.getGameInfo()
-					// 获取排行榜
-					this.getRankScore()
-					// 获取我的排行
-					this.getMyRank()
-					//获取游戏可玩次数
-					this.getPlayNumber()
-					this.getWechatMessage()
-				}
+				this.getGameInfo()
+				// 获取排行榜
+				this.getRankScore()
+				// 获取我的排行
+				this.getMyRank()
+				//获取游戏可玩次数
+				this.getPlayNumber()
+				this.getWechatMessage()
 			},
 			// 初始化
 
@@ -2314,6 +2311,7 @@
 								nickName: res.userInfo.nickName,
 								platform: 'yaoyaoshu',
 							}
+							this.$uma.setUserInfo(res.userInfo)
 							this.$loading.show()
 							uni.login({
 								success: (result) => {
@@ -2361,7 +2359,7 @@
 						this.logining = false
 						this.$refs.login_popup.close()
 						this.user = this.$storage.getUser()
-
+						this.$uma.setOpenid(this.user.openid)
 						this.getGameInfo(() => {
 							//获取游戏信息
 
@@ -2504,7 +2502,7 @@
 			return {
 				title: this.gameInfo.name,
 				path,
-				imageUrl: 'https://static.roi-cloud.com/upload/20220104/60935669181512',
+				imageUrl: 'https://static.roi-cloud.com/upload/20220110/60935669173101',
 			}
 		},
 		watch: {
