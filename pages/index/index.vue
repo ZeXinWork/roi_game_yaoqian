@@ -197,9 +197,9 @@
 			</view>
 
 			<view class="rank_ad_wrap" v-if="
-          gameInfo.game_pk_plugin &&
+          (gameInfo.game_pk_plugin &&
           gameInfo.game_pk_plugin.length &&
-          gameInfo.game_pk_plugin.length !== 0
+          gameInfo.game_pk_plugin.length !== 0)||gameInfo.game_pk_player
         ">
 				<view class="rank_wrap">
 					<view class="rank_title">
