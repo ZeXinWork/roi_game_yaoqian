@@ -31,7 +31,7 @@
         minHeight: minHeight + 'px',
         background: `url(${
           gameInfo.backgroundInfo.backgroundUrl ||
-          'https://static.roi-cloud.com/upload/20220105/60935669144135'
+          'https://static.roi-cloud.com/upload/20220110/60935669121035'
         }) no-repeat`,
         backgroundSize: '100%',
       }">
@@ -909,14 +909,12 @@
 					if (
 						(delA > 7 && delB > 7) ||
 						(delA > 7 && delG > 7) ||
-						delB > 7 ||
-						delG > 7
+						(delB > 7 || delG > 7)
 					) {
 						// 用户设备摇动了，触发响应操作
 						// 此处的判断依据是任意两个轴篇转角度大于15度
 
 						this.shakePlay = true;
-
 						// this.play(true)
 					}
 					this.lastAcc = res; // 存储上一次的event
