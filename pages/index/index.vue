@@ -2502,7 +2502,7 @@
 			return {
 				title: this.gameInfo.name,
 				path,
-				imageUrl: 'https://static.roi-cloud.com/upload/20220110/60935669171127',
+				imageUrl: 'https://static.roi-cloud.com/upload/20220110/60935669173101',
 			}
 		},
 		watch: {
