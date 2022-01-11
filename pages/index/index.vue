@@ -846,6 +846,7 @@
 				currentCashArrayIndex: 0,
 				currentCashArray: [],
 				radomIndex: 0,
+				cashTimer: "",
 				noCashItem: false,
 				showCash: {},
 				playAnimation: false,
@@ -941,6 +942,9 @@
 					isPlay: false,
 				},
 			}
+		},
+		onUnload() {
+			// clearInterval(this.cashTimer)
 		},
 		onShow() {
 			if (this.user && this.user.userId) {
@@ -1139,7 +1143,7 @@
 					}
 				]
 				const _this = this
-				this.cashOut = setInterval(function() {
+				this.cashTimer = setInterval(function() {
 					if (_this.currentCashArray.length === 0) {
 						_this.currentCashArray.push(array1)
 					}
