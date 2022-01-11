@@ -38,6 +38,41 @@
 			<!-- 	<image class="levl-1 trunk" src="https://static.roi-cloud.com/upload/20211229/60935669183338"
 				mode="aspectFill">
 			</image> -->
+			<view class="barrage1" v-show="radomIndex===1">
+				<image src="https://static.roi-cloud.com/upload/20220111/60935669160751" mode="aspectFill"></image>
+				<view>
+					<text class="user_info">{{showCash.name}}已兑换</text>
+					<text class="reword">{{showCash.reword}}</text>
+				</view>
+			</view>
+			<view class="barrage2" v-show="radomIndex===2">
+				<image src="https://static.roi-cloud.com/upload/20220111/60935669160751" mode="aspectFill"></image>
+				<view>
+					<text class="user_info">{{showCash.name}}已兑换</text>
+					<text class="reword">{{showCash.reword}}</text>
+				</view>
+			</view>
+			<view class="barrage3" v-show="radomIndex===3">
+				<image src="https://static.roi-cloud.com/upload/20220111/60935669160751" mode="aspectFill"></image>
+				<view>
+					<text class="user_info">{{showCash.name}}已兑换</text>
+					<text class="reword">{{showCash.reword}}</text>
+				</view>
+			</view>
+			<view class="barrage4" v-show="radomIndex===4">
+				<image src="https://static.roi-cloud.com/upload/20220111/60935669160751" mode="aspectFill"></image>
+				<view>
+					<text class="user_info">{{showCash.name}}已兑换</text>
+					<text class="reword">{{showCash.reword}}</text>
+				</view>
+			</view>
+			<view class="barrage5" v-show="radomIndex===5">
+				<image src="https://static.roi-cloud.com/upload/20220111/60935669160751" mode="aspectFill"></image>
+				<view>
+					<text class="user_info">{{showCash.name}}已兑换</text>
+					<text class="reword">{{showCash.reword}}</text>
+				</view>
+			</view>
 			<image id="trunkId" :class="[
           'levl-1',
           { swiper_anumation: !playAnimation },
@@ -807,6 +842,12 @@
 		},
 		data() {
 			return {
+				currentCashIndex: 0,
+				currentCashArrayIndex: 0,
+				currentCashArray: [],
+				radomIndex: 0,
+				noCashItem: false,
+				showCash: {},
 				playAnimation: false,
 				share: false,
 				onceShare: true,
@@ -1022,6 +1063,7 @@
 				}
 			}
 			this.getPrivacy()
+			// this.handleCashShow()
 		},
 
 		onHide() {
@@ -1051,6 +1093,84 @@
 			},
 		},
 		methods: {
+			handleCashShow() {
+				let array1 = [{
+					name: '小纯洁1',
+					umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
+					reword: "紫砂壶"
+				}, {
+					name: '小纯洁2',
+					umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
+					reword: "紫砂壶"
+				}, {
+					name: '小纯洁3',
+					umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
+					reword: "紫砂壶"
+				}, {
+					name: '小纯洁4',
+					umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
+					reword: "紫砂壶"
+				}, {
+					name: '小纯洁5',
+					umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
+					reword: "紫砂壶"
+				}]
+				let array2 = [{
+						name: '小纯洁6',
+						umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
+						reword: "紫砂壶"
+					},
+					{
+						name: '小纯洁7',
+						umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
+						reword: "紫砂壶"
+					}, {
+						name: '小纯洁8',
+						umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
+						reword: "紫砂壶"
+					}, {
+						name: '小纯洁9',
+						umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
+						reword: "紫砂壶"
+					}, {
+						name: '小纯洁10',
+						umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
+						reword: "紫砂壶"
+					}
+				]
+				const _this = this
+				this.cashOut = setInterval(function() {
+					if (_this.currentCashArray.length === 0) {
+						_this.currentCashArray.push(array1)
+					}
+					_this.radomIndex = Math.ceil(Math.random() * 5)
+					_this.showCash = _this.currentCashArray[_this.currentCashArrayIndex][_this.currentCashIndex]
+
+					if (_this.currentCashIndex === 4) {
+						_this.currentCashIndex = 0
+						if (_this.currentCashArrayIndex === 1) {
+							_this.currentCashArrayIndex = 0
+						} else {
+
+
+							_this.currentCashArrayIndex = _this.currentCashArrayIndex + 1
+							if (!_this.noCashItem) {
+								_this.noCashItem = true
+								setTimeout(function() {
+									_this.currentCashArray.push(array2)
+								}, 1000)
+							}
+
+
+						}
+
+
+					} else {
+						_this.currentCashIndex = _this.currentCashIndex + 1
+					}
+
+				}, 5000)
+			},
 			handleTest() {
 				this.awardQuery.hasMore = true
 			},
@@ -1942,6 +2062,7 @@
 							return
 						}
 						this.$refs[ref].open()
+						return
 					}
 					this.$refs[ref].show()
 				}
@@ -2531,6 +2652,85 @@
 </script>
 
 <style lang="scss">
+	@mixin barrageContent {
+		width: 288rpx;
+		height: 60rpx;
+		box-sizing: border-box;
+		padding: 0 17rpx 0 8rpx;
+		background: #FEEBCC;
+		display: flex;
+		align-items: center;
+		border-radius: 56rpx;
+		animation: fadeIn 5s ease-out infinite forwards;
+		z-index: 1000;
+		opacity: 80%;
+		font-size: 22rpx;
+		position: absolute;
+
+		image {
+			width: 44rpx;
+			height: 44rpx;
+			border-radius: 100%;
+			margin-right: 10rpx;
+		}
+
+		.user_info {
+			color: #76521D
+		}
+
+		.reword {
+			color: #FB5551;
+		}
+	}
+
+	.barrage1 {
+		@include barrageContent;
+
+		left: 208rpx;
+		top: 380rpx
+	}
+
+	.barrage2 {
+		@include barrageContent;
+		top: 550rpx;
+		left: 58rpx;
+	}
+
+	.barrage3 {
+		@include barrageContent;
+		top: 650rpx;
+		right: 40rpx;
+	}
+
+	.barrage4 {
+		@include barrageContent;
+		top: 750rpx;
+		left: 38rpx;
+	}
+
+	.barrage5 {
+		@include barrageContent;
+		top: 950rpx;
+		left: 220rpx;
+	}
+
+	@keyframes fadeIn {
+		0% {
+			opacity: 0;
+			/*初始状态 透明度为0*/
+		}
+
+		50% {
+			opacity: 1;
+			/*中间状态 透明度为0*/
+		}
+
+		100% {
+			opacity: 0;
+			/*结尾状态 透明度为1*/
+		}
+	}
+
 	.trunk {
 		animation: move 0.5s ease-in 2 forwards;
 	}
