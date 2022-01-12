@@ -501,5 +501,10 @@ export const getMyRank = (params) => {
 
 // 获取触发消息推送
 export const apiWechatMessage = () => {
-	return restResult(GET, api.WECHAT_MESSAGE )
+	return restResult(GET, api.WECHAT_MESSAGE)
+}
+
+//获取首页兑奖记录
+export const getCashList = (params) => {
+	return restResult(GET, api.GET_CASH_LIST, params);
 }
