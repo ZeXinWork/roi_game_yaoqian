@@ -758,6 +758,19 @@
 				<text>更多解决方案</text>
 			</navigator>
 		</popup>
+		<popup ref="locationFail" bgColor="#FFF8DC" class="get_out" width="630">
+			<image @click="$refs.location.close()" class="icon_close"
+				src="https://static.roi-cloud.com/base/icon_close.png" mode="">
+			</image>
+			<image class="icon_sad" src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
+			<view class="m_title">
+				<text>您不在游戏范围内</text>
+			</view>
+			<view class="s_title" style="margin-top: 50rpx">
+				<text>很抱歉，您当前所在的区域不在游戏投放范围内，无法进行游戏。您依然可以进行兑奖操作</text>
+			</view>
+			<view class="btn_know" style="margin-bottom: 50rpx" @click="openLocationSetting">我知道</view>
+		</popup>
 		<uni-popup :maskClick="false" type="dialog" ref="dialog">
 			<view class="phone-wrap">
 				<view class="phone-container">
@@ -941,6 +954,7 @@
 					hasMore: true,
 					isPlay: false,
 				},
+				isLocation: true,
 			}
 		},
 		onUnload() {
@@ -1249,7 +1263,7 @@
 				this.UnpublishedAudio.play() //执行播放
 			},
 			playShackSound() {
-				if (!Number(this.playTime)) {
+				if (!Number(this.playTime) || !this.isLocation) {
 					return
 				}
 
@@ -2389,15 +2403,21 @@
 					game_id: this.gameId,
 				}).then((res) => {
 					if (res.errno === '1') {
-						uni.showToast({
-							title: `${res.errmsg}`,
-							icon: 'error',
-						})
+						if (res.errmsg === '您不在游戏范围内') {
+							this.isLocation = false
+							this.$refs.locationFail.show()
+						} else {
+							uni.showToast({
+								title: `${res.errmsg}`,
+								icon: 'error',
+							})
+						}
 						this.trackEvent('playGame', {})
 						this.playLoading = false
 						this.playAnimation = false
 						return
 					}
+					this.isLocation = true
 					this.gameResult.result = res.result
 					if (res.result) {
 						this.gameResult.prize = res.prize
