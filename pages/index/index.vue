@@ -919,7 +919,7 @@
 				verifyCodeResult: {},
 				gameId: '',
 				gameInfo: {},
-				playTime: 0,
+				playTime: 6,
 				inviteCode: '',
 				isInvite: false,
 				user: {},
