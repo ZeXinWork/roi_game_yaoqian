@@ -26,7 +26,7 @@
         }) no-repeat`,
         backgroundSize: '100%',
       }"> -->
-
+<!-- https://static.roi-cloud.com/upload/20220113/60935669134954 -->
 		<view id="main" :style="{
         paddingTop: navbarHeight + 'px',
         minHeight: minHeight + 'px',
@@ -36,8 +36,8 @@
         }) no-repeat`,
         backgroundSize: '100%',
       }">
-			<!-- <canvas id="lottie_demo" type="2d" /> -->
 
+			<!-- <canvas canvas-id="lottie_demo" id="lottie_demo" type="2d" /> -->
 			<!-- 	<image class="levl-1 trunk" src="https://static.roi-cloud.com/upload/20211229/60935669183338"
 				mode="aspectFill">
 			</image> -->
@@ -77,12 +77,12 @@
 				</view>
 			</view>
 
-			<cover-image id="trunkId" :class="[
+			<image id="trunkId" :class="[
           'levl-1',
           { swiper_anumation: !playAnimation },
           { trunk_slow: playAnimation },
         ]" src="https://static.roi-cloud.com/upload/20211230/60935669143532" mode="aspectFill">
-			</cover-image>
+			</image>
 			<image :class="[
           'levl-2 ',
           { swiper_anumation_slow: !playAnimation },
@@ -213,9 +213,8 @@
 			<redEnvelope @handleGameResult="handleGameResult" @play="play" ref="redEnvelope" :result="gameResult.result"
 				:prize="gameResult.prize" :playTime="playTime" :type="gameInfo.lottery_type"
 				:openShare="isOpenShareContent" />
-
-			<view v-if="isOpenShareContent" class="de_btn zl_btn" @click="popShow('share')">喊好友来游戏</view>
-			<view class="recorde_ad_wrap">
+			<view v-if="isOpenShareContent" style="position: relative" class="de_btn zl_btn" @click="popShow('share')">喊好友来游戏</view>
+			<view class="recorde_ad_wrap" style="position: relative">
 				<!-- <view class="recorde_ad_wrap" :style="{'min-height': gameInfo && gameInfo.ad_info.length > 0 ? '400rpx' : '200rpx'}"> -->
 				<view class="record_wrap">
 					<text @click="popShow('score')">积分明细</text>
@@ -764,7 +763,7 @@
 			</navigator>
 		</popup>
 		<popup ref="locationFail" bgColor="#FFF8DC" class="get_out" width="630">
-			<image @click="$refs.location.close()" class="icon_close"
+			<image @click="$refs.locationFail.close()" class="icon_close"
 				src="https://static.roi-cloud.com/base/icon_close.png" mode="">
 			</image>
 			<image class="icon_sad" src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
@@ -774,7 +773,7 @@
 			<view class="s_title" style="margin-top: 50rpx">
 				<text>很抱歉，您当前所在的区域不在游戏投放范围内，无法进行游戏。您依然可以进行兑奖操作</text>
 			</view>
-			<view class="btn_know" style="margin-bottom: 50rpx" @click="openLocationSetting">我知道</view>
+			<view class="btn_know" style="margin-bottom: 50rpx" @click="$refs.locationFail.close()">我知道</view>
 		</popup>
 		<uni-popup :maskClick="false" type="dialog" ref="dialog">
 			<view class="phone-wrap">
@@ -966,7 +965,7 @@
 		},
 		onUnload() {
 			console.log('写在啦.....')
-			// clearInterval(this.cashTimer)
+			clearInterval(this.cashTimer)
 		},
 		onShow() {
 			if (this.user && this.user.userId) {
@@ -1017,30 +1016,37 @@
 			uni.getSystemInfo({
 				success: function(res) {
 					_this.minHeight = res.windowHeight
-					// uni.createSelectorQuery().selectAll('#lottie_demo').node(res => {
-					// 	const canvas = res[0].node
-					// 	let device = uni.getSystemInfo();
-					// 	const context = canvas.getContext('2d')
-					// 	// canvas.height = uni.getSystemInfoSync().screenHeight
-					// 	// canvas.width = uni.getSystemInfoSync().screenWidth
-					// 	canvas.height = 1000
-					// 	canvas.width = 1000
-					// 	lottie.setup(canvas)
-					// 	_this.ani = lottie.loadAnimation({
-					// 		loop: true,
-					// 		autoplay: true,
-					// 		animationData: require('../../utils/yaoyaoshu.js'),
-					// 		rendererSettings: {
-					// 			context,
-					// 		},
-					// 	})
-					// 	_this.inited = true
-					// }).exec()
 				},
 			});
 			this.context = uni.createCanvasContext("shareCanvas", this);
 		},
 		onLoad(options) {
+			const _this = this
+			// uni.getSystemInfo({
+			// 	success: function(res) {
+			// 		// _this.minHeight = res.windowHeight
+			// 		uni.createSelectorQuery().selectAll('#lottie_demo').node(res => {
+			// 			const canvas = res[0].node
+			// 			let device = uni.getSystemInfo();
+			// 			const context = canvas.getContext('2d')
+			// 			canvas.height = uni.getSystemInfoSync().screenHeight
+			// 			canvas.width = uni.getSystemInfoSync().screenWidth
+			// 			// canvas.height = 1000
+			// 			// canvas.width = 1000
+			// 			lottie.setup(canvas)
+			// 			_this.ani = lottie.loadAnimation({
+			// 				loop: true,
+			// 				autoplay: true,
+			// 				path: 'https://static.roi-cloud.com/upload/yaoyaoshu/yaoyaoshu_new.json',
+			// 				rendererSettings: {
+			// 					context,
+			// 				},
+			// 			})
+			// 			_this.inited = true
+			// 		}).exec()
+			// 	},
+			// })
+
 			console.log(
 				process.env.NODE_ENV,
 				"process.env.NODE_ENVprocess.env.NODE_ENVprocess.env.NODE_ENVprocess.env.NODE_ENV"
@@ -1109,7 +1115,7 @@
 				}
 			}
 			this.getPrivacy()
-			// this.handleCashShow()
+
 		},
 
 		onHide() {
@@ -1152,18 +1158,26 @@
 					offset: 0,
 					limit: 50
 				})
-				this.cashTimer = setInterval(function() {
+				if (Array.isArray(data) && data.length > 0) {
+					_this.currentCashIndex = 0
+					clearInterval(this.cashTimer)
 					_this.radomIndex = Math.ceil(Math.random() * 5)
 					_this.showCash = data[_this
 						.currentCashIndex
 					]
-					if (_this.currentCashIndex + 1 === data.length) {
-						_this.currentCashIndex = 0
-					} else {
-						_this.currentCashIndex = _this.currentCashIndex + 1
-					}
-				}, 5000)
-
+					_this.currentCashIndex = _this.currentCashIndex + 1
+					this.cashTimer = setInterval(function() {
+						_this.radomIndex = Math.ceil(Math.random() * 5)
+						_this.showCash = data[_this
+							.currentCashIndex
+						]
+						if (_this.currentCashIndex + 1 === data.length) {
+							_this.currentCashIndex = 0
+						} else {
+							_this.currentCashIndex = _this.currentCashIndex + 1
+						}
+					}, 12000)
+				}
 			},
 			handleTest() {
 				this.awardQuery.hasMore = true;
@@ -2325,9 +2339,9 @@
 						this.$storage.set("gameId", this.gameId);
 						this.showGamePopup(Number(res.status));
 
-						this.getRankScore(); // 排行榜信息
-
-						handler && handler();
+						this.getRankScore() // 排行榜信息
+						this.handleCashShow()
+						handler && handler()
 					})
 					.catch((err) => {
 						uni.showToast({
@@ -2662,7 +2676,7 @@
 	}
 
 	@mixin barrageContent {
-		width: 288rpx;
+		width: 358rpx;
 		height: 60rpx;
 		box-sizing: border-box;
 		padding: 0 17rpx 0 8rpx;
@@ -2670,8 +2684,8 @@
 		display: flex;
 		align-items: center;
 		border-radius: 56rpx;
-		animation: fadeIn 5s ease-out infinite forwards;
-		z-index: 1000;
+		animation: fadeIn 12s ease-out infinite forwards;
+		z-index: 100;
 		opacity: 80%;
 		font-size: 22rpx;
 		position: absolute;
@@ -2681,6 +2695,13 @@
 			height: 44rpx;
 			border-radius: 100%;
 			margin-right: 10rpx;
+		}
+
+		view {
+			flex: 1;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 
 		.user_info {
@@ -2729,9 +2750,18 @@
 			/*初始状态 透明度为0*/
 		}
 
+		20% {
+			opacity: 1;
+		}
+
+
 		50% {
 			opacity: 1;
 			/*中间状态 透明度为0*/
+		}
+
+		80% {
+			opacity: 1;
 		}
 
 		100% {
@@ -2902,6 +2932,7 @@
 		position: absolute;
 		left: 170rpx;
 		top: 320rpx;
+		z-index: 20
 	}
 
 	.levl-2 {
@@ -2930,7 +2961,6 @@
 		position: absolute;
 		z-index: 40;
 		left: 22rpx;
-		left: 22rpx;
 	}
 
 	.levl-5 {
@@ -2948,7 +2978,7 @@
 		position: absolute;
 		top: 837rpx;
 		left: 150rpx;
-		z-index: 00;
+		z-index: 10
 	}
 
 	.levl-7 {
@@ -2966,6 +2996,7 @@
 		position: absolute;
 		top: 632rpx;
 		right: 0rpx;
+		z-index: 20
 	}
 
 	@mixin hongbao {
@@ -4101,6 +4132,7 @@
 	#main {
 		box-sizing: border-box;
 		position: relative;
+		// display: none;
 
 		.tips {
 			color: #fff;
