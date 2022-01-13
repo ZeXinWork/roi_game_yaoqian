@@ -327,3 +327,6 @@ export const GET_MY_RANK = '/api/user/ranking'
 
 // 小程序通知开关
 export const WECHAT_MESSAGE = '/api/subscribe/index'
+
+//获取相关兑奖信息
+export const GET_CASH_LIST = '/api/game/redeemlog'

@@ -26,6 +26,7 @@
         }) no-repeat`,
         backgroundSize: '100%',
       }"> -->
+
 		<view id="main" :style="{
         paddingTop: navbarHeight + 'px',
         minHeight: minHeight + 'px',
@@ -35,50 +36,53 @@
         }) no-repeat`,
         backgroundSize: '100%',
       }">
+			<!-- <canvas id="lottie_demo" type="2d" /> -->
+
 			<!-- 	<image class="levl-1 trunk" src="https://static.roi-cloud.com/upload/20211229/60935669183338"
 				mode="aspectFill">
 			</image> -->
 			<view class="barrage1" v-show="radomIndex===1">
-				<image src="https://static.roi-cloud.com/upload/20220111/60935669160751" mode="aspectFill"></image>
+				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
-					<text class="user_info">{{showCash.name}}已兑换</text>
-					<text class="reword">{{showCash.reword}}</text>
+					<text class="user_info">{{showCash.nickname}}已兑换</text>
+					<text class="reword">{{showCash.prize_name}}</text>
 				</view>
 			</view>
 			<view class="barrage2" v-show="radomIndex===2">
-				<image src="https://static.roi-cloud.com/upload/20220111/60935669160751" mode="aspectFill"></image>
+				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
-					<text class="user_info">{{showCash.name}}已兑换</text>
-					<text class="reword">{{showCash.reword}}</text>
+					<text class="user_info">{{showCash.nickname}}已兑换</text>
+					<text class="reword">{{showCash.prize_name}}</text>
 				</view>
 			</view>
 			<view class="barrage3" v-show="radomIndex===3">
-				<image src="https://static.roi-cloud.com/upload/20220111/60935669160751" mode="aspectFill"></image>
+				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
-					<text class="user_info">{{showCash.name}}已兑换</text>
-					<text class="reword">{{showCash.reword}}</text>
+					<text class="user_info">{{showCash.nickname}}已兑换</text>
+					<text class="reword">{{showCash.prize_name}}</text>
 				</view>
 			</view>
 			<view class="barrage4" v-show="radomIndex===4">
-				<image src="https://static.roi-cloud.com/upload/20220111/60935669160751" mode="aspectFill"></image>
+				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
-					<text class="user_info">{{showCash.name}}已兑换</text>
-					<text class="reword">{{showCash.reword}}</text>
+					<text class="user_info">{{showCash.nickname}}已兑换</text>
+					<text class="reword">{{showCash.prize_name}}</text>
 				</view>
 			</view>
 			<view class="barrage5" v-show="radomIndex===5">
-				<image src="https://static.roi-cloud.com/upload/20220111/60935669160751" mode="aspectFill"></image>
+				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
-					<text class="user_info">{{showCash.name}}已兑换</text>
-					<text class="reword">{{showCash.reword}}</text>
+					<text class="user_info">{{showCash.nickname}}已兑换</text>
+					<text class="reword">{{showCash.prize_name}}</text>
 				</view>
 			</view>
-			<image id="trunkId" :class="[
+
+			<cover-image id="trunkId" :class="[
           'levl-1',
           { swiper_anumation: !playAnimation },
           { trunk_slow: playAnimation },
         ]" src="https://static.roi-cloud.com/upload/20211230/60935669143532" mode="aspectFill">
-			</image>
+			</cover-image>
 			<image :class="[
           'levl-2 ',
           { swiper_anumation_slow: !playAnimation },
@@ -812,6 +816,7 @@
 </template>
 
 <script>
+	import lottie from 'lottie-miniprogram'
 	import '@/static/css/game.scss'
 	import Modal from '@/components/Modal.vue'
 	import startsWith from 'lodash/startsWith'
@@ -846,6 +851,7 @@
 		getMyRank,
 		apiWechatMessage,
 		apiSetUserLocation,
+		getCashList
 	} from '@/rest/api.js'
 	export default {
 		components: {
@@ -958,6 +964,7 @@
 			}
 		},
 		onUnload() {
+			console.log('写在啦.....')
 			// clearInterval(this.cashTimer)
 		},
 		onShow() {
@@ -1009,6 +1016,25 @@
 			uni.getSystemInfo({
 				success: function(res) {
 					_this.minHeight = res.windowHeight
+					// uni.createSelectorQuery().selectAll('#lottie_demo').node(res => {
+					// 	const canvas = res[0].node
+					// 	let device = uni.getSystemInfo();
+					// 	const context = canvas.getContext('2d')
+					// 	// canvas.height = uni.getSystemInfoSync().screenHeight
+					// 	// canvas.width = uni.getSystemInfoSync().screenWidth
+					// 	canvas.height = 1000
+					// 	canvas.width = 1000
+					// 	lottie.setup(canvas)
+					// 	_this.ani = lottie.loadAnimation({
+					// 		loop: true,
+					// 		autoplay: true,
+					// 		animationData: require('../../utils/yaoyaoshu.js'),
+					// 		rendererSettings: {
+					// 			context,
+					// 		},
+					// 	})
+					// 	_this.inited = true
+					// }).exec()
 				},
 			})
 			this.context = uni.createCanvasContext('shareCanvas', this)
@@ -1111,83 +1137,31 @@
 			},
 		},
 		methods: {
-			handleCashShow() {
-				let array1 = [{
-					name: '小纯洁1',
-					umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
-					reword: "紫砂壶"
-				}, {
-					name: '小纯洁2',
-					umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
-					reword: "紫砂壶"
-				}, {
-					name: '小纯洁3',
-					umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
-					reword: "紫砂壶"
-				}, {
-					name: '小纯洁4',
-					umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
-					reword: "紫砂壶"
-				}, {
-					name: '小纯洁5',
-					umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
-					reword: "紫砂壶"
-				}]
-				let array2 = [{
-						name: '小纯洁6',
-						umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
-						reword: "紫砂壶"
-					},
-					{
-						name: '小纯洁7',
-						umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
-						reword: "紫砂壶"
-					}, {
-						name: '小纯洁8',
-						umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
-						reword: "紫砂壶"
-					}, {
-						name: '小纯洁9',
-						umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
-						reword: "紫砂壶"
-					}, {
-						name: '小纯洁10',
-						umage: 'https://static.roi-cloud.com/upload/20220111/60935669160751',
-						reword: "紫砂壶"
-					}
-				]
+			startPlay() {
+				this.ani.play()
+			},
+			pause() {
+				this.ani.pause()
+			},
+			async handleCashShow() {
 				const _this = this
+				const data = await getCashList({
+					gameId: this.gameId,
+					offset: 0,
+					limit: 50
+				})
 				this.cashTimer = setInterval(function() {
-					if (_this.currentCashArray.length === 0) {
-						_this.currentCashArray.push(array1)
-					}
 					_this.radomIndex = Math.ceil(Math.random() * 5)
-					_this.showCash = _this.currentCashArray[_this.currentCashArrayIndex][_this.currentCashIndex]
-
-					if (_this.currentCashIndex === 4) {
+					_this.showCash = data[_this
+						.currentCashIndex
+					]
+					if (_this.currentCashIndex + 1 === data.length) {
 						_this.currentCashIndex = 0
-						if (_this.currentCashArrayIndex === 1) {
-							_this.currentCashArrayIndex = 0
-						} else {
-
-
-							_this.currentCashArrayIndex = _this.currentCashArrayIndex + 1
-							if (!_this.noCashItem) {
-								_this.noCashItem = true
-								setTimeout(function() {
-									_this.currentCashArray.push(array2)
-								}, 1000)
-							}
-
-
-						}
-
-
 					} else {
 						_this.currentCashIndex = _this.currentCashIndex + 1
 					}
-
 				}, 5000)
+
 			},
 			handleTest() {
 				this.awardQuery.hasMore = true
@@ -2676,6 +2650,14 @@
 </script>
 
 <style lang="scss">
+	#lottie_demo {
+		height: 100vh;
+		width: 100vw;
+		position: absolute;
+
+
+	}
+
 	@mixin barrageContent {
 		width: 288rpx;
 		height: 60rpx;
