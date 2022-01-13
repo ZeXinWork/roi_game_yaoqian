@@ -759,7 +759,7 @@
 			</navigator>
 		</popup>
 		<popup ref="locationFail" bgColor="#FFF8DC" class="get_out" width="630">
-			<image @click="$refs.location.close()" class="icon_close"
+			<image @click="$refs.locationFail.close()" class="icon_close"
 				src="https://static.roi-cloud.com/base/icon_close.png" mode="">
 			</image>
 			<image class="icon_sad" src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
@@ -769,7 +769,7 @@
 			<view class="s_title" style="margin-top: 50rpx">
 				<text>很抱歉，您当前所在的区域不在游戏投放范围内，无法进行游戏。您依然可以进行兑奖操作</text>
 			</view>
-			<view class="btn_know" style="margin-bottom: 50rpx" @click="openLocationSetting">我知道</view>
+			<view class="btn_know" style="margin-bottom: 50rpx" @click="$refs.locationFail.close()">我知道</view>
 		</popup>
 		<uni-popup :maskClick="false" type="dialog" ref="dialog">
 			<view class="phone-wrap">
