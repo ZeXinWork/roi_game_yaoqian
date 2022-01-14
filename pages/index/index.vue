@@ -4137,6 +4137,7 @@
 			font-size: 24upx;
 			margin: 0upx 0 8upx;
 			z-index: 21;
+			position: relative;
 		}
 
 		.bowl_title {
