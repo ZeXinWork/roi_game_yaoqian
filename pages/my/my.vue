@@ -44,8 +44,8 @@
 						</view>
 					</view>
 				</view>
-				<view class="more">
-					<text @click="handleMore">查看更多</text>
+				<view class="more" @click="handleMore">
+					<text>查看更多</text>
 				</view>
 			</view>
 
@@ -168,7 +168,8 @@
 		text-align: center;
 		font-size: 28rpx;
 		color: #8e8e8e;
-		margin-top: 74rpx;
+		margin-top: 24rpx;
+		padding: 50rpx 0;
 	}
 
 	.user-wrap {
@@ -243,7 +244,7 @@
 			.user-info-game-wrap {
 				background-color: #fff;
 				border-radius: 20px;
-				padding: 20rpx 36rpx 54rpx 36rpx;
+				padding: 20rpx 36rpx 0 36rpx;
 				box-sizing: border-box;
 				margin-top: -80rpx;
 				width: 90%;
