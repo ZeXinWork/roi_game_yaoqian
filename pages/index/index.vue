@@ -26,7 +26,7 @@
         }) no-repeat`,
         backgroundSize: '100%',
       }"> -->
-<!-- https://static.roi-cloud.com/upload/20220113/60935669134954 -->
+		<!-- https://static.roi-cloud.com/upload/20220113/60935669134954 -->
 		<view id="main" :style="{
         paddingTop: navbarHeight + 'px',
         minHeight: minHeight + 'px',
@@ -213,7 +213,8 @@
 			<redEnvelope @handleGameResult="handleGameResult" @play="play" ref="redEnvelope" :result="gameResult.result"
 				:prize="gameResult.prize" :playTime="playTime" :type="gameInfo.lottery_type"
 				:openShare="isOpenShareContent" />
-			<view v-if="isOpenShareContent" style="position: relative" class="de_btn zl_btn" @click="popShow('share')">喊好友来游戏</view>
+			<view v-if="isOpenShareContent" style="position: relative" class="de_btn zl_btn" @click="popShow('share')">
+				喊好友来游戏</view>
 			<view class="recorde_ad_wrap" style="position: relative">
 				<!-- <view class="recorde_ad_wrap" :style="{'min-height': gameInfo && gameInfo.ad_info.length > 0 ? '400rpx' : '200rpx'}"> -->
 				<view class="record_wrap">
@@ -2973,8 +2974,8 @@
 		width: 320rpx;
 		height: 210rpx;
 		position: absolute;
-		top: 837rpx;
-		left: 150rpx;
+		top: 807rpx;
+		left: 230rpx;
 		z-index: 10
 	}
 
