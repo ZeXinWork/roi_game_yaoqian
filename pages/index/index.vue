@@ -37,7 +37,7 @@
         backgroundSize: '100%',
       }">
 
-			<!-- <canvas canvas-id="lottie_demo" id="lottie_demo" type="2d" /> -->
+			<!-- <canvas style="display: inline-block; " canvas-id="lottie_demo" id="lottie_demo" type="2d" /> -->
 			<!-- 	<image class="levl-1 trunk" src="https://static.roi-cloud.com/upload/20211229/60935669183338"
 				mode="aspectFill">
 			</image> -->
@@ -962,6 +962,7 @@
 					isPlay: false,
 				},
 				isLocation: true,
+				inited: false
 			}
 		},
 		onUnload() {
@@ -1026,25 +1027,7 @@
 			// uni.getSystemInfo({
 			// 	success: function(res) {
 			// 		// _this.minHeight = res.windowHeight
-			// 		uni.createSelectorQuery().selectAll('#lottie_demo').node(res => {
-			// 			const canvas = res[0].node
-			// 			let device = uni.getSystemInfo();
-			// 			const context = canvas.getContext('2d')
-			// 			canvas.height = uni.getSystemInfoSync().screenHeight
-			// 			canvas.width = uni.getSystemInfoSync().screenWidth
-			// 			// canvas.height = 1000
-			// 			// canvas.width = 1000
-			// 			lottie.setup(canvas)
-			// 			_this.ani = lottie.loadAnimation({
-			// 				loop: true,
-			// 				autoplay: true,
-			// 				path: 'https://static.roi-cloud.com/upload/yaoyaoshu/yaoyaoshu_new.json',
-			// 				rendererSettings: {
-			// 					context,
-			// 				},
-			// 			})
-			// 			_this.inited = true
-			// 		}).exec()
+
 			// 	},
 			// })
 
@@ -1151,6 +1134,52 @@
 			},
 			pause() {
 				this.ani.pause()
+			},
+			init() {
+				const _this = this
+				uni.createSelectorQuery().selectAll('#lottie_demo').node(res => {
+					// const canvas = res[0].node
+					// let device = uni.getSystemInfo();
+					// const context = canvas.getContext('2d')
+					// const height = res[0].height
+					// const width = res[0].width
+					// const dpr = wx.getSystemInfoSync().pixelRatio
+					// canvas.width = width * dpr
+					// canvas.height = height * dpr
+					// lottie.setup(canvas)
+					// _this.ani = lottie.loadAnimation({
+					// 	loop: true,
+					// 	autoplay: true,
+					// 	path: 'https://static.roi-cloud.com/upload/yaoyaoshu/yaoyaoshu_new.json',
+					// 	rendererSettings: {
+					// 		context,
+					// 	},
+					// })
+					// _this.inited = true
+
+					const dpr = wx.getSystemInfoSync().pixelRatio
+					const canvas = res[0].node
+					let device = uni.getSystemInfo();
+					const context = canvas.getContext('2d')
+					canvas.height = uni.getSystemInfoSync().screenHeight * dpr
+					canvas.width = uni.getSystemInfoSync().screenWidth * dpr
+					let width = uni.getSystemInfoSync().screenHeight
+					let computedWd = uni.getSystemInfoSync().screenWidth * dpr
+					console.log(width, "widthhhhhhhhhhh")
+					console.log(computedWd, "computedWdwidthhhhhhhhhhh")
+					// canvas.height = 1000
+					// canvas.width = 1000
+					lottie.setup(canvas)
+					_this.ani = lottie.loadAnimation({
+						loop: true,
+						autoplay: true,
+						path: 'https://static.roi-cloud.com/upload/yaoyaoshukaihongbao.json',
+						rendererSettings: {
+							context,
+						},
+					})
+					_this.inited = true
+				}).exec()
 			},
 			async handleCashShow() {
 				const _this = this
@@ -2142,8 +2171,7 @@
 							let item = {
 								info: this.gameInfo.game_pk_plugin[index],
 								range: this.gameInfo.game_pk_plugin[index].end_seq == 1 ?
-									"第" + num + "名" :
-									"第" +
+									"第" + num + "名" : "第" +
 									num +
 									"～" +
 									this.gameInfo.game_pk_plugin[index].end_seq +
