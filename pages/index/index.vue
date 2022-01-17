@@ -27,6 +27,10 @@
         backgroundSize: '100%',
       }"> -->
 		<!-- https://static.roi-cloud.com/upload/20220113/60935669134954 -->
+		<!-- https://static.roi-cloud.com/upload/20220114/60935669172731 -->
+		<!-- https://static.roi-cloud.com/upload/20220117/60935669135726 -->
+		<!-- https://static.roi-cloud.com/upload/20220117/60935669135726 -->
+		<!-- https://static.roi-cloud.com/upload/20220117/60935669174041 -->
 		<view id="main" :style="{
         paddingTop: navbarHeight + 'px',
         minHeight: minHeight + 'px',
@@ -37,10 +41,15 @@
         backgroundSize: '100%',
       }">
 
-			<!-- <canvas style="display: inline-block; " canvas-id="lottie_demo" id="lottie_demo" type="2d" /> -->
+			<!-- <canvas :style="{display:hideAmCanv?'none':'inline-block'}" canvas-id="lottie_demo" id="lottie_demo"
+				type="2d" /> -->
+			<!-- <button @click="init">初始化</button> -->
+			<!-- <button @click='startPlay'>开始玩</button> -->
 			<!-- 	<image class="levl-1 trunk" src="https://static.roi-cloud.com/upload/20211229/60935669183338"
 				mode="aspectFill">
 			</image> -->
+			<!-- <image class="cloud" src="https://static.roi-cloud.com/upload/yaoyaoshu/a0c6bdea09dc971d00d2a4656f5afe3.png"
+				mode="aspectFill"></image> -->
 			<view class="barrage1" v-show="radomIndex===1">
 				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
@@ -962,7 +971,8 @@
 					isPlay: false,
 				},
 				isLocation: true,
-				inited: false
+				inited: false,
+				hideAmCanv: true
 			}
 		},
 		onUnload() {
@@ -1020,6 +1030,7 @@
 					_this.minHeight = res.windowHeight
 				},
 			});
+			// this.init()
 			this.context = uni.createCanvasContext("shareCanvas", this);
 		},
 		onLoad(options) {
@@ -1030,7 +1041,6 @@
 
 			// 	},
 			// })
-
 			console.log(
 				process.env.NODE_ENV,
 				"process.env.NODE_ENVprocess.env.NODE_ENVprocess.env.NODE_ENVprocess.env.NODE_ENV"
@@ -1130,6 +1140,7 @@
 		},
 		methods: {
 			startPlay() {
+				this.hideAmCanv = false
 				this.ani.play()
 			},
 			pause() {
@@ -1161,19 +1172,14 @@
 					const canvas = res[0].node
 					let device = uni.getSystemInfo();
 					const context = canvas.getContext('2d')
-					canvas.height = uni.getSystemInfoSync().screenHeight * dpr
-					canvas.width = uni.getSystemInfoSync().screenWidth * dpr
-					let width = uni.getSystemInfoSync().screenHeight
-					let computedWd = uni.getSystemInfoSync().screenWidth * dpr
-					console.log(width, "widthhhhhhhhhhh")
-					console.log(computedWd, "computedWdwidthhhhhhhhhhh")
-					// canvas.height = 1000
-					// canvas.width = 1000
+
+					canvas.height = 520 * dpr
+					canvas.width = 375 * dpr
 					lottie.setup(canvas)
 					_this.ani = lottie.loadAnimation({
 						loop: true,
-						autoplay: true,
-						path: 'https://static.roi-cloud.com/upload/yaoyaoshukaihongbao.json',
+						autoplay: false,
+						path: 'https://static.roi-cloud.com/upload/yaoyaoshu/test1.json',
 						rendererSettings: {
 							context,
 						},
@@ -2697,11 +2703,18 @@
 
 <style lang="scss">
 	#lottie_demo {
-		height: 100vh;
+		height: 520px;
 		width: 100vw;
 		position: absolute;
+		top: 302rpx;
 
+	}
 
+	.cloud {
+		width: 100vw;
+		height: 912rpx;
+		position: absolute;
+		top: 690rpx
 	}
 
 	@mixin barrageContent {
@@ -4146,7 +4159,7 @@
 	page {
 		box-sizing: border-box;
 		min-height: 100vh;
-		background: #ff2626;
+		background: #ff1500;
 	}
 
 	.wrap {
