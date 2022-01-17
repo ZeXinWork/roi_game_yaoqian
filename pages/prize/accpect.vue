@@ -21,7 +21,7 @@
 				<view class="code_img">
 					<image :show-menu-by-longpress="true" @longpress="longtap" :src="contactInfo.qr_code_url" mode=""></image>
 				</view>
-				<view class="code_tip">长按二维码，保存图片到相册</view>
+				<view class="code_tip">长按二维码，扫码领奖</view>
 			</view>
 			<!-- <view class="code_content" @longtap="saveImage">
 				<view class="m_title">联系商家领奖</view>
