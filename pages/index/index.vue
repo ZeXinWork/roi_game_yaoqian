@@ -40,6 +40,8 @@
         }) no-repeat`,
         backgroundSize: '100%',
       }">
+<!-- 			<button @click="startPlay">开始</button>
+			<button @click="pause">停止</button> -->
 
 			<canvas :style="{display:hideAmCanv?'none':'inline-block'}" canvas-id="lottie_demo" id="lottie_demo"
 				type="2d" />
@@ -1145,6 +1147,7 @@
 				this.init()
 			},
 			pause() {
+				
 				this.hideAmCanv = true
 				this.ani.pause()
 			},
@@ -1235,7 +1238,7 @@
 						_this.playAnimation = false;
 						_this.$refs.redEnvelope.open();
 						_this.playLoading = false;
-					}, 2870)
+					}, 2900)
 
 				}, 2000);
 			},

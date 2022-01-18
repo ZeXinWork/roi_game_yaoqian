@@ -32,15 +32,18 @@
 							</image>
 							<text>直接换奖品，累积冲排名</text>
 						</view>
-						<view class="p_body_mid_prize_yunbao_exchange">
+						<view v-if="nearPrize && Object.keys(nearPrize).length!==0"
+							class="p_body_mid_prize_yunbao_exchange" @click="handleToReword">
 							<view class="title">
-								<view>{{`还差${nearPrize.distance_point}个元宝兑换`}}
+								<view v-if="nearPrize.distance_point==0">现在可以兑换<text
+										class="name">{{nearPrize.prize_name}}</text></view>
+								<view v-else>{{`还差${nearPrize.distance_point}个元宝兑换`}}
 									<text class="name">{{nearPrize.prize_name}}</text>
 								</view>
 
-								<progress class="progress" :stroke-width='15' activeColor='#e73d3d' backgroundColor='#fce2dd'
-									:border-radius='20'
-									:percent="nearPrize.distance_point==0?100: nearPrize.distance_point/nearPrize.prize_point" />
+								<progress class="progress" :stroke-width='15' activeColor='#e73d3d'
+									backgroundColor='#fce2dd' :border-radius='20'
+									:percent="nearPrize.distance_point==0?100: ((nearPrize.prize_point-nearPrize.distance_point)/nearPrize.prize_point)*100" />
 							</view>
 							<view class="reword">
 								<image :src="nearPrize.prize_url" mode="aspectFill"></image>
@@ -94,7 +97,8 @@
 			playTime: 0,
 			openShare: false,
 			nearPrize: {
-				type: Object
+				type: Object,
+				default: {},
 			}
 		},
 		methods: {
@@ -109,6 +113,12 @@
 			},
 			handlePlay() {
 				this.$emit('play')
+			},
+			handleToReword() {
+				const _this = this
+				uni.navigateTo({
+					url: `/pages/conversion/conversion?gameId=${_this.$parent.gameId}`
+				})
 			}
 		},
 
