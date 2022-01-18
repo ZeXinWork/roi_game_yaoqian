@@ -38,8 +38,9 @@
 									<text class="name">{{nearPrize.prize_name}}</text>
 								</view>
 
-								<image src="https://static.roi-cloud.com/upload/20220118/60935669113541"
-									mode="aspectFill"></image>
+								<progress class="progress" :stroke-width='15' activeColor='#e73d3d' backgroundColor='#fce2dd'
+									:border-radius='20'
+									:percent="nearPrize.distance_point==0?100: nearPrize.distance_point/nearPrize.prize_point" />
 							</view>
 							<view class="reword">
 								<image :src="nearPrize.prize_url" mode="aspectFill"></image>
@@ -119,6 +120,10 @@
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
+	}
+
+	.progress {
+		margin-top: 16rpx;
 	}
 
 	.one_coin_view {
