@@ -3,7 +3,7 @@
 		<view class="p_body">
 			<view class="p_body_mid" v-if="result">
 				<view class="p_body_mid_title" v-if="type == 1">恭喜您抽到奖品啦</view>
-				<view class="p_body_mid_title" v-else>恭喜您抽到积分啦</view>
+				<view class="p_body_mid_title" v-else>恭喜您摇到</view>
 				<view class="p_body_mid_prize" v-if="type == 1">
 					<view class="p_body_mid_prize_item">
 						<image :src="prize.prize_url" mode="aspectFill"></image>
@@ -20,30 +20,44 @@
 					</view>
 				</view>
 				<view class="p_body_mid_prize" v-else>
-					<view class="p_body_mid_prize_integral">
-						<image v-if="prize.template_award_id == 1" src="https://static.roi-cloud.com/upload/20211230/60935669173307" mode="aspectFill"></image>
-						<image v-if="prize.template_award_id == 2" src="https://static.roi-cloud.com/upload/20211231/60935669105816" mode="aspectFill"></image>
-						<image v-if="prize.template_award_id >= 3 || prize.template_award_id == 0" src="https://static.roi-cloud.com/upload/20211230/60935669173445" mode="aspectFill"></image>
-						<view class="get_integral">
-							<view><span>{{`+ ${prize.award_point} `}}</span> 积分</view>
+					<view class="p_body_mid_prize_yunbao">
+						<view class="p_body_mid_prize_yunbao_title">
+							<image src="https://static.roi-cloud.com/upload/20220118/60935669110029" mode="aspectFill">
+							</image>
+							<text class="yuanbao">{{`${prize.award_point}`}}</text>
+							<text class="yuanbao_item">元宝</text>
+						</view>
+						<view class="p_body_mid_prize_yunbao_tip">
+							<image src="https://static.roi-cloud.com/upload/20220118/60935669112147" mode="aspectFill">
+							</image>
+							<text>直接换奖品，累积冲排名</text>
+						</view>
+						<view class="p_body_mid_prize_yunbao_exchange">
+							<view class="title">
+								<view>{{`还差${'20'}个元宝兑换`}}
+									<text class="name">紫砂壶</text>
+								</view>
+								<image src="https://static.roi-cloud.com/upload/20220118/60935669113541"
+									mode="aspectFill"></image>
+							</view>
+							<view class="reword">
+								<image src="https://static.roi-cloud.com/upload/20220118/60935669113710"
+									mode="aspectFill"></image>
+							</view>
 						</view>
 					</view>
 				</view>
 			</view>
 			<view v-else class="p_body_mid">
-				<view class="no_prize">很遗憾，没有中奖</view>
+				<view class="no_prize_title">差一点就摇到了</view>
 				<image class="no_win" src="https://static.roi-cloud.com/upload/20211213/60935669184341"
+					mode="aspectFill"></image>
+				<image class="invite" src="https://static.roi-cloud.com/upload/20220118/60935669141606"
 					mode="aspectFill"></image>
 			</view>
 			<view class="p_body_top">
 				<view class="p_body_top_red">
-					<image
-						src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzExIiBoZWlnaHQ9IjEzMiIgdmlld0JveD0iMCAwIDMxMSAxMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTMxMC4wMSAwbC0uMDA1IDExNS43MThjMCA4LjgzNy03LjE2MyAxNi0xNiAxNmgtMjc4Yy04LjgzNiAwLTE2LTcuMTYzLTE2LTE2TDAgMGM0NS40NTkgMjAuMTU3IDk4LjQ0IDMxLjcxOCAxNTUuMDA1IDMxLjcxOCA1Ni41NjYgMCAxMDkuNTQ3LTExLjU2MSAxNTUuMDA1LTMxLjcxOHoiIGZpbGw9IiNFQTM1MkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==">
-					</image>
-				</view>
-				<view class="p_body_top_pink">
-					<image
-						src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzExIiBoZWlnaHQ9IjE0MSIgdmlld0JveD0iMCAwIDMxMSAxNDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTMxMC4wMSAwbC0uMDA1IDEyNC43MThjMCA4LjgzNy03LjE2MyAxNi0xNiAxNmgtMjc4Yy04LjgzNiAwLTE2LTcuMTYzLTE2LTE2TDAgMGM0NS40NTkgMjAuMTU3IDk4LjQ0IDMxLjcxOCAxNTUuMDA1IDMxLjcxOCA1Ni41NjYgMCAxMDkuNTQ3LTExLjU2MSAxNTUuMDA1LTMxLjcxOHoiIGZpbGw9IiNGMUE0OUEiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==">
+					<image src="https://static.roi-cloud.com/upload/20220118/60935669103354">
 					</image>
 				</view>
 				<view class="p_body_top_button" @click="close" v-if="playTime > 0 || !openShare"> 再来一把 </view>
@@ -90,7 +104,7 @@
 				this.$emit('play')
 			}
 		},
-	
+
 	};
 </script>
 
@@ -105,65 +119,76 @@
 		position: absolute;
 		top: 114rpx;
 		left: 23%;
+
 		.one_coin {
 			width: 300rpx;
 			height: 250rpx;
 		}
 	}
 
-	.two_coin_view{
+	.two_coin_view {
 		position: absolute;
 		z-index: 3;
 		top: 5%;
+
 		.two_coin {
 			width: 560rpx;
 			height: 440rpx;
 		}
 	}
-	
+
 	.three_coin_view {
 		position: absolute;
 		margin-top: 20%;
+
 		.three_coin {
 			width: 560rpx;
 			height: 440rpx;
 		}
 	}
 
-	
+
 
 	.prizeDetail {
 		.p_body {
 			width: 600upx;
-			min-height: 650upx;
+			min-height: 880upx;
 			border-radius: 32upx;
 			background-image: linear-gradient(#eba278, #ff2626);
 			position: relative;
+			box-sizing: border-box;
+			padding-top: 32rpx;
+
 
 			.p_body_mid {
-				width: 510upx;
-				position: absolute;
-				min-height: 750upx;
+				width: 524upx;
+				min-height: 660upx;
 				border-radius: 32upx;
-				left: 0;
-				right: 0;
-				bottom: 0;
 				margin: auto;
-				background-image: linear-gradient(#fcf4b9, #e3d36d);
+				background-image: linear-gradient(#fff7e0, #e8d7cb);
 
-				.no_prize {
+				.no_prize_title {
 					width: 100%;
 					box-sizing: border-box;
 					text-align: center;
-					margin: 48rpx 0 54rpx 0
+					padding-top: 20rpx;
+					color: #976F1D
 				}
 
 				.no_win {
-					width: 220rpx !important;
-					height: 196rpx !important;
+					width: 176rpx !important;
+					height: 152rpx !important;
 					margin: 0 auto !important;
-					padding-top: 40px;
+					padding-top: 60rpx;
 					display: block;
+				}
+
+				.invite {
+					width: 460rpx;
+					height: 160rpx;
+					margin: 0 auto !important;
+					display: block;
+					padding-top: 80rpx;
 				}
 
 
@@ -171,37 +196,93 @@
 					text-align: center;
 					padding: 30upx;
 					font-size: 34upx;
-					font-weight: 600;
+					color: #976F1D
 				}
 
 				.p_body_mid_prize {
 					display: flex;
 					flex-direction: column;
 					margin-top: 0rpx;
-					.p_body_mid_prize_item {
-						background-color: #fefcf1;
-						border-radius: 20upx;
-						min-height: 152upx;
-						align-items: center;
-						display: flex;
-						width: 540upx;
-						margin-left: -15upx;
-						margin-top: 10upx;
-						margin-bottom: 10upx;
-						box-sizing: border-box;
-						padding: 20rpx 20rpx 20rpx 20rpx;
-						align-items: center;
 
-						image {
-							width: 100rpx;
-							height: 100rpx;
-							margin-right: 30rpx;
-							border-radius: 16rpx;
+
+
+					.p_body_mid_prize_yunbao {
+						.p_body_mid_prize_yunbao_title {
+							box-sizing: border-box;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+
+							image {
+								width: 70rpx;
+								height: 50rpx;
+								margin-right: 32rpx;
+							}
+
+							.yuanbao {
+								margin-right: 32rpx;
+								color: #FA4542;
+								font-size: 140rpx;
+								height: 160rpx;
+								line-height: 160rpx
+							}
+
+							.yuanbao_item {
+								color: #FA4542;
+								font-size: 34rpx;
+							}
 						}
 
-						view {
-							font-size: 28rpx;
-							flex: 1;
+						.p_body_mid_prize_yunbao_tip {
+							font-size: 26rpx;
+							color: #BF9B66;
+							margin: 40rpx 0rpx;
+							box-sizing: border-box;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+
+							image {
+								width: 38rpx;
+								height: 28rpx;
+								margin-right: 8rpx;
+
+							}
+						}
+
+						.p_body_mid_prize_yunbao_exchange {
+							height: 160rpx;
+							display: flex;
+							align-items: center;
+							justify-content: space-between;
+							padding: 40rpx 24rpx;
+							box-sizing: border-box;
+							background: #FFFFFF;
+							border-radius: 20rpx;
+							width: 460rpx;
+							margin: 0 auto;
+
+							.title {
+								color: #976F1D;
+								font-size: 26rpx;
+
+								.name {
+									color: #E73D3D
+								}
+
+								image {
+									width: 280rpx;
+									height: 30rpx;
+									margin-top: 16rpx;
+								}
+							}
+
+							.reword {
+								image {
+									width: 104rpx;
+									height: 80rpx;
+								}
+							}
 						}
 					}
 
@@ -209,22 +290,26 @@
 						display: flex;
 						flex-direction: column;
 						align-items: center;
+
 						image {
 							width: 450rpx;
 							height: 330rpx;
 							// margin: auto 40rpx;
 						}
+
 						.get_integral {
 							font-size: 28rpx;
 							margin-top: -40rpx;
+
 							view {
 								display: flex;
 								line-height: 100rpx;
 							}
+
 							span {
 								font-size: 60rpx;
 								padding-right: 20rpx;
-							}		
+							}
 						}
 					}
 				}
@@ -233,9 +318,10 @@
 			.p_body_top {
 				z-index: 100;
 				width: 100%;
-				height: 268upx;
+				height: 336upx;
 				position: absolute;
 				bottom: 0;
+				left: 0;
 
 				.p_body_top_pink {
 					height: 272rpx;
@@ -245,10 +331,15 @@
 				}
 
 				.p_body_top_red {
-					height: 290rpx;
+					height: 336rpx;
 					position: absolute;
 					width: 100%;
 					z-index: 2;
+
+					image {
+						width: 100%;
+						height: 100%;
+					}
 				}
 
 				.p_body_top_button {
