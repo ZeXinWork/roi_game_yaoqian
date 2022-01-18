@@ -41,8 +41,8 @@
         backgroundSize: '100%',
       }">
 
-			<!-- <canvas :style="{display:hideAmCanv?'none':'inline-block'}" canvas-id="lottie_demo" id="lottie_demo"
-				type="2d" /> -->
+			<canvas :style="{display:hideAmCanv?'none':'inline-block'}" canvas-id="lottie_demo" id="lottie_demo"
+				type="2d" />
 			<!-- <button @click="init">初始化</button> -->
 			<!-- <button @click='startPlay'>开始玩</button> -->
 			<!-- 	<image class="levl-1 trunk" src="https://static.roi-cloud.com/upload/20211229/60935669183338"
@@ -1030,7 +1030,7 @@
 					_this.minHeight = res.windowHeight
 				},
 			});
-			// this.init()
+			this.init()
 			this.context = uni.createCanvasContext("shareCanvas", this);
 		},
 		onLoad(options) {
@@ -1084,17 +1084,16 @@
 					this.toLogin();
 				}
 			}
-
 			// 初始化音频组件
 			this.Audio = uni.createInnerAudioContext(); // 获奖
 			this.Audio.src =
-				"https://static.roi-cloud.com/game/music/reveive_point.m4a"; //音频地址
+				"https://static.roi-cloud.com/upload/audio/getReword.m4a"; //音频地址
 			this.ShakeAudio = uni.createInnerAudioContext(); // 摇树
 			this.ShakeAudio.src =
 				"https://static.roi-cloud.com/game/music/rocking_tree.m4a";
 			this.UnpublishedAudio = uni.createInnerAudioContext(); // 未获奖
 			this.UnpublishedAudio.src =
-				"https://static.roi-cloud.com/game/music/fail_prize.wav"; //音频地址
+				"https://static.roi-cloud.com/upload/audio/noReword.m4a"; //音频地址
 
 			this.user = user;
 
@@ -1142,8 +1141,10 @@
 			startPlay() {
 				this.hideAmCanv = false
 				this.ani.play()
+				this.init()
 			},
 			pause() {
+				this.hideAmCanv = true
 				this.ani.pause()
 			},
 			init() {
@@ -1177,9 +1178,9 @@
 					canvas.width = 375 * dpr
 					lottie.setup(canvas)
 					_this.ani = lottie.loadAnimation({
-						loop: true,
+						loop: false,
 						autoplay: false,
-						path: 'https://static.roi-cloud.com/upload/yaoyaoshu/test1.json',
+						path: 'https://static.roi-cloud.com/upload/audio/hongbaodiaolluo.json',
 						rendererSettings: {
 							context,
 						},
@@ -1222,16 +1223,19 @@
 				this.playAnimation = true;
 				const _this = this;
 				setTimeout(function() {
+					_this.startPlay()
 					setTimeout(function() {
+						_this.pause()
 						if (_this.gameResult.result) {
 							_this.playSound();
 						} else {
 							_this.playUnpublishedSound();
 						}
-					}, 500);
-					_this.playAnimation = false;
-					_this.$refs.redEnvelope.open();
-					_this.playLoading = false;
+						_this.playAnimation = false;
+						_this.$refs.redEnvelope.open();
+						_this.playLoading = false;
+					}, 2870)
+
 				}, 2000);
 			},
 			gameStatus(code) {
@@ -2707,7 +2711,7 @@
 		width: 100vw;
 		position: absolute;
 		top: 302rpx;
-
+		z-index: 88888
 	}
 
 	.cloud {

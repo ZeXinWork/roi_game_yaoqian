@@ -1,7 +1,7 @@
 <template>
 	<uni-popup ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
 		<view class="p_body">
-			<view class="p_body_mid" v-if="result">
+				<view class="p_body_mid" v-if="result">
 				<view class="p_body_mid_title" v-if="type == 1">恭喜您抽到奖品啦</view>
 				<view class="p_body_mid_title" v-else>恭喜您摇到</view>
 				<view class="p_body_mid_prize" v-if="type == 1">
@@ -48,12 +48,15 @@
 					</view>
 				</view>
 			</view>
-			<view v-else class="p_body_mid">
+			<view class="p_body_mid" v-else>
 				<view class="no_prize_title">差一点就摇到了</view>
 				<image class="no_win" src="https://static.roi-cloud.com/upload/20211213/60935669184341"
 					mode="aspectFill"></image>
-				<image class="invite" src="https://static.roi-cloud.com/upload/20220118/60935669141606"
-					mode="aspectFill"></image>
+				<button open-type="share" class="invite_wrapper" data-type="0">
+					<image class="invite" src="https://static.roi-cloud.com/upload/20220118/60935669141606"
+						mode="aspectFill"></image>
+				</button>
+
 			</view>
 			<view class="p_body_top">
 				<view class="p_body_top_red">
@@ -183,12 +186,22 @@
 					display: block;
 				}
 
-				.invite {
-					width: 460rpx;
-					height: 160rpx;
-					margin: 0 auto !important;
-					display: block;
-					padding-top: 80rpx;
+				.invite_wrapper {
+					background: none;
+					width: 100% !important;
+					margin: 0 auto;
+					padding: 50upx 0;
+					&:after {
+						border: none;
+					}
+					.invite {
+						width: 460rpx;
+						height: 160rpx;
+						margin: 0 auto !important;
+						display: block;
+						padding-top: 80rpx;
+
+					}
 				}
 
 
