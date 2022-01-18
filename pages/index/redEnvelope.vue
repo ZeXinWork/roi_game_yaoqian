@@ -1,7 +1,7 @@
 <template>
 	<uni-popup ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
 		<view class="p_body">
-				<view class="p_body_mid" v-if="result">
+			<view class="p_body_mid" v-if="result">
 				<view class="p_body_mid_title" v-if="type == 1">恭喜您抽到奖品啦</view>
 				<view class="p_body_mid_title" v-else>恭喜您摇到</view>
 				<view class="p_body_mid_prize" v-if="type == 1">
@@ -34,15 +34,15 @@
 						</view>
 						<view class="p_body_mid_prize_yunbao_exchange">
 							<view class="title">
-								<view>{{`还差${'20'}个元宝兑换`}}
-									<text class="name">紫砂壶</text>
+								<view>{{`还差${nearPrize.distance_point}个元宝兑换`}}
+									<text class="name">{{nearPrize.prize_name}}</text>
 								</view>
+
 								<image src="https://static.roi-cloud.com/upload/20220118/60935669113541"
 									mode="aspectFill"></image>
 							</view>
 							<view class="reword">
-								<image src="https://static.roi-cloud.com/upload/20220118/60935669113710"
-									mode="aspectFill"></image>
+								<image :src="nearPrize.prize_url" mode="aspectFill"></image>
 							</view>
 						</view>
 					</view>
@@ -91,7 +91,10 @@
 			},
 			type: 1,
 			playTime: 0,
-			openShare: false
+			openShare: false,
+			nearPrize: {
+				type: Object
+			}
 		},
 		methods: {
 			open() {
@@ -191,9 +194,11 @@
 					width: 100% !important;
 					margin: 0 auto;
 					padding: 50upx 0;
+
 					&:after {
 						border: none;
 					}
+
 					.invite {
 						width: 460rpx;
 						height: 160rpx;

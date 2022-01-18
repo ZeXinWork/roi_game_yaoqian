@@ -221,7 +221,7 @@
 			</view>
 			<redEnvelope @handleGameResult="handleGameResult" @play="play" ref="redEnvelope" :result="gameResult.result"
 				:prize="gameResult.prize" :playTime="playTime" :type="gameInfo.lottery_type"
-				:openShare="isOpenShareContent" />
+				:openShare="isOpenShareContent" :nearPrize='nearPrize' />
 			<view v-if="isOpenShareContent" style="position: relative" class="de_btn zl_btn" @click="popShow('share')">
 				喊好友来游戏</view>
 			<view class="recorde_ad_wrap" style="position: relative">
@@ -972,7 +972,8 @@
 				},
 				isLocation: true,
 				inited: false,
-				hideAmCanv: true
+				hideAmCanv: true,
+				nearPrize: {}
 			}
 		},
 		onUnload() {
@@ -2451,6 +2452,7 @@
 					this.gameResult.result = res.result
 					if (res.result) {
 						this.gameResult.prize = res.prize;
+						this.nearPrize = res.near_prize
 						this.getMyRank();
 						this.getRankScore();
 						this.awardQuery.hasMore = true;
