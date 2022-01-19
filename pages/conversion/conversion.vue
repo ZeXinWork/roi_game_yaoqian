@@ -183,7 +183,6 @@
 		updateUserPhone,
 		apiGetGameInfo,
 		userGame,
-		apiGetAdvert,
 		getPhone,
 		userLogin,
 	} from "@/rest/api.js";
@@ -230,7 +229,7 @@
 			this.getGameInfo();
 
 			// this.getUserPlayInfo()
-			// this.getAdvert()
+
 		},
 		onReachBottom() {
 			if (this.more) {
@@ -351,12 +350,12 @@
 						"YYYY年MM月DD日"
 					);
 					this.gameInfo = res;
-					if (res.ad_type == 1) {
+					if (res.ad_type == 1 && res.ad_info[0] && res.ad_info[0].ad_pic_url) {
 						this.advertList = res.ad_info
 					} else {
 						if (res.ad_info.length > 0) {
 							res.ad_info.forEach(item => {
-								if (Number(item.ad_location) == 2) {
+								if (Number(item.ad_location) == 2 && item.ad_pic_url) {
 									this.advertList = [item]
 								}
 							})
@@ -465,13 +464,7 @@
 					this.$refs.finish.show();
 				});
 			},
-			getAdvert() {
-				apiGetAdvert({
-					gameId: this.gameId,
-				}).then((res) => {
-					this.advertList = res;
-				});
-			},
+
 			getUserInfo() {
 				this.user_info = this.$storage.getUser();
 				this.phone = this.user_info.phone;

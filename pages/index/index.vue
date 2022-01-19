@@ -40,9 +40,10 @@
         }) no-repeat`,
         backgroundSize: '100%',
       }">
-<!-- 			<button @click="startPlay">开始</button>
-			<button @click="pause">停止</button> -->
-
+			<!-- 			<button @click="startPlay">开始</button>
+		 -->
+			<!-- <button @click="stopPlay">停止</button>
+			<button @click='startPlay'>kaishi</button> -->
 			<canvas :style="{display:hideAmCanv?'none':'inline-block'}" canvas-id="lottie_demo" id="lottie_demo"
 				type="2d" />
 			<!-- <button @click="init">初始化</button> -->
@@ -98,7 +99,7 @@
           'levl-2 ',
           { swiper_anumation_slow: !playAnimation },
           { trunk_most: playAnimation },
-        ]" src="https://static.roi-cloud.com/upload/20211229/60935669181927" mode="aspectFill">
+        ]" src="https://static.roi-cloud.com/upload/20220119/60935669184359" mode="aspectFill">
 			</image>
 			<image :class="[
           'levl-3 ',
@@ -975,7 +976,8 @@
 				isLocation: true,
 				inited: false,
 				hideAmCanv: true,
-				nearPrize: {}
+				nearPrize: {},
+				HongbaoDownAudio: null,
 			}
 		},
 		onUnload() {
@@ -1090,14 +1092,15 @@
 			// 初始化音频组件
 			this.Audio = uni.createInnerAudioContext(); // 获奖
 			this.Audio.src =
-				"https://static.roi-cloud.com/upload/audio/getReword.m4a"; //音频地址
+				"https://static.roi-cloud.com/upload/audio/getRewordss.m4a"; //音频地址
 			this.ShakeAudio = uni.createInnerAudioContext(); // 摇树
 			this.ShakeAudio.src =
 				"https://static.roi-cloud.com/game/music/rocking_tree.m4a";
 			this.UnpublishedAudio = uni.createInnerAudioContext(); // 未获奖
 			this.UnpublishedAudio.src =
-				"https://static.roi-cloud.com/upload/audio/noReword.m4a"; //音频地址
-
+				"https://static.roi-cloud.com/upload/audio/noRewordss.m4a"; //音频地址
+			this.HongbaoDownAudio = uni.createInnerAudioContext();
+			this.HongbaoDownAudio.src = 'https://static.roi-cloud.com/upload/audio/hongbaoluo.m4a';
 			this.user = user;
 
 			if (user.userId) {
@@ -1144,12 +1147,13 @@
 			startPlay() {
 				this.hideAmCanv = false
 				this.ani.play()
-				this.init()
+			},
+			stopPlay() {
+				this.ani.stop()
 			},
 			pause() {
-				
 				this.hideAmCanv = true
-				this.ani.pause()
+				this.ani.stop()
 			},
 			init() {
 				const _this = this
@@ -1189,6 +1193,7 @@
 							context,
 						},
 					})
+					console.log(_this.ani, "_this.ani_this.ani_this.ani")
 					_this.inited = true
 				}).exec()
 			},
@@ -1229,16 +1234,25 @@
 				setTimeout(function() {
 					_this.startPlay()
 					setTimeout(function() {
+						_this.playDownSound()
+					}, 300)
+
+
+					setTimeout(function() {
 						_this.pause()
-						if (_this.gameResult.result) {
-							_this.playSound();
-						} else {
-							_this.playUnpublishedSound();
-						}
+
+						setTimeout(function() {
+							if (_this.gameResult.result) {
+								_this.playSound();
+							} else {
+								_this.playUnpublishedSound();
+							}
+						}, 500)
 						_this.playAnimation = false;
 						_this.$refs.redEnvelope.open();
 						_this.playLoading = false;
-					}, 2900)
+
+					}, 3000)
 
 				}, 2000);
 			},
@@ -1291,6 +1305,10 @@
 			playSound() {
 				this.Audio.seek(0.1);
 				this.Audio.play(); //执行播放
+			},
+			playDownSound() {
+				this.HongbaoDownAudio.seek(0.1);
+				this.HongbaoDownAudio.play()
 			},
 			playUnpublishedSound() {
 				this.UnpublishedAudio.seek(0.1);
@@ -1788,6 +1806,7 @@
 				}
 			},
 			play(isShake) {
+				this.$refs.redEnvelope.close();
 				if (!isShake && this.isOpenSendMessage) {
 					wechat.getAuthOfSubscribeMessage(() => {
 						this.playLoading = false;
