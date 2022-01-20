@@ -834,7 +834,7 @@
 	import lottie from 'lottie-miniprogram'
 	import '@/static/css/game.scss'
 	import Modal from '@/components/Modal.vue'
-	import Rain from '@/components/rain.vue'
+	import Rain from '@/components/Rain/rain.vue'
 	import startsWith from 'lodash/startsWith'
 	import {
 		validPhone,
@@ -984,8 +984,8 @@
 				HongbaoDownAudio: null,
 				rainData: {
 					visible: true,
-					createSpeed: 5, // 速度
-					time: 15, // 游戏时间
+					createSpeed: 2, // 速度
+					time: 10, // 游戏时间
 					readyTime: 3, // 准备时间
 					min: 0, // 金币最小是0
 					max: 10, // 金币最大是10
@@ -1279,7 +1279,6 @@
 					game_id: gameId,
 				}
 				inviteInfo(params).then((res) => {
-					console.log(res, "Resssssss")
 					if (res.errno) {
 						return
 					}
