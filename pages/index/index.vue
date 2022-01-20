@@ -1813,7 +1813,8 @@
 			},
 			play(isShake) {
 				this.$refs.redEnvelope.close()
-				if (!isShake && this.isOpenSendMessage) {
+				if (!!isShake && this.isOpenSendMessage) {
+					console.log("????")
 					wechat.getAuthOfSubscribeMessage(() => {
 						this.playLoading = false
 						uni.getNetworkType({
@@ -2139,6 +2140,11 @@
 						}
 						this.$refs[ref].open()
 						return
+					}
+					if (ref == 'share') {
+						wechat.getAuthOfSubscribeMessage(()=>{
+							this.$refs[ref].show()
+						})
 					}
 					this.$refs[ref].show()
 				}
