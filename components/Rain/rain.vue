@@ -75,7 +75,10 @@
 				showScore: 0,
 				showChangeScore: 0,
 				scoreStyle: '',
-				progressAni: null
+				progressAni: null,
+				scoreAni: null,
+				openEnvelopeImg: '',
+				redEnvelopeImg: ''
 			};
 		},
 		props: {
@@ -134,7 +137,7 @@
 			cultdown: function() {
 				let _this = this
 				readyTimer = setInterval(function() {
-	                 _this.$emit('reduceTime')
+					_this.$emit('reduceTime')
 					if (_this.readyTime <= 0) {
 						clearInterval(readyTimer)
 						// 显示红包雨
@@ -163,7 +166,7 @@
 							_this.cancelCustomAnimationFrame(animation)
 						}
 					}
-					this.showRainTotalTime = showRainTotalTime
+					_this.showRainTotalTime = showRainTotalTime
 				}, 1000);
 			},
 			// 倒计时进度条
@@ -317,12 +320,22 @@
 			// 初始化 canvas
 			initRain: function() {
 				this.context = uni.createCanvasContext("rain-canvas", this)
-				this.redEnvelopeImg = "https://static.roi-cloud.com/upload/20220120/60935669102654",
-				this.openEnvelopeImg = "https://static.roi-cloud.com/upload/20220120/60935669102724"
+				const _this = this
 				// 初始化红包雨
-				this.initRainDrops()
-				// 音效
-				this.audioOfClick()
+				uni.getImageInfo({
+					src: "https://static.roi-cloud.com/upload/20220120/60935669102724",
+					success(res) {
+						_this.openEnvelopeImg = res.path
+						uni.getImageInfo({
+							src: "https://static.roi-cloud.com/upload/20220120/60935669102654",
+							success(res) {
+								_this.redEnvelopeImg = res.path
+								_this.initRainDrops() // 音效
+								_this.audioOfClick()
+							}
+						})
+					}
+				})
 			},
 			handleScrollTouch: function() {},
 			audioOfClick() {
