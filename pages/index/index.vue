@@ -1058,10 +1058,6 @@
 
 			// 	},
 			// })
-			console.log(
-				process.env.NODE_ENV,
-				'process.env.NODE_ENVprocess.env.NODE_ENVprocess.env.NODE_ENVprocess.env.NODE_ENV'
-			)
 			this.navbarHeight =
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
@@ -1088,12 +1084,11 @@
 					this.$refs.onceShare.show()
 				}
 			}
-
 			if (this.inviteCode) {
-				let list = this.$storage.get('inviteList')
-				const isInvite = list && list.indexOf(this.inviteCode) > -1
-
-				if (user.userId && !(isInvite == true)) {
+				// let list = this.$storage.get('inviteList')
+				// const isInvite = list && list.indexOf(this.inviteCode) > -1
+				// && !(isInvite == true)
+				if (user.userId) {
 					this.getInviteInfo(this.inviteCode, localGameId.trim())
 				}
 				if (!user.userId) {
@@ -1284,6 +1279,7 @@
 					game_id: gameId,
 				}
 				inviteInfo(params).then((res) => {
+					console.log(res, "Resssssss")
 					if (res.errno) {
 						return
 					}
@@ -1763,14 +1759,14 @@
 								this.$refs.help_other_faile.show()
 							}
 							this.$storage.clear('invite')
-							let list = this.$storage.get('inviteList')
-							if (list && _.isArray(list)) {
-								list.push(params.invite_code)
-							} else {
-								list = [params.invite_code]
-							}
+							// let list = this.$storage.get('inviteList')
+							// if (list && _.isArray(list)) {
+							// 	list.push(params.invite_code)
+							// } else {
+							// 	list = [params.invite_code]
+							// }
 							this.gameHelpClick = false
-							this.$storage.set('inviteList', list)
+							// this.$storage.set('inviteList', list)
 						})
 						.catch((error) => {
 							this.gameHelpClick = false
