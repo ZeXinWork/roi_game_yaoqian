@@ -55,7 +55,9 @@
 		},
 		methods: {
 			toGame(game) {
-				uni.navigateTo({ url: `../index/index?gameId=${game.game_id}` })
+				// uni.navigateTo({ url: `../index/index?gameId=${game.game_id}` })
+				this.$storage.set("gameId", game.game_id)
+				uni.navigateBack({delta: 2})
 			},
 			momentData(date) {
 				return moment(date * 1000).format('YYYY.MM.DD')
