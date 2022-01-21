@@ -1644,6 +1644,7 @@
 						})
 					}
 				} else {
+					this.isOpenAssistance =true
 					this.$refs.login_popup.open('bottom')
 				}
 			},
@@ -1756,7 +1757,7 @@
 								this.helpFaileMsg = res.errmsg
 								this.$refs.help_other_faile.show()
 							}
-							this.$storage.clear('invite')
+							// this.$storage.clear('invite')
 							// let list = this.$storage.get('inviteList')
 							// if (list && _.isArray(list)) {
 							// 	list.push(params.invite_code)
@@ -1827,6 +1828,7 @@
 
 									if (!user.userId) {
 										this.playLoading = false
+										this.isOpenAssistance =true
 										this.$refs.login_popup.open('bottom')
 										return
 									}
@@ -1902,6 +1904,7 @@
 
 								if (!user.userId) {
 									this.playLoading = false
+									this.isOpenAssistance =true
 									this.$refs.login_popup.open('bottom')
 									return
 								}
