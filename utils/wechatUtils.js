@@ -7,11 +7,14 @@ const getAuthOfSubscribeMessage = (handler) => {
 	uni.requestSubscribeMessage({
 	  tmplIds: [templateId],
 	  success(res) {
-		console.log("success", res)
 		handler && handler()
 	  },
 	  fail(res) {
-		  console.log("fail", res)
+		uni.showModal({
+			title: '提示',
+			content: '请从右上角进入小程序设置，检查是否已开启接收订阅消息',
+			showCancel: false
+		})
 	  }
 	});
 };
