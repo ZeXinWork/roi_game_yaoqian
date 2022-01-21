@@ -1,12 +1,21 @@
 <template>
-	<view v-if="visible" class="red-envelope-popup">
+	<view v-if="visible" class="red-envelope-popup" :style="{
+        background: `url(${
+          'https://static.roi-cloud.com/upload/20220121/60935669154200'
+        }) no-repeat`,
+        backgroundSize: '100%',
+      }">
 		<view class="container flex-center">
 			<view @click="handleClose" @touchmove="handleScrollTouch" class="close-bg"></view>
 			<block>
 				<block v-if="showStatus===1">
 					<view class="reminder-wrapper flex-column-center">
-						<view class="title">一大波红包即将来袭</view>
+						<image class="title" src="https://static.roi-cloud.com/upload/20220121/60935669144811"
+							mode="aspectFill">
+						</image>
 						<view class="time">{{readyTime}}</view>
+						<image class="bottom-img" src="https://static.roi-cloud.com/upload/20220121/60935669153646"
+							mode="aspectFill"></image>
 					</view>
 				</block>
 				<block v-if="showStatus===2">
@@ -17,7 +26,9 @@
 								<view class="progress-wrapper">
 									<view class="progress" :animation="progressAni"></view>
 								</view>
-								<view class="time">{{showRainTotalTime}} s</view>
+								<!-- <view class="box animate"> <text> <text></text></text></view>
+								-->
+								<view class="time">{{showRainTotalTime}} s</view> 
 							</view>
 							<view class="flex-row">
 								<view class="total-score">金币：{{showScore}}</view>
@@ -162,7 +173,7 @@
 						clearInterval(rainTimer)
 						if (animation) {
 							// 结束
-							_this.showRainResult()
+							// _this.showRainResult()
 							_this.cancelCustomAnimationFrame(animation)
 						}
 					}
@@ -231,6 +242,30 @@
 					windowHeight
 				} = this
 				context.clearRect(0, 0, windowWidth, windowHeight)
+				// let index = 0
+				// setInterval(function() {
+				// 	const i = redEnvelopes[index] // 红包
+				// 	const {
+				// 		x,
+				// 		y,
+				// 		vx,
+				// 		vy,
+				// 		width,
+				// 		height,
+				// 		open,
+				// 	} = i
+				// 	const img = open ? this.openEnvelopeImg : this.redEnvelopeImg
+				// 	const imgWidth = open ? width + 20 : width
+				// 	const imgHeight = open ? height + 25 : height
+
+				// 	context.drawImage(img, x, y, imgWidth, imgHeight)
+				// 	i.x += vx
+				// 	i.y += vy
+				// 	i.y >= windowHeight && (i.y = 0, i.open = false)
+				// 	i.x + width <= 0 && (i.x = windowWidth - width, i.open = false)
+				// 	index = index + 1
+				// 	if(index=10){}
+				// }, 200)
 				for (let n = 0; n < redEnvelopes.length; n += 1) {
 					const i = redEnvelopes[n] // 红包
 					const {
@@ -245,11 +280,13 @@
 					const img = open ? this.openEnvelopeImg : this.redEnvelopeImg
 					const imgWidth = open ? width + 20 : width
 					const imgHeight = open ? height + 25 : height
+
 					context.drawImage(img, x, y, imgWidth, imgHeight)
 					i.x += vx
 					i.y += vy
 					i.y >= windowHeight && (i.y = 0, i.open = false)
 					i.x + width <= 0 && (i.x = windowWidth - width, i.open = false)
+
 				}
 				context.draw()
 				// 下落函数
@@ -384,14 +421,81 @@
 <style lang="scss" scoped>
 	@import "@/static/css/flex.scss";
 
+	.box {
+		height: 20px;
+		position: relative;
+		background: hsl(0, 0%, 35%);
+		-webkit-border-radius: 15px;
+		padding: 6px;
+		-webkit-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
+		width: 300px;
+	}
+
+	.box>text {
+		display: block;
+		height: 100%;
+		-webkit-border-top-right-radius: 8px;
+		-webkit-border-bottom-right-radius: 8px;
+		-webkit-border-top-left-radius: 15px;
+		-webkit-border-bottom-left-radius: 15px;
+		background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #63DE4E), color-stop(1, #34A702));
+		-webkit-box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3), inset 0 -2px 6px rgba(0, 0, 0, 0.4);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.animate>text>text {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent), to(transparent));
+		z-index: 2;
+		-webkit-border-top-right-radius: 8px;
+		-webkit-border-bottom-right-radius: 8px;
+		-webkit-border-top-left-radius: 20px;
+		-webkit-border-bottom-left-radius: 20px;
+		overflow: hidden;
+		-webkit-background-size: 40px;
+	}
+
+	.animate>text text {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent), to(transparent));
+		z-index: 2;
+		-webkit-background-size: 40px;
+		-webkit-animation: move 2s linear infinite;
+		-webkit-border-top-right-radius: 8px;
+		-webkit-border-bottom-right-radius: 8px;
+		-webkit-border-top-left-radius: 20px;
+		-webkit-border-bottom-left-radius: 20px;
+		overflow: hidden;
+	}
+
+	@-webkit-keyframes move {
+		0% {
+			background-position: 0 0;
+		}
+
+		100% {
+			background-position: 50px 50px;
+		}
+	}
+
 	.red-envelope-popup {
 		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		z-index: 999;
-		background: rgba(0, 0, 0, 0.8);
+		z-index: 9999999999;
 
 		.close-bg {
 			position: absolute;
@@ -403,28 +507,44 @@
 
 		.reminder-wrapper {
 			position: relative;
-			width: 750rpx;
-			height: 716rpx;
+			width: 100vw;
+			height: 100vh;
 			color: #fff;
 			box-sizing: border-box;
 
 			.title {
 				font-size: 60rpx;
 				color: #fffdc5;
+				width: 600rpx;
+				height: 280rpx;
+				position: absolute;
+				top: 550rpx
 			}
 
 			.time {
 				margin-top: 100rpx;
 				font-size: 240rpx;
 				color: #fffdc5;
+				position: absolute;
+				font-size: 88rpx;
+				top: 590rpx;
+				left: 345rpx;
+				color: #6E5927;
 			}
 
+			.bottom-img {
+				height: 500rpx;
+				width: 100%;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+			}
 		}
 
 		.rain-wrapper {
 			width: 100%;
 			height: 100%;
-			background-image: url('https://www.sunniejs.cn/static/weapp/redBacketBG.jpg');
+			background-image: url('https://static.roi-cloud.com/upload/20220121/60935669154200');
 			background-size: 100% 100%;
 			background-repeat: no-repeat;
 

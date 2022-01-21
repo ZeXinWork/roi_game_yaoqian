@@ -83,6 +83,11 @@
 		inviteHelp
 	} from '@/rest/api.js'
 	export default {
+		data() {
+			return {
+				PopOpen: false
+			}
+		},
 		props: {
 			//是否中奖
 			result: {
@@ -100,7 +105,6 @@
 				type: Object,
 				default: {},
 			},
-			PopOpen: false
 		},
 		methods: {
 			open() {
@@ -108,13 +112,13 @@
 			},
 			handleChange(e) {
 				this.PopOpen = e.show
-				// if (!e.show) {
-				// 	setTimeout(function() {
-				// 		if (this.$parent.playTime == 4) {
-				// 			this.$parent.rainData.visible = true
-				// 		}
-				// 	}.bind(this), 300)
-				// }
+				if (!e.show) {
+					setTimeout(function() {
+						if (this.$parent.playTime == 1) {
+							this.$parent.rainData.visible = true
+						}
+					}.bind(this), 300)
+				}
 			},
 			close() {
 				this.$refs.prizeDetail.close()

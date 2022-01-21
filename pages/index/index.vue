@@ -825,8 +825,8 @@
 				</view>
 			</view>
 		</uni-popup>
-		<!-- 		<Rain v-if="rainData.visible" @finishRain='finishRain' @reduceTime='reduceTime' :max='rainData.max'
-			:min='rainData.min' :readyTime='rainData.readyTime' :time='rainData.time' :visible="rainData.visible"
+		<!-- <Rain v-if="true" @finishRain='finishRain' @reduceTime='reduceTime' :max='rainData.max'
+			:min='rainData.min' :readyTime='rainData.readyTime' :time='rainData.time' :visible="true"
 			:createSpeed='rainData.createSpeed'></Rain> -->
 	</view>
 </template>
@@ -1815,12 +1815,11 @@
 				}
 			},
 			play(isShake) {
-				this.$refs.redEnvelope.close()
-				if (this.$refs.redEnvelope.PopOpen) {
-					this.$refs.redEnvelope.close()
-				}
 				if (this.playLoading) {
 					return
+				}
+				if (this.$refs.redEnvelope.PopOpen) {
+					this.$refs.redEnvelope.close()
 				}
 				if (!isShake && this.isOpenSendMessage) {
 					wechat.getAuthOfSubscribeMessage(() => {
@@ -1865,7 +1864,8 @@
 										this.playLoading = false
 										return
 									}
-									if (this.$storage.get('getLocationTime') == '') {
+									if (!!this.$storage.get('getLocationTime')) {
+										console.log()
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
 												this.playShackSound()
@@ -1942,7 +1942,6 @@
 									this.playLoading = false
 									return
 								}
-
 								if (this.$storage.get('getLocationTime') == '') {
 									this.getSetting(() => {
 										if (this.showNoPlayNum()) {
@@ -2087,11 +2086,17 @@
 									that.updateLocation(res)
 									handler && handler()
 								},
+								fail(res) {
+									console.log("获取用户地区信息接口失败")
+								}
 							})
 						} else {
 							that.getAuthorize(handler)
 						}
 					},
+					fail(err) {
+						console.log(err, "获取用户设置信息失败！")
+					}
 				})
 			},
 			// 用户授权
@@ -2221,8 +2226,7 @@
 							let item = {
 								info: this.gameInfo.game_pk_plugin[index],
 								range: this.gameInfo.game_pk_plugin[index].end_seq == 1 ?
-									'第' + num + '名' :
-									'第' +
+									'第' + num + '名' : '第' +
 									num +
 									'～' +
 									this.gameInfo.game_pk_plugin[index].end_seq +
