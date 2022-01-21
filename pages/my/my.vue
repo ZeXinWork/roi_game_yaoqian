@@ -34,7 +34,7 @@
 							<view class="user-info-game-wrap_content_body_content_open mb-8">
 								<image src="https://static.roi-cloud.com/upload/20211223/60935669153957"
 									mode="aspectFill"></image>
-								<text>{{`开奖方式：${item.lottery_type===1?'即开即中':'积分兑换'}`}}</text>
+								<text>{{`开奖方式：${item.lottery_type===1?'即开即中':'元宝兑换'}`}}</text>
 							</view>
 							<view class="user-info-game-wrap_content_body_content_open">
 								<image src="https://static.roi-cloud.com/upload/20211212/60935669153633"

@@ -230,7 +230,7 @@
 			<view class="recorde_ad_wrap" style="position: relative">
 				<!-- <view class="recorde_ad_wrap" :style="{'min-height': gameInfo && gameInfo.ad_info.length > 0 ? '400rpx' : '200rpx'}"> -->
 				<view class="record_wrap">
-					<text @click="popShow('score')">积分明细</text>
+					<text @click="popShow('score')">元宝明细</text>
 					<view class="line"></view>
 					<text @click="onMy">个人中心</text>
 					<view class="line"></view>
@@ -276,7 +276,7 @@
                 }}</view>
 							</view>
 							<view class="my_rank_item">
-								<view class="my_rank_title">总积分</view>
+								<view class="my_rank_title">总元宝</view>
 								<view class="rank_item_number">{{
                   userRank.integral || 0
                 }}</view>
@@ -385,7 +385,7 @@
 			<!-- 分数排行 -->
 			<uni-popup ref="score" width="650">
 				<view class="score_detail">
-					<view class="p_title f-normal">积分明细
+					<view class="p_title f-normal">元宝明细
 						<image @click="$refs.score.close()" class="icon_close"
 							src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
 					</view>

@@ -154,7 +154,7 @@ export default {
       phone: "",
       userPrizeList: [],
       curr_show_item: {},
-	    source: ['','即开即中','积分兑换','粉丝PK排行榜'],
+	    source: ['','即开即中','元宝兑换','粉丝PK排行榜'],
 	    path: '/pages/index/index?gameId=' + this.gameId,
       goReceiveItem: {},
       user_info: {}

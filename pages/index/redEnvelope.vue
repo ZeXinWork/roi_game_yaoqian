@@ -13,7 +13,7 @@
 						<image src="https://static.roi-cloud.com/upload/20211213/60935669182359" mode="aspectFill">
 						</image>
 						<view class="bet">
-							<text>积分</text>
+							<text>元宝</text>
 							<text>{{`+ ${prize.award_point}`}}</text>
 						</view>
 
