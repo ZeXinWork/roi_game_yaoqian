@@ -219,7 +219,7 @@
 						</view>
 						次红包
 					</view>
-					<view class="de_btn btn_primary" @click="play">摇一摇</view>
+					<view class="de_btn btn_primary" @click="play(false)">摇一摇</view>
 				</view>
 			</view>
 			<redEnvelope @handleGameResult="handleGameResult" @play="play" ref="redEnvelope" :result="gameResult.result"
@@ -996,7 +996,6 @@
 			clearInterval(this.cashTimer)
 		},
 		onShow() {
-
 			if (this.user && this.user.userId) {
 				this.getData()
 				const launchOptions = this.$storage.get('options')
@@ -1014,31 +1013,31 @@
 					locationLatitude_evar: locationTime.latitude,
 					'3rdpartyUserID_evar': this.user.userId,
 				})
-				uni.onGyroscopeChange((res) => {
-					var delA = Math.abs(res.x - this.lastAcc.x) // x轴偏转角
-					var delB = Math.abs(res.y - this.lastAcc.y) // y轴偏转角
-					var delG = Math.abs(res.z - this.lastAcc.z) // z轴偏转角
-
-					if (
-						(delA > 7 && delB > 7) ||
-						(delA > 7 && delG > 7) ||
-						delB > 7 ||
-						delG > 7
-					) {
-						// 用户设备摇动了，触发响应操作
-						// 此处的判断依据是任意两个轴篇转角度大于15度
-
-						this.shakePlay = true
-						// this.play(true)
-					}
-					this.lastAcc = res // 存储上一次的event
-				})
-				uni.startGyroscope({
-					interval: 'game',
-					success() {},
-					fail() {},
-				})
 			}
+			uni.onGyroscopeChange((res) => {
+				var delA = Math.abs(res.x - this.lastAcc.x) // x轴偏转角
+				var delB = Math.abs(res.y - this.lastAcc.y) // y轴偏转角
+				var delG = Math.abs(res.z - this.lastAcc.z) // z轴偏转角
+
+				if (
+					(delA > 7 && delB > 7) ||
+					(delA > 7 && delG > 7) ||
+					delB > 7 ||
+					delG > 7
+				) {
+					// 用户设备摇动了，触发响应操作
+					// 此处的判断依据是任意两个轴篇转角度大于15度
+					if (this.user && this.user.userId) {
+						this.shakePlay = true
+					}
+				}
+				this.lastAcc = res // 存储上一次的event
+			})
+			uni.startGyroscope({
+				interval: 'game',
+				success() {},
+				fail() {},
+			})
 		},
 		onReady() {
 			const _this = this
@@ -1337,7 +1336,7 @@
 
 			handleGameResult(result) {
 				if (!result) {
-					this.play()
+					this.play(false)
 				} else {
 					this.$refs.share.show()
 				}
@@ -1812,8 +1811,7 @@
 			},
 			play(isShake) {
 				this.$refs.redEnvelope.close()
-				if (!!isShake && this.isOpenSendMessage) {
-					console.log("????")
+				if (!isShake && this.isOpenSendMessage) {
 					wechat.getAuthOfSubscribeMessage(() => {
 						this.playLoading = false
 						uni.getNetworkType({
