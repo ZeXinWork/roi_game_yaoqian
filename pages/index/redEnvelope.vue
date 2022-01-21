@@ -108,13 +108,13 @@
 			},
 			handleChange(e) {
 				this.PopOpen = e.show
-				if (!e.show) {
-					setTimeout(function() {
-						if (this.$parent.playTime == 4) {
-							this.$parent.rainData.visible = true
-						}
-					}.bind(this), 300)
-				}
+				// if (!e.show) {
+				// 	setTimeout(function() {
+				// 		if (this.$parent.playTime == 4) {
+				// 			this.$parent.rainData.visible = true
+				// 		}
+				// 	}.bind(this), 300)
+				// }
 			},
 			close() {
 				this.$refs.prizeDetail.close()
