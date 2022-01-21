@@ -1,5 +1,5 @@
 <template>
-	<uni-popup ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
+	<uni-popup @change="handleChange" ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
 		<view class="p_body">
 			<view class="p_body_mid" v-if="result">
 				<view class="p_body_mid_title" v-if="type == 1">恭喜您抽到奖品啦</view>
@@ -99,11 +99,22 @@
 			nearPrize: {
 				type: Object,
 				default: {},
-			}
+			},
+			PopOpen: false
 		},
 		methods: {
 			open() {
 				this.$refs.prizeDetail.open()
+			},
+			handleChange(e) {
+				this.PopOpen = e.show
+				if (!e.show) {
+					setTimeout(function() {
+						if (this.$parent.playTime == 4) {
+							this.$parent.rainData.visible = true
+						}
+					}.bind(this), 300)
+				}
 			},
 			close() {
 				this.$refs.prizeDetail.close()

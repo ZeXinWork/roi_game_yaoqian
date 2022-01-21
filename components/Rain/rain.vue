@@ -42,7 +42,7 @@
 										<view class="money">{{showScore}}</view>
 										<view class="unit">金币</view>
 									</view>
-									<view class="result-btn" bindtap="handleClose">我知道了</view>
+									<view class="result-btn" @click="handleClose">我知道了</view>
 								</view>
 							</view>
 						</block>
@@ -179,6 +179,7 @@
 				this.progressAni = animation.export()
 			},
 			//分数动画
+			//分数动画
 			animationOfScore(x, y) {
 				const _this = this
 				const position = uni.createAnimation({
@@ -199,7 +200,7 @@
 			},
 			// 关闭
 			handleClose: function() {
-				this.triggerEvent("finish")
+				this.$emit("finishRain")
 			},
 			// 显示结果
 			showRainResult: function() {
@@ -239,7 +240,7 @@
 						vy,
 						width,
 						height,
-						open
+						open,
 					} = i
 					const img = open ? this.openEnvelopeImg : this.redEnvelopeImg
 					const imgWidth = open ? width + 20 : width
@@ -268,7 +269,7 @@
 					min
 				} = this
 				for (let n = 0; n < 10; n += 1) {
-					const startX = Math.floor(Math.random() * windowWidth)
+					const startX = Math.floor(Math.random() * (windowWidth - 50))
 					const startY = Math.floor(Math.random() * windowHeight)
 					// 红包图片宽度大小30~40
 					const width = this.randNum(minWidth, maxWidth)
@@ -280,13 +281,14 @@
 					const score = this.randNum(min, max + 1)
 					redEnvelopes.push({
 						x: startX,
-						y: startY,
-						vx: -1, // x轴速度
+						y: 0,
+						vx: 0, // x轴速度
 						vy: vy, // y轴速度
 						score: score,
 						width: width,
 						height: height,
-						open: false
+						open: false,
+						click: false
 					});
 				}
 				this.doDrawRain();
@@ -297,6 +299,13 @@
 				let touchX = touch.x
 				let touchY = touch.y
 				let _this = this
+				const {
+					windowWidth,
+					windowHeight,
+					createSpeed,
+					max,
+					min
+				} = this
 				for (let o = 0; o < redEnvelopes.length; o += 1) {
 					let i = redEnvelopes[o],
 						rainX = i.x,
@@ -305,14 +314,38 @@
 						height = i.height,
 						gapX = touchX - rainX,
 						gapY = touchY - rainY;
-					if (gapX >= -20 && gapX <= width + 20 && gapY >= -20 && gapY <= height + 20) {
+					if (!i.click && gapX >= -20 && gapX <= width + 20 && gapY >= -20 && gapY <= height + 20) {
 						_this.animationOfScore(touchX, touchY)
 						innerAudioContext.play()
 						i.open = true;
+						i.click = true
 						let score = _this.showScore + i.score
 						_this.showScore = score
 						_this.showChangeScore = i.score
-
+						setTimeout(function() {
+							redEnvelopes.splice(o, 1)
+							const startX = Math.floor(Math.random() * (windowWidth - 50))
+							const startY = Math.floor(Math.random() * windowHeight)
+							// 红包图片宽度大小30~40
+							const width = _this.randNum(minWidth, maxWidth)
+							// 宽度为红包高度的百分之八十
+							const height = Math.floor(width / .8)
+							// 速度
+							const vy = 1 * Math.random() + createSpeed
+							// 红包金额
+							const score = _this.randNum(min, max + 1)
+							redEnvelopes.push({
+								x: startX,
+								y: 0,
+								vx: 0, // x轴速度
+								vy: vy, // y轴速度
+								score: score,
+								width: width,
+								height: height,
+								open: false,
+								click: false
+							})
+						}, 100)
 						break;
 					}
 				}

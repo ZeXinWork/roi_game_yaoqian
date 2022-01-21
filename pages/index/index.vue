@@ -825,8 +825,9 @@
 				</view>
 			</view>
 		</uni-popup>
-		<!-- <Rain @reduceTime='reduceTime' :max='rainData.max' :min='rainData.min' :readyTime='rainData.readyTime'
-			:time='rainData.time' :visible="rainData.visible" :createSpeed='rainData.createSpeed'></Rain> -->
+<!-- 		<Rain v-if="rainData.visible" @finishRain='finishRain' @reduceTime='reduceTime' :max='rainData.max'
+			:min='rainData.min' :readyTime='rainData.readyTime' :time='rainData.time' :visible="rainData.visible"
+			:createSpeed='rainData.createSpeed'></Rain> -->
 	</view>
 </template>
 
@@ -983,7 +984,7 @@
 				nearPrize: {},
 				HongbaoDownAudio: null,
 				rainData: {
-					visible: true,
+					visible: false,
 					createSpeed: 2, // 速度
 					time: 10, // 游戏时间
 					readyTime: 3, // 准备时间
@@ -994,6 +995,7 @@
 		},
 		onUnload() {
 			clearInterval(this.cashTimer)
+			this.stopPlay()
 		},
 		onShow() {
 
@@ -1151,6 +1153,9 @@
 				if (this.rainData.readyTime <= 0) {
 					this.rainData.readyTime = 0
 				}
+			},
+			finishRain() {
+				this.rainData.visible = false
 			},
 			startPlay() {
 				this.hideAmCanv = false
@@ -1811,9 +1816,11 @@
 				}
 			},
 			play(isShake) {
-				this.$refs.redEnvelope.close()
+				if (this.$refs.redEnvelope.PopOpen) {
+					this.$refs.redEnvelope.close()
+				}
+
 				if (!!isShake && this.isOpenSendMessage) {
-					console.log("????")
 					wechat.getAuthOfSubscribeMessage(() => {
 						this.playLoading = false
 						uni.getNetworkType({
@@ -2141,7 +2148,7 @@
 						return
 					}
 					if (ref == 'share') {
-						wechat.getAuthOfSubscribeMessage(()=>{
+						wechat.getAuthOfSubscribeMessage(() => {
 							this.$refs[ref].show()
 						})
 					}
