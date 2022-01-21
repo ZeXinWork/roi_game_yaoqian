@@ -1811,18 +1811,17 @@
 			},
 			play(isShake) {
 				this.$refs.redEnvelope.close()
+				if (this.playLoading) {
+					return
+				}
 				if (!isShake && this.isOpenSendMessage) {
 					wechat.getAuthOfSubscribeMessage(() => {
-						this.playLoading = false
 						uni.getNetworkType({
 							success: (res) => {
 								if (res.networkType === 'none') {
 									this.$refs.network.show()
 									return
 								} else {
-									if (this.playLoading) {
-										return
-									}
 									this.playLoading = true
 									const user = this.$storage.getUser()
 
@@ -1877,11 +1876,12 @@
 												}
 											})
 											return
+										} else {
+											if (this.showNoPlayNum()) {
+												this.playShackSound()
+												this.getGameResult()
+											}
 										}
-									}
-									if (this.showNoPlayNum()) {
-										this.playShackSound()
-										this.getGameResult()
 									}
 								}
 							},
@@ -1954,11 +1954,12 @@
 											}
 										})
 										return
+									} else {
+										if (this.showNoPlayNum()) {
+											this.playShackSound()
+											this.getGameResult()
+										}
 									}
-								}
-								if (this.showNoPlayNum()) {
-									this.playShackSound()
-									this.getGameResult()
 								}
 							}
 						},
