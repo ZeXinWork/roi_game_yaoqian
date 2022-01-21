@@ -219,7 +219,7 @@
 						</view>
 						次红包
 					</view>
-					<view class="de_btn btn_primary" @click="play">摇一摇</view>
+					<view class="de_btn btn_primary" @click="play(false)">摇一摇</view>
 				</view>
 			</view>
 			<redEnvelope @handleGameResult="handleGameResult" @play="play" ref="redEnvelope" :result="gameResult.result"
@@ -230,7 +230,7 @@
 			<view class="recorde_ad_wrap" style="position: relative">
 				<!-- <view class="recorde_ad_wrap" :style="{'min-height': gameInfo && gameInfo.ad_info.length > 0 ? '400rpx' : '200rpx'}"> -->
 				<view class="record_wrap">
-					<text @click="popShow('score')">积分明细</text>
+					<text @click="popShow('score')">元宝明细</text>
 					<view class="line"></view>
 					<text @click="onMy">个人中心</text>
 					<view class="line"></view>
@@ -276,7 +276,7 @@
                 }}</view>
 							</view>
 							<view class="my_rank_item">
-								<view class="my_rank_title">总积分</view>
+								<view class="my_rank_title">总元宝</view>
 								<view class="rank_item_number">{{
                   userRank.integral || 0
                 }}</view>
@@ -385,7 +385,7 @@
 			<!-- 分数排行 -->
 			<uni-popup ref="score" width="650">
 				<view class="score_detail">
-					<view class="p_title f-normal">积分明细
+					<view class="p_title f-normal">元宝明细
 						<image @click="$refs.score.close()" class="icon_close"
 							src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
 					</view>
@@ -825,7 +825,7 @@
 				</view>
 			</view>
 		</uni-popup>
-<!-- 		<Rain v-if="rainData.visible" @finishRain='finishRain' @reduceTime='reduceTime' :max='rainData.max'
+		<!-- 		<Rain v-if="rainData.visible" @finishRain='finishRain' @reduceTime='reduceTime' :max='rainData.max'
 			:min='rainData.min' :readyTime='rainData.readyTime' :time='rainData.time' :visible="rainData.visible"
 			:createSpeed='rainData.createSpeed'></Rain> -->
 	</view>
@@ -998,7 +998,6 @@
 			this.stopPlay()
 		},
 		onShow() {
-
 			if (this.user && this.user.userId) {
 				this.getData()
 				const launchOptions = this.$storage.get('options')
@@ -1016,31 +1015,31 @@
 					locationLatitude_evar: locationTime.latitude,
 					'3rdpartyUserID_evar': this.user.userId,
 				})
-				uni.onGyroscopeChange((res) => {
-					var delA = Math.abs(res.x - this.lastAcc.x) // x轴偏转角
-					var delB = Math.abs(res.y - this.lastAcc.y) // y轴偏转角
-					var delG = Math.abs(res.z - this.lastAcc.z) // z轴偏转角
-
-					if (
-						(delA > 7 && delB > 7) ||
-						(delA > 7 && delG > 7) ||
-						delB > 7 ||
-						delG > 7
-					) {
-						// 用户设备摇动了，触发响应操作
-						// 此处的判断依据是任意两个轴篇转角度大于15度
-
-						this.shakePlay = true
-						// this.play(true)
-					}
-					this.lastAcc = res // 存储上一次的event
-				})
-				uni.startGyroscope({
-					interval: 'game',
-					success() {},
-					fail() {},
-				})
 			}
+			uni.onGyroscopeChange((res) => {
+				var delA = Math.abs(res.x - this.lastAcc.x) // x轴偏转角
+				var delB = Math.abs(res.y - this.lastAcc.y) // y轴偏转角
+				var delG = Math.abs(res.z - this.lastAcc.z) // z轴偏转角
+
+				if (
+					(delA > 7 && delB > 7) ||
+					(delA > 7 && delG > 7) ||
+					delB > 7 ||
+					delG > 7
+				) {
+					// 用户设备摇动了，触发响应操作
+					// 此处的判断依据是任意两个轴篇转角度大于15度
+					if (this.user && this.user.userId) {
+						this.shakePlay = true
+					}
+				}
+				this.lastAcc = res // 存储上一次的event
+			})
+			uni.startGyroscope({
+				interval: 'game',
+				success() {},
+				fail() {},
+			})
 		},
 		onReady() {
 			const _this = this
@@ -1342,7 +1341,7 @@
 
 			handleGameResult(result) {
 				if (!result) {
-					this.play()
+					this.play(false)
 				} else {
 					this.$refs.share.show()
 				}
@@ -1816,22 +1815,21 @@
 				}
 			},
 			play(isShake) {
+				this.$refs.redEnvelope.close()
 				if (this.$refs.redEnvelope.PopOpen) {
 					this.$refs.redEnvelope.close()
 				}
-
-				if (!!isShake && this.isOpenSendMessage) {
+				if (this.playLoading) {
+					return
+				}
+				if (!isShake && this.isOpenSendMessage) {
 					wechat.getAuthOfSubscribeMessage(() => {
-						this.playLoading = false
 						uni.getNetworkType({
 							success: (res) => {
 								if (res.networkType === 'none') {
 									this.$refs.network.show()
 									return
 								} else {
-									if (this.playLoading) {
-										return
-									}
 									this.playLoading = true
 									const user = this.$storage.getUser()
 
@@ -1886,11 +1884,12 @@
 												}
 											})
 											return
+										} else {
+											if (this.showNoPlayNum()) {
+												this.playShackSound()
+												this.getGameResult()
+											}
 										}
-									}
-									if (this.showNoPlayNum()) {
-										this.playShackSound()
-										this.getGameResult()
 									}
 								}
 							},
@@ -1963,11 +1962,12 @@
 											}
 										})
 										return
+									} else {
+										if (this.showNoPlayNum()) {
+											this.playShackSound()
+											this.getGameResult()
+										}
 									}
-								}
-								if (this.showNoPlayNum()) {
-									this.playShackSound()
-									this.getGameResult()
 								}
 							}
 						},
@@ -2221,7 +2221,8 @@
 							let item = {
 								info: this.gameInfo.game_pk_plugin[index],
 								range: this.gameInfo.game_pk_plugin[index].end_seq == 1 ?
-									'第' + num + '名' : '第' +
+									'第' + num + '名' :
+									'第' +
 									num +
 									'～' +
 									this.gameInfo.game_pk_plugin[index].end_seq +
