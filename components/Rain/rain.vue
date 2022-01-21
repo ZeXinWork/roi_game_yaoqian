@@ -28,7 +28,7 @@
 								</view>
 								<!-- <view class="box animate"> <text> <text></text></text></view>
 								-->
-								<view class="time">{{showRainTotalTime}} s</view> 
+								<view class="time">{{showRainTotalTime}} s</view>
 							</view>
 							<view class="flex-row">
 								<view class="total-score">金币：{{showScore}}</view>
@@ -89,7 +89,8 @@
 				progressAni: null,
 				scoreAni: null,
 				openEnvelopeImg: '',
-				redEnvelopeImg: ''
+				redEnvelopeImg: '',
+				codeArray: []
 			};
 		},
 		props: {
@@ -121,6 +122,11 @@
 			max: {
 				type: Number,
 				default: 3
+			},
+			dataTem: {
+				type: Object,
+				required: true,
+				default: {}
 			}
 		},
 		onReady() {
@@ -173,7 +179,7 @@
 						clearInterval(rainTimer)
 						if (animation) {
 							// 结束
-							// _this.showRainResult()
+							_this.showRainResult()
 							_this.cancelCustomAnimationFrame(animation)
 						}
 					}
@@ -211,7 +217,7 @@
 			},
 			// 关闭
 			handleClose: function() {
-				this.$emit("finishRain")
+				this.$emit("finishRain", this.codeArray)
 			},
 			// 显示结果
 			showRainResult: function() {
@@ -296,6 +302,19 @@
 			randNum: function(min, max) {
 				return Math.floor(min + Math.random() * (max - min));
 			},
+			radnScore(min, max) {
+				const radomDta = Math.floor(min + Math.random() * (max - min))
+				let result = null
+				for (let i in this.dataTem) {
+					if (this.dataTem[i] == radomDta) {
+						result = {
+							code: i,
+							value: radomDta
+						}
+					}
+				}
+				return result
+			},
 			// 准备红包雨下落
 			initRainDrops: function() {
 				const {
@@ -315,7 +334,7 @@
 					// 速度
 					const vy = 1 * Math.random() + createSpeed
 					// 红包金额
-					const score = this.randNum(min, max + 1)
+					const score = this.radnScore(min, max + 1)
 					redEnvelopes.push({
 						x: startX,
 						y: 0,
@@ -356,9 +375,10 @@
 						innerAudioContext.play()
 						i.open = true;
 						i.click = true
-						let score = _this.showScore + i.score
+						let score = _this.showScore + i.score.value
+						_this.codeArray.push(i.score.code)
 						_this.showScore = score
-						_this.showChangeScore = i.score
+						_this.showChangeScore = i.score.value
 						setTimeout(function() {
 							redEnvelopes.splice(o, 1)
 							const startX = Math.floor(Math.random() * (windowWidth - 50))
@@ -370,7 +390,7 @@
 							// 速度
 							const vy = 1 * Math.random() + createSpeed
 							// 红包金额
-							const score = _this.randNum(min, max + 1)
+							const score = _this.radnScore(min, max + 1)
 							redEnvelopes.push({
 								x: startX,
 								y: 0,

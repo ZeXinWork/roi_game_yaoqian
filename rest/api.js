@@ -508,3 +508,11 @@ export const apiWechatMessage = () => {
 export const getCashList = (params) => {
 	return restResult(GET, api.GET_CASH_LIST, params);
 }
+
+//获取当前游戏红包雨配置
+export const getRainSet = (params) => {
+	return restResult(GET, api.GET_RAIN_SET, params)
+}
+export const addRainScore = (params) => {
+	return restResult(POSTBODY, api.ADD_RAIN_SCORE, params)
+}

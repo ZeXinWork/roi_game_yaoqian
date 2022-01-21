@@ -114,7 +114,7 @@
 				this.PopOpen = e.show
 				if (!e.show) {
 					setTimeout(function() {
-						if (this.$parent.playTime == 1) {
+						if (this.$parent.playTime == 4) {
 							this.$parent.rainData.visible = true
 						}
 					}.bind(this), 300)

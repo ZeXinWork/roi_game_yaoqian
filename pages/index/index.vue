@@ -40,6 +40,7 @@
         }) no-repeat`,
         backgroundSize: '100%',
       }">
+			
 			<!-- 			<button @click="startPlay">开始</button>
 		 -->
 			<!-- <button @click="stopPlay">停止</button>
@@ -825,9 +826,11 @@
 				</view>
 			</view>
 		</uni-popup>
-		<!-- <Rain v-if="true" @finishRain='finishRain' @reduceTime='reduceTime' :max='rainData.max'
-			:min='rainData.min' :readyTime='rainData.readyTime' :time='rainData.time' :visible="true"
-			:createSpeed='rainData.createSpeed'></Rain> -->
+		<Rain v-if="rainData.visible" :dataTem='rainData.dataTem' @finishRain='finishRain' @reduceTime='reduceTime'
+			:max='rainData.max' :min='rainData.min' :readyTime='rainData.readyTime' :time='rainData.time'
+			:visible="rainData.visible" :createSpeed='rainData.createSpeed'>
+		</Rain>
+
 	</view>
 </template>
 
@@ -869,6 +872,8 @@
 		apiWechatMessage,
 		apiSetUserLocation,
 		getCashList,
+		getRainSet,
+		addRainScore
 	} from '@/rest/api.js'
 	export default {
 		components: {
@@ -989,7 +994,8 @@
 					time: 10, // 游戏时间
 					readyTime: 3, // 准备时间
 					min: 0, // 金币最小是0
-					max: 10, // 金币最大是10
+					max: 0, // 金币最大是10,
+					dataTem: {}
 				},
 			}
 		},
@@ -1153,8 +1159,29 @@
 					this.rainData.readyTime = 0
 				}
 			},
-			finishRain() {
+			finishRain(data) {
 				this.rainData.visible = false
+				addRainScore({
+					game_id: this.gameId,
+					data
+				}).then(res => {
+					prizeDetail({
+							game_id: this.gameId,
+							offset: 0,
+							limit: 1,
+						})
+						.then((res) => {
+							this.$loading.hide()
+							this.scoreDetailList = [...res.list, ...this.scoreDetailList]
+						})
+						.catch((err) => {
+							this.$loading.hide()
+							uni.showToast({
+								title: '出错啦',
+								icon: 'error',
+							})
+						})
+				})
 			},
 			startPlay() {
 				this.hideAmCanv = false
@@ -1236,6 +1263,9 @@
 						}
 					}, 12000)
 				}
+			},
+			test() {
+				this.rainData.visible = true
 			},
 			handleTest() {
 				this.awardQuery.hasMore = true
@@ -1598,9 +1628,33 @@
 				//获取游戏可玩次数
 				this.getPlayNumber()
 				this.getWechatMessage()
+				this.getRainSetting()
 			},
 			// 初始化
+			getRainSetting() {
+				getRainSet({
+					game_id: this.gameId
+				}).then(res => {
+					if (res) {
+						this.rainData.dataTem = res
+						Object.keys(res).forEach((item, index) => {
+							if (index == 0) {
+								this.rainData.min = res[item]
+							}
+							if (index === Object.keys(res).length - 1) {
+								this.rainData.max = res[item]
+							}
 
+						})
+					}
+
+				}).catch(err => {
+					uni.showToast({
+						title: "出错啦",
+						icon: "error"
+					})
+				})
+			},
 			openLocationSetting() {
 				uni.openSetting({
 					success: (res) => {
@@ -1649,7 +1703,7 @@
 						})
 					}
 				} else {
-					this.isOpenAssistance =true
+					this.isOpenAssistance = true
 					this.$refs.login_popup.open('bottom')
 				}
 			},
@@ -1835,7 +1889,7 @@
 
 									if (!user.userId) {
 										this.playLoading = false
-										this.isOpenAssistance =true
+										this.isOpenAssistance = true
 										this.$refs.login_popup.open('bottom')
 										return
 									}
@@ -1867,7 +1921,7 @@
 										return
 									}
 									if (!!this.$storage.get('getLocationTime')) {
-										console.log()
+
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
 												this.playShackSound()
@@ -1912,7 +1966,7 @@
 
 								if (!user.userId) {
 									this.playLoading = false
-									this.isOpenAssistance =true
+									this.isOpenAssistance = true
 									this.$refs.login_popup.open('bottom')
 									return
 								}

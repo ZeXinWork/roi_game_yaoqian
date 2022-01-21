@@ -330,3 +330,7 @@ export const WECHAT_MESSAGE = '/api/subscribe/index'
 
 //获取相关兑奖信息
 export const GET_CASH_LIST = '/api/game/redeemlog'
+
+export const GET_RAIN_SET = '/api/extra/red'
+
+export const ADD_RAIN_SCORE = '/api/extra/update'
