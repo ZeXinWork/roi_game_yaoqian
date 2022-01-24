@@ -55,7 +55,7 @@
 		},
 		methods: {
 			toGame(game) {
-				uni.navigateTo({ url: `../index/index?gameId=${game.game_id}` })
+				uni.reLaunch({ url: `../index/index?gameId=${game.game_id}` })
 				// this.$storage.set("gameId", game.game_id)
 				// uni.navigateBack({delta: 2})
 			},
