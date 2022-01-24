@@ -1,56 +1,61 @@
 <template>
 	<view v-if="visible" class="red-envelope-popup" :style="{
-        background: `url(${
-          'https://static.roi-cloud.com/upload/20220121/60935669154200'
-        }) no-repeat`,
-        backgroundSize: '100%',
-      }">
+      background: `url(${'https://static.roi-cloud.com/upload/20220121/60935669154200'}) no-repeat`,
+      backgroundSize: '100%',
+    }">
 		<view class="container flex-center">
 			<view @click="handleClose" @touchmove="handleScrollTouch" class="close-bg"></view>
 			<block>
-				<block v-if="showStatus===1">
+				<block v-if="showStatus === 1">
 					<view class="reminder-wrapper flex-column-center">
 						<image class="title" src="https://static.roi-cloud.com/upload/20220121/60935669144811"
 							mode="aspectFill">
 						</image>
-						<view class="time">{{readyTime}}</view>
+						<view class="time">{{ readyTime }}</view>
 						<image class="bottom-img" src="https://static.roi-cloud.com/upload/20220121/60935669153646"
 							mode="aspectFill"></image>
 					</view>
 				</block>
-				<block v-if="showStatus===2">
+				<block v-if="showStatus === 2">
 					<view class="rain-wrapper flex-column">
 						<view class="time-info">
 							<view class="flex-row">
-								<view class="tip">剩余时间</view>
-								<view class="progress-wrapper">
-									<view class="progress" :animation="progressAni"></view>
+								<view class="flex-column-reserve">
+									<view class="tip">剩余时间
+										<text class="time"> {{ showRainTotalTime }} s </text>
+									</view>
+									<!-- 	<view class="progress-wrapper">
+									<view class="progress"></view>
+								</view> -->
+									<view class="box animate">
+										<text :style="{ width: progressWidth }">
+											<text></text></text>
+									</view>
 								</view>
-								<!-- <view class="box animate"> <text> <text></text></text></view>
-								-->
-								<view class="time">{{showRainTotalTime}} s</view>
 							</view>
-							<view class="flex-row">
-								<view class="total-score">金币：{{showScore}}</view>
+							<view class="jinbi-wrapper">
+								<image class="jinbi" src="https://static.roi-cloud.com/upload/20220124/60935669154508"
+									mode="aspectFill"></image>
+								<view class="total-score">金币：{{ showScore }}</view>
 							</view>
 						</view>
 						<view class="canvas-wrapper">
-							<view class='score-change' :animation="scoreAni">
-								+{{showChangeScore}}
+							<view class="score-change" :animation="scoreAni">
+								+{{ showChangeScore }}
 							</view>
 							<canvas disable-scroll @error="canvasIdErrorCallback" @touchstart="handleClickRain"
-								canvas-id="rain-canvas" style="width: 100vw; height: 100vh;z-index: 9999999"></canvas>
+								canvas-id="rain-canvas" style="width: 100vw; height: 100vh; z-index: 9999999"></canvas>
 						</view>
 					</view>
 				</block>
-				<block v-if="showStatus===3">
+				<block v-if="showStatus === 3">
 					<view class="result-wrapper flex-column-center">
 						<block>
 							<view class="group-content flex-column-center">
 								<view class="result-title">恭喜您获得</view>
 								<view class="ready-wrapper flex-column-center">
 									<view class="money-wrapper flex-row">
-										<view class="money">{{showScore}}</view>
+										<view class="money">{{ showScore }}</view>
 										<view class="unit">金币</view>
 									</view>
 									<view class="result-btn" @click="handleClose">我知道了</view>
@@ -74,7 +79,7 @@
 	const minWidth = 30 // 红包图片最小宽度
 	const maxWidth = 40 // 红包图片最大宽度
 	export default {
-		name: "rain",
+		name: 'rain',
 		data() {
 			return {
 				showRainTotalTime: 10, // 红包雨时间
@@ -90,44 +95,50 @@
 				scoreAni: null,
 				openEnvelopeImg: '',
 				redEnvelopeImg: '',
-				codeArray: []
-			};
+				codeArray: [],
+			}
+		},
+		computed: {
+			progressWidth() {
+				const width = (this.showRainTotalTime / this.time) * 100
+				return `${width}%`
+			},
 		},
 		props: {
 			visible: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			// 游戏时间
 			time: {
 				type: Number,
-				default: 10
+				default: 10,
 			},
 			// 倒计时单位秒
 			readyTime: {
 				type: Number,
-				default: 3
+				default: 3,
 			},
 			//  速度
 			createSpeed: {
 				type: Number,
-				default: 5
+				default: 5,
 			},
 			// 单个最小金额
 			min: {
 				type: Number,
-				default: 0
+				default: 0,
 			},
 			// 单个最大金额
 			max: {
 				type: Number,
-				default: 3
+				default: 3,
 			},
 			dataTem: {
 				type: Object,
 				required: true,
-				default: {}
-			}
+				default: {},
+			},
 		},
 		onReady() {
 			const _this = this
@@ -142,7 +153,7 @@
 					_this.windowWidth = res.windowWidth
 					_this.windowWidth - res.windowHeight
 				},
-			});
+			})
 		},
 		onUnload() {
 			readyTimer && clearInterval(readyTimer)
@@ -179,18 +190,18 @@
 						clearInterval(rainTimer)
 						if (animation) {
 							// 结束
-							_this.showRainResult()
+							// _this.showRainResult()
 							_this.cancelCustomAnimationFrame(animation)
 						}
 					}
 					_this.showRainTotalTime = showRainTotalTime
-				}, 1000);
+				}, 1000)
 			},
 			// 倒计时进度条
 			ininProgress() {
 				let time = this.time
 				const animation = uni.createAnimation({
-					duration: time * 1000
+					duration: time * 1000,
 				})
 				animation.translateX(-120).step()
 				this.progressAni = animation.export()
@@ -200,24 +211,27 @@
 			animationOfScore(x, y) {
 				const _this = this
 				const position = uni.createAnimation({
-					duration: 0
+					duration: 0,
 				})
 				position.left(x).top(y).step()
 
 				this.scoreAni = position.export()
 				const animation = uni.createAnimation({
 					duration: 300,
-					timingFunction: 'ease'
+					timingFunction: 'ease',
 				})
 				animation.opacity(1).step()
-				setTimeout(function() {
-					animation.opacity(0).step()
-					this.scoreAni = animation.export()
-				}.bind(this), 10)
+				setTimeout(
+					function() {
+						animation.opacity(0).step()
+						this.scoreAni = animation.export()
+					}.bind(this),
+					10
+				)
 			},
 			// 关闭
 			handleClose: function() {
-				this.$emit("finishRain", this.codeArray)
+				this.$emit('finishRain', this.codeArray)
 			},
 			// 显示结果
 			showRainResult: function() {
@@ -225,20 +239,20 @@
 				this.cancelCustomAnimationFrame(animation)
 				this.showStatus = 3
 				this.rainResult = {
-					amount: 100
+					amount: 100,
 				}
 			},
 			// 红包下落函数
 			customRequestAnimationFrame: function(e) {
 				let _this = this
 				let timer = setTimeout(function() {
-					e.call(_this), clearTimeout(timer);
+					e.call(_this), clearTimeout(timer)
 				}, 1000 / 60)
 				return timer
 			},
 			// 清除红包下落函数
 			cancelCustomAnimationFrame: function(e) {
-				e && (clearTimeout(e), animation = null)
+				e && (clearTimeout(e), (animation = null))
 			},
 			// 开始下落
 			doDrawRain: function() {
@@ -281,7 +295,7 @@
 						vy,
 						width,
 						height,
-						open,
+						open
 					} = i
 					const img = open ? this.openEnvelopeImg : this.redEnvelopeImg
 					const imgWidth = open ? width + 20 : width
@@ -290,17 +304,16 @@
 					context.drawImage(img, x, y, imgWidth, imgHeight)
 					i.x += vx
 					i.y += vy
-					i.y >= windowHeight && (i.y = 0, i.open = false)
-					i.x + width <= 0 && (i.x = windowWidth - width, i.open = false)
-
+					i.y >= windowHeight && ((i.y = 0), (i.open = false))
+					i.x + width <= 0 && ((i.x = windowWidth - width), (i.open = false))
 				}
 				context.draw()
 				// 下落函数
-				animation = this.customRequestAnimationFrame(this.doDrawRain);
+				animation = this.customRequestAnimationFrame(this.doDrawRain)
 			},
 			// 随机数
 			randNum: function(min, max) {
-				return Math.floor(min + Math.random() * (max - min));
+				return Math.floor(min + Math.random() * (max - min))
 			},
 			radnScore(min, max) {
 				const radomDta = Math.floor(min + Math.random() * (max - min))
@@ -309,7 +322,7 @@
 					if (this.dataTem[i] == radomDta) {
 						result = {
 							code: i,
-							value: radomDta
+							value: radomDta,
 						}
 					}
 				}
@@ -330,7 +343,7 @@
 					// 红包图片宽度大小30~40
 					const width = this.randNum(minWidth, maxWidth)
 					// 宽度为红包高度的百分之八十
-					const height = Math.floor(width / .8)
+					const height = 120
 					// 速度
 					const vy = 1 * Math.random() + createSpeed
 					// 红包金额
@@ -344,10 +357,10 @@
 						width: width,
 						height: height,
 						open: false,
-						click: false
-					});
+						click: false,
+					})
 				}
-				this.doDrawRain();
+				this.doDrawRain()
 			},
 			// 点击红包事件
 			handleClickRain: function(e) {
@@ -369,11 +382,17 @@
 						width = i.width,
 						height = i.height,
 						gapX = touchX - rainX,
-						gapY = touchY - rainY;
-					if (!i.click && gapX >= -20 && gapX <= width + 20 && gapY >= -20 && gapY <= height + 20) {
+						gapY = touchY - rainY
+					if (
+						!i.click &&
+						gapX >= -20 &&
+						gapX <= width + 20 &&
+						gapY >= -20 &&
+						gapY <= height + 20
+					) {
 						_this.animationOfScore(touchX, touchY)
 						innerAudioContext.play()
-						i.open = true;
+						i.open = true
 						i.click = true
 						let score = _this.showScore + i.score.value
 						_this.codeArray.push(i.score.code)
@@ -386,7 +405,7 @@
 							// 红包图片宽度大小30~40
 							const width = _this.randNum(minWidth, maxWidth)
 							// 宽度为红包高度的百分之八十
-							const height = Math.floor(width / .8)
+							const height = 120
 							// 速度
 							const vy = 1 * Math.random() + createSpeed
 							// 红包金额
@@ -400,31 +419,32 @@
 								width: width,
 								height: height,
 								open: false,
-								click: false
+								click: false,
 							})
 						}, 100)
-						break;
+						break
 					}
 				}
 			},
 			// 初始化 canvas
 			initRain: function() {
-				this.context = uni.createCanvasContext("rain-canvas", this)
+				this.context = uni.createCanvasContext('rain-canvas', this)
 				const _this = this
 				// 初始化红包雨
+				// https://static.roi-cloud.com/upload/20220124/60935669160410
 				uni.getImageInfo({
-					src: "https://static.roi-cloud.com/upload/20220120/60935669102724",
+					src: 'https://static.roi-cloud.com/upload/20220120/60935669102724',
 					success(res) {
 						_this.openEnvelopeImg = res.path
 						uni.getImageInfo({
-							src: "https://static.roi-cloud.com/upload/20220120/60935669102654",
+							src: 'https://static.roi-cloud.com/upload/20220120/60935669102654',
 							success(res) {
 								_this.redEnvelopeImg = res.path
 								_this.initRainDrops() // 音效
 								_this.audioOfClick()
-							}
+							},
 						})
-					}
+					},
 				})
 			},
 			handleScrollTouch: function() {},
@@ -432,63 +452,80 @@
 				innerAudioContext.autoplay = false
 				innerAudioContext.src = 'https://www.sunniejs.cn/static/weapp/dianji.mp3'
 				innerAudioContext.onPlay(() => {})
-				innerAudioContext.onError(res => {})
+				innerAudioContext.onError((res) => {})
 			},
-		}
+		},
 	}
 </script>
 
 <style lang="scss" scoped>
-	@import "@/static/css/flex.scss";
+	@import '@/static/css/flex.scss';
 
 	.box {
-		height: 20px;
 		position: relative;
-		background: hsl(0, 0%, 35%);
-		-webkit-border-radius: 15px;
-		padding: 6px;
-		-webkit-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
-		width: 300px;
+		background: #333;
+		border-radius: 48rpx;
+		width: 360rpx;
+		height: 48rpx;
+		border: 10rpx solid #342f36;
+		box-sizing: border-box;
 	}
 
 	.box>text {
 		display: block;
 		height: 100%;
-		-webkit-border-top-right-radius: 8px;
-		-webkit-border-bottom-right-radius: 8px;
-		-webkit-border-top-left-radius: 15px;
-		-webkit-border-bottom-left-radius: 15px;
-		background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #63DE4E), color-stop(1, #34A702));
-		-webkit-box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3), inset 0 -2px 6px rgba(0, 0, 0, 0.4);
+		border-radius: 48rpx;
+		background-image: -webkit-gradient(linear,
+				left bottom,
+				left top,
+				color-stop(0, #f61c1f),
+				color-stop(1, #f96c54));
+		-webkit-box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3),
+			inset 0 -2px 6px rgba(0, 0, 0, 0.4);
 		position: relative;
 		overflow: hidden;
 	}
 
 	.animate>text>text {
-		content: "";
+		content: '';
 		position: absolute;
 		top: 0;
 		left: 0;
 		bottom: 0;
 		right: 0;
-		background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent), to(transparent));
+		background-image: -webkit-gradient(linear,
+				0 0,
+				100% 100%,
+				color-stop(0.25, rgba(255, 255, 255, 0.2)),
+				color-stop(0.25, transparent),
+				color-stop(0.5, transparent),
+				color-stop(0.5, rgba(255, 255, 255, 0.2)),
+				color-stop(0.75, rgba(255, 255, 255, 0.2)),
+				color-stop(0.75, transparent),
+				to(transparent));
 		z-index: 2;
-		-webkit-border-top-right-radius: 8px;
-		-webkit-border-bottom-right-radius: 8px;
-		-webkit-border-top-left-radius: 20px;
-		-webkit-border-bottom-left-radius: 20px;
+		-webkit-border-radius: 48rpx;
 		overflow: hidden;
 		-webkit-background-size: 40px;
 	}
 
 	.animate>text text {
-		content: "";
+		content: '';
 		position: absolute;
 		top: 0;
 		left: 0;
 		bottom: 0;
 		right: 0;
-		background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent), to(transparent));
+		background-image: -webkit-gradient(linear,
+				0 0,
+				100% 100%,
+				color-stop(0.25, rgba(255, 255, 255, 0.2)),
+				color-stop(0.25, transparent),
+				color-stop(0.5, transparent),
+				color-stop(0.5, rgba(255, 255, 255, 0.2)),
+				color-stop(0.75, rgba(255, 255, 255, 0.2)),
+				color-stop(0.75, transparent),
+				to(transparent));
 		z-index: 2;
 		-webkit-background-size: 40px;
 		-webkit-animation: move 2s linear infinite;
@@ -538,7 +575,7 @@
 				width: 600rpx;
 				height: 280rpx;
 				position: absolute;
-				top: 550rpx
+				top: 550rpx;
 			}
 
 			.time {
@@ -549,7 +586,7 @@
 				font-size: 88rpx;
 				top: 590rpx;
 				left: 345rpx;
-				color: #6E5927;
+				color: #6e5927;
 			}
 
 			.bottom-img {
@@ -569,11 +606,27 @@
 			background-repeat: no-repeat;
 
 			.time-info {
+				box-sizing: border-box;
+				padding-right: 80rpx;
 				position: absolute;
-				top: 80rpx;
-				left: 45rpx;
+				top: 200rpx;
+				left: 32rpx;
 				font-size: 24rpx;
 				color: #fff;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				width: 100%;
+
+				.tip {
+					margin-top: 8rpx;
+					font-size: 28rpx;
+					color: #ffce59 !important;
+
+					.time {
+						margin-left: 10rpx;
+					}
+				}
 
 				.progress-wrapper {
 					position: relative;
@@ -597,9 +650,25 @@
 					}
 				}
 
-				.total-score {
-					font-size: 40rpx;
+				.jinbi-wrapper {
+					display: flex;
+					flex-direction: column;
+					align-items: flex-end;
+
+					.jinbi {
+						width: 48rpx;
+						height: 50rpx;
+					}
+
+					.total-score {
+						font-size: 40rpx;
+						color: #FFCE59;
+						font-size: 28rpx;
+						margin-top: 8rpx;
+					}
+
 				}
+
 			}
 
 			.canvas-wrapper {
@@ -626,7 +695,7 @@
 				position: relative;
 				width: 550rpx;
 				height: 700rpx;
-				background-image: url("https://www.sunniejs.cn/static/weapp/l-rain-gold@2x.png");
+				background-image: url('https://www.sunniejs.cn/static/weapp/l-rain-gold@2x.png');
 				background-size: 100% 100%;
 				background-repeat: no-repeat;
 
