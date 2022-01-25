@@ -826,10 +826,10 @@
 				</view>
 			</view>
 		</uni-popup>
-		<Rain v-if="rainData.visible" :dataTem='rainData.dataTem' @finishRain='finishRain' @reduceTime='reduceTime'
+		<!-- <Rain v-if="rainData.visible" :dataTem='rainData.dataTem' @finishRain='finishRain' @reduceTime='reduceTime'
 			:max='rainData.max' :min='rainData.min' :readyTime='rainData.readyTime' :time='rainData.time'
 			:visible="rainData.visible" :createSpeed='rainData.createSpeed'>
-		</Rain>
+		</Rain> -->
 
 	</view>
 </template>
