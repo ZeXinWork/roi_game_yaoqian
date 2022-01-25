@@ -1,4 +1,3 @@
-
 .flex {
   display: flex;
 }
@@ -59,7 +58,10 @@
   flex-direction: column;
   align-items: flex-end;
 }
-
+.flex-column-reserve {
+  display: flex;
+  flex-direction: column-reverse;
+}
 .flex-column-left {
   display: flex;
   flex-direction: column;

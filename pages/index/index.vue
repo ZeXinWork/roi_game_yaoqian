@@ -36,11 +36,11 @@
         minHeight: minHeight + 'px',
         background: `url(${
           gameInfo.backgroundInfo.backgroundUrl ||
-          'https://static.roi-cloud.com/upload/20220114/60935669172731'
+          'https://static.roi-cloud.com/upload/20220124/60935669182121'
         }) no-repeat`,
         backgroundSize: '100%',
       }">
-			
+
 			<!-- 			<button @click="startPlay">开始</button>
 		 -->
 			<!-- <button @click="stopPlay">停止</button>
@@ -1252,10 +1252,24 @@
 					clearInterval(this.cashTimer)
 					_this.radomIndex = Math.ceil(Math.random() * 5)
 					_this.showCash = data[_this.currentCashIndex]
+					if (_this.showCash.nickname.length > 2) {
+						_this.showCash.nickname =
+							`${_this.showCash.nickname[0]}**${_this.showCash.nickname[_this.showCash.nickname.length-1]}`
+					} else if (_this.showCash.nickname.length === 2) {
+						_this.showCash.nickname =
+							`${_this.showCash.nickname[0]}*`
+					}
 					_this.currentCashIndex = _this.currentCashIndex + 1
 					this.cashTimer = setInterval(function() {
 						_this.radomIndex = Math.ceil(Math.random() * 5)
 						_this.showCash = data[_this.currentCashIndex]
+						if (_this.showCash.nickname.length > 2) {
+							_this.showCash.nickname =
+								`${_this.showCash.nickname[0]}**${_this.showCash.nickname[_this.showCash.nickname.length-1]}`
+						} else if (_this.showCash.nickname.length === 2) {
+							_this.showCash.nickname =
+								`${_this.showCash.nickname[0]}*`
+						}
 						if (_this.currentCashIndex + 1 === data.length) {
 							_this.currentCashIndex = 0
 						} else {
@@ -1870,7 +1884,7 @@
 				}
 			},
 			play(isShake) {
-				if (this.playLoading) {
+				if (this.playLoading || this.rainData.visible) {
 					return
 				}
 				if (this.$refs.redEnvelope.PopOpen) {
@@ -1920,8 +1934,7 @@
 										this.playLoading = false
 										return
 									}
-									if (!!this.$storage.get('getLocationTime')) {
-
+									if (!this.$storage.get('getLocationTime')) {
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
 												this.playShackSound()
@@ -2143,15 +2156,18 @@
 									that.updateLocation(res)
 									handler && handler()
 								},
-								fail(res) {
-									console.log("获取用户地区信息接口失败")
+								fail(err) {
+									that.playLoading = false
+									console.log(err, "获取用户地区信息接口失败")
 								}
 							})
 						} else {
+							that.playLoading = false
 							that.getAuthorize(handler)
 						}
 					},
 					fail(err) {
+						that.playLoading = false
 						console.log(err, "获取用户设置信息失败！")
 					}
 				})
@@ -2825,17 +2841,15 @@
 	}
 
 	@mixin barrageContent {
-		width: 358rpx;
 		height: 60rpx;
 		box-sizing: border-box;
-		padding: 0 17rpx 0 8rpx;
+		padding: 0 20rpx 0 8rpx;
 		background: #feebcc;
 		display: flex;
 		align-items: center;
 		border-radius: 56rpx;
 		animation: fadeIn 12s ease-out infinite forwards;
 		z-index: 100;
-		opacity: 80%;
 		font-size: 22rpx;
 		position: absolute;
 
@@ -2864,7 +2878,6 @@
 
 	.barrage1 {
 		@include barrageContent;
-
 		left: 208rpx;
 		top: 380rpx;
 	}
@@ -2900,16 +2913,16 @@
 		}
 
 		20% {
-			opacity: 1;
+			opacity: 0.8;
 		}
 
 		50% {
-			opacity: 1;
+			opacity: 0.8;
 			/*中间状态 透明度为0*/
 		}
 
 		80% {
-			opacity: 1;
+			opacity: 0.8;
 		}
 
 		100% {
@@ -3116,16 +3129,16 @@
 		height: 280rpx;
 		position: absolute;
 		z-index: 10;
-		top: 722rpx;
-		left: 10rpx;
+		top: 702rpx;
+		left: 50rpx;
 	}
 
 	.levl-6 {
 		width: 320rpx;
 		height: 210rpx;
 		position: absolute;
-		top: 807rpx;
-		left: 230rpx;
+		top: 755rpx;
+		left: 210rpx;
 		z-index: 10;
 	}
 
@@ -3169,23 +3182,23 @@
 
 	.hongbao3 {
 		@include hongbao;
-		left: 150rpx;
-		top: 640rpx;
+		left: 130rpx;
+		top: 550rpx;
 	}
 
 	.hongbao4 {
 		@include hongbao;
 		z-index: 0;
-		top: 700rpx;
+		top: 710rpx;
 		left: 364rpx;
 		z-index: 11;
 	}
 
 	.hongbao5 {
 		@include hongbao;
-		top: 950rpx;
-		left: 120rpx;
-		z-index: 0;
+		top: 770rpx;
+		left: 170rpx;
+		z-index: 50;
 	}
 
 	.hongbao6 {

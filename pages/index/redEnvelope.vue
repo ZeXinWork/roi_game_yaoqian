@@ -14,7 +14,11 @@
 						</image>
 						<view class="bet">
 							<text>元宝</text>
-							<text>{{`+ ${prize.award_point}`}}</text>
+							<text :class="[
+          'levl-3 ',
+          { swiper_anumation_most: !playAnimation },
+          { trunk_slow: playAnimation },
+        ]">{{`+ ${prize.award_point}`}}</text>
 						</view>
 
 					</view>
@@ -24,7 +28,7 @@
 						<view class="p_body_mid_prize_yunbao_title">
 							<image src="https://static.roi-cloud.com/upload/20220118/60935669110029" mode="aspectFill">
 							</image>
-							<text class="yuanbao">{{`${prize.award_point}`}}</text>
+							<text class="yuanbao flap">{{`${prize.award_point}`}}</text>
 							<text class="yuanbao_item">元宝</text>
 						</view>
 						<view class="p_body_mid_prize_yunbao_tip">
@@ -41,7 +45,7 @@
 									<text class="name">{{nearPrize.prize_name}}</text>
 								</view>
 
-								<progress class="progress" :stroke-width='15' activeColor='#e73d3d'
+								<progress class="progress" :stroke-width='10' activeColor='#e73d3d'
 									backgroundColor='#fce2dd' :border-radius='20'
 									:percent="nearPrize.distance_point==0?100: ((nearPrize.prize_point-nearPrize.distance_point)/nearPrize.prize_point)*100" />
 							</view>
@@ -145,6 +149,46 @@
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
+	}
+
+	.flap {
+		animation: flip-horizontal-bottom 1s  cubic-bezier(0.455, 0.030, 0.515, 0.955) forwards;
+	}
+
+
+
+	@-webkit-keyframes flip-horizontal-bottom {
+		0% {
+			-webkit-transform: rotateX(0);
+			transform: rotateX(0);
+		}
+		
+		50%{
+			-webkit-transform: rotateX(-180deg);
+			transform: rotateX(-180deg);
+		}
+
+		100% {
+			-webkit-transform: rotateX(0);
+			transform: rotateX(0);
+		}
+	}
+
+	@keyframes flip-horizontal-bottom {
+		0% {
+			-webkit-transform: rotateX(0);
+			transform: rotateX(0);
+		}
+		
+		50%{
+			-webkit-transform: rotateX(-180deg);
+			transform: rotateX(-180deg);
+		}
+		
+		100% {
+			-webkit-transform: rotateX(0);
+			transform: rotateX(0);
+		}
 	}
 
 	.progress {
@@ -327,8 +371,11 @@
 
 							.reword {
 								image {
-									width: 104rpx;
-									height: 80rpx;
+									width: 108rpx;
+									height: 108rpx;
+									border-radius: 16upx;
+									background: #aaa;
+									margin-left: 26rpx;
 								}
 							}
 						}
