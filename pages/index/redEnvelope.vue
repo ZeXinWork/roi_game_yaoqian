@@ -323,7 +323,8 @@
 								color: #FA4542;
 								font-size: 140rpx;
 								height: 160rpx;
-								line-height: 160rpx
+								line-height: 160rpx;
+								font-weight: bold;
 							}
 
 							.yuanbao_item {
