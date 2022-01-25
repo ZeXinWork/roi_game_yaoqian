@@ -16,6 +16,9 @@ const restResult = (type, url, params = {}, extra = {}, showTips = true) => {
 
 const fetchResponse = (type, url, params, extra, showTips) => {
   let fullUrl = api.BASE_URL + url
+  if (url.indexOf(api.TRACK_LOG) >= 0) {
+    fullUrl = api.TRACK_URL + url
+  } 
   switch (type) {
     case GET_LIST:
       return getRequest(type, fullUrl, params, showTips)
