@@ -9,13 +9,7 @@ const getAuthOfSubscribeMessage = (handler) => {
 	  success(res) {
 		handler && handler()
 	  },
-	  fail(res) {
-		uni.showModal({
-			title: '提示',
-			content: '请从右上角进入小程序设置，检查是否已开启接收订阅消息',
-			showCancel: false
-		})
-	  }
+	  fail(res) {}
 	});
 };
 
