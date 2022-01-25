@@ -160,9 +160,19 @@
 			transform: rotateX(0);
 		}
 
+		25% {
+			-webkit-transform: rotateX(-100deg);
+			transform: rotateX(-180deg);
+		}
+
 		50% {
 			-webkit-transform: rotateX(-180deg);
 			transform: rotateX(-180deg);
+		}
+
+		75% {
+			-webkit-transform: rotateX(0);
+			transform: rotateX(0);
 		}
 
 		100% {
@@ -231,7 +241,7 @@
 			width: 600upx;
 			min-height: 880upx;
 			border-radius: 32upx;
-			background-image: linear-gradient(#eba278, #ff2626);
+			background-image: linear-gradient(#fa7d6d, #e7514e);
 			position: relative;
 			box-sizing: border-box;
 			padding-top: 32rpx;
@@ -249,7 +259,8 @@
 					box-sizing: border-box;
 					text-align: center;
 					padding-top: 20rpx;
-					color: #976F1D
+					color: #976F1D;
+					font-weight: bold;
 				}
 
 				.no_win {
@@ -264,7 +275,6 @@
 					background: none;
 					width: 100% !important;
 					margin: 0 auto;
-					padding: 50upx 0;
 
 					&:after {
 						border: none;
@@ -285,7 +295,8 @@
 					text-align: center;
 					padding: 30upx;
 					font-size: 34upx;
-					color: #976F1D
+					color: #976F1D;
+					font-weight: bold;
 				}
 
 				.p_body_mid_prize {
@@ -299,13 +310,12 @@
 						.p_body_mid_prize_yunbao_title {
 							box-sizing: border-box;
 							display: flex;
-							align-items: center;
+							align-items: flex-end;
 							justify-content: center;
 
 							image {
-								width: 70rpx;
-								height: 50rpx;
-								margin-right: 32rpx;
+								width: 100rpx;
+								height: 80rpx;
 							}
 
 							.yuanbao {
@@ -319,6 +329,7 @@
 							.yuanbao_item {
 								color: #FA4542;
 								font-size: 34rpx;
+								margin-bottom: 30rpx;
 							}
 						}
 
@@ -354,6 +365,7 @@
 							.title {
 								color: #976F1D;
 								font-size: 26rpx;
+
 
 								.name {
 									color: #E73D3D
@@ -444,8 +456,11 @@
 					line-height: 80rpx;
 					left: 0;
 					right: 0;
-					bottom: 50rpx;
+					bottom: 90rpx;
 					margin: auto;
+					color: #976F1D;
+					font-weight: bold;
+					font-size: 34rpx;
 					background-image: linear-gradient(180deg, #F7EEB2 0%, #ECD87A 100%);
 				}
 			}

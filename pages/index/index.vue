@@ -1123,6 +1123,7 @@
 				this.getPlayNumber() //获取游戏可玩次数
 				this.getHelperList(1) // 助力记录
 				this.getMyRank() //获取当前我的排名信息
+				this.getRainSetting()//获取红包雨设置
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
@@ -2662,11 +2663,11 @@
 						this.$uma.setOpenid(this.user.openid)
 						this.getGameInfo(() => {
 							//获取游戏信息
-
 							this.getPlayNumber() //获取游戏可玩次数
 							this.getHelperList(1) // 助力记录
 							this.getMyRank() //获取当前我的排名信息
 							this.getWechatMessage()
+							this.getRainSetting()//获取红包雨设置
 						})
 
 						if (this.$storage.get('getLocationTime') == '') {
