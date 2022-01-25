@@ -144,6 +144,7 @@
 import "@/static/css/game.scss";
 import { prizeList, getPhone, userLogin } from "@/rest/api.js";
 import moment from "moment";
+import { uploadTrackLog } from '@/rest/trackApi.js'
 export default {
   data() {
     return {
@@ -322,7 +323,7 @@ export default {
     },
     trackEvent(name, data){
       const locationTime = this.$storage.get('getLocationTime')
-			this.$uma.trackEvent(name,{
+      const params = {
 				'prizeId_evar': this.goReceiveItem.award_id,
         'prizeName_evar': this.goReceiveItem.prize_name,
         'prizeType_evar': this.goReceiveItem.prize_type,
@@ -335,7 +336,9 @@ export default {
 				'gameName_evar': this.gameInfo.name,
 				'userOpenID_evar': this.user_info.openid + '',
 				'timeStamp_evar': Date.parse( new Date())  + ''
-			})
+			}
+			this.$uma.trackEvent(name,params)
+      uploadTrackLog(name, params)
 		}
   },
 };

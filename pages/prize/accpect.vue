@@ -81,6 +81,7 @@
 	import moment from 'moment'
 	import ayQrcode from "@/components/ay-qrcode/ay-qrcode.vue"
 	import BottomAction from '@/components/BottomAction.vue'
+	import { uploadTrackLog } from '@/rest/trackApi.js'
 	export default {
 		data() {
 			return {
@@ -347,7 +348,7 @@
 				})
 			},
 			longtap() {
-				this.$uma.trackEvent('scanSponsorQRcode',{
+				const params = {
 					'prizeId_evar': this.prizeInfo.award_id,
 					'prizeName_evar': this.prizeInfo.prize_name,
 					'prizeType_evar': this.prizeInfo.prize_type,
@@ -358,7 +359,9 @@
 					'gameName_evar': this.gameInfo.name,
 					'userOpenID_evar': this.userInfo.openid + '',
 					'timeStamp_evar': Date.parse( new Date())  + ''
-				})
+				}
+				this.$uma.trackEvent('scanSponsorQRcode',params)
+				uploadTrackLog('scanSponsorQRcode', params)
 			}
 		}
 	}
