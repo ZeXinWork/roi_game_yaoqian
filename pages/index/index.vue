@@ -41,10 +41,10 @@
         backgroundSize: '100%',
       }">
 
-			<!-- 			<button @click="startPlay">开始</button>
-		 -->
-			<!-- <button @click="stopPlay">停止</button>
-			<button @click='startPlay'>kaishi</button> -->
+			<!-- <button @click="test">开始</button> -->
+
+			<!-- <button @click="stopPlay">停止</button> -->
+			<!-- <button @click='startPlay'>kaishi</button> -->
 			<canvas :style="{ display: hideAmCanv ? 'none' : 'inline-block' }" canvas-id="lottie_demo" id="lottie_demo"
 				type="2d" />
 			<!-- <button @click="init">初始化</button> -->
@@ -1191,8 +1191,8 @@
 				this.ani.stop()
 			},
 			pause() {
+				this.ani.destroy()
 				this.hideAmCanv = true
-				this.ani.stop()
 			},
 			init() {
 				const _this = this
@@ -1223,14 +1223,14 @@
 						const canvas = res[0].node
 						let device = uni.getSystemInfo()
 						const context = canvas.getContext('2d')
-
+						// https://static.roi-cloud.com/upload/audio/hongbaodiaolluo.json
 						canvas.height = 520 * dpr
 						canvas.width = 375 * dpr
 						lottie.setup(canvas)
 						_this.ani = lottie.loadAnimation({
 							loop: false,
 							autoplay: false,
-							path: 'https://static.roi-cloud.com/upload/audio/hongbaodiaolluo.json',
+							path: 'https://static.roi-cloud.com/upload/yaoyaoshu/kaihongbao2.json',
 							rendererSettings: {
 								context,
 							},
@@ -1252,7 +1252,10 @@
 					clearInterval(this.cashTimer)
 					_this.radomIndex = Math.ceil(Math.random() * 5)
 					_this.showCash = data[_this.currentCashIndex]
-					if (_this.showCash.nickname.length > 2) {
+					if (_this.showCash.nickname.length === 3) {
+						_this.showCash.nickname =
+							`${_this.showCash.nickname[0]}*${_this.showCash.nickname[_this.showCash.nickname.length-1]}`
+					} else if (_this.showCash.nickname.length > 2) {
 						_this.showCash.nickname =
 							`${_this.showCash.nickname[0]}**${_this.showCash.nickname[_this.showCash.nickname.length-1]}`
 					} else if (_this.showCash.nickname.length === 2) {
@@ -1263,6 +1266,10 @@
 					this.cashTimer = setInterval(function() {
 						_this.radomIndex = Math.ceil(Math.random() * 5)
 						_this.showCash = data[_this.currentCashIndex]
+						if (_this.showCash.nickname.length === 3) {
+							_this.showCash.nickname =
+								`${_this.showCash.nickname[0]}*${_this.showCash.nickname[_this.showCash.nickname.length-1]}`
+						} else
 						if (_this.showCash.nickname.length > 2) {
 							_this.showCash.nickname =
 								`${_this.showCash.nickname[0]}**${_this.showCash.nickname[_this.showCash.nickname.length-1]}`
@@ -1279,7 +1286,7 @@
 				}
 			},
 			test() {
-				this.rainData.visible = true
+				this.ani.destroy()
 			},
 			handleTest() {
 				this.awardQuery.hasMore = true
@@ -1295,17 +1302,16 @@
 
 					setTimeout(function() {
 						_this.pause()
-
+						_this.playAnimation = false
+						_this.$refs.redEnvelope.open()
+						_this.playLoading = false
 						setTimeout(function() {
 							if (_this.gameResult.result) {
 								_this.playSound()
 							} else {
 								_this.playUnpublishedSound()
 							}
-						}, 500)
-						_this.playAnimation = false
-						_this.$refs.redEnvelope.open()
-						_this.playLoading = false
+						}, 400)
 					}, 3000)
 				}, 2000)
 			},
@@ -2820,7 +2826,14 @@
 					this.shakePlay = false
 				}
 			},
-		},
+			hideAmCanv: function(val, oldVal) {
+				if (val) {
+					
+					this.init()
+				}
+			},
+
+		}
 	}
 </script>
 

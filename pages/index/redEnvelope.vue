@@ -14,11 +14,7 @@
 						</image>
 						<view class="bet">
 							<text>元宝</text>
-							<text :class="[
-          'levl-3 ',
-          { swiper_anumation_most: !playAnimation },
-          { trunk_slow: playAnimation },
-        ]">{{`+ ${prize.award_point}`}}</text>
+							<text>{{`+ ${prize.award_point}`}}</text>
 						</view>
 
 					</view>
@@ -116,11 +112,12 @@
 			},
 			handleChange(e) {
 				this.PopOpen = e.show
-				if (!e.show) {
+				if (e.show) {
+					this.$parent.init()
+				}
+				if (!e.show && this.$parent.playTime == 4) {
 					setTimeout(function() {
-						if (this.$parent.playTime == 4) {
-							this.$parent.rainData.visible = true
-						}
+						this.$parent.rainData.visible = true
 					}.bind(this), 300)
 				}
 			},
@@ -152,7 +149,7 @@
 	}
 
 	.flap {
-		animation: flip-horizontal-bottom 1s  cubic-bezier(0.455, 0.030, 0.515, 0.955) forwards;
+		animation: flip-horizontal-bottom 1s cubic-bezier(0.455, 0.030, 0.515, 0.955) forwards;
 	}
 
 
@@ -162,8 +159,8 @@
 			-webkit-transform: rotateX(0);
 			transform: rotateX(0);
 		}
-		
-		50%{
+
+		50% {
 			-webkit-transform: rotateX(-180deg);
 			transform: rotateX(-180deg);
 		}
@@ -179,12 +176,12 @@
 			-webkit-transform: rotateX(0);
 			transform: rotateX(0);
 		}
-		
-		50%{
+
+		50% {
 			-webkit-transform: rotateX(-180deg);
 			transform: rotateX(-180deg);
 		}
-		
+
 		100% {
 			-webkit-transform: rotateX(0);
 			transform: rotateX(0);

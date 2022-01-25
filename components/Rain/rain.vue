@@ -4,14 +4,27 @@
       backgroundSize: '100%',
     }">
 		<view class="container flex-center">
-			<view @click="handleClose" @touchmove="handleScrollTouch" class="close-bg"></view>
+			<view @touchmove="handleScrollTouch" class="close-bg"></view>
 			<block>
-				<block v-if="showStatus === 1">
+				<view v-if="!readyOk && showStatus === 1">
 					<view class="reminder-wrapper flex-column-center">
-						<image class="title" src="https://static.roi-cloud.com/upload/20220121/60935669144811"
+						<image class="ready_title" src="https://static.roi-cloud.com/upload/20220125/60935669102534"
 							mode="aspectFill">
 						</image>
-						<view class="time">{{ readyTime }}</view>
+						<image @click="handleReady" class="ready_button"
+							src="https://static.roi-cloud.com/upload/20220125/60935669104718" mode="aspectFit">
+						</image>
+						<view @click="handleReady" class="ready_button_text">
+							立即抢红包
+						</view>
+					</view>
+				</view>
+				<block v-if="showStatus === 1">
+					<view class="reminder-wrapper flex-column-center">
+						<image v-if="readyOk" class="title"
+							src="https://static.roi-cloud.com/upload/20220121/60935669144811" mode="aspectFill">
+						</image>
+						<view class="time" v-if="readyOk">{{ readyTime }}</view>
 						<image class="bottom-img" src="https://static.roi-cloud.com/upload/20220121/60935669153646"
 							mode="aspectFill"></image>
 					</view>
@@ -24,12 +37,14 @@
 									<view class="tip">剩余时间
 										<text class="time"> {{ showRainTotalTime }} s </text>
 									</view>
-									<!-- 	<view class="progress-wrapper">
-									<view class="progress"></view>
-								</view> -->
+									<!-- <view class="progress-wrapper">
+										<view class="progress" :animation="progressAni"></view>
+									</view> -->
+									<!-- :style="{ width: progressWidth }" -->
 									<view class="box animate">
-										<text :style="{ width: progressWidth }">
-											<text></text></text>
+										<text :animation="progressAni">
+											<text></text>
+										</text>
 									</view>
 								</view>
 							</view>
@@ -55,8 +70,17 @@
 								<view class="result-title">恭喜您获得</view>
 								<view class="ready-wrapper flex-column-center">
 									<view class="money-wrapper flex-row">
-										<view class="money">{{ showScore }}</view>
-										<view class="unit">金币</view>
+										<view>
+											<text class="money">{{ showScore }}</text>
+											<text class="unit">金币</text>
+										</view>
+										<view class="flex-end-start">
+											<image class="jinbi"
+												src="https://static.roi-cloud.com/upload/20220124/60935669154508"
+												mode="aspectFill"></image>
+											<text class='exchange_text'>直接换奖品，累计冲排名</text>
+										</view>
+
 									</view>
 									<view class="result-btn" @click="handleClose">我知道了</view>
 								</view>
@@ -96,6 +120,7 @@
 				openEnvelopeImg: '',
 				redEnvelopeImg: '',
 				codeArray: [],
+				readyOk: false
 			}
 		},
 		computed: {
@@ -147,7 +172,7 @@
 			clearTimeout(rainTimer)
 			this.cancelCustomAnimationFrame(animation)
 			// 开始准备倒计时
-			this.cultdown()
+			// this.cultdown()
 			uni.getSystemInfo({
 				success: function(res) {
 					_this.windowWidth = res.windowWidth
@@ -161,6 +186,10 @@
 			animation && this.cancelCustomAnimationFrame(animation)
 		},
 		methods: {
+			handleReady() {
+				this.readyOk = true
+				this.cultdown()
+			},
 			// 开始准备倒计时
 			cultdown: function() {
 				let _this = this
@@ -182,7 +211,6 @@
 				this.initRain()
 
 				// 倒计时进度条
-				this.ininProgress()
 				// 红包雨倒计时
 				let showRainTotalTime = this.time
 				rainTimer = setInterval(function() {
@@ -190,7 +218,7 @@
 						clearInterval(rainTimer)
 						if (animation) {
 							// 结束
-							// _this.showRainResult()
+							_this.showRainResult()
 							_this.cancelCustomAnimationFrame(animation)
 						}
 					}
@@ -199,11 +227,11 @@
 			},
 			// 倒计时进度条
 			ininProgress() {
-				let time = this.time
+				const time = this.time
 				const animation = uni.createAnimation({
-					duration: time * 1000,
+					duration: time * 1000
 				})
-				animation.translateX(-120).step()
+				animation.translateX(-180).step()
 				this.progressAni = animation.export()
 			},
 			//分数动画
@@ -257,6 +285,7 @@
 			// 开始下落
 			doDrawRain: function() {
 				const context = this.context
+				this.ininProgress()
 				const {
 					windowWidth,
 					windowHeight
@@ -343,7 +372,7 @@
 					// 红包图片宽度大小30~40
 					const width = this.randNum(minWidth, maxWidth)
 					// 宽度为红包高度的百分之八十
-					const height = 120
+					const height = Math.floor(width / .8)
 					// 速度
 					const vy = 1 * Math.random() + createSpeed
 					// 红包金额
@@ -405,7 +434,7 @@
 							// 红包图片宽度大小30~40
 							const width = _this.randNum(minWidth, maxWidth)
 							// 宽度为红包高度的百分之八十
-							const height = 120
+							const height = Math.floor(width / .8)
 							// 速度
 							const vy = 1 * Math.random() + createSpeed
 							// 红包金额
@@ -433,11 +462,11 @@
 				// 初始化红包雨
 				// https://static.roi-cloud.com/upload/20220124/60935669160410
 				uni.getImageInfo({
-					src: 'https://static.roi-cloud.com/upload/20220120/60935669102724',
+					src: 'https://static.roi-cloud.com/upload/20220125/60935669111345',
 					success(res) {
 						_this.openEnvelopeImg = res.path
 						uni.getImageInfo({
-							src: 'https://static.roi-cloud.com/upload/20220120/60935669102654',
+							src: 'https://static.roi-cloud.com/upload/20220125/60935669111314',
 							success(res) {
 								_this.redEnvelopeImg = res.path
 								_this.initRainDrops() // 音效
@@ -469,10 +498,12 @@
 		height: 48rpx;
 		border: 10rpx solid #342f36;
 		box-sizing: border-box;
+		overflow: hidden;
 	}
 
 	.box>text {
 		display: block;
+		width: 360rpx;
 		height: 100%;
 		border-radius: 48rpx;
 		background-image: -webkit-gradient(linear,
@@ -488,6 +519,7 @@
 
 	.animate>text>text {
 		content: '';
+		width: 360rpx;
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -507,10 +539,13 @@
 		-webkit-border-radius: 48rpx;
 		overflow: hidden;
 		-webkit-background-size: 40px;
+
 	}
+	
 
 	.animate>text text {
 		content: '';
+		width: 360rpx;
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -568,6 +603,27 @@
 			height: 100vh;
 			color: #fff;
 			box-sizing: border-box;
+
+			.ready_title {
+
+				height: 740rpx;
+				position: absolute;
+				top: 160rpx;
+			}
+
+			.ready_button {
+				width: 415rpx;
+				height: 98rpx;
+				position: absolute;
+				top: 800rpx;
+			}
+
+			.ready_button_text {
+				color: #FFF6E2;
+				font-size: 36rpx;
+				position: absolute;
+				top: 820rpx;
+			}
 
 			.title {
 				font-size: 60rpx;
@@ -695,41 +751,55 @@
 				position: relative;
 				width: 550rpx;
 				height: 700rpx;
-				background-image: url('https://www.sunniejs.cn/static/weapp/l-rain-gold@2x.png');
+				background-image: url('https://static.roi-cloud.com/upload/20220125/60935669113010');
 				background-size: 100% 100%;
 				background-repeat: no-repeat;
 
 				.result-title {
-					margin-top: 50rpx;
+					margin-top: 68rpx;
 					font-size: 40rpx;
-					color: #ffffff;
+					color: #76521D;
 				}
 
 				.money-wrapper {
-					margin-top: 56rpx;
 					color: #fff;
+					display: flex;
+					flex-direction: column;
 
 					.money {
+						color: #fa4542;
 						font-size: 120rpx;
+					}
+
+					.jinbi {
+						width: 48rpx;
+						height: 50rpx;
+						margin-right: 6rpx;
+					}
+
+					.exchange_text {
+						color: #BF9B66;
+						font-size: 24rpx;
+
 					}
 
 					.unit {
 						position: relative;
-						top: 34rpx;
 						font-size: 32rpx;
+						color: #fa4542
 					}
 				}
 
 				.result-btn {
 					margin-top: 158rpx;
-					width: 300rpx;
-					height: 70rpx;
-					background-color: #fff9e8;
+					width: 440rpx;
+					height: 100rpx;
+					background-color: #f1daae;
 					text-align: center;
-					line-height: 70rpx;
+					line-height: 100rpx;
 					border-radius: 40rpx;
-					font-size: 30rpx;
-					color: #b10000;
+					font-size: 40rpx;
+					color: #76521D;
 				}
 			}
 		}
