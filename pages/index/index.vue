@@ -875,6 +875,10 @@
 		getRainSet,
 		addRainScore
 	} from '@/rest/api.js'
+	import {
+		uploadTrackLog,
+	} from '@/rest/trackApi.js'
+
 	export default {
 		components: {
 			popup,
@@ -2717,13 +2721,15 @@
 			},
 			trackEvent(name, data) {
 				const gameInfo = this.$storage.get('gameInfo')
-				this.$uma.trackEvent(name, {
+				const params = {
 					...data,
 					gameID_evar: this.gameId,
 					gameName_evar: gameInfo.name,
 					userOpenID_evar: this.user.openid + '',
 					timeStamp_evar: Date.parse(new Date()) + '',
-				})
+				}
+				this.$uma.trackEvent(name, params)
+				uploadTrackLog(name, params)
 			},
 		},
 		async onShareAppMessage(e) {

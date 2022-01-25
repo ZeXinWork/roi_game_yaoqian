@@ -3,14 +3,19 @@
 // 测试
 
 let domainUrl = ""
+let trackUrl = ""
 if (process.env.NODE_ENV === 'development') {
 	// 测试环境
 	domainUrl = "https://game0.roi-cloud.com";
+	trackUrl = "https://pay.roi-cloud.com"
 } else {
 	// 正式环境
 	domainUrl = "https://game.roi-cloud.com";
+	trackUrl = "https://pay.roi-cloud.com"
 }
 export const BASE_URL = domainUrl;
+
+export const TRACK_URL = trackUrl;
 
 export const QINIU_UPLOAD_URL = 'https://up.qiniup.com';
 
@@ -334,3 +339,7 @@ export const GET_CASH_LIST = '/api/game/redeemlog'
 export const GET_RAIN_SET = '/api/extra/red'
 
 export const ADD_RAIN_SCORE = '/api/extra/update'
+
+// =============================================
+// 数据上传
+export const TRACK_LOG = '/track'
