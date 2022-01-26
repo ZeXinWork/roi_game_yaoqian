@@ -51,7 +51,7 @@
 							<view class="jinbi-wrapper">
 								<image class="jinbi" src="https://static.roi-cloud.com/upload/20220124/60935669154508"
 									mode="aspectFill"></image>
-								<view class="total-score">金币：{{ showScore }}</view>
+								<view class="total-score">元宝：{{ showScore }}</view>
 							</view>
 						</view>
 						<view class="canvas-wrapper">
@@ -72,7 +72,7 @@
 									<view class="money-wrapper flex-row">
 										<view>
 											<text class="money">{{ showScore }}</text>
-											<text class="unit">金币</text>
+											<text class="unit">元宝</text>
 										</view>
 										<view class="flex-end-start">
 											<image class="jinbi"
@@ -106,7 +106,7 @@
 		name: 'rain',
 		data() {
 			return {
-				showRainTotalTime: 10, // 红包雨时间
+				showRainTotalTime: 30, // 红包雨时间
 				showStatus: 1, // 红包雨状态：1:准备倒计时，2:正在红包雨，3:红包雨结束
 				windowWidth: 375,
 				windowHeight: 555,
@@ -329,12 +329,11 @@
 					const img = open ? this.openEnvelopeImg : this.redEnvelopeImg
 					const imgWidth = open ? width + 20 : width
 					const imgHeight = open ? height + 25 : height
-
 					context.drawImage(img, x, y, imgWidth, imgHeight)
 					i.x += vx
 					i.y += vy
-					i.y >= windowHeight && ((i.y = 0), (i.open = false))
-					i.x + width <= 0 && ((i.x = windowWidth - width), (i.open = false))
+					i.y >= windowHeight && (i.y = 0, i.open = false)
+					i.x + width <= 0 && (i.x = windowWidth - width, i.open = false)
 				}
 				context.draw()
 				// 下落函数
@@ -366,7 +365,7 @@
 					max,
 					min
 				} = this
-				for (let n = 0; n < 10; n += 1) {
+				for (let n = 0; n < 6; n += 1) {
 					const startX = Math.floor(Math.random() * (windowWidth - 50))
 					const startY = Math.floor(Math.random() * windowHeight)
 					// 红包图片宽度大小30~40
@@ -374,7 +373,14 @@
 					// 宽度为红包高度的百分之八十
 					const height = Math.floor(width / .8)
 					// 速度
-					const vy = 1 * Math.random() + createSpeed
+					const radomVal = Math.ceil(Math.random() * 10)
+					let vy = ""
+					if (radomVal === 3 || radomVal === 4 || radomVal === 5 || radomVal === 6) {
+						vy = 1 * Math.random() + 6
+					} else {
+						vy = 1 * Math.random() + createSpeed
+					}
+
 					// 红包金额
 					const score = this.radnScore(min, max + 1)
 					redEnvelopes.push({
@@ -436,7 +442,13 @@
 							// 宽度为红包高度的百分之八十
 							const height = Math.floor(width / .8)
 							// 速度
-							const vy = 1 * Math.random() + createSpeed
+							const radomVal = Math.ceil(Math.random() * 10)
+							let vy = ""
+							if (radomVal === 3 || radomVal === 4 || radomVal === 5 || radomVal === 6) {
+								vy = 1 * Math.random() + 6
+							} else {
+								vy = 1 * Math.random() + createSpeed
+							}
 							// 红包金额
 							const score = _this.radnScore(min, max + 1)
 							redEnvelopes.push({
@@ -541,7 +553,7 @@
 		-webkit-background-size: 40px;
 
 	}
-	
+
 
 	.animate>text text {
 		content: '';

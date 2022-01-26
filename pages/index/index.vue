@@ -826,10 +826,10 @@
 				</view>
 			</view>
 		</uni-popup>
-		<!-- <Rain v-if="rainData.visible" :dataTem='rainData.dataTem' @finishRain='finishRain' @reduceTime='reduceTime'
+		<Rain v-if="rainData.visible" :dataTem='rainData.dataTem' @finishRain='finishRain' @reduceTime='reduceTime'
 			:max='rainData.max' :min='rainData.min' :readyTime='rainData.readyTime' :time='rainData.time'
 			:visible="rainData.visible" :createSpeed='rainData.createSpeed'>
-		</Rain> -->
+		</Rain>
 
 	</view>
 </template>
@@ -994,8 +994,8 @@
 				HongbaoDownAudio: null,
 				rainData: {
 					visible: false,
-					createSpeed: 2, // 速度
-					time: 10, // 游戏时间
+					createSpeed: 3, // 速度
+					time: 30, // 游戏时间
 					readyTime: 3, // 准备时间
 					min: 0, // 金币最小是0
 					max: 0, // 金币最大是10,
@@ -1228,6 +1228,7 @@
 						const canvas = res[0].node
 						let device = uni.getSystemInfo()
 						const context = canvas.getContext('2d')
+						// https://static.roi-cloud.com/upload/yaoyaoshu/kaihongbao2.json
 						// https://static.roi-cloud.com/upload/audio/hongbaodiaolluo.json
 						canvas.height = 520 * dpr
 						canvas.width = 375 * dpr
@@ -1235,7 +1236,7 @@
 						_this.ani = lottie.loadAnimation({
 							loop: false,
 							autoplay: false,
-							path: 'https://static.roi-cloud.com/upload/yaoyaoshu/kaihongbao2.json',
+							path: 'https://static.roi-cloud.com/upload/yaoyaoshu/open.json',
 							rendererSettings: {
 								context,
 							},
@@ -2806,6 +2807,7 @@
 				type +
 				'&code=' +
 				inviteData.code
+			console.log("pathhhh", path)
 			return {
 				title: this.gameInfo.name,
 				path,
@@ -2835,7 +2837,7 @@
 			},
 			hideAmCanv: function(val, oldVal) {
 				if (val) {
-					
+
 					this.init()
 				}
 			},
@@ -3177,7 +3179,7 @@
 		position: absolute;
 		top: 632rpx;
 		right: 0rpx;
-		z-index: 20;
+		z-index: 0;
 	}
 
 	@mixin hongbao {
