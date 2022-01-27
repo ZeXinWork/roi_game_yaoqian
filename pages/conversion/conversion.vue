@@ -510,7 +510,7 @@
 	};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.prizeInfoDetail {
 		.p_header {
 			display: flex;

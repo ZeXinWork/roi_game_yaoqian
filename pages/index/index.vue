@@ -292,7 +292,7 @@
 					</view>
 					<view class="rank_list" v-if="Number(gameInfo.open_pk_award)">
 						<view v-for="(item, index) in kingofKingsList" :key="index" class="mlr30">
-							<view class="rank_box">
+							<view class="rank_box" @click="showDetail(item)">
 								<view class="gift_image">
 									<image :src="item.info.prize_url" mode="aspectFill"></image>
 								</view>
@@ -826,6 +826,24 @@
 				</view>
 			</view>
 		</uni-popup>
+		<popup ref="prizeInfoDetail" class="prizeInfoDetail" width="640" left="56" top="336">
+			<view class="p_header">
+				<image @click="hideDetail" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode="">
+				</image>
+			</view>
+			<view class="g_info">
+				<image :src="curr_show_item.prize_url" mode="aspectFill"></image>
+				<view class="g_info_name">
+					{{ curr_show_item.prize_name }}
+				</view>
+			</view>
+			<view class="g_content">
+				<view class="g_content_text">
+					<text class="m_content">{{curr_show_item.prize_desc || "暂无详细说明"}}</text>
+				</view>
+				<view class="g_btn" @click="hideDetail">我知道了</view>
+			</view>
+		</popup>
 		<Rain v-if="rainData.visible" :dataTem='rainData.dataTem' @finishRain='finishRain' @reduceTime='reduceTime'
 			:max='rainData.max' :min='rainData.min' :readyTime='rainData.readyTime' :time='rainData.time'
 			:visible="rainData.visible" :createSpeed='rainData.createSpeed'>
@@ -1001,6 +1019,7 @@
 					max: 0, // 金币最大是10,
 					dataTem: {}
 				},
+				curr_show_item: {}
 			}
 		},
 		onUnload() {
@@ -1118,16 +1137,18 @@
 				'https://static.roi-cloud.com/upload/audio/noRewordss.m4a' //音频地址
 			this.HongbaoDownAudio = uni.createInnerAudioContext()
 			this.HongbaoDownAudio.src =
-				'https://static.roi-cloud.com/upload/audio/hongbaoluo.m4a'
+				'https://static.roi-cloud.com/upload/audio/hongbaoluo_new.m4a'
 			this.user = user
-
+			uni.setInnerAudioOption({
+				obeyMuteSwitch: false
+			})
 			if (user.userId) {
 				this.gameId = localGameId.trim()
 				this.getGameInfo() //获取游戏信息
 				this.getPlayNumber() //获取游戏可玩次数
 				this.getHelperList(1) // 助力记录
 				this.getMyRank() //获取当前我的排名信息
-				this.getRainSetting()//获取红包雨设置
+				this.getRainSetting() //获取红包雨设置
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
@@ -1163,6 +1184,19 @@
 				if (this.rainData.readyTime <= 0) {
 					this.rainData.readyTime = 0
 				}
+			},
+			hideDetail() {
+				this.$refs.prizeInfoDetail.hide();
+			},
+			showDetail({info}) {
+				this.curr_show_item = info;
+				this.trackEvent('priceImpression', {
+					'gameID_evar': this.gameId,
+					'gameName_evar': this.gameInfo.name,
+					'prizeId_evar': info.game_award_id,
+					'prizePage_evar': '/pages/index/index',
+				})
+				this.$refs.prizeInfoDetail.show();
 			},
 			finishRain(data) {
 				this.rainData.visible = false
@@ -2310,7 +2344,7 @@
 
 							let item = {
 								info: this.gameInfo.game_pk_plugin[index],
-								range: this.gameInfo.game_pk_plugin[index].end_seq == 1 ?
+								range: num == this.gameInfo.game_pk_plugin[index].end_seq ?
 									'第' + num + '名' : '第' +
 									num +
 									'～' +
@@ -2321,7 +2355,8 @@
 									Number(this.gameInfo.game_pk_plugin[index].prize_num)
 								),
 							}
-							num += Number(this.gameInfo.game_pk_plugin[index].end_seq)
+
+							num += Number(this.gameInfo.game_pk_plugin[index].prize_num)
 							userList.splice(
 								0,
 								Number(this.gameInfo.game_pk_plugin[index].prize_num)
@@ -2672,7 +2707,7 @@
 							this.getHelperList(1) // 助力记录
 							this.getMyRank() //获取当前我的排名信息
 							this.getWechatMessage()
-							this.getRainSetting()//获取红包雨设置
+							this.getRainSetting() //获取红包雨设置
 						})
 
 						if (this.$storage.get('getLocationTime') == '') {
@@ -2847,6 +2882,73 @@
 </script>
 
 <style lang="scss">
+	.prizeInfoDetail {
+		.p_header {
+			display: flex;
+			padding: 40upx;
+			justify-content: flex-end;
+
+			.icon_close {
+				width: 40upx;
+				height: 40upx;
+			}
+		}
+
+		.g_content {
+			padding: 70upx;
+
+			.g_content_text {
+				padding: 20rpx 0;
+				border-top: 1upx solid #d8d8d8;
+			}
+
+			.m_content {
+				padding-top: 40upx;
+				max-height: 300upx;
+				overflow: hidden;
+				color: #666666;
+				overflow-y: scroll;
+				font-size: 28upx;
+				margin-bottom: 60upx;
+			}
+
+			.g_btn {
+				width: 406upx;
+				height: 80upx;
+				line-height: 80upx;
+				color: #fff;
+				text-align: center;
+				font-size: 34upx;
+				background: #e83d3d;
+				border-radius: 51upx;
+				margin: 0 auto;
+			}
+		}
+
+		.g_info {
+			padding: 0 70upx;
+			display: flex;
+
+			image {
+				width: 130upx;
+				height: 130upx;
+				margin-right: 24upx;
+			}
+
+			.g_info_name {
+				width: 1upx;
+				flex: 1;
+				text-overflow: -o-ellipsis-lastline;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				line-clamp: 2;
+				-webkit-box-orient: vertical;
+			}
+		}
+	}
+
 	#lottie_demo {
 		height: 520px;
 		width: 100vw;
