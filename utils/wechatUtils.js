@@ -5,11 +5,13 @@ const templateId = 'brB4ziJN4HM9hVnIhwkkp-S-WPGvkubEoGV_aTQRots'
  */
 const getAuthOfSubscribeMessage = (handler) => {
 	uni.requestSubscribeMessage({
-	  tmplIds: [templateId],
-	  success(res) {
-		handler && handler()
-	  },
-	  fail(res) {}
+		tmplIds: [templateId],
+		success(res) {
+			handler && handler()
+		},
+		fail(res) {
+			console.log(res, "ressssssss")
+		}
 	});
 };
 

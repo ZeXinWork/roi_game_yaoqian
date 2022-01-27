@@ -41,10 +41,10 @@
         backgroundSize: '100%',
       }">
 
-			<!-- 			<button @click="startPlay">开始</button>
-		 -->
-			<!-- <button @click="stopPlay">停止</button>
-			<button @click='startPlay'>kaishi</button> -->
+			<!-- <button @click="test">开始</button> -->
+
+			<!-- <button @click="stopPlay">停止</button> -->
+			<!-- <button @click='startPlay'>kaishi</button> -->
 			<canvas :style="{ display: hideAmCanv ? 'none' : 'inline-block' }" canvas-id="lottie_demo" id="lottie_demo"
 				type="2d" />
 			<!-- <button @click="init">初始化</button> -->
@@ -994,8 +994,8 @@
 				HongbaoDownAudio: null,
 				rainData: {
 					visible: false,
-					createSpeed: 2, // 速度
-					time: 10, // 游戏时间
+					createSpeed: 3, // 速度
+					time: 30, // 游戏时间
 					readyTime: 3, // 准备时间
 					min: 0, // 金币最小是0
 					max: 0, // 金币最大是10,
@@ -1127,6 +1127,7 @@
 				this.getPlayNumber() //获取游戏可玩次数
 				this.getHelperList(1) // 助力记录
 				this.getMyRank() //获取当前我的排名信息
+				this.getRainSetting()//获取红包雨设置
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
@@ -1195,8 +1196,8 @@
 				this.ani.stop()
 			},
 			pause() {
+				this.ani.destroy()
 				this.hideAmCanv = true
-				this.ani.stop()
 			},
 			init() {
 				const _this = this
@@ -1227,14 +1228,15 @@
 						const canvas = res[0].node
 						let device = uni.getSystemInfo()
 						const context = canvas.getContext('2d')
-
+						// https://static.roi-cloud.com/upload/yaoyaoshu/kaihongbao2.json
+						// https://static.roi-cloud.com/upload/audio/hongbaodiaolluo.json
 						canvas.height = 520 * dpr
 						canvas.width = 375 * dpr
 						lottie.setup(canvas)
 						_this.ani = lottie.loadAnimation({
 							loop: false,
 							autoplay: false,
-							path: 'https://static.roi-cloud.com/upload/audio/hongbaodiaolluo.json',
+							path: 'https://static.roi-cloud.com/upload/yaoyaoshu/open.json',
 							rendererSettings: {
 								context,
 							},
@@ -1256,7 +1258,10 @@
 					clearInterval(this.cashTimer)
 					_this.radomIndex = Math.ceil(Math.random() * 5)
 					_this.showCash = data[_this.currentCashIndex]
-					if (_this.showCash.nickname.length > 2) {
+					if (_this.showCash.nickname.length === 3) {
+						_this.showCash.nickname =
+							`${_this.showCash.nickname[0]}*${_this.showCash.nickname[_this.showCash.nickname.length-1]}`
+					} else if (_this.showCash.nickname.length > 2) {
 						_this.showCash.nickname =
 							`${_this.showCash.nickname[0]}**${_this.showCash.nickname[_this.showCash.nickname.length-1]}`
 					} else if (_this.showCash.nickname.length === 2) {
@@ -1267,6 +1272,10 @@
 					this.cashTimer = setInterval(function() {
 						_this.radomIndex = Math.ceil(Math.random() * 5)
 						_this.showCash = data[_this.currentCashIndex]
+						if (_this.showCash.nickname.length === 3) {
+							_this.showCash.nickname =
+								`${_this.showCash.nickname[0]}*${_this.showCash.nickname[_this.showCash.nickname.length-1]}`
+						} else
 						if (_this.showCash.nickname.length > 2) {
 							_this.showCash.nickname =
 								`${_this.showCash.nickname[0]}**${_this.showCash.nickname[_this.showCash.nickname.length-1]}`
@@ -1283,7 +1292,7 @@
 				}
 			},
 			test() {
-				this.rainData.visible = true
+				this.ani.destroy()
 			},
 			handleTest() {
 				this.awardQuery.hasMore = true
@@ -1299,17 +1308,16 @@
 
 					setTimeout(function() {
 						_this.pause()
-
+						_this.playAnimation = false
+						_this.$refs.redEnvelope.open()
+						_this.playLoading = false
 						setTimeout(function() {
 							if (_this.gameResult.result) {
 								_this.playSound()
 							} else {
 								_this.playUnpublishedSound()
 							}
-						}, 500)
-						_this.playAnimation = false
-						_this.$refs.redEnvelope.open()
-						_this.playLoading = false
+						}, 400)
 					}, 3000)
 				}, 2000)
 			},
@@ -2660,11 +2668,11 @@
 						this.$uma.setOpenid(this.user.openid)
 						this.getGameInfo(() => {
 							//获取游戏信息
-
 							this.getPlayNumber() //获取游戏可玩次数
 							this.getHelperList(1) // 助力记录
 							this.getMyRank() //获取当前我的排名信息
 							this.getWechatMessage()
+							this.getRainSetting()//获取红包雨设置
 						})
 
 						if (this.$storage.get('getLocationTime') == '') {
@@ -2799,6 +2807,7 @@
 				type +
 				'&code=' +
 				inviteData.code
+			console.log("pathhhh", path)
 			return {
 				title: this.gameInfo.name,
 				path,
@@ -2826,7 +2835,14 @@
 					this.shakePlay = false
 				}
 			},
-		},
+			hideAmCanv: function(val, oldVal) {
+				if (val) {
+
+					this.init()
+				}
+			},
+
+		}
 	}
 </script>
 
@@ -3163,7 +3179,7 @@
 		position: absolute;
 		top: 632rpx;
 		right: 0rpx;
-		z-index: 20;
+		z-index: 0;
 	}
 
 	@mixin hongbao {
