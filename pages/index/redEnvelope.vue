@@ -116,12 +116,12 @@
 					this.$parent.init()
 				}
 				// && this.$parent.playTime == 4
-				if (!e.show ) {
-					setTimeout(function() {
-						this.$parent.rainData.visible = true
-						this.$parent.rainData.readyTime = 3
-					}.bind(this), 300)
-				}
+				// if (!e.show ) {
+				// 	setTimeout(function() {
+				// 		this.$parent.rainData.visible = true
+				// 		this.$parent.rainData.readyTime = 3
+				// 	}.bind(this), 300)
+				// }
 			},
 			close() {
 				this.$refs.prizeDetail.close()

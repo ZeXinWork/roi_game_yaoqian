@@ -108,7 +108,7 @@
 		methods: {
 			toGame(game) {
 				uni.reLaunch({
-					url: `../index/index?gameId=${game.game_id}`
+					url: `../index/index?gameId=${game.game_id}&noAssist=${true}`
 				})
 			},
 			momentData(date) {

@@ -194,7 +194,9 @@
 	import popup from "@/components/popup/popup.vue";
 	import navbar from "../../components/Navbar.vue";
 	import _ from "lodash";
-	import { uploadTrackLog } from '@/rest/trackApi.js'
+	import {
+		uploadTrackLog
+	} from '@/rest/trackApi.js'
 	export default {
 		components: {
 			navbar,
@@ -510,7 +512,7 @@
 	};
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 	.prizeInfoDetail {
 		.p_header {
 			display: flex;
@@ -687,6 +689,7 @@
 
 	#main {
 		padding: 46upx 30upx;
+	
 
 		.card {
 			background: #fff;

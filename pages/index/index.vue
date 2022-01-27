@@ -844,10 +844,10 @@
 				<view class="g_btn" @click="hideDetail">我知道了</view>
 			</view>
 		</popup>
-		<Rain v-if="rainData.visible" :dataTem='rainData.dataTem' @finishRain='finishRain' @reduceTime='reduceTime'
+		<!-- <Rain v-if="rainData.visible" :dataTem='rainData.dataTem' @finishRain='finishRain' @reduceTime='reduceTime'
 			:max='rainData.max' :min='rainData.min' :readyTime='rainData.readyTime' :time='rainData.time'
 			:visible="rainData.visible" :createSpeed='rainData.createSpeed'>
-		</Rain>
+		</Rain> -->
 
 	</view>
 </template>
@@ -1081,6 +1081,7 @@
 			this.context = uni.createCanvasContext('shareCanvas', this)
 		},
 		onLoad(options) {
+			console.log(options, "optionsoptionsoptionsoptionsoptions")
 			const _this = this
 			// uni.getSystemInfo({
 			// 	success: function(res) {
@@ -1118,7 +1119,8 @@
 				// let list = this.$storage.get('inviteList')
 				// const isInvite = list && list.indexOf(this.inviteCode) > -1
 				// && !(isInvite == true)
-				if (user.userId) {
+
+				if (user.userId && !options.noAssist) {
 					this.getInviteInfo(this.inviteCode, localGameId.trim())
 				}
 				if (!user.userId) {
@@ -1148,7 +1150,7 @@
 				this.getPlayNumber() //获取游戏可玩次数
 				this.getHelperList(1) // 助力记录
 				this.getMyRank() //获取当前我的排名信息
-				this.getRainSetting() //获取红包雨设置
+				// this.getRainSetting() //获取红包雨设置
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
@@ -1188,7 +1190,9 @@
 			hideDetail() {
 				this.$refs.prizeInfoDetail.hide();
 			},
-			showDetail({info}) {
+			showDetail({
+				info
+			}) {
 				this.curr_show_item = info;
 				this.trackEvent('priceImpression', {
 					'gameID_evar': this.gameId,
@@ -1688,7 +1692,7 @@
 				//获取游戏可玩次数
 				this.getPlayNumber()
 				this.getWechatMessage()
-				this.getRainSetting()
+				// this.getRainSetting()
 			},
 			// 初始化
 			getRainSetting() {
@@ -1980,18 +1984,22 @@
 										this.playLoading = false
 										return
 									}
+
 									if (!this.$storage.get('getLocationTime')) {
+										
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
 												this.playShackSound()
 												this.getGameResult()
 											}
 										})
+
 										return
 									} else {
 										let get_time = this.$storage.get('getLocationTime').get_time
 										let now = new Date().getTime()
 										if ((now - get_time) / 1000 / 60 / 60 > 3) {
+											
 											this.getSetting(() => {
 												if (this.showNoPlayNum()) {
 													this.playShackSound()
@@ -2058,7 +2066,8 @@
 									this.playLoading = false
 									return
 								}
-								if (this.$storage.get('getLocationTime') == '') {
+								if (!this.$storage.get('getLocationTime')) {
+									
 									this.getSetting(() => {
 										if (this.showNoPlayNum()) {
 											this.playShackSound()
@@ -2070,6 +2079,7 @@
 									let get_time = this.$storage.get('getLocationTime').get_time
 									let now = new Date().getTime()
 									if ((now - get_time) / 1000 / 60 / 60 > 3) {
+										
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
 												this.playShackSound()
@@ -2204,7 +2214,11 @@
 								},
 								fail(err) {
 									that.playLoading = false
-									console.log(err, "获取用户地区信息接口失败")
+									uni.showModal({
+										title: "提示",
+										content: '获取地址失败！',
+										showCancel:false
+									})
 								}
 							})
 						} else {
@@ -2214,6 +2228,11 @@
 					},
 					fail(err) {
 						that.playLoading = false
+						uni.showModal({
+							title: "提示",
+							content: '获取用户设置信息失败！',
+							showCancel:false
+						})
 						console.log(err, "获取用户设置信息失败！")
 					}
 				})
@@ -2231,6 +2250,14 @@
 								that.updateLocation(res)
 								handler && handler()
 							},
+							fail(err) {
+								that.playLoading = false
+								uni.showModal({
+									title: "提示",
+									content: '获取地址失败！',
+									showCancel:false
+								})
+							}
 						})
 					},
 					// 授权失败
@@ -2707,7 +2734,10 @@
 							this.getHelperList(1) // 助力记录
 							this.getMyRank() //获取当前我的排名信息
 							this.getWechatMessage()
-							this.getRainSetting() //获取红包雨设置
+							if (this.currentScoreItem === 1) {
+								this.getAward()
+							}
+							// this.getRainSetting() //获取红包雨设置
 						})
 
 						if (this.$storage.get('getLocationTime') == '') {
@@ -2853,6 +2883,7 @@
 			currentScoreItem: {
 				handler(value, old) {
 					const user = this.$storage.getUser()
+					console.log(value, ">>>>>>>>>>>>>>>>")
 					if (user.userId) {
 						// if (Number(value) === 1) {
 						// 	this.getAward();
