@@ -1855,6 +1855,9 @@
 				return flag
 			},
 			gameHelp() {
+				if (!this.inviteCode) {
+					return
+				}
 				let params = {
 					invite_code: this.inviteCode,
 				}
@@ -1866,6 +1869,7 @@
 							// 助力结果弹出
 							if (JSON.stringify(res) == '{}') {
 								this.inviteCode = ''
+								// this.$storage.set('invite', "")
 								this.getGameInfo()
 								this.getPlayNumber()
 								const locationTime = this.$storage.get('getLocationTime')
@@ -1986,7 +1990,7 @@
 									}
 
 									if (!this.$storage.get('getLocationTime')) {
-										
+
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
 												this.playShackSound()
@@ -1999,7 +2003,7 @@
 										let get_time = this.$storage.get('getLocationTime').get_time
 										let now = new Date().getTime()
 										if ((now - get_time) / 1000 / 60 / 60 > 3) {
-											
+
 											this.getSetting(() => {
 												if (this.showNoPlayNum()) {
 													this.playShackSound()
@@ -2067,7 +2071,7 @@
 									return
 								}
 								if (!this.$storage.get('getLocationTime')) {
-									
+
 									this.getSetting(() => {
 										if (this.showNoPlayNum()) {
 											this.playShackSound()
@@ -2079,7 +2083,7 @@
 									let get_time = this.$storage.get('getLocationTime').get_time
 									let now = new Date().getTime()
 									if ((now - get_time) / 1000 / 60 / 60 > 3) {
-										
+
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
 												this.playShackSound()
@@ -2217,7 +2221,7 @@
 									uni.showModal({
 										title: "提示",
 										content: '获取地址失败！',
-										showCancel:false
+										showCancel: false
 									})
 								}
 							})
@@ -2231,7 +2235,7 @@
 						uni.showModal({
 							title: "提示",
 							content: '获取用户设置信息失败！',
-							showCancel:false
+							showCancel: false
 						})
 						console.log(err, "获取用户设置信息失败！")
 					}
@@ -2255,7 +2259,7 @@
 								uni.showModal({
 									title: "提示",
 									content: '获取地址失败！',
-									showCancel:false
+									showCancel: false
 								})
 							}
 						})

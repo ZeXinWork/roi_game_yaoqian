@@ -78,11 +78,17 @@
 				offset: 0,
 				limit: 3
 			}).then((res) => {
+
 				if (Array.isArray(res)) {
 					this.gameList = res
-				} else {
+				} else if (res.errno == 1) {
 					uni.showToast({
 						title: "出错啦",
+						icon: "error"
+					})
+				}else{
+					uni.showToast({
+						title: "暂无数据!",
 						icon: "error"
 					})
 				}
