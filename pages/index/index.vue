@@ -1028,6 +1028,15 @@
 		},
 		onShow() {
 			if (this.user && this.user.userId) {
+				let pages = getCurrentPages();
+				let currentPage = pages[pages.length-1];
+				const options = currentPage.options
+				if (options.scene && options.scene !== this.localGameId) {
+					this.localGameId = options.scene
+					this.gameId = options.scene
+					this.$storage.set('gameId', options.scene)
+				}
+
 				this.getData()
 				const launchOptions = this.$storage.get('options')
 				const locationTime = this.$storage.get('getLocationTime')
@@ -1096,6 +1105,10 @@
 			if (options.gameId && options.gameId !== localGameId) {
 				localGameId = options.gameId
 				this.$storage.set('gameId', options.gameId)
+			}
+			if (options.scene && options.scene !== localGameId) {
+				localGameId = options.scene
+				this.$storage.set('gameId', options.scene)
 			}
 			// localGameId = '211206093256824726'
 			this.gameId = localGameId.trim()
