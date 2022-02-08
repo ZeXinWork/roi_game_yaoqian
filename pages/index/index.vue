@@ -1031,6 +1031,7 @@
 				let pages = getCurrentPages();
 				let currentPage = pages[pages.length-1];
 				const options = currentPage.options
+				console.log(options,"show!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 				if (options.scene && options.scene !== this.localGameId) {
 					this.localGameId = options.scene
 					this.gameId = options.scene
@@ -1385,32 +1386,34 @@
 				return orderStatus[Number(code)] || ''
 			},
 			getInviteInfo(code, gameId) {
-				const params = {
-					invite_code: code,
-					game_id: gameId,
+				if (code && code !== ''){
+					const params = {
+						invite_code: code,
+						game_id: gameId,
+					}
+					inviteInfo(params).then((res) => {
+						if (res.errno) {
+							return
+						}
+						this.helperInfo = {
+							avatar: res.avatar,
+							nickName: res.user_name,
+							prize: {
+								prizeImageUrl: res.award_url,
+							},
+							prizeName: res.award_name,
+							king: {
+								rankNumber: res.rank,
+							},
+							gameName: res.game_name,
+							helpOpenid: res.openid,
+						}
+						const user = this.$storage.getUser()
+						if (user && user.userId) {
+							this.$refs.assistance.show()
+						}
+					})
 				}
-				inviteInfo(params).then((res) => {
-					if (res.errno) {
-						return
-					}
-					this.helperInfo = {
-						avatar: res.avatar,
-						nickName: res.user_name,
-						prize: {
-							prizeImageUrl: res.award_url,
-						},
-						prizeName: res.award_name,
-						king: {
-							rankNumber: res.rank,
-						},
-						gameName: res.game_name,
-						helpOpenid: res.openid,
-					}
-					const user = this.$storage.getUser()
-					if (user && user.userId) {
-						this.$refs.assistance.show()
-					}
-				})
 			},
 			changeVerifyCode: function(e) {
 				this.verifyCode = e.detail.value
@@ -1904,6 +1907,8 @@
 							// } else {
 							// 	list = [params.invite_code]
 							// }
+							this.$storage.set('invite', '')
+							this.inviteCode = ''
 							this.gameHelpClick = false
 							// this.$storage.set('inviteList', list)
 						})
