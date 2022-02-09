@@ -764,10 +764,10 @@
 			</image>
 			<image class="icon_sad" src="https://static.roi-cloud.com/base/icon_fail.png" mode=""></image>
 			<view class="m_title">
-				<text>无法进行游戏游戏</text>
+				<text>无法进行游戏</text>
 			</view>
 			<view class="s_title">
-				<text>很抱歉，因为无法获取您当前的地理位置，不能进行游戏游戏。</text>
+				<text>很抱歉，因为无法获取您当前的地理位置，不能进行游戏。</text>
 			</view>
 			<view class="btn_know" @click="openLocationSetting">我知道</view>
 			<navigator hover-class="none"
