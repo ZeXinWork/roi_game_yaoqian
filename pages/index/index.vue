@@ -860,10 +860,12 @@
 	import startsWith from 'lodash/startsWith'
 	import {
 		validPhone,
-		relativePath
+		relativePath,
+		
 	} from '@/utils/tool.js'
 	import {
-		acceptDataPrevpage
+		acceptDataPrevpage,
+		cleanObject
 	} from '@/utils/utils.js'
 	import wechat from '@/utils/wechatUtils.js'
 	import popup from '@/components/popup/popup.vue'
@@ -1029,9 +1031,9 @@
 		onShow() {
 			if (this.user && this.user.userId) {
 				let pages = getCurrentPages();
-				let currentPage = pages[pages.length-1];
+				let currentPage = pages[pages.length - 1];
 				const options = currentPage.options
-				console.log(options,"show!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
 				if (options.scene && options.scene !== this.localGameId) {
 					this.localGameId = options.scene
 					this.gameId = options.scene
@@ -1091,7 +1093,7 @@
 			this.context = uni.createCanvasContext('shareCanvas', this)
 		},
 		onLoad(options) {
-			console.log(options, "optionsoptionsoptionsoptionsoptions")
+
 			const _this = this
 			// uni.getSystemInfo({
 			// 	success: function(res) {
@@ -1386,7 +1388,7 @@
 				return orderStatus[Number(code)] || ''
 			},
 			getInviteInfo(code, gameId) {
-				if (code && code !== ''){
+				if (code && code !== '') {
 					const params = {
 						invite_code: code,
 						game_id: gameId,
@@ -2007,8 +2009,8 @@
 										return
 									}
 
-									if (!this.$storage.get('getLocationTime')) {
-
+									if (this.gameInfo.areas && this.gameInfo.areas.length !== 0 && !
+										this.$storage.get('getLocationTime')) {
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
 												this.playShackSound()
@@ -2020,7 +2022,8 @@
 									} else {
 										let get_time = this.$storage.get('getLocationTime').get_time
 										let now = new Date().getTime()
-										if ((now - get_time) / 1000 / 60 / 60 > 3) {
+										if (this.gameInfo.areas && this.gameInfo.areas.length !== 0 &&
+											(now - get_time) / 1000 / 60 / 60 > 3) {
 
 											this.getSetting(() => {
 												if (this.showNoPlayNum()) {
@@ -2762,7 +2765,8 @@
 							// this.getRainSetting() //获取红包雨设置
 						})
 
-						if (this.$storage.get('getLocationTime') == '') {
+						if (this.gameInfo.areas && this.gameInfo.areas.length !== 0 && this.$storage.get(
+								'getLocationTime') == '') {
 							this.getSetting(() => {
 								if (this.isOpenAssistance) {
 									this.isOpenAssistance = false
@@ -2809,13 +2813,13 @@
 			},
 			trackEvent(name, data) {
 				const gameInfo = this.$storage.get('gameInfo')
-				const params = {
+				const params = cleanObject({
 					...data,
 					gameID_evar: this.gameId,
 					gameName_evar: gameInfo.name,
 					userOpenID_evar: this.user.openid + '',
 					timeStamp_evar: Date.parse(new Date()) + '',
-				}
+				})
 				this.$uma.trackEvent(name, params)
 				uploadTrackLog(name, params)
 			},
@@ -2894,7 +2898,7 @@
 				type +
 				'&code=' +
 				inviteData.code
-			console.log("pathhhh", path)
+
 			return {
 				title: this.gameInfo.name,
 				path,
@@ -2905,7 +2909,6 @@
 			currentScoreItem: {
 				handler(value, old) {
 					const user = this.$storage.getUser()
-					console.log(value, ">>>>>>>>>>>>>>>>")
 					if (user.userId) {
 						// if (Number(value) === 1) {
 						// 	this.getAward();

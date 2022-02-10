@@ -190,6 +190,9 @@
 		validPhone,
 		relativePath
 	} from "@/utils/tool.js";
+	import {
+		cleanObject
+	} from '@/utils/utils.js'
 	import moment from "moment";
 	import popup from "@/components/popup/popup.vue";
 	import navbar from "../../components/Navbar.vue";
@@ -487,7 +490,7 @@
 			trackEvent(name, data) {
 				const locationTime = this.$storage.get('getLocationTime')
 				if (_.isEmpty(data)) {
-					const params = {
+					const params = cleanObject({
 						'prizeId_evar': this.exchangeGoddsInfo.game_award_id,
 						'prizeName_evar': this.exchangeGoddsInfo.game_award_name,
 						'prizeType_evar': this.exchangeGoddsInfo.prize_type,
@@ -500,7 +503,7 @@
 						'gameName_evar': this.gameInfo.name,
 						'userOpenID_evar': this.user_info.openid + '',
 						'timeStamp_evar': Date.parse(new Date()) + ''
-					}
+					})
 					this.$uma.trackEvent(name, params)
 					uploadTrackLog(name, params)
 				} else {
@@ -512,7 +515,7 @@
 	};
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 	.prizeInfoDetail {
 		.p_header {
 			display: flex;
@@ -689,7 +692,7 @@
 
 	#main {
 		padding: 46upx 30upx;
-	
+
 
 		.card {
 			background: #fff;

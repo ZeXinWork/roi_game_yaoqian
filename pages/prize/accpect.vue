@@ -16,10 +16,11 @@
 					<view class="username">{{ contactInfo.nickname }}</view>
 				</view>
 			</view>
-			<view class="code_content" >
+			<view class="code_content">
 				<view class="m_title">联系商家领奖</view>
 				<view class="code_img">
-					<image :show-menu-by-longpress="true" @longpress="longtap" :src="contactInfo.qr_code_url" mode=""></image>
+					<image :show-menu-by-longpress="true" @longpress="longtap" :src="contactInfo.qr_code_url" mode="">
+					</image>
 				</view>
 				<view class="code_tip">长按二维码，扫码领奖</view>
 			</view>
@@ -75,13 +76,18 @@
 		prize
 	} from '@/rest/api.js'
 	import {
+		cleanObject
+	} from '@/utils/utils.js'
+	import {
 		pathToBase64,
 		base64ToPath
 	} from '@/utils/image-tools/index.js'
 	import moment from 'moment'
 	import ayQrcode from "@/components/ay-qrcode/ay-qrcode.vue"
 	import BottomAction from '@/components/BottomAction.vue'
-	import { uploadTrackLog } from '@/rest/trackApi.js'
+	import {
+		uploadTrackLog
+	} from '@/rest/trackApi.js'
 	export default {
 		data() {
 			return {
@@ -254,7 +260,7 @@
 					confirmColor: '#33CCCC',
 					success: res => {
 						if (res.confirm) {
-							setTimeout(()=>{
+							setTimeout(() => {
 								uni.canvasToTempFilePath({
 									x: 0,
 									y: 0,
@@ -348,7 +354,7 @@
 				})
 			},
 			longtap() {
-				const params = {
+				const params = cleanObject({
 					'prizeId_evar': this.prizeInfo.award_id,
 					'prizeName_evar': this.prizeInfo.prize_name,
 					'prizeType_evar': this.prizeInfo.prize_type,
@@ -358,9 +364,9 @@
 					'gameID_evar': this.gameId,
 					'gameName_evar': this.gameInfo.name,
 					'userOpenID_evar': this.userInfo.openid + '',
-					'timeStamp_evar': Date.parse( new Date())  + ''
-				}
-				this.$uma.trackEvent('scanSponsorQRcode',params)
+					'timeStamp_evar': Date.parse(new Date()) + ''
+				})
+				this.$uma.trackEvent('scanSponsorQRcode', params)
 				uploadTrackLog('scanSponsorQRcode', params)
 			}
 		}
