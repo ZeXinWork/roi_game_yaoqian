@@ -88,6 +88,7 @@
 				PopOpen: false
 			}
 		},
+		name: "RedEnvelope",
 		props: {
 			//是否中奖
 			result: {
@@ -125,12 +126,10 @@
 			},
 			close() {
 				this.$refs.prizeDetail.close()
+				this.$emit('play')
 			},
 			handleClick() {
 				this.$emit('handleGameResult', this.result)
-			},
-			handlePlay() {
-				this.$emit('play')
 			},
 			handleToReword() {
 				const _this = this
