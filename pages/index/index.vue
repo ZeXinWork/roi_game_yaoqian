@@ -1064,10 +1064,10 @@
 				var delG = Math.abs(res.z - this.lastAcc.z) // z轴偏转角
 
 				if (
-					(delA > 7 && delB > 7) ||
-					(delA > 7 && delG > 7) ||
-					delB > 7 ||
-					delG > 7
+					(delA > 5 && delB > 5) ||
+					(delA > 5 && delG > 5) ||
+					delB > 5 ||
+					delG > 5
 				) {
 					// 用户设备摇动了，触发响应操作
 					// 此处的判断依据是任意两个轴篇转角度大于15度
