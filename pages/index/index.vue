@@ -359,6 +359,10 @@
 					<image src="https://static.roi-cloud.com/base/icon_share_wechat.png" mode=""></image>
 					<view class="share_text"> 邀请好友 </view>
 				</button>
+				<button open-type="share" class="pop_share_btn" data-type="0" v-if="user.userId">
+					<image src="https://static.roi-cloud.com/base/icon_share_wechat.png" mode=""></image>
+					<view class="share_text"> 邀请好友 </view>
+				</button>
 			</popup>
 
 			<popup ref="share" width="650" bgColor="#FFF8DC">
@@ -1064,10 +1068,10 @@
 				var delG = Math.abs(res.z - this.lastAcc.z) // z轴偏转角
 
 				if (
-					(delA > 5 && delB > 5) ||
-					(delA > 5 && delG > 5) ||
-					delB > 5 ||
-					delG > 5
+					(delA > 2 && delB > 2) ||
+					(delA > 2 && delG > 2) ||
+					delB > 2 ||
+					delG > 2
 				) {
 					// 用户设备摇动了，触发响应操作
 					// 此处的判断依据是任意两个轴篇转角度大于15度
@@ -1163,11 +1167,12 @@
 			})
 			if (user.userId) {
 				this.gameId = localGameId.trim()
-				this.getGameInfo() //获取游戏信息
-				this.getPlayNumber() //获取游戏可玩次数
-				this.getHelperList(1) // 助力记录
-				this.getMyRank() //获取当前我的排名信息
+				// this.getGameInfo() //获取游戏信息
+				// this.getPlayNumber(true) //获取游戏可玩次数
+				// this.getHelperList(1) // 助力记录
+				// this.getMyRank() //获取当前我的排名信息
 				// this.getRainSetting() //获取红包雨设置
+				// this.getData()
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
@@ -1695,15 +1700,23 @@
 			},
 			getData() {
 
-				this.getGameInfo()
-				// 获取排行榜
-				this.getRankScore()
-				// 获取我的排行
-				this.getMyRank()
-				//获取游戏可玩次数
-				this.getPlayNumber()
+				// this.getGameInfo()
+				// // 获取排行榜
+				// this.getRankScore()
+				// // 获取我的排行
+				// this.getMyRank()
+				// //获取游戏可玩次数
+				// this.getPlayNumber(true)
 				this.getWechatMessage()
 				// this.getRainSetting()
+				this.getGameInfo() //获取游戏信息
+				// this.getPlayNumber(true) //获取游戏可玩次数
+				this.getHelperList(1) // 助力记录
+				this.getMyRank() //获取当前我的排名信息
+				// this.getRainSetting() //获取红包雨设置
+				if (this.currentScoreItem === 1) {
+					this.getAward()
+				}
 			},
 			// 初始化
 			getRainSetting() {
@@ -2115,6 +2128,7 @@
 				}
 			},
 			showNoPlayNum() {
+				console.log(this.isOpenShareContent, "this.isOpenShareContent in showplaynum")
 				if (!Number(this.playTime)) {
 					if (this.isOpenShareContent) {
 						// this.$refs.no_play_num.open()
@@ -2557,11 +2571,14 @@
 				}
 			},
 			//获取游戏可玩次数
-			getPlayNumber() {
+			getPlayNumber(show) {
 				gameNumber({
 					game_id: this.gameId,
 				}).then((res) => {
 					this.playTime = res.time
+					if (show) {
+						this.showNoPlayNum()
+					}
 				})
 			},
 			//获取游戏结果
@@ -2675,7 +2692,7 @@
 						this.$uma.setOpenid(this.user.openid)
 						this.getGameInfo(() => {
 							//获取游戏信息
-							this.getPlayNumber() //获取游戏可玩次数
+							this.getPlayNumber(true) //获取游戏可玩次数
 							this.getHelperList(1) // 助力记录
 							this.getMyRank() //获取当前我的排名信息
 							this.getWechatMessage()
@@ -2684,9 +2701,7 @@
 							}
 
 							if (this.gameInfo.areas && this.gameInfo.areas.length !== 0 && this.$storage
-								.get(
-									'getLocationTime') == '') {
-
+								.get('getLocationTime') == '') {
 								this.getSetting(() => {
 									if (this.isOpenAssistance) {
 										this.isOpenAssistance = false
@@ -2731,7 +2746,12 @@
 				apiWechatMessage().then((res) => {
 					this.isOpenSendMessage = res.high_frequency_notice == 1
 					this.isOpenShareContent = res.show_share_btn == 1
-					handler && handler()
+					if (!this.inviteCode) {
+						this.getPlayNumber(true)
+					} else {
+						this.getPlayNumber()
+					}
+
 				})
 			},
 			trackEvent(name, data) {
@@ -2778,6 +2798,7 @@
 				return {
 					title: this.gameInfo.name,
 					path,
+					imageUrl: 'https://static.roi-cloud.com/upload/20220110/60935669173101',
 				}
 			}
 			let type, rank
