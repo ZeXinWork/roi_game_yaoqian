@@ -40,7 +40,6 @@
         }) no-repeat`,
         backgroundSize: '100%',
       }">
-
 			<!-- <button @click="test">开始</button> -->
 
 			<!-- <button @click="stopPlay">停止</button> -->
@@ -780,6 +779,7 @@
 				<text>更多解决方案</text>
 			</navigator>
 		</popup>
+
 		<popup ref="locationFail" bgColor="#FFF8DC" class="get_out" width="630">
 			<image @click="$refs.locationFail.close()" class="icon_close"
 				src="https://static.roi-cloud.com/base/icon_close.png" mode="">
@@ -843,7 +843,9 @@
 			</view>
 			<view class="g_content">
 				<view class="g_content_text">
-					<text class="m_content">{{curr_show_item.prize_desc || "暂无详细说明"}}</text>
+					<text class="m_content">{{
+            curr_show_item.prize_desc || '暂无详细说明'
+          }}</text>
 				</view>
 				<view class="g_btn" @click="hideDetail">我知道了</view>
 			</view>
@@ -852,7 +854,6 @@
 			:max='rainData.max' :min='rainData.min' :readyTime='rainData.readyTime' :time='rainData.time'
 			:visible="rainData.visible" :createSpeed='rainData.createSpeed'>
 		</Rain> -->
-
 	</view>
 </template>
 
@@ -864,8 +865,7 @@
 	import startsWith from 'lodash/startsWith'
 	import {
 		validPhone,
-		relativePath,
-
+		relativePath
 	} from '@/utils/tool.js'
 	import {
 		acceptDataPrevpage,
@@ -897,10 +897,11 @@
 		apiSetUserLocation,
 		getCashList,
 		getRainSet,
-		addRainScore
+		addRainScore,
 	} from '@/rest/api.js'
+
 	import {
-		uploadTrackLog,
+		uploadTrackLog
 	} from '@/rest/trackApi.js'
 
 	export default {
@@ -949,15 +950,6 @@
 						STATUS: 1,
 					},
 				}, //游戏配置
-				pointsImages: [
-					'/static/images/icon_dice-3.png',
-					'/static/images/icon_dice-5.png',
-					'/static/images/icon_dice-3.png',
-					'/static/images/icon_dice-1.png',
-					'/static/images/icon_dice-5.png',
-					'/static/images/icon_dice-6.png',
-				],
-				bgmPlay: false,
 				logining: false,
 				canGetUserProfile: false,
 				gameId: '',
@@ -1023,20 +1015,20 @@
 					readyTime: 3, // 准备时间
 					min: 0, // 金币最小是0
 					max: 0, // 金币最大是10,
-					dataTem: {}
+					dataTem: {},
 				},
-				curr_show_item: {}
+				curr_show_item: {},
 			}
 		},
-		name: "game",
+		name: 'game',
 		onUnload() {
 			clearInterval(this.cashTimer)
 			this.stopPlay()
 		},
 		onShow() {
 			if (this.user && this.user.userId) {
-				let pages = getCurrentPages();
-				let currentPage = pages[pages.length - 1];
+				let pages = getCurrentPages()
+				let currentPage = pages[pages.length - 1]
 				const options = currentPage.options
 
 				if (options.scene && options.scene !== this.localGameId) {
@@ -1098,7 +1090,6 @@
 			this.context = uni.createCanvasContext('shareCanvas', this)
 		},
 		onLoad(options) {
-
 			const _this = this
 			// uni.getSystemInfo({
 			// 	success: function(res) {
@@ -1163,7 +1154,7 @@
 				'https://static.roi-cloud.com/upload/audio/hongbaoluo_new.m4a'
 			this.user = user
 			uni.setInnerAudioOption({
-				obeyMuteSwitch: false
+				obeyMuteSwitch: false,
 			})
 			if (user.userId) {
 				this.gameId = localGameId.trim()
@@ -1210,26 +1201,26 @@
 				}
 			},
 			hideDetail() {
-				this.$refs.prizeInfoDetail.hide();
+				this.$refs.prizeInfoDetail.hide()
 			},
 			showDetail({
 				info
 			}) {
-				this.curr_show_item = info;
+				this.curr_show_item = info
 				this.trackEvent('priceImpression', {
-					'gameID_evar': this.gameId,
-					'gameName_evar': this.gameInfo.name,
-					'prizeId_evar': info.game_award_id,
-					'prizePage_evar': '/pages/index/index',
+					gameID_evar: this.gameId,
+					gameName_evar: this.gameInfo.name,
+					prizeId_evar: info.game_award_id,
+					prizePage_evar: '/pages/index/index',
 				})
-				this.$refs.prizeInfoDetail.show();
+				this.$refs.prizeInfoDetail.show()
 			},
 			finishRain(data) {
 				this.rainData.visible = false
 				addRainScore({
 					game_id: this.gameId,
-					data
-				}).then(res => {
+					data,
+				}).then((res) => {
 					prizeDetail({
 							game_id: this.gameId,
 							offset: 0,
@@ -1319,29 +1310,30 @@
 					_this.radomIndex = Math.ceil(Math.random() * 5)
 					_this.showCash = data[_this.currentCashIndex]
 					if (_this.showCash.nickname.length === 3) {
-						_this.showCash.nickname =
-							`${_this.showCash.nickname[0]}*${_this.showCash.nickname[_this.showCash.nickname.length-1]}`
+						_this.showCash.nickname = `${_this.showCash.nickname[0]}*${
+            _this.showCash.nickname[_this.showCash.nickname.length - 1]
+          }`
 					} else if (_this.showCash.nickname.length > 2) {
-						_this.showCash.nickname =
-							`${_this.showCash.nickname[0]}**${_this.showCash.nickname[_this.showCash.nickname.length-1]}`
+						_this.showCash.nickname = `${_this.showCash.nickname[0]}**${
+            _this.showCash.nickname[_this.showCash.nickname.length - 1]
+          }`
 					} else if (_this.showCash.nickname.length === 2) {
-						_this.showCash.nickname =
-							`${_this.showCash.nickname[0]}*`
+						_this.showCash.nickname = `${_this.showCash.nickname[0]}*`
 					}
 					_this.currentCashIndex = _this.currentCashIndex + 1
 					this.cashTimer = setInterval(function() {
 						_this.radomIndex = Math.ceil(Math.random() * 5)
 						_this.showCash = data[_this.currentCashIndex]
 						if (_this.showCash.nickname.length === 3) {
-							_this.showCash.nickname =
-								`${_this.showCash.nickname[0]}*${_this.showCash.nickname[_this.showCash.nickname.length-1]}`
-						} else
-						if (_this.showCash.nickname.length > 2) {
-							_this.showCash.nickname =
-								`${_this.showCash.nickname[0]}**${_this.showCash.nickname[_this.showCash.nickname.length-1]}`
+							_this.showCash.nickname = `${_this.showCash.nickname[0]}*${
+              _this.showCash.nickname[_this.showCash.nickname.length - 1]
+            }`
+						} else if (_this.showCash.nickname.length > 2) {
+							_this.showCash.nickname = `${_this.showCash.nickname[0]}**${
+              _this.showCash.nickname[_this.showCash.nickname.length - 1]
+            }`
 						} else if (_this.showCash.nickname.length === 2) {
-							_this.showCash.nickname =
-								`${_this.showCash.nickname[0]}*`
+							_this.showCash.nickname = `${_this.showCash.nickname[0]}*`
 						}
 						if (_this.currentCashIndex + 1 === data.length) {
 							_this.currentCashIndex = 0
@@ -1699,7 +1691,6 @@
 				})
 			},
 			getData() {
-
 				// this.getGameInfo()
 				// // 获取排行榜
 				// this.getRankScore()
@@ -1721,27 +1712,27 @@
 			// 初始化
 			getRainSetting() {
 				getRainSet({
-					game_id: this.gameId
-				}).then(res => {
-					if (res) {
-						this.rainData.dataTem = res
-						Object.keys(res).forEach((item, index) => {
-							if (index == 0) {
-								this.rainData.min = res[item]
-							}
-							if (index === Object.keys(res).length - 1) {
-								this.rainData.max = res[item]
-							}
-
-						})
-					}
-
-				}).catch(err => {
-					uni.showToast({
-						title: "出错啦",
-						icon: "error"
+						game_id: this.gameId,
 					})
-				})
+					.then((res) => {
+						if (res) {
+							this.rainData.dataTem = res
+							Object.keys(res).forEach((item, index) => {
+								if (index == 0) {
+									this.rainData.min = res[item]
+								}
+								if (index === Object.keys(res).length - 1) {
+									this.rainData.max = res[item]
+								}
+							})
+						}
+					})
+					.catch((err) => {
+						uni.showToast({
+							title: '出错啦',
+							icon: 'error',
+						})
+					})
 			},
 			openLocationSetting() {
 				uni.openSetting({
@@ -2011,8 +2002,11 @@
 										return
 									}
 
-									if (this.gameInfo.areas && this.gameInfo.areas.length !== 0 && !
-										this.$storage.get('getLocationTime')) {
+									if (
+										this.gameInfo.areas &&
+										this.gameInfo.areas.length !== 0 &&
+										!this.$storage.get('getLocationTime')
+									) {
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
 												this.playShackSound()
@@ -2024,9 +2018,11 @@
 									} else {
 										let get_time = this.$storage.get('getLocationTime').get_time
 										let now = new Date().getTime()
-										if (this.gameInfo.areas && this.gameInfo.areas.length !== 0 &&
-											(now - get_time) / 1000 / 60 / 60 > 3) {
-
+										if (
+											this.gameInfo.areas &&
+											this.gameInfo.areas.length !== 0 &&
+											(now - get_time) / 1000 / 60 / 60 > 3
+										) {
 											this.getSetting(() => {
 												if (this.showNoPlayNum()) {
 													this.playShackSound()
@@ -2093,9 +2089,11 @@
 									this.playLoading = false
 									return
 								}
-								if (this.gameInfo.areas && this.gameInfo.areas.length !== 0 && !this.$storage
-									.get('getLocationTime')) {
-
+								if (
+									this.gameInfo.areas &&
+									this.gameInfo.areas.length !== 0 &&
+									!this.$storage.get('getLocationTime')
+								) {
 									this.getSetting(() => {
 										if (this.showNoPlayNum()) {
 											this.playShackSound()
@@ -2106,8 +2104,11 @@
 								} else {
 									let get_time = this.$storage.get('getLocationTime').get_time
 									let now = new Date().getTime()
-									if (this.gameInfo.areas && this.gameInfo.areas.length !== 0 && (now -
-											get_time) / 1000 / 60 / 60 > 3) {
+									if (
+										this.gameInfo.areas &&
+										this.gameInfo.areas.length !== 0 &&
+										(now - get_time) / 1000 / 60 / 60 > 3
+									) {
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
 												this.playShackSound()
@@ -2128,7 +2129,6 @@
 				}
 			},
 			showNoPlayNum() {
-				console.log(this.isOpenShareContent, "this.isOpenShareContent in showplaynum")
 				if (!Number(this.playTime)) {
 					if (this.isOpenShareContent) {
 						// this.$refs.no_play_num.open()
@@ -2181,11 +2181,11 @@
 								fail(err) {
 									that.playLoading = false
 									uni.showModal({
-										title: "提示",
+										title: '提示',
 										content: '获取地址失败！',
-										showCancel: false
+										showCancel: false,
 									})
-								}
+								},
 							})
 						} else {
 							that.playLoading = false
@@ -2195,12 +2195,11 @@
 					fail(err) {
 						that.playLoading = false
 						uni.showModal({
-							title: "提示",
+							title: '提示',
 							content: '获取用户设置信息失败！',
-							showCancel: false
+							showCancel: false,
 						})
-						console.log(err, "获取用户设置信息失败！")
-					}
+					},
 				})
 			},
 			// 用户授权
@@ -2219,11 +2218,11 @@
 							fail(err) {
 								that.playLoading = false
 								uni.showModal({
-									title: "提示",
+									title: '提示',
 									content: '获取地址失败！',
-									showCancel: false
+									showCancel: false,
 								})
-							}
+							},
 						})
 					},
 					// 授权失败
@@ -2338,7 +2337,8 @@
 							let item = {
 								info: this.gameInfo.game_pk_plugin[index],
 								range: num == this.gameInfo.game_pk_plugin[index].end_seq ?
-									'第' + num + '名' : '第' +
+									'第' + num + '名' :
+									'第' +
 									num +
 									'～' +
 									this.gameInfo.game_pk_plugin[index].end_seq +
@@ -2491,7 +2491,6 @@
 				}
 				gameInfo(params)
 					.then((res) => {
-						console.log(res, "ressssssssssssss")
 						if (res.errno === '1') {
 							uni.showToast({
 								title: '不存在该游戏!',
@@ -2529,8 +2528,7 @@
 
 						this.getRankScore() // 排行榜信息
 						this.handleCashShow()
-						console.log(this.gameInfo, "this.gameInfogameInfogameInfogameInfo")
-						console.log(handler, "handlerhandlerhandler")
+
 						handler && handler()
 					})
 					.catch((err) => {
@@ -2700,8 +2698,11 @@
 								this.getAward()
 							}
 
-							if (this.gameInfo.areas && this.gameInfo.areas.length !== 0 && this.$storage
-								.get('getLocationTime') == '') {
+							if (
+								this.gameInfo.areas &&
+								this.gameInfo.areas.length !== 0 &&
+								this.$storage.get('getLocationTime') == ''
+							) {
 								this.getSetting(() => {
 									if (this.isOpenAssistance) {
 										this.isOpenAssistance = false
@@ -2731,7 +2732,6 @@
 							})
 							// this.getRainSetting() //获取红包雨设置
 						})
-
 					})
 					.catch((res) => {
 						this.logining = false
@@ -2751,7 +2751,6 @@
 					} else {
 						this.getPlayNumber()
 					}
-
 				})
 			},
 			trackEvent(name, data) {
@@ -2872,12 +2871,10 @@
 			},
 			hideAmCanv: function(val, oldVal) {
 				if (val) {
-
 					this.init()
 				}
 			},
-
-		}
+		},
 	}
 </script>
 
