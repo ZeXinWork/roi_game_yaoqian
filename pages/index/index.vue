@@ -2843,7 +2843,7 @@
 				inviteData.code
 
 			return {
-				title: this.gameInfo.name,
+				title: `帮${this.user.nickname}助力，赢奖品`,
 				path,
 				imageUrl: 'https://static.roi-cloud.com/upload/20220110/60935669173101',
 			}
