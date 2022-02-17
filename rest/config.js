@@ -345,3 +345,5 @@ export const ADD_RAIN_SCORE = '/api/extra/update'
 // =============================================
 // 数据上传
 export const TRACK_LOG = '/track'
+
+export const GET_SHARE_BG = '/api/invite/bg'

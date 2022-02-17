@@ -898,6 +898,7 @@
 		getCashList,
 		getRainSet,
 		addRainScore,
+		getShareBg
 	} from '@/rest/api.js'
 
 	import {
@@ -913,6 +914,7 @@
 		},
 		data() {
 			return {
+				shareBgImg: "",
 				currentCashIndex: 0,
 				currentCashArrayIndex: 0,
 				currentCashArray: [],
@@ -1158,6 +1160,7 @@
 			})
 			if (user.userId) {
 				this.gameId = localGameId.trim()
+				this.getGameShareBg()
 				// this.getGameInfo() //获取游戏信息
 				// this.getPlayNumber(true) //获取游戏可玩次数
 				// this.getHelperList(1) // 助力记录
@@ -1194,6 +1197,15 @@
 			},
 		},
 		methods: {
+			getGameShareBg() {
+				getShareBg({
+					gameId: this.gameId
+				}).then(res => {
+					this.shareBgImg = res.imgUrl
+				}).catch(err => {
+					console.log("获取分享背景图失败", err)
+				})
+			},
 			reduceTime() {
 				this.rainData.readyTime = this.rainData.readyTime - 1
 				if (this.rainData.readyTime <= 0) {
@@ -2337,8 +2349,7 @@
 							let item = {
 								info: this.gameInfo.game_pk_plugin[index],
 								range: num == this.gameInfo.game_pk_plugin[index].end_seq ?
-									'第' + num + '名' :
-									'第' +
+									'第' + num + '名' : '第' +
 									num +
 									'～' +
 									this.gameInfo.game_pk_plugin[index].end_seq +
@@ -2845,7 +2856,7 @@
 			return {
 				title: `帮${this.user.nickname}助力，赢奖品`,
 				path,
-				imageUrl: 'https://static.roi-cloud.com/upload/20220110/60935669173101',
+				imageUrl: this.shareBgImg ? this.shareBgImg : 'https://static.roi-cloud.com/upload/20220110/60935669173101',
 			}
 		},
 		watch: {

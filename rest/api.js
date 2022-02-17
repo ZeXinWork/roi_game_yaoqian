@@ -516,3 +516,8 @@ export const getRainSet = (params) => {
 export const addRainScore = (params) => {
 	return restResult(POSTBODY, api.ADD_RAIN_SCORE, params)
 }
+
+//获取当前游戏的分享图
+export const getShareBg = (params) => {
+	return restResult(GET, api.GET_SHARE_BG, params)
+}
