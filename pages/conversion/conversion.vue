@@ -456,10 +456,11 @@
 					console.log(res, "resssss");
 					if (res.errno) {
 						this.$loading.hide();
-						uni.showToast({
-							title: res.errmsg,
-							icon: "error",
-						});
+						uni.showModal({
+							title: '提示',
+							content: res.errmsg,
+							showCancel: false
+						})
 						return;
 					}
 					this.getGameInfo();

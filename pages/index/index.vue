@@ -353,11 +353,6 @@
 					<image @click="$refs.onceShare.hide()" class="icon_close"
 						src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
 				</view>
-
-				<button open-type="share" class="pop_share_btn" data-type="0">
-					<image src="https://static.roi-cloud.com/base/icon_share_wechat.png" mode=""></image>
-					<view class="share_text"> 邀请好友 </view>
-				</button>
 				<button open-type="share" class="pop_share_btn" data-type="0" v-if="user.userId">
 					<image src="https://static.roi-cloud.com/base/icon_share_wechat.png" mode=""></image>
 					<view class="share_text"> 邀请好友 </view>
@@ -844,7 +839,7 @@
 			<view class="g_content">
 				<view class="g_content_text">
 					<text class="m_content">{{
-            curr_show_item.prize_desc || '暂无详细说明'
+            curr_show_item.prize_desc || '暂无奖品描述'
           }}</text>
 				</view>
 				<view class="g_btn" @click="hideDetail">我知道了</view>
@@ -1509,10 +1504,21 @@
 							}
 
 							if (this.exchangeQuery.isPlay) {
+
 								this.exchangeQuery.isPlay = false
-								this.exchangeList = [...res.list, ...this.exchangeList]
+								let obj = {};
+								this.exchangeList = [...res.list, ...this.exchangeList].reduce(function(item,
+									next) {
+									obj[next.id] ? '' : obj[next.id] = true && item.push(next);
+									return item;
+								}, []);
 							} else {
-								this.exchangeList = [...this.exchangeList, ...res.list]
+								let obj = {};
+								this.exchangeList = [...this.exchangeList, ...res.list].reduce(function(item,
+									next) {
+									obj[next.id] ? '' : obj[next.id] = true && item.push(next);
+									return item;
+								}, []);
 							}
 						})
 						.catch((err) => {
@@ -1847,7 +1853,9 @@
 							this.$loading.hide()
 							if (res.list.length === 0) {
 								this.awardQuery.hasMore = false
-								this.awardQuery.hasMore = false
+								if (this.awardQuery.isPlay) {
+									this.awardQuery.isPlay = false
+								}
 								return
 							}
 							if (res.list.length < 20 && !this.awardQuery.isPlay) {
@@ -1856,9 +1864,19 @@
 
 							if (this.awardQuery.isPlay) {
 								this.awardQuery.isPlay = false
-								this.scoreDetailList = [...res.list, ...this.scoreDetailList]
+								let obj = {};
+								this.scoreDetailList = [...res.list, ...this.scoreDetailList].reduce(function(item,
+									next) {
+									obj[next.id] ? '' : obj[next.id] = true && item.push(next);
+									return item;
+								}, []);
 							} else {
-								this.scoreDetailList = [...this.scoreDetailList, ...res.list]
+								let obj = {};
+								this.scoreDetailList = [...this.scoreDetailList, ...res.list].reduce(function(item,
+									next) {
+									obj[next.id] ? '' : obj[next.id] = true && item.push(next);
+									return item;
+								}, []);
 							}
 						})
 						.catch((err) => {
@@ -2742,6 +2760,7 @@
 								'3rdpartyUserID_evar': this.user.userId,
 							})
 							// this.getRainSetting() //获取红包雨设置
+							this.getGameShareBg()
 						})
 					})
 					.catch((res) => {
@@ -2856,7 +2875,8 @@
 			return {
 				title: `帮${this.user.nickname}助力，赢奖品`,
 				path,
-				imageUrl: this.shareBgImg ? this.shareBgImg : 'https://static.roi-cloud.com/upload/20220110/60935669173101',
+				imageUrl: this.shareBgImg ? this.shareBgImg :
+					'https://static.roi-cloud.com/upload/20220110/60935669173101',
 			}
 		},
 		watch: {
@@ -2885,6 +2905,7 @@
 					this.init()
 				}
 			},
+
 		},
 	}
 </script>
