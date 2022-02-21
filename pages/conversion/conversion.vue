@@ -333,10 +333,17 @@
 					res = _.map(res, (item) => {
 						return {
 							...item,
-							prize_point: Number(item.prize_point)
+							prize_point: Number(item.prize_point),
+							left_num: Number(item.left_num)
 						}
 					})
-					this.prizeList = _.orderBy(res, 'prize_point', this.points);
+
+					const leftPrize = _.filter(res, (obj) => obj.left_num > 0)
+					const unLeftPrize = _.filter(res, (obj) => obj.left_num <= 0)
+					this.prizeList = [
+						...(_.orderBy(leftPrize, ['prize_point'], this.points)),
+						...(_.orderBy(unLeftPrize, ['prize_point'], this.points)),
+					]
 					// if(params.page == 1) this.prizeList = res
 					// else this.prizeList = [...this.prizeList,...res]
 					// if (res.pageCount == params.page) {
