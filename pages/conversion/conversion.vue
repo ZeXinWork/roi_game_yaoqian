@@ -36,7 +36,7 @@
 							<image :src="user_info.avatar" mode=""></image>
 						</view>
 						<view class="user_score">
-							<view class="">可兑元宝</view>
+							<view class="">可兑{{integralName}}</view>
 							<view class="number">{{ gameInfo.integral || 0 }}</view>
 						</view>
 					</view>
@@ -45,7 +45,7 @@
 			</view>
 			<view v-if="prizeList.length > 0">
 				<view class="btn_part" @click="orderPrizeList">
-					<text>所需元宝</text>
+					<text>所需{{integralName}}</text>
 					<uni-icons class="arrow" :type="points == 'desc' ? 'arrowup' : 'arrowdown'" color="#fff">
 					</uni-icons>
 
@@ -81,7 +81,7 @@
 						</view>
 					</view>
 					<view class="exchange_right">
-						<view class="score_title">需元宝</view>
+						<view class="score_title">需{{integralName}}</view>
 						<view class="number">{{ item.prize_point }}</view>
 						<view class="conversion_btn" @click="exchangePrisePoupShow(item)">兑换</view>
 					</view>
@@ -101,7 +101,7 @@
 		</view>
 		<popup ref="exchange" class="exchange_poup" width="640" left="56" top="336">
 			<view class="content">
-				是否确认使用 {{ exchangeGoddsInfo.prize_point }} 元宝 兑换
+				是否确认使用 {{ exchangeGoddsInfo.prize_point }} {{integralName}} 兑换
 				{{ exchangeGoddsInfo.prize_name }}
 			</view>
 			<view class="action_part">
@@ -113,7 +113,7 @@
 		<popup ref="finish" class="finish_poup" width="640" left="56" top="336">
 			<view class="finish_content">
 				<view class="title">兑换成功</view>
-				<view class="sub_title">使用 {{ exchangeGoddsInfo.prize_point }} 元宝兑换了</view>
+				<view class="sub_title">使用 {{ exchangeGoddsInfo.prize_point }} {{integralName}}兑换了</view>
 				<image class="goods_img" :src="exchangeGoddsInfo.prize_url" mode="aspectFit"></image>
 				<view class="goods_info">{{ exchangeGoddsInfo.prize_name }}</view>
 				<view class="btn active" @click="toGetAward">找商家领奖</view>
@@ -225,6 +225,7 @@
 				points: "desc",
 				page: 0,
 				curr_show_item: {},
+				integralName: '积分',
 			};
 		},
 		onLoad(options) {
@@ -362,6 +363,9 @@
 						"YYYY年MM月DD日"
 					);
 					this.gameInfo = res;
+					if (res.integral_name) {
+						this.integralName = res.integral_name
+					}
 					if (res.ad_type == 1 && res.ad_info[0] && res.ad_info[0].ad_pic_url) {
 						this.advertList = res.ad_info
 					} else {
@@ -486,7 +490,7 @@
 			exchangePrisePoupShow(item) {
 				try {
 					if (Number(item.prize_point) > Number(this.gameInfo.integral)) {
-						this.$toast.error("元宝不足");
+						this.$toast.error(this.integralName + "不足");
 					} else {
 						this.exchangeGoddsInfo = item;
 						this.$refs.exchange.show();
