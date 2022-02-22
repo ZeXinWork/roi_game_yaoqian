@@ -13,7 +13,7 @@
 						<image src="https://static.roi-cloud.com/upload/20211213/60935669182359" mode="aspectFill">
 						</image>
 						<view class="bet">
-							<text>元宝</text>
+							<text>{{integralName}}</text>
 							<text>{{`+ ${prize.award_point}`}}</text>
 						</view>
 
@@ -25,7 +25,7 @@
 							<image src="https://static.roi-cloud.com/upload/20220118/60935669110029" mode="aspectFill">
 							</image>
 							<text class="yuanbao flap">{{`${prize.award_point}`}}</text>
-							<text class="yuanbao_item">元宝</text>
+							<text class="yuanbao_item">{{integralName}}</text>
 						</view>
 						<view class="p_body_mid_prize_yunbao_tip">
 							<image src="https://static.roi-cloud.com/upload/20220118/60935669112147" mode="aspectFill">
@@ -37,7 +37,7 @@
 							<view class="title">
 								<view v-if="nearPrize.distance_point==0">现在可以兑换<text
 										class="name">{{nearPrize.prize_name}}</text></view>
-								<view v-else>{{`还差${nearPrize.distance_point}个元宝兑换`}}
+								<view v-else>{{`还差${nearPrize.distance_point}个${integralName}兑换`}}
 									<text class="name">{{nearPrize.prize_name}}</text>
 								</view>
 
@@ -106,6 +106,7 @@
 				type: Object,
 				default: {},
 			},
+			integralName: '积分'
 		},
 		methods: {
 			open() {

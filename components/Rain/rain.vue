@@ -51,7 +51,7 @@
 							<view class="jinbi-wrapper">
 								<image class="jinbi" src="https://static.roi-cloud.com/upload/20220124/60935669154508"
 									mode="aspectFill"></image>
-								<view class="total-score">元宝：{{ showScore }}</view>
+								<view class="total-score">{{integralName}}：{{ showScore }}</view>
 							</view>
 						</view>
 						<view class="canvas-wrapper">
@@ -72,7 +72,7 @@
 									<view class="money-wrapper flex-row">
 										<view>
 											<text class="money">{{ showScore }}</text>
-											<text class="unit">元宝</text>
+											<text class="unit">{{integralName}}</text>
 										</view>
 										<view class="flex-end-start">
 											<image class="jinbi"
@@ -120,7 +120,8 @@
 				openEnvelopeImg: '',
 				redEnvelopeImg: '',
 				codeArray: [],
-				readyOk: false
+				readyOk: false,
+				integralName: '积分',
 			}
 		},
 		computed: {
@@ -167,6 +168,10 @@
 		},
 		onReady() {
 			const _this = this
+			const gameInfo = this.$storage.get('gameInfo')
+			if (gameInfo.integral_name) {
+				this.integralName = gameInfo.integral_name
+			}
 			redEnvelopes = []
 			clearTimeout(readyTimer)
 			clearTimeout(rainTimer)

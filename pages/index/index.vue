@@ -224,13 +224,13 @@
 			</view>
 			<redEnvelope @handleGameResult="handleGameResult" @play="play(false)" ref="redEnvelope"
 				:result="gameResult.result" :prize="gameResult.prize" :playTime="playTime" :type="gameInfo.lottery_type"
-				:openShare="isOpenShareContent" :nearPrize="nearPrize" />
+				:openShare="isOpenShareContent" :nearPrize="nearPrize" :integralName="integralName" />
 			<view v-if="isOpenShareContent" style="position: relative" class="de_btn zl_btn" @click="popShow('share')">
 				喊好友来游戏</view>
 			<view class="recorde_ad_wrap" style="position: relative">
 				<!-- <view class="recorde_ad_wrap" :style="{'min-height': gameInfo && gameInfo.ad_info.length > 0 ? '400rpx' : '200rpx'}"> -->
 				<view class="record_wrap">
-					<text @click="popShow('score')">元宝明细</text>
+					<text @click="popShow('score')">{{integralName}}明细</text>
 					<view class="line"></view>
 					<text @click="onMy">个人中心</text>
 					<view class="line"></view>
@@ -276,7 +276,7 @@
                 }}</view>
 							</view>
 							<view class="my_rank_item">
-								<view class="my_rank_title">总元宝</view>
+								<view class="my_rank_title">总{{integralName}}</view>
 								<view class="rank_item_number">{{
                   userRank.integral || 0
                 }}</view>
@@ -384,7 +384,7 @@
 			<!-- 分数排行 -->
 			<uni-popup ref="score" width="650">
 				<view class="score_detail">
-					<view class="p_title f-normal">元宝明细
+					<view class="p_title f-normal">{{integralName}}明细
 						<image @click="$refs.score.close()" class="icon_close"
 							src="https://static.roi-cloud.com/base/icon_close.png" mode=""></image>
 					</view>
@@ -1015,6 +1015,7 @@
 					dataTem: {},
 				},
 				curr_show_item: {},
+				integralName: "积分",
 			}
 		},
 		name: 'game',
@@ -2537,6 +2538,10 @@
 							game_end_time: moment(res.game_end_time * 1000).format(
 								'MM月DD日  HH:mm'
 							),
+						}
+
+						if (res.integral_name) {
+							this.integralName = res.integral_name
 						}
 
 						if (res.ad_type == 1 && res.ad_info[0] && res.ad_info[0].ad_pic_url) {
