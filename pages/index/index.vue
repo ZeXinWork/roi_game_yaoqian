@@ -1196,6 +1196,7 @@
 				getShareBg({
 					gameId: this.gameId
 				}).then(res => {
+					console.log(res, "imgBgURL?????????????????/")
 					this.shareBgImg = res.imgUrl
 				}).catch(err => {
 					console.log("获取分享背景图失败", err)
@@ -2827,7 +2828,8 @@
 				return {
 					title: this.gameInfo.name,
 					path,
-					imageUrl: 'https://static.roi-cloud.com/upload/20220110/60935669173101',
+					imageUrl: this.shareBgImg ? this.shareBgImg :
+						'https://static.roi-cloud.com/upload/20220110/60935669173101',
 				}
 			}
 			let type, rank
@@ -2871,7 +2873,7 @@
 				type +
 				'&code=' +
 				inviteData.code
-
+			console.log(this.shareBgImg, "this.shareBgImgthis.shareBgImg")
 			return {
 				title: `帮${this.user.nickname}助力，赢奖品`,
 				path,
