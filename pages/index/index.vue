@@ -1119,6 +1119,7 @@
 			this.inviteCode = this.$storage.get('invite')
 			if (options.share) {
 				this.share = true
+				this.getGameShareBg()
 				if (!user.userId) {
 					this.toLogin()
 				} else {
