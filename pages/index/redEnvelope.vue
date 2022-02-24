@@ -106,7 +106,10 @@
 				type: Object,
 				default: {},
 			},
-			integralName: '积分'
+			integralName: {
+				type: String,
+				default: '积分'
+			}
 		},
 		methods: {
 			open() {

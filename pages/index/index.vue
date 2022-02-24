@@ -1989,6 +1989,10 @@
 				if (this.$refs.redEnvelope.PopOpen) {
 					this.$refs.redEnvelope.close()
 				}
+				uni.stopGyroscope({
+					success() {},
+					fail() {},
+				})
 				if (!isShake && this.isOpenSendMessage) {
 					wechat.getAuthOfSubscribeMessage(() => {
 						uni.getNetworkType({
@@ -2071,6 +2075,13 @@
 									}
 								}
 							},
+							complete: () => {
+								uni.startGyroscope({
+									interval: 'game',
+									success() {},
+									fail() {},
+								})
+							}
 						})
 					})
 				} else {
@@ -2157,6 +2168,13 @@
 								}
 							}
 						},
+						complete: () => {
+							uni.startGyroscope({
+								interval: 'game',
+								success() {},
+								fail() {},
+							})
+						}
 					})
 				}
 			},
