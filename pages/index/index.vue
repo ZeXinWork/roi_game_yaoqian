@@ -1141,13 +1141,13 @@
 			}
 			// 初始化音频组件
 			this.Audio = uni.createInnerAudioContext() // 获奖
-			this.Audio.src = 'https://static.roi-cloud.com/upload/audio/getRewordss.m4a' //音频地址
+			this.Audio.src = 'https://static.roi-cloud.com/upload/audio/getRewordss_v2.0.m4a' //音频地址
 			this.ShakeAudio = uni.createInnerAudioContext() // 摇树
 			this.ShakeAudio.src =
 				'https://static.roi-cloud.com/game/music/rocking_tree.m4a'
 			this.UnpublishedAudio = uni.createInnerAudioContext() // 未获奖
 			this.UnpublishedAudio.src =
-				'https://static.roi-cloud.com/upload/audio/noRewordss.m4a' //音频地址
+				'https://static.roi-cloud.com/upload/audio/noRewordss_v2.0.m4a' //音频地址
 			this.HongbaoDownAudio = uni.createInnerAudioContext()
 			this.HongbaoDownAudio.src =
 				'https://static.roi-cloud.com/upload/audio/hongbaoluo_new.m4a'
@@ -1194,7 +1194,6 @@
 			},
 		},
 		methods: {
-
 			reduceTime() {
 				this.rainData.readyTime = this.rainData.readyTime - 1
 				if (this.rainData.readyTime <= 0) {
@@ -1282,13 +1281,15 @@
 						const context = canvas.getContext('2d')
 						// https://static.roi-cloud.com/upload/yaoyaoshu/kaihongbao2.json
 						// https://static.roi-cloud.com/upload/audio/hongbaodiaolluo.json
+						// https://static.roi-cloud.com/upload/yaoyaoshu/open_v2.0.json
+						// https://static.roi-cloud.com/upload/yaoyaoshu/open.json
 						canvas.height = 520 * dpr
 						canvas.width = 375 * dpr
 						lottie.setup(canvas)
 						_this.ani = lottie.loadAnimation({
 							loop: false,
 							autoplay: false,
-							path: 'https://static.roi-cloud.com/upload/yaoyaoshu/open.json',
+							path: 'https://static.roi-cloud.com/upload/yaoyaoshu/open_v2.0.json',
 							rendererSettings: {
 								context,
 							},
