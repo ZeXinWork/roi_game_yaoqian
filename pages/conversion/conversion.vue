@@ -366,6 +366,7 @@
 					if (res.integral_name) {
 						this.integralName = res.integral_name
 					}
+					this.integralName = '元宝'
 					if (res.ad_type == 1 && res.ad_info[0] && res.ad_info[0].ad_pic_url) {
 						this.advertList = res.ad_info
 					} else {
