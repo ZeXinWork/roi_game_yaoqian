@@ -1119,7 +1119,7 @@
 			this.inviteCode = this.$storage.get('invite')
 			if (options.share) {
 				this.share = true
-				this.getGameShareBg()
+
 				if (!user.userId) {
 					this.toLogin()
 				} else {
@@ -1157,7 +1157,7 @@
 			})
 			if (user.userId) {
 				this.gameId = localGameId.trim()
-				this.getGameShareBg()
+
 				// this.getGameInfo() //获取游戏信息
 				// this.getPlayNumber(true) //获取游戏可玩次数
 				// this.getHelperList(1) // 助力记录
@@ -1194,16 +1194,7 @@
 			},
 		},
 		methods: {
-			getGameShareBg() {
-				getShareBg({
-					gameId: this.gameId
-				}).then(res => {
-					console.log(res, "imgBgURL?????????????????/")
-					this.shareBgImg = res.imgUrl
-				}).catch(err => {
-					console.log("获取分享背景图失败", err)
-				})
-			},
+
 			reduceTime() {
 				this.rainData.readyTime = this.rainData.readyTime - 1
 				if (this.rainData.readyTime <= 0) {
@@ -2786,7 +2777,7 @@
 								'3rdpartyUserID_evar': this.user.userId,
 							})
 							// this.getRainSetting() //获取红包雨设置
-							this.getGameShareBg()
+
 						})
 					})
 					.catch((res) => {
@@ -2846,6 +2837,26 @@
 				})
 				return
 			}
+			let shareBg = ''
+			if (!this.shareBgImg) {
+				this.$loading.show()
+				shareBg = await getShareBg({
+					gameId: this.gameId
+				})
+				this.$loading.hide()
+			}
+
+			// .then(res => {
+			// 	console.log(res, "imgBgURL?????????????????/")
+			// 	this.shareBgImg = res.imgUrl
+			// }).catch(err => {
+			// 	console.log("获取分享背景图失败", err)
+			// })
+			if (shareBg.imgUrl) {
+				this.shareBgImg = shareBg.imgUrl
+			}
+
+			console.log(shareBg, "shareBg")
 			if (this.share && this.onceShare) {
 				const path = `/pages/index/index?gameId=${this.gameId}`
 				this.onceShare = false
@@ -2853,7 +2864,7 @@
 				return {
 					title: this.gameInfo.name,
 					path,
-					imageUrl: this.shareBgImg ? this.shareBgImg :
+					imageUrl: this.shareBgImg ? this.shareBgImg : shareBg.imgUrl ? shareBg.imgUrl :
 						'https://static.roi-cloud.com/upload/20220110/60935669173101',
 				}
 			}
@@ -2902,7 +2913,7 @@
 			return {
 				title: `帮${this.user.nickname}助力，赢奖品`,
 				path,
-				imageUrl: this.shareBgImg ? this.shareBgImg :
+				imageUrl: this.shareBgImg ? this.shareBgImg : shareBg.imgUrl ? shareBg.imgUrl :
 					'https://static.roi-cloud.com/upload/20220110/60935669173101',
 			}
 		},
