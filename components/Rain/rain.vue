@@ -1,34 +1,39 @@
 <template>
 	<view v-if="visible" class="red-envelope-popup" :style="{
-      background: `url(${'https://static.roi-cloud.com/upload/20220121/60935669154200'}) no-repeat`,
+      background: `url(${'https://static.roi-cloud.com/upload/20220302/60935669151852'}) no-repeat`,
       backgroundSize: '100%',
     }">
 		<view class="container flex-center">
 			<view @touchmove="handleScrollTouch" class="close-bg"></view>
 			<block>
-				<view v-if="!readyOk && showStatus === 1">
+				<view v-if="showStatus === 1">
 					<view class="reminder-wrapper flex-column-center">
-						<image class="ready_title" src="https://static.roi-cloud.com/upload/20220125/60935669102534"
-							mode="aspectFill">
-						</image>
-						<image @click="handleReady" class="ready_button"
-							src="https://static.roi-cloud.com/upload/20220125/60935669104718" mode="aspectFit">
-						</image>
-						<view @click="handleReady" class="ready_button_text">
-							立即抢红包
+						<view class="ready_title" :style="{
+						   background: `url(${'https://static.roi-cloud.com/upload/20220302/60935669145706'}) no-repeat`,
+						   backgroundSize: '100% 100%',
+						 }">
+							彩蛋时间
 						</view>
+
+						<view class="ready_chunlian">
+							<view class="chunlian" :style="{
+						   background: `url(${'https://static.roi-cloud.com/upload/20220302/60935669152724'}) no-repeat`,
+						   backgroundSize: '100% 100%',
+						 }"><text>天降红包雨</text></view>
+							<view class="ready_time">{{ readyTime }}</view>
+							<view class="chunlian" :style="{
+						   background: `url(${'https://static.roi-cloud.com/upload/20220302/60935669152724'}) no-repeat`,
+						   backgroundSize: '100% 100%',
+						 }"><text>好运在等你</text></view>
+						</view>
+						<!-- <image @click="handleReady" class="ready_button"
+							src="https://static.roi-cloud.com/upload/20220125/60935669104718" mode="aspectFit">
+						</image> -->
+						<!-- <view @click="handleReady" class="ready_button_text">
+							立即抢红包
+						</view> -->
 					</view>
 				</view>
-				<block v-if="showStatus === 1">
-					<view class="reminder-wrapper flex-column-center">
-						<image v-if="readyOk" class="title"
-							src="https://static.roi-cloud.com/upload/20220121/60935669144811" mode="aspectFill">
-						</image>
-						<view class="time" v-if="readyOk">{{ readyTime }}</view>
-						<image class="bottom-img" src="https://static.roi-cloud.com/upload/20220121/60935669153646"
-							mode="aspectFill"></image>
-					</view>
-				</block>
 				<block v-if="showStatus === 2">
 					<view class="rain-wrapper flex-column">
 						<view class="time-info">
@@ -120,7 +125,7 @@
 				openEnvelopeImg: '',
 				redEnvelopeImg: '',
 				codeArray: [],
-				readyOk: false,
+
 				integralName: '积分',
 			}
 		},
@@ -177,7 +182,7 @@
 			clearTimeout(rainTimer)
 			this.cancelCustomAnimationFrame(animation)
 			// 开始准备倒计时
-			// this.cultdown()
+			this.cultdown()
 			uni.getSystemInfo({
 				success: function(res) {
 					_this.windowWidth = res.windowWidth
@@ -191,10 +196,7 @@
 			animation && this.cancelCustomAnimationFrame(animation)
 		},
 		methods: {
-			handleReady() {
-				this.readyOk = true
-				this.cultdown()
-			},
+
 			// 开始准备倒计时
 			cultdown: function() {
 				let _this = this
@@ -507,6 +509,11 @@
 <style lang="scss" scoped>
 	@import '@/static/css/flex.scss';
 
+	@font-face {
+		font-family: 'iconfont';
+		src: url('~@/static/iconfont/iconfont.ttf');
+	}
+
 	.box {
 		position: relative;
 		background: #333;
@@ -622,10 +629,71 @@
 			box-sizing: border-box;
 
 			.ready_title {
-
-				height: 740rpx;
+				width: 420rpx;
+				height: 110rpx;
 				position: absolute;
-				top: 160rpx;
+				top: 180rpx;
+				text-align: center;
+				font-family: 'iconfont' !important;
+				font-size: 60rpx;
+				color: #000;
+				line-height: 110rpx;
+
+			}
+
+			.ready_chunlian {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				width: 100vw;
+				position: absolute;
+				top: 360rpx;
+				box-sizing: border-box;
+				padding: 0 30rpx;
+
+				.ready_time {
+					font-size: 240rpx;
+					font-weight: bold;
+					animation: scaleTime 1.3s linear infinite;
+				}
+
+				@keyframes scaleTime {
+					0% {
+						-webkit-transform: translateY(0) rotateX(0) scale(1);
+						transform: translateY(0) rotateX(0) scale(1);
+						-webkit-transform-origin: 50% 0%;
+						transform-origin: 50% 0%;
+					}
+
+					50% {
+						-webkit-transform: translateY(-50%) rotateX(-90deg) scale(2);
+						transform: translateY(-50%) rotateX(-90deg) scale(2);
+						-webkit-transform-origin: 50% 50%;
+						transform-origin: 50% 50%;
+					}
+
+					100% {
+						-webkit-transform: translateY(0) rotateX(0) scale(1);
+						transform: translateY(0) rotateX(0) scale(1);
+						-webkit-transform-origin: 50% 0%;
+						transform-origin: 50% 0%;
+					}
+				}
+
+				.chunlian {
+					font-family: 'iconfont' !important;
+					font-size: 80rpx;
+					color: #000;
+					width: 180rpx;
+					height: 660rpx;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+
+					text {
+						width: 90rpx;
+					}
+				}
 			}
 
 			.ready_button {

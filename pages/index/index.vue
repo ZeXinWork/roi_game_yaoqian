@@ -845,7 +845,7 @@
 				<view class="g_btn" @click="hideDetail">我知道了</view>
 			</view>
 		</popup>
-		<!-- <Rain v-if="rainData.visible" :dataTem='rainData.dataTem' @finishRain='finishRain' @reduceTime='reduceTime'
+		<!-- 	<Rain v-if="rainData.visible" :dataTem='rainData.dataTem' @finishRain='finishRain' @reduceTime='reduceTime'
 			:max='rainData.max' :min='rainData.min' :readyTime='rainData.readyTime' :time='rainData.time'
 			:visible="rainData.visible" :createSpeed='rainData.createSpeed'>
 		</Rain> -->
@@ -909,6 +909,7 @@
 		},
 		data() {
 			return {
+
 				shareBgImg: "",
 				currentCashIndex: 0,
 				currentCashArrayIndex: 0,
@@ -1065,7 +1066,7 @@
 				) {
 					// 用户设备摇动了，触发响应操作
 					// 此处的判断依据是任意两个轴篇转角度大于15度
-					if (this.user && this.user.userId) {
+					if (this.user && this.user.userId && !this.playLoading) {
 						this.shakePlay = true
 					}
 				}
@@ -1162,7 +1163,6 @@
 				// this.getPlayNumber(true) //获取游戏可玩次数
 				// this.getHelperList(1) // 助力记录
 				// this.getMyRank() //获取当前我的排名信息
-				// this.getRainSetting() //获取红包雨设置
 				// this.getData()
 				if (this.currentScoreItem === 1) {
 					this.getAward()
@@ -1712,7 +1712,6 @@
 				// //获取游戏可玩次数
 				// this.getPlayNumber(true)
 				this.getWechatMessage()
-				// this.getRainSetting()
 				this.getGameInfo() //获取游戏信息
 				// this.getPlayNumber(true) //获取游戏可玩次数
 				this.getHelperList(1) // 助力记录
@@ -2030,12 +2029,14 @@
 										this.playLoading = false
 										return
 									}
-
+									console.log(this.$storage.get('getLocationTime'),
+										"this.$storage.get('getLocationTime')")
 									if (
 										this.gameInfo.areas &&
 										this.gameInfo.areas.length !== 0 &&
 										!this.$storage.get('getLocationTime')
 									) {
+										console.log("herreee")
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
 												this.playShackSound()
@@ -2052,6 +2053,8 @@
 											this.gameInfo.areas.length !== 0 &&
 											(now - get_time) / 1000 / 60 / 60 > 3
 										) {
+											console.log((now - get_time) / 1000 / 60 / 60)
+											console.log("herreee2")
 											this.getSetting(() => {
 												if (this.showNoPlayNum()) {
 													this.playShackSound()
@@ -2130,6 +2133,8 @@
 									this.gameInfo.areas.length !== 0 &&
 									!this.$storage.get('getLocationTime')
 								) {
+									console.log(!this.$storage.get('getLocationTime'), "没有时间")
+
 									this.getSetting(() => {
 										if (this.showNoPlayNum()) {
 											this.playShackSound()
@@ -2145,6 +2150,7 @@
 										this.gameInfo.areas.length !== 0 &&
 										(now - get_time) / 1000 / 60 / 60 > 3
 									) {
+										console.log((now - get_time) / 1000 / 60 / 60, "超时")
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
 												this.playShackSound()
@@ -2195,6 +2201,7 @@
 			updateLocation(res) {
 				res.get_time = new Date().getTime()
 				this.$storage.set('getLocationTime', res)
+
 				this.$loading.show()
 				apiSetUserLocation({
 						longitude: res.longitude,
@@ -2203,8 +2210,10 @@
 					.then((res) => {
 						this.playLoading = false
 						this.$loading.hide()
+
 					})
 					.catch((err) => {
+
 						this.playLoading = false
 						this.$loading.hide()
 					})
@@ -2218,11 +2227,13 @@
 								type: 'gcj02',
 								altitude: true,
 								success(res) {
+
 									that.updateLocation(res)
 									handler && handler()
 								},
 								fail(err) {
 									that.playLoading = false
+									console.log(err, "这里")
 									uni.showModal({
 										title: '提示',
 										content: '获取地址失败！',
@@ -2260,6 +2271,7 @@
 							},
 							fail(err) {
 								that.playLoading = false
+								console.log(err, "errrrrr")
 								uni.showModal({
 									title: '提示',
 									content: '获取地址失败！',
