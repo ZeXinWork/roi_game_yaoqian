@@ -236,7 +236,7 @@
 					<view class="line"></view>
 					<text @click="onHelper">助力记录</text>
 				</view>
-				<view class="gift_swiper" v-if="advertList.length > 0">
+				<view class="gift_swiper" v-if="advertList.length > 0" @click="toMiniProg">
 					<swiper :circular="true" :autoplay="true" :interval="3000" :duration="1000">
 						<swiper-item v-for="item in advertList" :key="item">
 							<view class="swiper-item">
@@ -1194,6 +1194,23 @@
 			},
 		},
 		methods: {
+			toMiniProg(){
+				// 每时美季
+				if (String(this.gameId) == '220216183206662908'){
+					wx.navigateToMiniProgram({
+						appId: 'wxce9543da4628d7d0', // 跳转小程序ID
+						path: 'pages/index/index', // 跳转页面
+						envVersion: 'release', // release代表跳转小程序生产环境
+						success: function(res) {
+						},
+						fail: function(err) {
+							console.log(err)
+						},
+						complete: function() {
+						}
+					})
+				}
+			},
 			reduceTime() {
 				this.rainData.readyTime = this.rainData.readyTime - 1
 				if (this.rainData.readyTime <= 0) {
