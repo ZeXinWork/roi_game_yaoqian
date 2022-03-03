@@ -238,7 +238,7 @@
 					ctx.setFontSize(16)
 					ctx.setFillStyle('#333')
 					ctx.fillText(this.prizeInfo.prizeName, this.posterWidth / 2, 184)
-					ctx.drawImage(this.$refs.qrcode.imagePath, this.posterWidth / 2 - 120, 210, 260, 260)
+					ctx.drawImage(this.$refs.qrcode.imagePath, this.posterWidth / 2 - 120, 210, 290, 290)
 					ctx.setFontSize(12)
 					ctx.setFillStyle('#aaa')
 					ctx.fillText('由发起人扫码，验证中奖者身份', 170, 490)
