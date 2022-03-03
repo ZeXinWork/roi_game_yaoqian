@@ -90,10 +90,10 @@
 				var width = parseInt(that.h_w_img);
 				var style = '';
 				if (height > 0) {
-					style = `height:${height*2}rpx;`;
+					style = `height:${height*2}px;`;
 				}
 				if (width > 0) {
-					style += `width:${width*2}rpx;z-index: 2;`;
+					style += `width:${width*2}px;z-index: 2;`;
 				}
 			
 				return style;
@@ -157,10 +157,10 @@
 				// #endif
 				
 				if (height > 0) {
-					style = `height:${height}rpx;`;
+					style = `height:${height/1.9}px;`;
 				}
 				if (width > 0) {
-					style += `width:${width}rpx;`;
+					style += `width:${width/1.9}px;`;
 				}
 				
 				return style;
