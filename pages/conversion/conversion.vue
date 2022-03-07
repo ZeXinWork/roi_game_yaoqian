@@ -89,7 +89,7 @@
 				<view class="tips"> 奖品数量有限，早兑早拥有! </view>
 			</view>
 
-			<view class="award" v-if="advertList.length > 0">
+			<view class="award" v-if="advertList.length > 0" @click="showOpenCard">
 				<swiper :circular="true" :autoplay="true" :interval="3000" :duration="1000">
 					<swiper-item v-for="item in advertList" :key="item.game_ad_id">
 						<view class="swiper-item">
@@ -169,14 +169,28 @@
 		<popup ref="vipCard" class="vip_card" width="640" left="56" top="336">
 			<view class="content">
 				<view class="p_header">
-					<image @click="$refs.vipCard.close()" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode="">
+					<image @click="closeVipCard" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode="">
 					</image>
 				</view>
 				<view class="g_info">
 					{{ gameInfo.name + ', 邀请您领取会员卡'}}
 				</view>
 				<view class="g_content">
-					<view class="g_btn" @click="addCard">去开卡</view>
+					<view class="g_btn" @click="addCard(false)">去开卡</view>
+				</view>
+			</view>
+		</popup>
+		<popup ref="adVipCard" class="vip_card" width="640" left="56" top="336">
+			<view class="content">
+				<view class="p_header">
+					<image @click="closeAdVipCard" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode="">
+					</image>
+				</view>
+				<view class="g_info">
+					{{ gameInfo.name + ', 邀请您领取会员卡'}}
+				</view>
+				<view class="g_content">
+					<view class="g_btn" @click="addCard(true)">去开卡</view>
 				</view>
 			</view>
 		</popup>
@@ -199,6 +213,7 @@
 		userGame,
 		getPhone,
 		userLogin,
+		getUserOpenCard,
 	} from "@/rest/api.js";
 	import {
 		validPhone,
@@ -241,15 +256,20 @@
 				curr_show_item: {},
 				integralName: '积分',
 				isOpenVip: false,
-				isShowVip: true,
+				showVip: true,
+				userCardOpen: false, // 用户是否已经开通会员卡
 			};
+		},
+		onShow() {
+			this.getUserOpenCard()
+			this.showVip = true
 		},
 		onLoad(options) {
 			this.gameId = options.gameId;
 			this.getPrizeList();
 			this.getUserInfo();
 			this.getGameInfo();
-
+			this.getUserOpenCard()
 			// this.getUserPlayInfo()
 
 		},
@@ -260,6 +280,24 @@
 			}
 		},
 		methods: {
+			closeVipCard(){
+				this.$refs.vipCard.close()
+				this.showVip = false
+				this.confirmExchange()
+			},
+			closeAdVipCard() {
+				this.$refs.adVipCard.close()
+			},
+			getUserOpenCard() {
+				getUserOpenCard({gameId: this.gameId}).then((res) =>{
+					if (res.is_open != 1){
+						this.userCardOpen = false
+					}
+					if (res.is_open === 1) {
+						this.userCardOpen = true
+					}
+				})
+			},
 			getUserPlayInfo() {
 				this.$loading.show();
 				userGame({
@@ -379,18 +417,10 @@
 						"YYYY年MM月DD日"
 					);
 					this.gameInfo = res;
-					this.isOpenVip = Number(res.open_wx_club) == 1
+					this.isOpenVip = Number(res.open_wx_club) === 1 && Number(res.membership_entry_redeem) === 1
 					if (this.isOpenVip) {
 						// TODO： 判断是否领取会员卡
-						test.then(res => {
-							// 领了，就不显示弹窗
-							if (res.errno) {
-								this.isShow = false
-								return
-							}
-							// 没领，就显示
-							this.isShow = true
-						})
+						this.getUserOpenCard()
 					}
 
 					if (res.integral_name) {
@@ -410,7 +440,21 @@
 					// this.gameInfo.integral = res.integral.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
 				});
 			},
-			addCard() {
+			showOpenCard() {
+				const gameInfo = this.gameInfo
+				if (gameInfo.open_wx_club && Number(gameInfo.open_wx_club) === 1){
+					if (gameInfo.membership_entry_ad && Number(gameInfo.membership_entry_ad) === 1) {
+						if (!this.userCardOpen) {
+							this.$refs.adVipCard.show()
+						}
+					}
+				}
+			},
+			addCard(isExchange) {
+				if (this.userCardOpen) {
+					_this.exchangePrisePoupShow(_this.exchangeGoddsInfo)
+					return
+				}
 				const _this = this
 				wx.navigateToMiniProgram({
 					appId: 'wxeb490c6f9b154ef9', //固定为此 appId，不可改动
@@ -428,13 +472,16 @@
 						// jump_path: "" // 跳转小程序路径
 					},  
 					success: function(res) {
-						_this.exchangePrisePoupShow(_this.exchangeGoddsInfo)
+						if (isExchange){
+							_this.exchangePrisePoupShow(_this.exchangeGoddsInfo)
+						}
 					},
 					fail: function(err) {
 						console.log(err)
 					},
 					complete: function() {
 						_this.$refs.vipCard.close()
+						_this.$refs.adVipCard.close()
 					}
 				})
 			},
@@ -449,7 +496,8 @@
 						flag: true
 					})
 					if (this.user_info.phone) {
-						if (this.isOpenVip && this.isShow){
+						// 功能开启 且 未开通会员卡
+						if (this.isOpenVip && !this.userCardOpen && this.showVip){
 							this.$refs.vipCard.show()
 						} else {
 							this.exchangePrise();

@@ -521,3 +521,13 @@ export const addRainScore = (params) => {
 export const getShareBg = (params) => {
 	return restResult(GET, api.GET_SHARE_BG, params)
 }
+
+//获取用户是否开通会员卡
+export const getUserOpenCard = (params) => {
+	return restResult(GET, api.GET_CARD_OPENED, params)
+}
+
+//用户开卡成功通知
+export const openCardOpenNotify = (params) => {
+	return restResult(GET, api.OPEN_CARD_NOTIFY, params)
+}

@@ -826,26 +826,52 @@
 			</view>
 		</uni-popup>
 		<uni-popup ref="vipCardOpen" :mask-click="false">
-			<view class="vipCardOpen">
+			<!-- <view class="vipCardOpen">
 				<view class="vipCardOpen-text">
 					<p>您已经开通过该会员卡</p>
 					<p>是否进行查看？</p>
 				</view>
 				<view class="vipCardOpen-button">
 					<button @click="closeAdOpen">否</button>
-					<button @click="openCard">是</button>
+					<button @click="openCard(false)">是</button>
+				</view>
+			</view> -->
+			<view class="vip-content">
+				<view class="p_header">
+					<image @click="closeAdOpen" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode="">
+					</image>
+				</view>
+				<view class="g_info">
+					<p>您已经开通过该会员卡</p>
+					<p>是否进行查看？</p>
+				</view>
+				<view class="g_content">
+					<view class="g_btn" @click="openCard(false)">是</view>
 				</view>
 			</view>
 		</uni-popup>
 		<uni-popup ref="vipCardOpenHelp" :mask-click="false">
-			<view class="vipCardOpen">
+			<!-- <view class="vipCardOpen">
 				<view class="vipCardOpen-text">
 					<p>可通过开通会员卡新增次数</p>
 					<p>是否进行开通？</p>
 				</view>
 				<view class="vipCardOpen-button">
 					<button @click="closeAdOpenHelp">否</button>
-					<button @click="openCard">是</button>
+					<button @click="openCard(true)">是</button>
+				</view>
+			</view> -->
+			<view class="vip-content">
+				<view class="p_header">
+					<image @click="closeAdOpenHelp" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode="">
+					</image>
+				</view>
+				<view class="g_info">
+					<p>可通过开通会员卡新增次数</p>
+					<p>是否进行开通？</p>
+				</view>
+				<view class="g_content">
+					<view class="g_btn" @click="openCard(true)">去开卡</view>
 				</view>
 			</view>
 		</uni-popup>
@@ -917,7 +943,9 @@
 		getCashList,
 		getRainSet,
 		addRainScore,
-		getShareBg
+		getShareBg,
+		getUserOpenCard,
+		openCardOpenNotify,
 	} from '@/rest/api.js'
 
 	import {
@@ -1041,6 +1069,7 @@
 				},
 				curr_show_item: {},
 				integralName: "积分",
+				userCardOpen: false, // 用户是否已经开通会员卡
 			}
 		},
 		name: 'game',
@@ -1219,12 +1248,12 @@
 		},
 		methods: {
 			addCard(location) {
-				this.$refs.vipCardOpenHelp.open()
 				const gameInfo = this.gameInfo
 				if (gameInfo.open_wx_club && Number(gameInfo.open_wx_club) === 1){
 					if (location && Number(location) === 1) {
-						// TODO: 查询是否已经开卡
-
+						if (!this.userCardOpen) {
+							this.$refs.vipCardOpen.open()
+						}
 					}
 				}
 			},
@@ -1235,9 +1264,9 @@
 				this.$refs.vipCardOpenHelp.close()
 				this.showNoPlayNum()
 			},
-			openCard() {
+			openCard(isNotify) {
 				const gameInfo = this.gameInfo
-				this.closeAdOpen()
+				const that = this
 				wx.navigateToMiniProgram({
 					appId: 'wxeb490c6f9b154ef9', //固定为此 appId，不可改动
 					path: 'pages/card_open/card_open',//固定为此path
@@ -1252,12 +1281,17 @@
 						// jump_url: "https://www.qq.com"//跳转路径
 					},  
 					success: function(res) {
+						if (isNotify){
+							that.notifyUserOpenCard()
+						}
 						console.log(res)
 					},
 					fail: function(err) {
-						console.log(err)
+						console.log("跳转开卡失败: ",err)
 					},
 					complete: function() {
+						that.closeAdOpenHelp()
+						that.closeAdOpen()
 					}
 				})
 			},
@@ -1787,6 +1821,7 @@
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
+				this.getUserOpenCard()
 			},
 			// 初始化
 			getRainSetting() {
@@ -2248,7 +2283,14 @@
 				if (!Number(this.playTime)) {
 					if (this.isOpenShareContent) {
 						// this.$refs.no_play_num.open()
-						this.$refs.share.show()
+						if (this.gameInfo.open_wx_club 
+							&& Number(this.gameInfo.open_wx_club) === 1
+							&& !this.userCardOpen 
+							&& Number(this.gameInfo.membership_entry_help) === 1) {
+							this.$refs.vipCardOpenHelp.open()
+						} else {
+							this.$refs.share.show()
+						}
 						this.playLoading = false
 						return false
 					} else {
@@ -2890,6 +2932,21 @@
 				this.$uma.trackEvent(name, params)
 				uploadTrackLog(name, params)
 			},
+			getUserOpenCard() {
+				getUserOpenCard({gameId: this.gameId}).then((res) =>{
+					if (res.is_open != 1){
+						this.userCardOpen = false
+					}
+					if (res.is_open === 1) {
+						this.userCardOpen = true
+					}
+				})
+			},
+			notifyUserOpenCard() {
+				openCardOpenNotify({gameId: this.gameId}).then((res) => {
+					console.log("通知用户进行了开卡行为")
+				})
+			},
 		},
 		async onShareAppMessage(e) {
 			if (!this.gameId) {
@@ -3042,6 +3099,45 @@
 			display: flex;
 			button {
 				width: 50% !important;
+			}
+		}
+	}
+	.vip-content {
+		background: #fff;
+		width: 600rpx;
+		border-radius: 10px;
+		display: flex;
+		flex-direction: column;
+		.p_header {
+			display: flex;
+			padding: 40upx;
+			justify-content: flex-end;
+			.icon_close {
+				width: 40upx;
+				height: 40upx;
+			}
+		}
+
+		.g_info {
+			text-align: center;
+			padding: 0 40rpx;
+		}
+		
+		.g_content {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			.g_btn {
+				width: 406upx;
+				height: 80upx;
+				color: #fff;
+				line-height: 80upx;
+				margin: 80upx auto 0;
+				background: linear-gradient(180deg, #ff7657 0%, #e93e3d 100%);
+				box-shadow: 0 10upx 20upx 0 #f96650;
+				border-radius: 51upx;
+				margin-bottom: 60rpx;
 			}
 		}
 	}
