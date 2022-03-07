@@ -39,24 +39,24 @@
 						<view class="time-info">
 							<view class="flex-row">
 								<view class="flex-column-reserve">
-									<view class="tip">剩余时间
-										<text class="time"> {{ showRainTotalTime }} s </text>
+									<view class="tip">
+										<text class="time"> {{ showRainTotalTime }}s </text>
 									</view>
 									<!-- <view class="progress-wrapper">
 										<view class="progress" :animation="progressAni"></view>
 									</view> -->
 									<!-- :style="{ width: progressWidth }" -->
-									<view class="box animate">
+									<!-- <view class="box animate">
 										<text :animation="progressAni">
 											<text></text>
 										</text>
-									</view>
+									</view> -->
 								</view>
 							</view>
 							<view class="jinbi-wrapper">
-								<image class="jinbi" src="https://static.roi-cloud.com/upload/20220124/60935669154508"
+								<image class="jinbi" src="https://static.roi-cloud.com/upload/20220307/60935669143303"
 									mode="aspectFill"></image>
-								<view class="total-score">{{integralName}}：{{ showScore }}</view>
+								<view class="total-score">{{ showScore }}</view>
 							</view>
 						</view>
 						<view class="canvas-wrapper">
@@ -99,7 +99,6 @@
 </template>
 
 <script>
-	const innerAudioContext = wx.createInnerAudioContext()
 	const APP = getApp()
 	let readyTimer = null
 	let rainTimer = null
@@ -124,9 +123,19 @@
 				scoreAni: null,
 				openEnvelopeImg: '',
 				redEnvelopeImg: '',
+				crab: '',
+				lobster: '',
+				fish: '',
+				bomb: '',
+				bombClick: '',
 				codeArray: [],
-
 				integralName: '积分',
+				redEnvelopeAudio: null,
+				bombAudio: null,
+				animalAudio: null,
+				bgAudio: null,
+				bgEndAudio: null,
+				caluAudio: null,
 			}
 		},
 		computed: {
@@ -200,6 +209,10 @@
 			// 开始准备倒计时
 			cultdown: function() {
 				let _this = this
+				this.caluAudio = uni.createInnerAudioContext()
+				this.caluAudio.autoplay = false
+				this.caluAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/rain_count_down.mp3'
+				this.caluAudio.play()
 				readyTimer = setInterval(function() {
 					_this.$emit('reduceTime')
 					if (_this.readyTime <= 0) {
@@ -220,6 +233,7 @@
 				// 倒计时进度条
 				// 红包雨倒计时
 				let showRainTotalTime = this.time
+
 				rainTimer = setInterval(function() {
 					if (--showRainTotalTime <= 0) {
 						clearInterval(rainTimer)
@@ -273,6 +287,8 @@
 				// 结束动画
 				this.cancelCustomAnimationFrame(animation)
 				this.showStatus = 3
+				this.bgEndAudio.play()
+				this.bgAudio.stop()
 				this.rainResult = {
 					amount: 100,
 				}
@@ -298,32 +314,9 @@
 					windowHeight
 				} = this
 				context.clearRect(0, 0, windowWidth, windowHeight)
-				// let index = 0
-				// setInterval(function() {
-				// 	const i = redEnvelopes[index] // 红包
-				// 	const {
-				// 		x,
-				// 		y,
-				// 		vx,
-				// 		vy,
-				// 		width,
-				// 		height,
-				// 		open,
-				// 	} = i
-				// 	const img = open ? this.openEnvelopeImg : this.redEnvelopeImg
-				// 	const imgWidth = open ? width + 20 : width
-				// 	const imgHeight = open ? height + 25 : height
-
-				// 	context.drawImage(img, x, y, imgWidth, imgHeight)
-				// 	i.x += vx
-				// 	i.y += vy
-				// 	i.y >= windowHeight && (i.y = 0, i.open = false)
-				// 	i.x + width <= 0 && (i.x = windowWidth - width, i.open = false)
-				// 	index = index + 1
-				// 	if(index=10){}
-				// }, 200)
 				for (let n = 0; n < redEnvelopes.length; n += 1) {
 					const i = redEnvelopes[n] // 红包
+
 					const {
 						x,
 						y,
@@ -331,9 +324,37 @@
 						vy,
 						width,
 						height,
-						open
+						open,
+						isRedEnvelope,
+						bomb,
+						animal,
 					} = i
-					const img = open ? this.openEnvelopeImg : this.redEnvelopeImg
+					let img = ''
+					if (isRedEnvelope) {
+						if (open) {
+							img = this.openEnvelopeImg
+						} else {
+							img = this.redEnvelopeImg
+						}
+					} else if (animal) {
+						img = this.crab
+					} else {
+						if (open) {
+							img = this.bombClick
+						} else {
+							img = this.bomb
+						}
+
+					}
+					// else if (bomb) {
+					// 	// if (open) {
+					// 	// 	img = this.bombClick
+					// 	// } else {
+					// 	// 	img = this.bomb
+					// 	// }
+
+					// }
+					// const img =  open ? this.openEnvelopeImg : this.redEnvelopeImg
 					const imgWidth = open ? width + 20 : width
 					const imgHeight = open ? height + 25 : height
 					context.drawImage(img, x, y, imgWidth, imgHeight)
@@ -381,27 +402,54 @@
 					const height = Math.floor(width / .8)
 					// 速度
 					const radomVal = Math.ceil(Math.random() * 10)
-					let vy = ""
-					if (radomVal === 3 || radomVal === 4 || radomVal === 5 || radomVal === 6) {
-						vy = 1 * Math.random() + 6
-					} else {
-						vy = 1 * Math.random() + createSpeed
-					}
-
-					// 红包金额
 					const score = this.radnScore(min, max + 1)
-					redEnvelopes.push({
-						x: startX,
-						y: 0,
-						vx: 0, // x轴速度
-						vy: vy, // y轴速度
-						score: score,
-						width: width,
-						height: height,
-						open: false,
-						click: false,
-					})
+					let vy = 1 * Math.random() + createSpeed
+					//红包的概率
+					if (radomVal === 3 || radomVal === 4 || radomVal === 5 || radomVal === 6 || radomVal === 7 ||
+						radomVal === 8) {
+						redEnvelopes.push({
+							x: startX,
+							y: 0,
+							vx: 0, // x轴速度
+							vy: vy, // y轴速度
+							score: score,
+							width: width,
+							height: height,
+							open: false,
+							click: false,
+							isRedEnvelope: true
+						})
+					}
+					//小动物的概率
+					else if (radomVal === 1 || radomVal === 2) {
+						redEnvelopes.push({
+							x: startX,
+							y: 0,
+							vx: 0, // x轴速度
+							vy: vy, // y轴速度
+							score: score,
+							width: width,
+							height: height,
+							open: false,
+							click: false,
+							animal: true
+						})
+					} else {
+						redEnvelopes.push({
+							x: startX,
+							y: 0,
+							vx: 0, // x轴速度
+							vy: vy, // y轴速度
+							score: score,
+							width: width,
+							height: height,
+							open: false,
+							click: false,
+							bomb: true
+						})
+					}
 				}
+				console.log(redEnvelopes, "redEnvelopes")
 				this.doDrawRain()
 			},
 			// 点击红包事件
@@ -433,7 +481,13 @@
 						gapY <= height + 20
 					) {
 						_this.animationOfScore(touchX, touchY)
-						innerAudioContext.play()
+						if (i.isRedEnvelope) {
+							this.redEnvelopeAudio.play()
+						} else if (i.bomb) {
+							this.bombAudio.play()
+						} else if (i.animal) {
+							this.animalAudio.play()
+						}
 						i.open = true
 						i.click = true
 						let score = _this.showScore + i.score.value
@@ -450,25 +504,52 @@
 							const height = Math.floor(width / .8)
 							// 速度
 							const radomVal = Math.ceil(Math.random() * 10)
-							let vy = ""
-							if (radomVal === 3 || radomVal === 4 || radomVal === 5 || radomVal === 6) {
-								vy = 1 * Math.random() + 6
-							} else {
-								vy = 1 * Math.random() + createSpeed
+							let vy = 1 * Math.random() + createSpeed
+							const cScore = _this.radnScore(min, max + 1)
+							if (radomVal === 3 || radomVal === 4 || radomVal === 5 || radomVal === 6 ||
+								radomVal === 7 ||
+								radomVal === 8) {
+								redEnvelopes.push({
+									x: startX,
+									y: 0,
+									vx: 0, // x轴速度
+									vy: vy, // y轴速度
+									score: cScore,
+									width: width,
+									height: height,
+									open: false,
+									click: false,
+									isRedEnvelope: true
+								})
 							}
-							// 红包金额
-							const score = _this.radnScore(min, max + 1)
-							redEnvelopes.push({
-								x: startX,
-								y: 0,
-								vx: 0, // x轴速度
-								vy: vy, // y轴速度
-								score: score,
-								width: width,
-								height: height,
-								open: false,
-								click: false,
-							})
+							//小动物的概率
+							else if (radomVal === 1 || radomVal === 2) {
+								redEnvelopes.push({
+									x: startX,
+									y: 0,
+									vx: 0, // x轴速度
+									vy: vy, // y轴速度
+									score: cScore,
+									width: width,
+									height: height,
+									open: false,
+									click: false,
+									animal: true
+								})
+							} else {
+								redEnvelopes.push({
+									x: startX,
+									y: 0,
+									vx: 0, // x轴速度
+									vy: vy, // y轴速度
+									score: cScore,
+									width: width,
+									height: height,
+									open: false,
+									click: false,
+									bomb: true
+								})
+							}
 						}, 100)
 						break
 					}
@@ -481,15 +562,34 @@
 				// 初始化红包雨
 				// https://static.roi-cloud.com/upload/20220124/60935669160410
 				uni.getImageInfo({
-					src: 'https://static.roi-cloud.com/upload/20220125/60935669111345',
+					src: 'https://static.roi-cloud.com/upload/20220307/60935669155703',
 					success(res) {
+						console.log(res, "Resssss")
 						_this.openEnvelopeImg = res.path
 						uni.getImageInfo({
-							src: 'https://static.roi-cloud.com/upload/20220125/60935669111314',
+							src: 'https://static.roi-cloud.com/upload/20220307/60935669150830',
 							success(res) {
 								_this.redEnvelopeImg = res.path
-								_this.initRainDrops() // 音效
-								_this.audioOfClick()
+								uni.getImageInfo({
+									src: 'https://static.roi-cloud.com/upload/20220307/60935669154939',
+									success(res) {
+										_this.crab = res.path
+										uni.getImageInfo({
+											src: 'https://static.roi-cloud.com/upload/20220307/60935669155027',
+											success(res) {
+												_this.lobster = res.path
+												uni.getImageInfo({
+													src: 'https://static.roi-cloud.com/upload/20220307/60935669155119',
+													success(res) {
+														_this.fish = res.path
+														_this.settingBomb()
+
+													},
+												})
+											},
+										})
+									},
+								})
 							},
 						})
 					},
@@ -497,11 +597,47 @@
 			},
 			handleScrollTouch: function() {},
 			audioOfClick() {
-				innerAudioContext.autoplay = false
-				innerAudioContext.src = 'https://www.sunniejs.cn/static/weapp/dianji.mp3'
-				innerAudioContext.onPlay(() => {})
-				innerAudioContext.onError((res) => {})
+				//点击红包音效
+				this.redEnvelopeAudio = uni.createInnerAudioContext()
+				this.redEnvelopeAudio.autoplay = false
+				this.redEnvelopeAudio.src = 'https://www.sunniejs.cn/static/weapp/dianji.mp3'
+				//点击炸弹音效
+				this.bombAudio = uni.createInnerAudioContext()
+				this.bombAudio.autoplay = false
+				this.bombAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/click_bomb.mp3'
+				//点击小动物音效
+				this.animalAudio = uni.createInnerAudioContext()
+				this.animalAudio.autoplay = false
+				this.animalAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/click_animal.wav'
+				//背景音乐
+				this.bgAudio = uni.createInnerAudioContext()
+				this.bgAudio.autoplay = false
+				this.bgAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/rain_background.mp3'
+				this.bgAudio.loop = true
+				this.bgAudio.play()
+				this.bgEndAudio = uni.createInnerAudioContext()
+				this.bgEndAudio.autoplay = false
+				this.bgEndAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/ending_rain.mp3'
+
 			},
+			settingBomb() {
+				const _this = this
+				uni.getImageInfo({
+					src: 'https://static.roi-cloud.com/upload/20220307/60935669163736',
+					success(res) {
+						_this.bomb = res.path
+						uni.getImageInfo({
+							src: 'https://static.roi-cloud.com/upload/20220307/60935669174045',
+							success(res) {
+								_this.bombClick = res.path
+								_this.initRainDrops() // 音效
+								_this.audioOfClick()
+							}
+						})
+
+					},
+				})
+			}
 		},
 	}
 </script>
@@ -742,7 +878,7 @@
 		.rain-wrapper {
 			width: 100%;
 			height: 100%;
-			background-image: url('https://static.roi-cloud.com/upload/20220121/60935669154200');
+			background-image: url('https://static.roi-cloud.com/upload/20220307/60935669135939');
 			background-size: 100% 100%;
 			background-repeat: no-repeat;
 
@@ -750,8 +886,8 @@
 				box-sizing: border-box;
 				padding-right: 80rpx;
 				position: absolute;
-				top: 200rpx;
-				left: 32rpx;
+				top: 140rpx;
+				left: 46rpx;
 				font-size: 24rpx;
 				color: #fff;
 				display: flex;
@@ -762,11 +898,18 @@
 				.tip {
 					margin-top: 8rpx;
 					font-size: 28rpx;
-					color: #ffce59 !important;
+					width: 80rpx;
+					height: 80rpx;
+					box-sizing: border-box;
+					border: 4rpx solid #fff;
+					border-radius: 50%;
+					font-size: 30rpx;
+					font-weight: bold;
+					display: flex;
+					justify-content: center;
+					align-items: center;
 
-					.time {
-						margin-left: 10rpx;
-					}
+					.time {}
 				}
 
 				.progress-wrapper {
@@ -793,19 +936,23 @@
 
 				.jinbi-wrapper {
 					display: flex;
-					flex-direction: column;
-					align-items: flex-end;
+					min-width: 160rpx;
+					height: 54rpx;
+					background-color: #fadfcd;
+					border-radius: 50rpx;
+					align-items: center;
+					justify-content: center;
 
 					.jinbi {
-						width: 48rpx;
-						height: 50rpx;
+						width: 36rpx;
+						height: 36rpx;
 					}
 
 					.total-score {
-						font-size: 40rpx;
-						color: #FFCE59;
-						font-size: 28rpx;
-						margin-top: 8rpx;
+						font-size: 30rpx;
+						color: #FF0000;
+						margin-top: -10rpx;
+						margin-left: 10rpx;
 					}
 
 				}
