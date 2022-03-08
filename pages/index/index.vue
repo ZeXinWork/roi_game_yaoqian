@@ -41,7 +41,7 @@
         backgroundSize: '100%',
       }">
 			<!-- <button @click="test">开始</button> -->
-
+			<!-- <button @click="rainData.visible=true">玩游戏</button> -->
 			<!-- <button @click="stopPlay">停止</button> -->
 			<!-- <button @click='startPlay'>kaishi</button> -->
 			<canvas :style="{ display: hideAmCanv ? 'none' : 'inline-block' }" canvas-id="lottie_demo" id="lottie_demo"
@@ -845,9 +845,10 @@
 				<view class="g_btn" @click="hideDetail">我知道了</view>
 			</view>
 		</popup>
-		<Rain v-if="rainData.visible" :dataTem='rainData.dataTem' @finishRain='finishRain' @reduceTime='reduceTime'
-			:max='rainData.max' :min='rainData.min' :readyTime='rainData.readyTime' :time='rainData.time'
-			:visible="rainData.visible" :createSpeed='rainData.createSpeed'>
+		<Rain v-if="rainData.visible && !rainLimit" :dataTem='rainData.dataTem' @closeRain='closeRain'
+			@finishRain='finishRain' @reduceTime='reduceTime' :max='rainData.max' :min='rainData.min'
+			:readyTime='rainData.readyTime' :time='rainData.time' :visible="rainData.visible"
+			:createSpeed='rainData.createSpeed'>
 		</Rain>
 	</view>
 </template>
@@ -909,7 +910,7 @@
 		},
 		data() {
 			return {
-
+				rainLimit: true,
 				shareBgImg: "",
 				currentCashIndex: 0,
 				currentCashArrayIndex: 0,
@@ -1009,7 +1010,7 @@
 				rainData: {
 					visible: false,
 					createSpeed: 3, // 速度
-					time: 10, // 游戏时间
+					time: 30, // 游戏时间
 					readyTime: 3, // 准备时间
 					min: 0, // 金币最小是0
 					max: 0, // 金币最大是10,
@@ -1194,6 +1195,15 @@
 			},
 		},
 		methods: {
+			closeRain(data) {
+				this.rainData.visible = false
+				const _this = this
+				if (data.toExchange) {
+					uni.redirectTo({
+						url: `../conversion/conversion?gameId=${_this.gameId}`
+					})
+				}
+			},
 			toMiniProg() {
 				// 每时美季
 				if (String(this.gameId) == '220216183206662908') {
@@ -1211,8 +1221,8 @@
 			},
 			reduceTime() {
 				this.rainData.readyTime = this.rainData.readyTime - 1
-				if (this.rainData.readyTime <= 0) {
-					this.rainData.readyTime = 0
+				if (this.rainData.readyTime <= 1) {
+					this.rainData.readyTime = 1
 				}
 			},
 			hideDetail() {
@@ -1231,7 +1241,7 @@
 				this.$refs.prizeInfoDetail.show()
 			},
 			finishRain(data) {
-				this.rainData.visible = false
+
 				addRainScore({
 					game_id: this.gameId,
 					data,
@@ -1731,7 +1741,7 @@
 				// this.getPlayNumber(true) //获取游戏可玩次数
 				this.getHelperList(1) // 助力记录
 				this.getMyRank() //获取当前我的排名信息
-				// this.getRainSetting() //获取红包雨设置
+				this.getRainSetting() //获取红包雨设置
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
@@ -1743,6 +1753,12 @@
 					})
 					.then((res) => {
 						if (res) {
+							if (res.errno == '1') {
+								this.rainLimit = true
+								return
+							}
+							this.rainLimit = false
+
 							this.rainData.dataTem = res
 							Object.keys(res).forEach((item, index) => {
 								if (index == 0) {
@@ -2802,7 +2818,7 @@
 								locationLatitude_evar: locationTime.latitude,
 								'3rdpartyUserID_evar': this.user.userId,
 							})
-							// this.getRainSetting() //获取红包雨设置
+							this.getRainSetting() //获取红包雨设置
 
 						})
 					})

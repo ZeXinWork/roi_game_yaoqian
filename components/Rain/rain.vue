@@ -60,8 +60,9 @@
 							</view>
 						</view>
 						<view class="canvas-wrapper">
-							<view class="score-change" :animation="scoreAni">
-								+{{ showChangeScore }}
+							<view class="score-change" :animation="scoreAni" v-show='isShowScore'>
+								<text v-if="add">+{{ showChangeScore }}</text>
+								<text v-else>-{{ showChangeScore }}</text>
 							</view>
 							<canvas disable-scroll @error="canvasIdErrorCallback" @touchstart="handleClickRain"
 								canvas-id="rain-canvas" style="width: 100vw; height: 100vh; z-index: 9999999"></canvas>
@@ -72,22 +73,30 @@
 					<view class="result-wrapper flex-column-center">
 						<block>
 							<view class="group-content flex-column-center">
-								<view class="result-title">恭喜您获得</view>
+								<view class="result-title">
+									<text>成绩揭晓</text>
+									<image @click="handleClose({close:true})"
+										src="https://static.roi-cloud.com/upload/20220308/60935669161932"
+										mode="aspectFit"></image>
+								</view>
 								<view class="ready-wrapper flex-column-center">
-									<view class="money-wrapper flex-row">
-										<view>
-											<text class="money">{{ showScore }}</text>
-											<text class="unit">{{integralName}}</text>
-										</view>
-										<view class="flex-end-start">
+									<!-- <text class="money">{{ showScore }}</text> -->
+									<view class="name-wrapper flex-column-center">
+										<image :src="user.avatar" class="user-thumb"></image>
+										<view class="name">{{user.nickname}}</view>
+										<view>恭喜你获得</view>
+										<!-- 	<view class="flex-end-start">
 											<image class="jinbi"
 												src="https://static.roi-cloud.com/upload/20220124/60935669154508"
 												mode="aspectFill"></image>
 											<text class='exchange_text'>直接换奖品，累计冲排名</text>
-										</view>
-
+										</view> -->
+										<image class="money-image"
+											src="https://static.roi-cloud.com/upload/20220308/60935669164902"
+											mode="aspectFill"></image>
+										<view class="money">{{showScore }}</view>
 									</view>
-									<view class="result-btn" @click="handleClose">我知道了</view>
+									<view class="result-btn" @click="handleClose">点我去兑换</view>
 								</view>
 							</view>
 						</block>
@@ -110,6 +119,7 @@
 		name: 'rain',
 		data() {
 			return {
+				user: null,
 				showRainTotalTime: 30, // 红包雨时间
 				showStatus: 1, // 红包雨状态：1:准备倒计时，2:正在红包雨，3:红包雨结束
 				windowWidth: 375,
@@ -136,6 +146,9 @@
 				bgAudio: null,
 				bgEndAudio: null,
 				caluAudio: null,
+				add: null,
+				isShowScore: true,
+				gameInfo: {}
 			}
 		},
 		computed: {
@@ -181,6 +194,8 @@
 			},
 		},
 		onReady() {
+			this.user = this.$storage.getUser()
+			this.gameInfo = this.$storage.get('gameInfo')
 			const _this = this
 			const gameInfo = this.$storage.get('gameInfo')
 			if (gameInfo.integral_name) {
@@ -191,6 +206,10 @@
 			clearTimeout(rainTimer)
 			this.cancelCustomAnimationFrame(animation)
 			// 开始准备倒计时
+			this.caluAudio = uni.createInnerAudioContext()
+			this.caluAudio.autoplay = false
+			this.caluAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/rain_count_down.mp3'
+			this.caluAudio.play()
 			this.cultdown()
 			uni.getSystemInfo({
 				success: function(res) {
@@ -209,18 +228,27 @@
 			// 开始准备倒计时
 			cultdown: function() {
 				let _this = this
-				this.caluAudio = uni.createInnerAudioContext()
-				this.caluAudio.autoplay = false
-				this.caluAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/rain_count_down.mp3'
-				this.caluAudio.play()
+
 				readyTimer = setInterval(function() {
 					_this.$emit('reduceTime')
-					if (_this.readyTime <= 0) {
+					if (_this.readyTime <= 1) {
 						clearInterval(readyTimer)
 						// 显示红包雨
+						//背景音乐
+						if (!_this.bgAudio) {
+							_this.bgAudio = uni.createInnerAudioContext()
+							_this.bgAudio.autoplay = false
+							_this.bgAudio.src =
+								'https://static.roi-cloud.com/upload/yaoyaoshu/rain_background.mp3'
+							_this.bgAudio.loop = true
+							_this.bgAudio.play()
+						} else {
+							_this.bgAudio.play()
+						}
+
 						_this.showRain()
 					}
-				}, 1000)
+				}, 500)
 			},
 			// 展示红包雨界面
 			showRain: function() {
@@ -279,8 +307,12 @@
 				)
 			},
 			// 关闭
-			handleClose: function() {
-				this.$emit('finishRain', this.codeArray)
+			handleClose: function({
+				close
+			}) {
+				this.$emit('closeRain', {
+					toExchange: close ? false : true
+				})
 			},
 			// 显示结果
 			showRainResult: function() {
@@ -289,9 +321,7 @@
 				this.showStatus = 3
 				this.bgEndAudio.play()
 				this.bgAudio.stop()
-				this.rainResult = {
-					amount: 100,
-				}
+				this.$emit('finishRain', this.showScore)
 			},
 			// 红包下落函数
 			customRequestAnimationFrame: function(e) {
@@ -313,10 +343,11 @@
 					windowWidth,
 					windowHeight
 				} = this
+
 				context.clearRect(0, 0, windowWidth, windowHeight)
 				for (let n = 0; n < redEnvelopes.length; n += 1) {
-					const i = redEnvelopes[n] // 红包
 
+					const i = redEnvelopes[n] // 红包
 					const {
 						x,
 						y,
@@ -326,7 +357,6 @@
 						height,
 						open,
 						isRedEnvelope,
-						bomb,
 						animal,
 					} = i
 					let img = ''
@@ -337,30 +367,44 @@
 							img = this.redEnvelopeImg
 						}
 					} else if (animal) {
-						img = this.crab
+						if (animal === 'crab') {
+							img = this.crab
+						} else if (animal === 'fish') {
+							img = this.fish
+						} else {
+							img = this.lobster
+						}
+
 					} else {
 						if (open) {
 							img = this.bombClick
 						} else {
 							img = this.bomb
 						}
-
 					}
-					// else if (bomb) {
-					// 	// if (open) {
-					// 	// 	img = this.bombClick
-					// 	// } else {
-					// 	// 	img = this.bomb
-					// 	// }
-
-					// }
-					// const img =  open ? this.openEnvelopeImg : this.redEnvelopeImg
 					const imgWidth = open ? width + 20 : width
 					const imgHeight = open ? height + 25 : height
 					context.drawImage(img, x, y, imgWidth, imgHeight)
 					i.x += vx
 					i.y += vy
-					i.y >= windowHeight && (i.y = 0, i.open = false)
+
+					if (i.y >= windowHeight) {
+						const {
+							startX,
+							vy,
+							score,
+							width,
+							height
+						} = this.initItemProps()
+						const item = this.getItem({
+							startX,
+							vy,
+							score,
+							width,
+							height
+						})
+						redEnvelopes.splice(n, 1, item)
+					}
 					i.x + width <= 0 && (i.x = windowWidth - width, i.open = false)
 				}
 				context.draw()
@@ -384,8 +428,85 @@
 				}
 				return result
 			},
-			// 准备红包雨下落
-			initRainDrops: function() {
+			getItemType() {
+				const radomVal = Math.ceil(Math.random() * 10)
+				const redPackage = [3, 4, 5, 6, 7, 8]
+				const animal = [1, 2]
+				if (redPackage.indexOf(radomVal) !== -1) {
+					return 1
+				}
+				if (animal.indexOf(radomVal) !== -1) {
+					return 2
+				}
+				return 3
+			},
+			getAnimalType() {
+				const radomVal = Math.ceil(Math.random() * 10)
+				const crab = [1, 2, 3]
+				const lobster = [5, 6, 7]
+				if (crab.indexOf(radomVal) !== -1) {
+					return 1
+				}
+				if (lobster.indexOf(radomVal) !== -1) {
+					return 2
+				}
+				return 3
+			},
+			getItem({
+				startX,
+				vy,
+				score,
+				width,
+				height
+			}) {
+				const result = this.getItemType()
+				switch (result) {
+					case 1:
+						return {
+							x: startX,
+								y: 0,
+								vx: 0, // x轴速度
+								vy: vy, // y轴速度
+								score: score,
+								width: width,
+								height: height,
+								open: false,
+								click: false,
+								isRedEnvelope: true
+						}
+
+						case 2:
+							return {
+								x: startX,
+									y: 0,
+									vx: 0, // x轴速度
+									vy: vy, // y轴速度
+									score: score,
+									width: width,
+									height: height,
+									open: false,
+									click: false,
+									animal: this.getAnimalType() === 1 ? 'crab' : this.getAnimalType() === 2 ? 'lobster' :
+									'fish'
+							}
+							default:
+								return {
+									x: startX,
+										y: 0,
+										vx: 0, // x轴速度
+										vy: vy, // y轴速度
+										score: score,
+										width: width,
+										height: height,
+										open: false,
+										click: false,
+										bomb: true
+								}
+
+				}
+			},
+
+			initItemProps() {
 				const {
 					windowWidth,
 					windowHeight,
@@ -393,63 +514,70 @@
 					max,
 					min
 				} = this
-				for (let n = 0; n < 6; n += 1) {
-					const startX = Math.floor(Math.random() * (windowWidth - 50))
-					const startY = Math.floor(Math.random() * windowHeight)
-					// 红包图片宽度大小30~40
-					const width = this.randNum(minWidth, maxWidth)
-					// 宽度为红包高度的百分之八十
-					const height = Math.floor(width / .8)
-					// 速度
-					const radomVal = Math.ceil(Math.random() * 10)
-					const score = this.radnScore(min, max + 1)
-					let vy = 1 * Math.random() + createSpeed
-					//红包的概率
-					if (radomVal === 3 || radomVal === 4 || radomVal === 5 || radomVal === 6 || radomVal === 7 ||
-						radomVal === 8) {
-						redEnvelopes.push({
-							x: startX,
-							y: 0,
-							vx: 0, // x轴速度
-							vy: vy, // y轴速度
-							score: score,
-							width: width,
-							height: height,
-							open: false,
-							click: false,
-							isRedEnvelope: true
-						})
-					}
-					//小动物的概率
-					else if (radomVal === 1 || radomVal === 2) {
-						redEnvelopes.push({
-							x: startX,
-							y: 0,
-							vx: 0, // x轴速度
-							vy: vy, // y轴速度
-							score: score,
-							width: width,
-							height: height,
-							open: false,
-							click: false,
-							animal: true
-						})
-					} else {
-						redEnvelopes.push({
-							x: startX,
-							y: 0,
-							vx: 0, // x轴速度
-							vy: vy, // y轴速度
-							score: score,
-							width: width,
-							height: height,
-							open: false,
-							click: false,
-							bomb: true
-						})
-					}
+				const startX = Math.floor(Math.random() * (windowWidth - 50))
+				const startY = Math.floor(Math.random() * windowHeight)
+				// 红包图片宽度大小30~40
+				const width = this.randNum(minWidth, maxWidth)
+				// 宽度为红包高度的百分之八十
+				const height = Math.floor(width / .8)
+				// 速度
+				const score = this.radnScore(min, max + 1)
+				let vy = 1 * Math.random() + createSpeed
+				return {
+					startX,
+					vy,
+					score,
+					width,
+					height
 				}
-				console.log(redEnvelopes, "redEnvelopes")
+			},
+
+			// 准备红包雨下落
+			initRainDrops: function() {
+				const {
+					startX,
+					vy,
+					score,
+					width,
+					height
+				} = this.initItemProps()
+				//红包的概率
+				const item = this.getItem({
+					startX,
+					vy,
+					score,
+					width,
+					height
+				})
+				redEnvelopes.push(item)
+				let timer = null
+				const _this = this
+				timer = setInterval(function() {
+					if (redEnvelopes.length < 10) {
+						const {
+							startX,
+							vy,
+							score,
+							width,
+							height
+						} = _this.initItemProps()
+						//红包的概率
+						const item = _this.getItem({
+							startX,
+							vy,
+							score,
+							width,
+							height
+						})
+						redEnvelopes.push(item)
+
+					} else {
+						console.log("??????????/")
+						clearInterval(timer)
+					}
+				}, 300)
+
+
 				this.doDrawRain()
 			},
 			// 点击红包事件
@@ -490,66 +618,40 @@
 						}
 						i.open = true
 						i.click = true
-						let score = _this.showScore + i.score.value
-						_this.codeArray.push(i.score.code)
-						_this.showScore = score
-						_this.showChangeScore = i.score.value
+						if (i.isRedEnvelope || i.bomb) {
+							_this.isShowScore = true
+							_this.showScore = i.isRedEnvelope ?
+								_this.showScore + i.score.value : _this.showScore - i.score.value
+							if (Number(_this.showScore) >= Number(_this.gameInfo.max_award_point)) {
+								_this.showScore = _this.gameInfo.max_award_point
+							} else if (Number(_this.showScore) <= 0) {
+								_this.showScore = 0
+							}
+							i.isRedEnvelope ?
+								_this.add = true : _this.add = false
+							_this.codeArray.push(i.score.code)
+							_this.showChangeScore = i.score.value
+						} else {
+							_this.isShowScore = false
+						}
+
 						setTimeout(function() {
 							redEnvelopes.splice(o, 1)
-							const startX = Math.floor(Math.random() * (windowWidth - 50))
-							const startY = Math.floor(Math.random() * windowHeight)
-							// 红包图片宽度大小30~40
-							const width = _this.randNum(minWidth, maxWidth)
-							// 宽度为红包高度的百分之八十
-							const height = Math.floor(width / .8)
-							// 速度
-							const radomVal = Math.ceil(Math.random() * 10)
-							let vy = 1 * Math.random() + createSpeed
-							const cScore = _this.radnScore(min, max + 1)
-							if (radomVal === 3 || radomVal === 4 || radomVal === 5 || radomVal === 6 ||
-								radomVal === 7 ||
-								radomVal === 8) {
-								redEnvelopes.push({
-									x: startX,
-									y: 0,
-									vx: 0, // x轴速度
-									vy: vy, // y轴速度
-									score: cScore,
-									width: width,
-									height: height,
-									open: false,
-									click: false,
-									isRedEnvelope: true
-								})
-							}
-							//小动物的概率
-							else if (radomVal === 1 || radomVal === 2) {
-								redEnvelopes.push({
-									x: startX,
-									y: 0,
-									vx: 0, // x轴速度
-									vy: vy, // y轴速度
-									score: cScore,
-									width: width,
-									height: height,
-									open: false,
-									click: false,
-									animal: true
-								})
-							} else {
-								redEnvelopes.push({
-									x: startX,
-									y: 0,
-									vx: 0, // x轴速度
-									vy: vy, // y轴速度
-									score: cScore,
-									width: width,
-									height: height,
-									open: false,
-									click: false,
-									bomb: true
-								})
-							}
+							const {
+								startX,
+								vy,
+								score: cScore,
+								width,
+								height
+							} = _this.initItemProps()
+							const item = _this.getItem({
+								startX,
+								vy,
+								score: cScore,
+								width,
+								height
+							})
+							redEnvelopes.push(item)
 						}, 100)
 						break
 					}
@@ -581,7 +683,8 @@
 												uni.getImageInfo({
 													src: 'https://static.roi-cloud.com/upload/20220307/60935669155119',
 													success(res) {
-														_this.fish = res.path
+														_this.fish = res
+															.path
 														_this.settingBomb()
 
 													},
@@ -609,12 +712,7 @@
 				this.animalAudio = uni.createInnerAudioContext()
 				this.animalAudio.autoplay = false
 				this.animalAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/click_animal.wav'
-				//背景音乐
-				this.bgAudio = uni.createInnerAudioContext()
-				this.bgAudio.autoplay = false
-				this.bgAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/rain_background.mp3'
-				this.bgAudio.loop = true
-				this.bgAudio.play()
+				//结束背景音乐
 				this.bgEndAudio = uni.createInnerAudioContext()
 				this.bgEndAudio.autoplay = false
 				this.bgEndAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/ending_rain.mp3'
@@ -790,31 +888,31 @@
 				.ready_time {
 					font-size: 240rpx;
 					font-weight: bold;
-					animation: scaleTime 1.3s linear infinite;
+					// animation: scaleTime 1.3s linear infinite;
 				}
 
-				@keyframes scaleTime {
-					0% {
-						-webkit-transform: translateY(0) rotateX(0) scale(1);
-						transform: translateY(0) rotateX(0) scale(1);
-						-webkit-transform-origin: 50% 0%;
-						transform-origin: 50% 0%;
-					}
+				// @keyframes scaleTime {
+				// 	0% {
+				// 		-webkit-transform: translateY(0) rotateX(0) scale(1);
+				// 		transform: translateY(0) rotateX(0) scale(1);
+				// 		-webkit-transform-origin: 50% 0%;
+				// 		transform-origin: 50% 0%;
+				// 	}
 
-					50% {
-						-webkit-transform: translateY(-50%) rotateX(-90deg) scale(2);
-						transform: translateY(-50%) rotateX(-90deg) scale(2);
-						-webkit-transform-origin: 50% 50%;
-						transform-origin: 50% 50%;
-					}
+				// 	50% {
+				// 		-webkit-transform: translateY(-50%) rotateX(-90deg) scale(2);
+				// 		transform: translateY(-50%) rotateX(-90deg) scale(2);
+				// 		-webkit-transform-origin: 50% 50%;
+				// 		transform-origin: 50% 50%;
+				// 	}
 
-					100% {
-						-webkit-transform: translateY(0) rotateX(0) scale(1);
-						transform: translateY(0) rotateX(0) scale(1);
-						-webkit-transform-origin: 50% 0%;
-						transform-origin: 50% 0%;
-					}
-				}
+				// 	100% {
+				// 		-webkit-transform: translateY(0) rotateX(0) scale(1);
+				// 		transform: translateY(0) rotateX(0) scale(1);
+				// 		-webkit-transform-origin: 50% 0%;
+				// 		transform-origin: 50% 0%;
+				// 	}
+				// }
 
 				.chunlian {
 					font-family: 'iconfont' !important;
@@ -978,60 +1076,71 @@
 			height: 100%;
 			display: flex;
 			justify-content: center;
+			position: relative;
 
 			.group-content {
 				position: relative;
 				width: 550rpx;
-				height: 700rpx;
-				background-image: url('https://static.roi-cloud.com/upload/20220125/60935669113010');
+				height: 900rpx;
+				background-image: url('https://static.roi-cloud.com/upload/20220308/60935669161407');
 				background-size: 100% 100%;
 				background-repeat: no-repeat;
 
 				.result-title {
-					margin-top: 68rpx;
-					font-size: 40rpx;
-					color: #76521D;
+					margin-top: 40rpx;
+					font-size: 34rpx;
+					color: #fff;
+					box-sizing: border-box;
+
+					image {
+						width: 40rpx;
+						height: 40rpx;
+						position: absolute;
+						top: 40rpx;
+						right: 40rpx;
+					}
 				}
 
-				.money-wrapper {
-					color: #fff;
-					display: flex;
-					flex-direction: column;
+				.name-wrapper {
+					color: #333;
+					font-size: 30rpx;
+					margin-top: 36rpx;
+
+					.user-thumb {
+						border-radius: 100%;
+						width: 122rpx;
+						height: 122rpx;
+						background: #fff;
+
+					}
+
+					.name {
+						margin: 12rpx 0 32rpx 20rpx
+					}
 
 					.money {
-						color: #fa4542;
-						font-size: 120rpx;
+						color: #E13421;
+						font-size: 60rpx;
 					}
 
-					.jinbi {
-						width: 48rpx;
-						height: 50rpx;
-						margin-right: 6rpx;
-					}
-
-					.exchange_text {
-						color: #BF9B66;
-						font-size: 24rpx;
-
-					}
-
-					.unit {
-						position: relative;
-						font-size: 32rpx;
-						color: #fa4542
+					.money-image {
+						width: 460rpx;
+						height: 230rpx;
+						margin-top: 16rpx;
 					}
 				}
 
 				.result-btn {
-					margin-top: 158rpx;
+					margin-top: 48rpx;
 					width: 440rpx;
-					height: 100rpx;
-					background-color: #f1daae;
+					height: 80rpx;
 					text-align: center;
-					line-height: 100rpx;
+					line-height: 75rpx;
 					border-radius: 40rpx;
-					font-size: 40rpx;
-					color: #76521D;
+					font-size: 34rpx;
+					color: #fff;
+					font-weight: bold;
+					background: linear-gradient(#fe7556, #e93f3d);
 				}
 			}
 		}
