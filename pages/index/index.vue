@@ -1018,6 +1018,7 @@
 				},
 				curr_show_item: {},
 				integralName: "积分",
+				scanRain: false,
 			}
 		},
 		name: 'game',
@@ -1027,15 +1028,15 @@
 		},
 		onShow() {
 			if (this.user && this.user.userId) {
-				let pages = getCurrentPages()
-				let currentPage = pages[pages.length - 1]
-				const options = currentPage.options
+				// let pages = getCurrentPages()
+				// let currentPage = pages[pages.length - 1]
+				// const options = currentPage.options
 
-				if (options.scene && options.scene !== this.localGameId) {
-					this.localGameId = options.scene
-					this.gameId = options.scene
-					this.$storage.set('gameId', options.scene)
-				}
+				// if (options.scene && options.scene !== this.localGameId) {
+				// 	this.localGameId = options.scene
+				// 	this.gameId = options.scene
+				// 	this.$storage.set('gameId', options.scene)
+				// }
 
 				this.getData()
 				const launchOptions = this.$storage.get('options')
@@ -1091,6 +1092,7 @@
 		},
 		onLoad(options) {
 			const _this = this
+			const user = this.$storage.getUser()
 			// uni.getSystemInfo({
 			// 	success: function(res) {
 			// 		// _this.minHeight = res.windowHeight
@@ -1100,19 +1102,38 @@
 			this.navbarHeight =
 				getApp().globalData.statusBarHeight + getApp().globalData.navBarHeight
 			let localGameId = this.$storage.get('gameId')
-
+			let scene = null
 			if (options.gameId && options.gameId !== localGameId) {
 				localGameId = options.gameId
 				this.$storage.set('gameId', options.gameId)
 			}
-			if (options.scene && options.scene !== localGameId) {
-				localGameId = options.scene
-				this.$storage.set('gameId', options.scene)
+			scene = options.scene ? decodeURIComponent(options.scene) : null
+			if (scene && scene.indexOf(',') != -1) {
+				this.scanRain = true
+				localGameId = scene.split(',')[0]
+				console.log(localGameId, "localGameIdlocalGameId")
+				this.$storage.set('gameId', localGameId)
+				if (!user.userId) {
+					this.toLogin()
+				}
+			} else if (scene && scene.indexOf(',') == -1 && scene !== localGameId) {
+				localGameId = scene
+				this.$storage.set('gameId', scene)
 			}
+			// if (options.gameId && options.gameId !== localGameId) {
+			// 	localGameId = options.gameId
+			// 	this.$storage.set('gameId', options.gameId)
+			// }
+			// if (options.scene && options.scene !== localGameId) {
+			// 	localGameId = options.scene
+			// 	this.$storage.set('gameId', options.scene)
+			// }
+
 			// localGameId = '211206093256824726'
 			this.gameId = localGameId.trim()
+			console.log(this.gameId, "this.gameId")
 			this.$storage.set('gameId', this.gameId)
-			const user = this.$storage.getUser()
+
 			if (options.code) {
 				this.gameId = options.gameId
 				this.$storage.set('gameId', options.gameId)
@@ -1768,6 +1789,10 @@
 									this.rainData.max = res[item]
 								}
 							})
+							if (this.scanRain) {
+								this.scanRain = false
+								this.rainData.visible = true
+							}
 						}
 					})
 					.catch((err) => {
