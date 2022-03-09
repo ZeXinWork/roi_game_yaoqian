@@ -622,6 +622,7 @@
 							_this.isShowScore = true
 							_this.showScore = i.isRedEnvelope ?
 								_this.showScore + i.score.value : _this.showScore - i.score.value
+							
 							if (Number(_this.showScore) >= Number(_this.gameInfo.max_award_point)) {
 								_this.showScore = _this.gameInfo.max_award_point
 							} else if (Number(_this.showScore) <= 0) {
