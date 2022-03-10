@@ -42,7 +42,7 @@
       }">
 
 			<!-- <button @click="test">开始</button> -->
-			<!-- <button @click="rainData.visible=true">玩游戏</button> -->
+			<button @click="rainData.visible=true">玩游戏</button>
 			<!-- <button @click="stopPlay">停止</button> -->
 			<!-- <button @click='startPlay'>kaishi</button> -->
 			<canvas :style="{ display: hideAmCanv ? 'none' : 'inline-block' }" canvas-id="lottie_demo" id="lottie_demo"
@@ -1010,16 +1010,16 @@
 				HongbaoDownAudio: null,
 				rainData: {
 					visible: false,
-					createSpeed: 3, // 速度
-					time: 30, // 游戏时间
+					createSpeed: 6, // 速度
+					time: 15, // 游戏时间
 					readyTime: 3, // 准备时间
-					min: 0, // 金币最小是0
-					max: 0, // 金币最大是10,
+					min: 0, // 最小金币
+					max: 0, // 最大金币
 					dataTem: {},
 				},
 				curr_show_item: {},
 				integralName: "积分",
-				scanRain: false,
+				scanRain: false, //是否显示红包雨游戏
 			}
 		},
 		name: 'game',

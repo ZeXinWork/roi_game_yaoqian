@@ -83,7 +83,7 @@
 									<!-- <text class="money">{{ showScore }}</text> -->
 									<view class="name-wrapper flex-column-center">
 										<image :src="user.avatar" class="user-thumb"></image>
-										<view class="name">{{user.nickname}}</view>
+										<view class="name">{{user?user.nickname:''}}</view>
 										<view>恭喜你获得</view>
 										<!-- 	<view class="flex-end-start">
 											<image class="jinbi"
@@ -108,22 +108,27 @@
 </template>
 
 <script>
+	import {
+		rainStart
+	} from '@/rest/api.js'
 	const APP = getApp()
 	let readyTimer = null
 	let rainTimer = null
 	let redEnvelopes = []
 	let animation = null
-	const minWidth = 30 // 红包图片最小宽度
-	const maxWidth = 40 // 红包图片最大宽度
+	let curIndex = 0
+	const minWidth = 45 //红包图片最小宽度
+	const maxWidth = 55 //红包图片最大宽度
+
 	export default {
 		name: 'rain',
 		data() {
 			return {
 				user: null,
-				showRainTotalTime: 30, // 红包雨时间
+				showRainTotalTime: 15, // 红包雨时间
 				showStatus: 1, // 红包雨状态：1:准备倒计时，2:正在红包雨，3:红包雨结束
-				windowWidth: 375,
-				windowHeight: 555,
+				windowWidth: '',
+				windowHeight: '',
 				rainResult: {},
 				loading: false,
 				showScore: 0,
@@ -148,7 +153,8 @@
 				caluAudio: null,
 				add: null,
 				isShowScore: true,
-				gameInfo: {}
+				gameInfo: {},
+				temDeleteIndex: []
 			}
 		},
 		computed: {
@@ -206,6 +212,12 @@
 			if (gameInfo.integral_name) {
 				this.integralName = gameInfo.integral_name
 			}
+			uni.getSystemInfo({
+				success: function(res) {
+					_this.windowHeight = res.windowHeight
+					_this.windowWidth = res.windowWidth
+				},
+			})
 			redEnvelopes = []
 			clearTimeout(readyTimer)
 			clearTimeout(rainTimer)
@@ -247,20 +259,34 @@
 					_this.$emit('reduceTime')
 					if (_this.readyTime <= 1) {
 						clearInterval(readyTimer)
-						// 显示红包雨
-						//背景音乐
-						if (!_this.bgAudio) {
-							_this.bgAudio = uni.createInnerAudioContext()
-							_this.bgAudio.autoplay = false
-							_this.bgAudio.src =
-								'https://static.roi-cloud.com/upload/yaoyaoshu/rain_background.mp3'
-							_this.bgAudio.loop = true
-							_this.bgAudio.play()
-						} else {
-							_this.bgAudio.play()
-						}
+						const gameId = _this.$storage.get("gameId")
+						rainStart({
+							game_id: gameId
+						}).then((res) => {
+							if (res.errno == '1') {
+								uni.showModal({
+									title: "提示",
+									content: `${res.errmsg}`,
+									showCancel: false
+								})
+								return
+							}
+							// 显示红包雨
+							//背景音乐
+							if (!_this.bgAudio) {
+								_this.bgAudio = uni.createInnerAudioContext()
+								_this.bgAudio.autoplay = false
+								_this.bgAudio.src =
+									'https://static.roi-cloud.com/upload/yaoyaoshu/rain_background.mp3'
+								_this.bgAudio.loop = true
+								_this.bgAudio.play()
+							} else {
+								_this.bgAudio.play()
+							}
 
-						_this.showRain()
+							_this.showRain()
+						})
+
 					}
 				}, 800)
 			},
@@ -373,6 +399,7 @@
 						isRedEnvelope,
 						animal,
 					} = i
+
 					let img = ''
 					if (isRedEnvelope) {
 						if (open) {
@@ -401,7 +428,6 @@
 					context.drawImage(img, x, y, imgWidth, imgHeight)
 					i.x += vx
 					i.y += vy
-
 					if (i.y >= windowHeight) {
 						const {
 							startX,
@@ -474,6 +500,8 @@
 				height
 			}) {
 				const result = this.getItemType()
+				const pre = curIndex
+				curIndex = curIndex + 1
 				switch (result) {
 					case 1:
 						return {
@@ -486,7 +514,8 @@
 								height: height,
 								open: false,
 								click: false,
-								isRedEnvelope: true
+								isRedEnvelope: true,
+								index: pre
 						}
 
 						case 2:
@@ -501,7 +530,8 @@
 									open: false,
 									click: false,
 									animal: this.getAnimalType() === 1 ? 'crab' : this.getAnimalType() === 2 ? 'lobster' :
-									'fish'
+									'fish',
+									index: pre
 							}
 							default:
 								return {
@@ -514,7 +544,8 @@
 										height: height,
 										open: false,
 										click: false,
-										bomb: true
+										bomb: true,
+										index: pre
 								}
 
 				}
@@ -567,7 +598,7 @@
 				let timer = null
 				const _this = this
 				timer = setInterval(function() {
-					if (redEnvelopes.length < 10) {
+					if (redEnvelopes.length < 15) {
 						const {
 							startX,
 							vy,
@@ -586,7 +617,6 @@
 						redEnvelopes.push(item)
 
 					} else {
-						console.log("??????????/")
 						clearInterval(timer)
 					}
 				}, 300)
@@ -614,7 +644,8 @@
 						width = i.width,
 						height = i.height,
 						gapX = touchX - rainX,
-						gapY = touchY - rainY
+						gapY = touchY - rainY,
+						open = i.open
 					if (
 						!i.click &&
 						gapX >= -20 &&
@@ -623,6 +654,7 @@
 						gapY <= height + 20
 					) {
 						_this.animationOfScore(touchX, touchY)
+						_this.temDeleteIndex.push(i.index)
 						if (i.isRedEnvelope) {
 							this.redEnvelopeAudio.play()
 						} else if (i.bomb) {
@@ -651,7 +683,15 @@
 						}
 
 						setTimeout(function() {
-							redEnvelopes.splice(o, 1)
+							let tem = [...redEnvelopes]
+							tem.forEach((item, index) => {
+								_this.temDeleteIndex.forEach(value => {
+									if (item.index === value) {
+										redEnvelopes.splice(index, 1)
+									}
+								})
+							})
+
 							const {
 								startX,
 								vy,
@@ -672,6 +712,7 @@
 					}
 				}
 			},
+
 			// 初始化 canvas
 			initRain: function() {
 				this.context = uni.createCanvasContext('rain-canvas', this)

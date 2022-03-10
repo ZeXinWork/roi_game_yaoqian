@@ -347,3 +347,5 @@ export const ADD_RAIN_SCORE = '/api/extra/update'
 export const TRACK_LOG = '/track'
 
 export const GET_SHARE_BG = '/api/invite/bg'
+
+export const GET_RAIN_START = '/api/extra/start'

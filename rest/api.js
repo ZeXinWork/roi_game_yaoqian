@@ -521,3 +521,8 @@ export const addRainScore = (params) => {
 export const getShareBg = (params) => {
 	return restResult(GET, api.GET_SHARE_BG, params)
 }
+
+//开始红包雨
+export const rainStart = (params) => {
+	return restResult(GET, api.GET_RAIN_START, params)
+}

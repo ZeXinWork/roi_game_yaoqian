@@ -244,20 +244,18 @@
 			}
 		},
 		methods: {
-			toMiniProg(){
+			toMiniProg() {
 				// 每时美季
-				if (String(this.gameId) == '220216183206662908'){
+				if (String(this.gameId) == '220216183206662908') {
 					wx.navigateToMiniProgram({
 						appId: 'wxce9543da4628d7d0', // 跳转小程序ID
 						path: 'pages/index/index', // 跳转页面
 						envVersion: 'release', // release代表跳转小程序生产环境
-						success: function(res) {
-						},
+						success: function(res) {},
 						fail: function(err) {
 							console.log(err)
 						},
-						complete: function() {
-						}
+						complete: function() {}
 					})
 				}
 			},
@@ -404,9 +402,13 @@
 			confirmExchange(e) {
 				try {
 					this.$refs.exchange.hide();
-					emitDataPrevpage('exange', {
-						flag: true
-					})
+					let pages = getCurrentPages()
+					if (pages.length !== 1) {
+						emitDataPrevpage('exange', {
+							flag: true
+						})
+					}
+
 					if (this.user_info.phone) {
 						this.exchangePrise();
 					} else {
