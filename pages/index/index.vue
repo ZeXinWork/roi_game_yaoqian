@@ -1780,9 +1780,18 @@
 						game_id: this.gameId,
 					})
 					.then((res) => {
+						console.log(res, "Ressss")
 						if (res) {
 							if (res.errno == '1') {
 								this.rainLimit = true
+								if (this.scanRain) {
+									this.scanRain = false
+									uni.showModal({
+										title: "提示",
+										content: `${res.errmsg}`,
+										showCancel: false
+									})
+								}
 								return
 							}
 							this.rainLimit = false
