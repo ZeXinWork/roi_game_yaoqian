@@ -1265,6 +1265,21 @@
 				this.showNoPlayNum()
 			},
 			openCard(isNotify) {
+				wx.addCard({
+				cardList: [
+					{
+					cardId: '',
+					cardExt: '{"code": "", "openid": "", "timestamp": "", "signature":""}'
+					}, {
+					cardId: '',
+					cardExt: '{"code": "", "openid": "", "timestamp": "", "signature":""}'
+					}
+				],
+				success (res) {
+					console.log(res.cardList) // 卡券添加结果
+				}
+				})
+				return
 				const gameInfo = this.gameInfo
 				const that = this
 				wx.navigateToMiniProgram({

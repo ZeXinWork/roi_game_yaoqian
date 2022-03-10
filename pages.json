@@ -24,7 +24,10 @@
 				"navigationBarBackgroundColor": "#E83D3D",
 				"navigationBarTitleText": "我的奖品",
 				"enablePullDownRefresh": false,
-				"backgroundColor": "#E83D3D"
+				"backgroundColor": "#E83D3D",
+				"usingComponents": { 
+					"send-coupon": "plugin://sendCoupon/send-coupon" 
+				}
 			}
 		},
 		{
