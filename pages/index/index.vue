@@ -40,6 +40,7 @@
         }) no-repeat`,
         backgroundSize: '100%',
       }">
+
 			<!-- <button @click="test">开始</button> -->
 			<!-- <button @click="rainData.visible=true">玩游戏</button> -->
 			<!-- <button @click="stopPlay">停止</button> -->
@@ -1128,7 +1129,12 @@
 			// 	localGameId = options.scene
 			// 	this.$storage.set('gameId', options.scene)
 			// }
-
+			if (options.rain) {
+				this.scanRain = true
+				if (!user.userId) {
+					this.toLogin()
+				}
+			}
 			// localGameId = '211206093256824726'
 			this.gameId = localGameId.trim()
 			console.log(this.gameId, "this.gameId")
@@ -2825,6 +2831,7 @@
 									if (this.share && this.onceShare) {
 										this.$refs.onceShare.show()
 									}
+									this.getRainSetting() //获取红包雨设置
 								})
 							} else {
 								if (this.isOpenAssistance) {
@@ -2844,7 +2851,7 @@
 								locationLatitude_evar: locationTime.latitude,
 								'3rdpartyUserID_evar': this.user.userId,
 							})
-							this.getRainSetting() //获取红包雨设置
+
 
 						})
 					})

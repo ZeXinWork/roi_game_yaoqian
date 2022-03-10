@@ -157,6 +157,11 @@
 				return `${width}%`
 			},
 		},
+		destroyed() {
+			if (this.bgAudio) {
+				this.bgAudio.stop()
+			}
+		},
 		props: {
 			visible: {
 				type: Boolean,
@@ -206,10 +211,18 @@
 			clearTimeout(rainTimer)
 			this.cancelCustomAnimationFrame(animation)
 			// 开始准备倒计时
-			this.caluAudio = uni.createInnerAudioContext()
-			this.caluAudio.autoplay = false
-			this.caluAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/rain_count_down.mp3'
-			this.caluAudio.play()
+			if (this.bgAudio) {
+				this.bgAudio.stop()
+			}
+			if (!this.caluAudio) {
+				this.caluAudio = uni.createInnerAudioContext()
+				this.caluAudio.autoplay = false
+				this.caluAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/rain_count_down.mp3'
+				this.caluAudio.play()
+			} else {
+				this.caluAudio.play()
+			}
+
 			this.cultdown()
 			uni.getSystemInfo({
 				success: function(res) {
@@ -222,6 +235,7 @@
 			readyTimer && clearInterval(readyTimer)
 			rainTimer && clearInterval(rainTimer)
 			animation && this.cancelCustomAnimationFrame(animation)
+
 		},
 		methods: {
 
@@ -248,7 +262,7 @@
 
 						_this.showRain()
 					}
-				}, 500)
+				}, 800)
 			},
 			// 展示红包雨界面
 			showRain: function() {
@@ -622,7 +636,7 @@
 							_this.isShowScore = true
 							_this.showScore = i.isRedEnvelope ?
 								_this.showScore + i.score.value : _this.showScore - i.score.value
-							
+
 							if (Number(_this.showScore) >= Number(_this.gameInfo.max_award_point)) {
 								_this.showScore = _this.gameInfo.max_award_point
 							} else if (Number(_this.showScore) <= 0) {
@@ -702,21 +716,33 @@
 			handleScrollTouch: function() {},
 			audioOfClick() {
 				//点击红包音效
-				this.redEnvelopeAudio = uni.createInnerAudioContext()
-				this.redEnvelopeAudio.autoplay = false
-				this.redEnvelopeAudio.src = 'https://www.sunniejs.cn/static/weapp/dianji.mp3'
+				if (!this.redEnvelopeAudio) {
+					this.redEnvelopeAudio = uni.createInnerAudioContext()
+					this.redEnvelopeAudio.autoplay = false
+					this.redEnvelopeAudio.src = 'https://www.sunniejs.cn/static/weapp/dianji.mp3'
+				}
+
 				//点击炸弹音效
-				this.bombAudio = uni.createInnerAudioContext()
-				this.bombAudio.autoplay = false
-				this.bombAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/click_bomb.mp3'
+				if (!this.bombAudio) {
+					this.bombAudio = uni.createInnerAudioContext()
+					this.bombAudio.autoplay = false
+					this.bombAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/click_bomb.mp3'
+				}
+
 				//点击小动物音效
-				this.animalAudio = uni.createInnerAudioContext()
-				this.animalAudio.autoplay = false
-				this.animalAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/click_animal.wav'
+				if (!this.animalAudio) {
+					this.animalAudio = uni.createInnerAudioContext()
+					this.animalAudio.autoplay = false
+					this.animalAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/click_animal.wav'
+				}
+
 				//结束背景音乐
-				this.bgEndAudio = uni.createInnerAudioContext()
-				this.bgEndAudio.autoplay = false
-				this.bgEndAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/ending_rain.mp3'
+				if (!this.bgEndAudio) {
+					this.bgEndAudio = uni.createInnerAudioContext()
+					this.bgEndAudio.autoplay = false
+					this.bgEndAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/ending_rain.mp3'
+				}
+
 
 			},
 			settingBomb() {
