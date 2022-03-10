@@ -332,6 +332,12 @@ export const GET_FINAL_RANK = '/api/game/userFinalRanking'
 
 export const GET_MY_RANK = '/api/user/ranking'
 
+//获取用户是否开通会员卡
+export const GET_CARD_OPENED = '/api/membership/status'
+
+//开卡成功通知
+export const OPEN_CARD_NOTIFY = '/api/membership/notification'
+
 // 小程序通知开关
 export const WECHAT_MESSAGE = '/api/subscribe/index'
 
