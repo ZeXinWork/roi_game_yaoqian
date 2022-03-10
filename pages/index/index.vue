@@ -1218,6 +1218,7 @@
 		methods: {
 			closeRain(data) {
 				this.rainData.visible = false
+				this.rainData.readyTime = 3
 				const _this = this
 				if (data.toExchange) {
 					uni.redirectTo({
