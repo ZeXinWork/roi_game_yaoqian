@@ -42,7 +42,7 @@
       }">
 
 			<!-- <button @click="test">开始</button> -->
-			<button @click="rainData.visible=true">玩游戏</button>
+			<!-- <button @click="rainData.visible=true">玩游戏</button> -->
 			<!-- <button @click="stopPlay">停止</button> -->
 			<!-- <button @click='startPlay'>kaishi</button> -->
 			<canvas :style="{ display: hideAmCanv ? 'none' : 'inline-block' }" canvas-id="lottie_demo" id="lottie_demo"
@@ -237,7 +237,7 @@
 					<view class="line"></view>
 					<text @click="onHelper">助力记录</text>
 				</view>
-				<view class="gift_swiper" v-if="advertList.length > 0" @click="toMiniProg">
+				<view class="gift_swiper" v-if="advertList.length > 0" @click="addCard(gameInfo.membership_entry_ad)">
 					<swiper :circular="true" :autoplay="true" :interval="3000" :duration="1000">
 						<swiper-item v-for="item in advertList" :key="item">
 							<view class="swiper-item">
@@ -826,6 +826,58 @@
 				</view>
 			</view>
 		</uni-popup>
+		<uni-popup ref="vipCardOpen" :mask-click="false">
+			<!-- <view class="vipCardOpen">
+				<view class="vipCardOpen-text">
+					<p>您已经开通过该会员卡</p>
+					<p>是否进行查看？</p>
+				</view>
+				<view class="vipCardOpen-button">
+					<button @click="closeAdOpen">否</button>
+					<button @click="openCard(false)">是</button>
+				</view>
+			</view> -->
+			<view class="vip-content">
+				<view class="p_header">
+					<image @click="closeAdOpen" class="icon_close" src="https://static.roi-cloud.com/base/close.png"
+						mode="">
+					</image>
+				</view>
+				<view class="g_info">
+					<p>您已经开通过该会员卡</p>
+					<p>是否进行查看？</p>
+				</view>
+				<view class="g_content">
+					<view class="g_btn" @click="openCard(false)">是</view>
+				</view>
+			</view>
+		</uni-popup>
+		<uni-popup ref="vipCardOpenHelp" :mask-click="false">
+			<!-- <view class="vipCardOpen">
+				<view class="vipCardOpen-text">
+					<p>可通过开通会员卡新增次数</p>
+					<p>是否进行开通？</p>
+				</view>
+				<view class="vipCardOpen-button">
+					<button @click="closeAdOpenHelp">否</button>
+					<button @click="openCard(true)">是</button>
+				</view>
+			</view> -->
+			<view class="vip-content">
+				<view class="p_header">
+					<image @click="closeAdOpenHelp" class="icon_close" src="https://static.roi-cloud.com/base/close.png"
+						mode="">
+					</image>
+				</view>
+				<view class="g_info">
+					<p>可通过开通会员卡新增次数</p>
+					<p>是否进行开通？</p>
+				</view>
+				<view class="g_content">
+					<view class="g_btn" @click="openCard(true)">去开卡</view>
+				</view>
+			</view>
+		</uni-popup>
 		<popup ref="prizeInfoDetail" class="prizeInfoDetail" width="640" left="56" top="336">
 			<view class="p_header">
 				<image @click="hideDetail" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode="">
@@ -895,7 +947,9 @@
 		getCashList,
 		getRainSet,
 		addRainScore,
-		getShareBg
+		getShareBg,
+		getUserOpenCard,
+		openCardOpenNotify,
 	} from '@/rest/api.js'
 
 	import {
@@ -1019,7 +1073,8 @@
 				},
 				curr_show_item: {},
 				integralName: "积分",
-				scanRain: false, //是否显示红包雨游戏
+				scanRain: false,
+				userCardOpen: false, // 用户是否已经开通会员卡
 			}
 		},
 		name: 'game',
@@ -1246,6 +1301,69 @@
 						complete: function() {}
 					})
 				}
+			},
+			addCard(location) {
+				const gameInfo = this.gameInfo
+				if (gameInfo.open_wx_club && Number(gameInfo.open_wx_club) === 1) {
+					if (location && Number(location) === 1) {
+						if (!this.userCardOpen) {
+							this.$refs.vipCardOpen.open()
+						}
+					}
+				} else {
+					this.toMiniProg()
+				}
+			},
+			closeAdOpen() {
+				this.$refs.vipCardOpen.close()
+			},
+			closeAdOpenHelp() {
+				this.$refs.vipCardOpenHelp.close()
+				this.showNoPlayNum()
+			},
+			openCard(isNotify) {
+				wx.addCard({
+					cardList: [{
+						cardId: '',
+						cardExt: '{"code": "", "openid": "", "timestamp": "", "signature":""}'
+					}, {
+						cardId: '',
+						cardExt: '{"code": "", "openid": "", "timestamp": "", "signature":""}'
+					}],
+					success(res) {
+						console.log(res.cardList) // 卡券添加结果
+					}
+				})
+				return
+				const gameInfo = this.gameInfo
+				const that = this
+				wx.navigateToMiniProgram({
+					appId: 'wxeb490c6f9b154ef9', //固定为此 appId，不可改动
+					path: 'pages/card_open/card_open', //固定为此path
+					envVersion: 'release', //商家正式版小程序拉起正式版组件；若此时为商家体验版小程序拉起体验版组件，则envVersion传值trial（体验版拉起，需找微信支付产品单独开权限）
+					extraData: {
+						// create_card_appid:"wxbc1da991f125c7c8", // 测试用
+						// card_id: "pU2mM6ZBAtOnozvtmM0IYDqn0O2M",	// 测试用
+						create_card_appid: gameInfo.merchant_no,
+						card_id: gameInfo.member_no,
+						outer_str: "yaoyaoshu",
+						activate_type: "ACTIVATE_TYPE_NORMAL", // ACTIVATE_TYPE_NORMAL：一键激活 ACTIVATE_TYPE_JUMP：跳转激活
+						// jump_url: "https://www.qq.com"//跳转路径
+					},
+					success: function(res) {
+						if (isNotify) {
+							that.notifyUserOpenCard()
+						}
+						console.log(res)
+					},
+					fail: function(err) {
+						console.log("跳转开卡失败: ", err)
+					},
+					complete: function() {
+						that.closeAdOpenHelp()
+						that.closeAdOpen()
+					}
+				})
 			},
 			reduceTime() {
 				this.rainData.readyTime = this.rainData.readyTime - 1
@@ -1773,6 +1891,7 @@
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
+				this.getUserOpenCard()
 			},
 			// 初始化
 			getRainSetting() {
@@ -2253,7 +2372,14 @@
 				if (!Number(this.playTime)) {
 					if (this.isOpenShareContent) {
 						// this.$refs.no_play_num.open()
-						this.$refs.share.show()
+						if (this.gameInfo.open_wx_club &&
+							Number(this.gameInfo.open_wx_club) === 1 &&
+							!this.userCardOpen &&
+							Number(this.gameInfo.membership_entry_help) === 1) {
+							this.$refs.vipCardOpenHelp.open()
+						} else {
+							this.$refs.share.show()
+						}
 						this.playLoading = false
 						return false
 					} else {
@@ -2896,6 +3022,25 @@
 				this.$uma.trackEvent(name, params)
 				uploadTrackLog(name, params)
 			},
+			getUserOpenCard() {
+				getUserOpenCard({
+					gameId: this.gameId
+				}).then((res) => {
+					if (res.is_open != 1) {
+						this.userCardOpen = false
+					}
+					if (res.is_open === 1) {
+						this.userCardOpen = true
+					}
+				})
+			},
+			notifyUserOpenCard() {
+				openCardOpenNotify({
+					gameId: this.gameId
+				}).then((res) => {
+					console.log("通知用户进行了开卡行为")
+				})
+			},
 		},
 		async onShareAppMessage(e) {
 			if (!this.gameId) {
@@ -3033,6 +3178,71 @@
 </script>
 
 <style lang="scss">
+	.vipCardOpen {
+		background: #fff;
+		/* height: 150px; */
+		width: 600rpx;
+		border-radius: 10px;
+		display: flex;
+		flex-direction: column;
+
+		.vipCardOpen-text {
+			text-align: center;
+			margin: 30px;
+		}
+
+		.vipCardOpen-button {
+			display: flex;
+
+			button {
+				width: 50% !important;
+			}
+		}
+	}
+
+	.vip-content {
+		background: #fff;
+		width: 600rpx;
+		border-radius: 10px;
+		display: flex;
+		flex-direction: column;
+
+		.p_header {
+			display: flex;
+			padding: 40upx;
+			justify-content: flex-end;
+
+			.icon_close {
+				width: 40upx;
+				height: 40upx;
+			}
+		}
+
+		.g_info {
+			text-align: center;
+			padding: 0 40rpx;
+		}
+
+		.g_content {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+
+			.g_btn {
+				width: 406upx;
+				height: 80upx;
+				color: #fff;
+				line-height: 80upx;
+				margin: 80upx auto 0;
+				background: linear-gradient(180deg, #ff7657 0%, #e93e3d 100%);
+				box-shadow: 0 10upx 20upx 0 #f96650;
+				border-radius: 51upx;
+				margin-bottom: 60rpx;
+			}
+		}
+	}
+
 	.prizeInfoDetail {
 		.p_header {
 			display: flex;

@@ -36,6 +36,15 @@
 			</view>
 		</view>
 		<view class="no_data" v-else> 暂无奖品 </view>
+		<!-- 领券测试组件 -->
+		<!-- <send-coupon  
+			@customevent="getcoupon"  
+			@sendcoupon="getcoupon"
+			:send_coupon_params="send_coupon_params"  
+			:sign="sign"  
+			:send_coupon_merchant="send_coupon_merchant">  
+			<view>领取</view>  
+		</send-coupon>  -->
 		<navigator delta="2" open-type="navigateBack" class="go_game">去游戏</navigator>
 		<popup ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
 			<view class="p_header">
@@ -117,6 +126,14 @@
 				gameInfo:{},
 				integralName: '积分',
 				source: ['', '即开即中', '积分兑换', '粉丝PK排行榜'],
+				// 这部分是领券测试数据
+				// send_coupon_params: [{
+				// 	stock_id: "16278961",
+				// 	out_request_no: "123456789",
+				// 	create_coupon_merchant: "1616627254"
+				// }],
+				// send_coupon_merchant: "1616627254",
+				// sign: "82C0D72F3069FF2559611F7D6274B5AE98165378607B3CF09999F4664DE9D3C3"
 			};
 		},
 		onReachBottom(e) {
@@ -143,6 +160,10 @@
 			}
 		},
 		methods: {
+			// 领券回调方法
+			// getcoupon(params) {
+			// 	console.log("getcoupon", params)
+			// },
 			changeType(type) {
 				this.page = 0;
 				this.current = type;
