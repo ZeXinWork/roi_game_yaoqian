@@ -598,7 +598,7 @@
 				let timer = null
 				const _this = this
 				timer = setInterval(function() {
-					if (redEnvelopes.length < 15) {
+					if (redEnvelopes.length < 10) {
 						const {
 							startX,
 							vy,
@@ -683,14 +683,19 @@
 						}
 
 						setTimeout(function() {
-							let tem = [...redEnvelopes]
-							tem.forEach((item, index) => {
-								_this.temDeleteIndex.forEach(value => {
-									if (item.index === value) {
-										redEnvelopes.splice(index, 1)
-									}
-								})
-							})
+							console.log(_this.temDeleteIndex, "_this.temDeleteIndex")
+							const newArray = redEnvelopes.filter(item =>
+								_this.temDeleteIndex.indexOf(item.index) === -1
+							)
+							console.log(newArray, "newArray")
+							redEnvelopes = newArray
+							// tem.forEach((item, index) => {
+							// 	_this.temDeleteIndex.forEach(value => {
+							// 		if (item.index === value) {
+							// 			redEnvelopes.splice(index, 1)
+							// 		}
+							// 	})
+							// })
 
 							const {
 								startX,
@@ -1052,7 +1057,7 @@
 				box-sizing: border-box;
 				padding-right: 80rpx;
 				position: absolute;
-				top: 140rpx;
+				top: 200rpx;
 				left: 46rpx;
 				font-size: 24rpx;
 				color: #fff;
@@ -1060,7 +1065,7 @@
 				justify-content: space-between;
 				align-items: center;
 				width: 100%;
-
+              
 				.tip {
 					margin-top: 8rpx;
 					font-size: 28rpx;
@@ -1108,7 +1113,7 @@
 					border-radius: 50rpx;
 					align-items: center;
 					justify-content: center;
-
+                     
 					.jinbi {
 						width: 36rpx;
 						height: 36rpx;

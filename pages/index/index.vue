@@ -1064,7 +1064,7 @@
 				HongbaoDownAudio: null,
 				rainData: {
 					visible: false,
-					createSpeed: 6, // 速度
+					createSpeed: 8, // 速度
 					time: 15, // 游戏时间
 					readyTime: 3, // 准备时间
 					min: 0, // 最小金币
