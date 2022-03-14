@@ -2166,7 +2166,7 @@
 				}
 			},
 			play(isShake) {
-				if (this.playLoading || this.rainData.visible) {
+				if (this.playLoading || this.rainData.visible || this.scanRain) {
 					return
 				}
 				if (this.$refs.redEnvelope.PopOpen) {

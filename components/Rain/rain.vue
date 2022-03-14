@@ -162,9 +162,6 @@
 				const width = (this.showRainTotalTime / this.time) * 100
 				return `${width}%`
 			},
-			showRainTotalTime(){
-				return this.time
-			}
 		},
 		destroyed() {
 			if (this.bgAudio) {
@@ -565,7 +562,7 @@
 				const startX = Math.floor(Math.random() * (windowWidth - 50))
 				const startY = Math.floor(Math.random() * windowHeight)
 				// 红包图片宽度大小30~40
-				const width = this.randNum(minWidth, maxWidth)
+				const width = 60
 				// 宽度为红包高度的百分之八十
 				const height = Math.floor(width / .8)
 				// 速度
@@ -601,7 +598,7 @@
 				let timer = null
 				const _this = this
 				timer = setInterval(function() {
-					if (redEnvelopes.length < 10) {
+					if (redEnvelopes.length < 8) {
 						const {
 							startX,
 							vy,
@@ -670,7 +667,7 @@
 						if (i.isRedEnvelope || i.bomb) {
 							_this.isShowScore = true
 							_this.showScore = i.isRedEnvelope ?
-								_this.showScore + i.score.value : _this.showScore - i.score.value
+								_this.showScore + i.score.value : _this.showScore - (i.score.value * 5)
 
 							if (Number(_this.showScore) >= Number(_this.gameInfo.max_award_point)) {
 								_this.showScore = _this.gameInfo.max_award_point
