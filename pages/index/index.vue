@@ -1065,7 +1065,7 @@
 				rainData: {
 					visible: false,
 					createSpeed: 8, // 速度
-					time: 15, // 游戏时间
+					time: 20, // 游戏时间
 					readyTime: 3, // 准备时间
 					min: 0, // 最小金币
 					max: 0, // 最大金币
@@ -2969,6 +2969,7 @@
 									this.getRainSetting() //获取红包雨设置
 								})
 							} else {
+								this.getRainSetting()
 								if (this.isOpenAssistance) {
 									this.isOpenAssistance = false
 									this.getInviteInfo(this.inviteCode, this.gameId)

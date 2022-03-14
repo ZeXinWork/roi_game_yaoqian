@@ -125,7 +125,7 @@
 		data() {
 			return {
 				user: null,
-				showRainTotalTime: 15, // 红包雨时间
+				showRainTotalTime: this.time, // 红包雨时间
 				showStatus: 1, // 红包雨状态：1:准备倒计时，2:正在红包雨，3:红包雨结束
 				windowWidth: '',
 				windowHeight: '',
@@ -162,6 +162,9 @@
 				const width = (this.showRainTotalTime / this.time) * 100
 				return `${width}%`
 			},
+			showRainTotalTime(){
+				return this.time
+			}
 		},
 		destroyed() {
 			if (this.bgAudio) {
@@ -470,7 +473,7 @@
 			},
 			getItemType() {
 				const radomVal = Math.ceil(Math.random() * 10)
-				const redPackage = [3, 4, 5, 6, 7, 8]
+				const redPackage = [3, 4, 5, 6, 7, 8, 9]
 				const animal = [1, 2]
 				if (redPackage.indexOf(radomVal) !== -1) {
 					return 1
@@ -1065,7 +1068,7 @@
 				justify-content: space-between;
 				align-items: center;
 				width: 100%;
-              
+
 				.tip {
 					margin-top: 8rpx;
 					font-size: 28rpx;
@@ -1113,7 +1116,7 @@
 					border-radius: 50rpx;
 					align-items: center;
 					justify-content: center;
-                     
+
 					.jinbi {
 						width: 36rpx;
 						height: 36rpx;
