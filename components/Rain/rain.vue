@@ -125,7 +125,7 @@
 		data() {
 			return {
 				user: null,
-				showRainTotalTime: 15, // 红包雨时间
+				showRainTotalTime: this.time, // 红包雨时间
 				showStatus: 1, // 红包雨状态：1:准备倒计时，2:正在红包雨，3:红包雨结束
 				windowWidth: '',
 				windowHeight: '',
@@ -470,7 +470,7 @@
 			},
 			getItemType() {
 				const radomVal = Math.ceil(Math.random() * 10)
-				const redPackage = [3, 4, 5, 6, 7, 8]
+				const redPackage = [3, 4, 5, 6, 7, 8, 9]
 				const animal = [1, 2]
 				if (redPackage.indexOf(radomVal) !== -1) {
 					return 1
@@ -562,7 +562,7 @@
 				const startX = Math.floor(Math.random() * (windowWidth - 50))
 				const startY = Math.floor(Math.random() * windowHeight)
 				// 红包图片宽度大小30~40
-				const width = this.randNum(minWidth, maxWidth)
+				const width = 60
 				// 宽度为红包高度的百分之八十
 				const height = Math.floor(width / .8)
 				// 速度
@@ -598,7 +598,7 @@
 				let timer = null
 				const _this = this
 				timer = setInterval(function() {
-					if (redEnvelopes.length < 10) {
+					if (redEnvelopes.length < 8) {
 						const {
 							startX,
 							vy,
@@ -667,7 +667,7 @@
 						if (i.isRedEnvelope || i.bomb) {
 							_this.isShowScore = true
 							_this.showScore = i.isRedEnvelope ?
-								_this.showScore + i.score.value : _this.showScore - i.score.value
+								_this.showScore + i.score.value : _this.showScore - (i.score.value * 5)
 
 							if (Number(_this.showScore) >= Number(_this.gameInfo.max_award_point)) {
 								_this.showScore = _this.gameInfo.max_award_point
@@ -1065,7 +1065,7 @@
 				justify-content: space-between;
 				align-items: center;
 				width: 100%;
-              
+
 				.tip {
 					margin-top: 8rpx;
 					font-size: 28rpx;
@@ -1113,7 +1113,7 @@
 					border-radius: 50rpx;
 					align-items: center;
 					justify-content: center;
-                     
+
 					.jinbi {
 						width: 36rpx;
 						height: 36rpx;
