@@ -843,9 +843,13 @@
 						mode="">
 					</image>
 				</view>
-				<view class="g_info">
+				<view class="g_info" v-if="userCardOpen">
 					<p>您已经开通过该会员卡</p>
 					<p>是否进行查看？</p>
+				</view>
+				<view class="g_info" v-else>
+					<p>{{gameInfo.name}} 邀请您开通会员卡</p>
+					<p>是否前往开通？</p>
 				</view>
 				<view class="g_content">
 					<view class="g_btn" @click="openCard(false)">是</view>
@@ -1306,9 +1310,7 @@
 				const gameInfo = this.gameInfo
 				if (gameInfo.open_wx_club && Number(gameInfo.open_wx_club) === 1) {
 					if (location && Number(location) === 1) {
-						if (!this.userCardOpen) {
-							this.$refs.vipCardOpen.open()
-						}
+						this.$refs.vipCardOpen.open()
 					}
 				} else {
 					this.toMiniProg()
@@ -1322,19 +1324,6 @@
 				this.showNoPlayNum()
 			},
 			openCard(isNotify) {
-				wx.addCard({
-					cardList: [{
-						cardId: '',
-						cardExt: '{"code": "", "openid": "", "timestamp": "", "signature":""}'
-					}, {
-						cardId: '',
-						cardExt: '{"code": "", "openid": "", "timestamp": "", "signature":""}'
-					}],
-					success(res) {
-						console.log(res.cardList) // 卡券添加结果
-					}
-				})
-				return
 				const gameInfo = this.gameInfo
 				const that = this
 				wx.navigateToMiniProgram({
