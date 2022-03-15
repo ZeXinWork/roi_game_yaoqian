@@ -1308,6 +1308,8 @@
 			},
 			addCard(location) {
 				const gameInfo = this.gameInfo
+				console.log(gameInfo.open_wx_club, Number(gameInfo.open_wx_club) === 1)
+				console.log(location, Number(location) === 1)
 				if (gameInfo.open_wx_club && Number(gameInfo.open_wx_club) === 1) {
 					if (location && Number(location) === 1) {
 						this.$refs.vipCardOpen.open()
@@ -1335,7 +1337,7 @@
 						// card_id: "pU2mM6ZBAtOnozvtmM0IYDqn0O2M",	// 测试用
 						create_card_appid: gameInfo.merchant_no,
 						card_id: gameInfo.member_no,
-						outer_str: "yaoyaoshu",
+						outer_str: gameInfo.user_game_id,
 						activate_type: "ACTIVATE_TYPE_NORMAL", // ACTIVATE_TYPE_NORMAL：一键激活 ACTIVATE_TYPE_JUMP：跳转激活
 						// jump_url: "https://www.qq.com"//跳转路径
 					},
