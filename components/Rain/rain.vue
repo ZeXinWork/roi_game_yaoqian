@@ -234,7 +234,7 @@
 			} else {
 				this.caluAudio.play()
 			}
-
+			this.initRain()
 			this.cultdown()
 			uni.getSystemInfo({
 				success: function(res) {
@@ -295,8 +295,12 @@
 				let _this = this
 				// 显示红包雨
 				this.showStatus = 2
+				setTimeout(function() {
+					_this.initRainDrops() // 音效
+					_this.audioOfClick()
+				}.bind(_this), 300)
 				// 初始化红包雨
-				this.initRain()
+				// this.initRain()
 
 				// 倒计时进度条
 				// 红包雨倒计时
@@ -357,11 +361,14 @@
 			// 显示结果
 			showRainResult: function() {
 				// 结束动画
-				this.cancelCustomAnimationFrame(animation)
-				this.showStatus = 3
-				this.bgEndAudio.play()
-				this.bgAudio.stop()
+				console.log(this.showScore, "this.showScorethis.showScore")
 				this.$emit('finishRain', this.showScore)
+				setTimeout(function() {
+					this.cancelCustomAnimationFrame(animation)
+					this.showStatus = 3
+					this.bgEndAudio.play()
+					this.bgAudio.stop()
+				}.bind(this), 200)
 			},
 			// 红包下落函数
 			customRequestAnimationFrame: function(e) {
@@ -801,8 +808,7 @@
 							src: 'https://static.roi-cloud.com/upload/20220307/60935669174045',
 							success(res) {
 								_this.bombClick = res.path
-								_this.initRainDrops() // 音效
-								_this.audioOfClick()
+
 							}
 						})
 
@@ -819,6 +825,7 @@
 	@font-face {
 		font-family: 'iconfont';
 		src: url('~@/static/iconfont/iconfont.ttf');
+		// src: url('https://at.alicdn.com/t/font_865816_17gjspmmrkti.ttf') format('truetype');
 	}
 
 	.box {
@@ -988,7 +995,7 @@
 				// }
 
 				.chunlian {
-					font-family: 'iconfont' !important;
+					font-family: 'iconfont';
 					font-size: 80rpx;
 					color: #000;
 					width: 180rpx;

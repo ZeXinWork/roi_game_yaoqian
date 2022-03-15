@@ -1387,7 +1387,6 @@
 				this.$refs.prizeInfoDetail.show()
 			},
 			finishRain(data) {
-
 				addRainScore({
 					game_id: this.gameId,
 					data,
