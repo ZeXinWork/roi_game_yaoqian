@@ -852,7 +852,8 @@
 					<p>是否前往开通？</p>
 				</view>
 				<view class="g_content">
-					<view class="g_btn" @click="openCard(false)">是</view>
+					<view class="g_btn" v-if="userCardOpen" @click="openCard(false, '')">是</view>
+					<view class="g_btn" v-else @click="openCard(false, 'ad')">是</view>
 				</view>
 			</view>
 		</uni-popup>
@@ -878,7 +879,7 @@
 					<p>是否进行开通？</p>
 				</view>
 				<view class="g_content">
-					<view class="g_btn" @click="openCard(true)">去开卡</view>
+					<view class="g_btn" @click="openCard(true, 'help')">去开卡</view>
 				</view>
 			</view>
 		</uni-popup>
@@ -1325,7 +1326,7 @@
 				this.$refs.vipCardOpenHelp.close()
 				this.showNoPlayNum()
 			},
-			openCard(isNotify) {
+			openCard(isNotify, location) {
 				const gameInfo = this.gameInfo
 				const that = this
 				wx.navigateToMiniProgram({
@@ -1337,7 +1338,7 @@
 						// card_id: "pU2mM6ZBAtOnozvtmM0IYDqn0O2M",	// 测试用
 						create_card_appid: gameInfo.merchant_no,
 						card_id: gameInfo.member_no,
-						outer_str: gameInfo.user_game_id,
+						outer_str: that.gameId + location,
 						activate_type: "ACTIVATE_TYPE_NORMAL", // ACTIVATE_TYPE_NORMAL：一键激活 ACTIVATE_TYPE_JUMP：跳转激活
 						// jump_url: "https://www.qq.com"//跳转路径
 					},
@@ -2939,6 +2940,7 @@
 							this.getHelperList(1) // 助力记录
 							this.getMyRank() //获取当前我的排名信息
 							this.getWechatMessage()
+							this.getUserOpenCard()
 							if (this.currentScoreItem === 1) {
 								this.getAward()
 							}

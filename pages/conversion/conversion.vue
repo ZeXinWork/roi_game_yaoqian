@@ -176,7 +176,7 @@
 					{{ gameInfo.name + ', 邀请您领取会员卡'}}
 				</view>
 				<view class="g_content">
-					<view class="g_btn" @click="addCard(true)">去开卡</view>
+					<view class="g_btn" @click="addCard(true, 'prize')">去开卡</view>
 				</view>
 			</view>
 		</popup>
@@ -190,7 +190,7 @@
 					{{ gameInfo.name + ', 邀请您领取会员卡'}}
 				</view>
 				<view class="g_content">
-					<view class="g_btn" @click="addCard(false)">去开卡</view>
+					<view class="g_btn" @click="addCard(false, 'ad')">去开卡</view>
 				</view>
 			</view>
 		</popup>
@@ -205,7 +205,7 @@
 					<p>是否进行查看？</p>
 				</view>
 				<view class="g_content">
-					<view class="g_btn" @click="addCard(false)">是</view>
+					<view class="g_btn" @click="addCard(false, '')">是</view>
 				</view>
 			</view>
 		</popup>
@@ -483,7 +483,7 @@
 					this.toMiniProg()
 				}
 			},
-			addCard(isExchange) {
+			addCard(isExchange, location) {
 				if (this.userCardOpen && isExchange) {
 					this.exchangePrisePoupShow(this.exchangeGoddsInfo)
 					return
@@ -498,7 +498,7 @@
 						// card_id: "pU2mM6ZBAtOnozvtmM0IYDqn0O2M",	// 测试用
 						create_card_appid: _this.gameInfo.merchant_no,
 						card_id: _this.gameInfo.member_no,
-						outer_str: "yaoyaoshu",
+						outer_str: _this.gameId + location,
 						activate_type: "ACTIVATE_TYPE_NORMAL",// ACTIVATE_TYPE_NORMAL：一键激活 ACTIVATE_TYPE_JUMP：跳转激活
 						// jump_url: "https://www.qq.com"//跳转路径
 						// jump_appid: "" // 跳转小程序， 同时配置url和appid优先跳转appid
