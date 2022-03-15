@@ -42,7 +42,7 @@
       }">
 
 			<!-- <button @click="test">开始</button> -->
-			<button @click="rainData.visible=true">玩游戏</button>
+			<!-- <button @click="rainData.visible=true">玩游戏</button> -->
 			<!-- <button @click="stopPlay">停止</button> -->
 			<!-- <button @click='startPlay'>kaishi</button> -->
 			<canvas :style="{ display: hideAmCanv ? 'none' : 'inline-block' }" canvas-id="lottie_demo" id="lottie_demo"
