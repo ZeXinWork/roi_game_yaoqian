@@ -126,7 +126,7 @@
 			return {
 				user: null,
 				showRainTotalTime: this.time, // 红包雨时间
-				showStatus: 1, // 红包雨状态：1:准备倒计时，2:正在红包雨，3:红包雨结束
+				showStatus: 0, // 红包雨状态：1:准备倒计时，2:正在红包雨，3:红包雨结束
 				windowWidth: '',
 				windowHeight: '',
 				rainResult: {},
@@ -204,7 +204,9 @@
 				default: {},
 			},
 		},
+
 		onReady() {
+			this.showStatus = 1
 			this.user = this.$storage.getUser()
 			this.gameInfo = this.$storage.get('gameInfo')
 			const _this = this
@@ -226,13 +228,16 @@
 			if (this.bgAudio) {
 				this.bgAudio.stop()
 			}
-			if (!this.caluAudio) {
-				this.caluAudio = uni.createInnerAudioContext()
-				this.caluAudio.autoplay = false
-				this.caluAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/rain_count_down.mp3'
-				this.caluAudio.play()
+			if (!_this.caluAudio) {
+				console.log("播放1")
+				_this.caluAudio = uni.createInnerAudioContext()
+				_this.caluAudio.autoplay = false
+				_this.caluAudio.src =
+					'https://static.roi-cloud.com/upload/yaoyaoshu/rain_count_down.mp3'
+				_this.caluAudio.play()
+				console.log("播放")
 			} else {
-				this.caluAudio.play()
+				_this.caluAudio.play()
 			}
 			this.initRain()
 			this.cultdown()
@@ -256,6 +261,7 @@
 				let _this = this
 
 				readyTimer = setInterval(function() {
+
 					_this.$emit('reduceTime')
 					if (_this.readyTime <= 1) {
 						clearInterval(readyTimer)
@@ -375,7 +381,7 @@
 				let _this = this
 				let timer = setTimeout(function() {
 					e.call(_this), clearTimeout(timer)
-				}, 1000 / 60)
+				}, 1000 / 120)
 				return timer
 			},
 			// 清除红包下落函数
@@ -660,7 +666,7 @@
 						gapY >= -20 &&
 						gapY <= height + 20
 					) {
-						_this.animationOfScore(touchX, touchY)
+						_this.animationOfScore(rainX, rainY - 20)
 						_this.temDeleteIndex.push(i.index)
 						if (i.isRedEnvelope) {
 							this.redEnvelopeAudio.play()
@@ -690,11 +696,10 @@
 						}
 
 						setTimeout(function() {
-							console.log(_this.temDeleteIndex, "_this.temDeleteIndex")
 							const newArray = redEnvelopes.filter(item =>
 								_this.temDeleteIndex.indexOf(item.index) === -1
 							)
-							console.log(newArray, "newArray")
+
 							redEnvelopes = newArray
 							// tem.forEach((item, index) => {
 							// 	_this.temDeleteIndex.forEach(value => {
@@ -727,12 +732,16 @@
 
 			// 初始化 canvas
 			initRain: function() {
+				console.log("执行")
 				this.context = uni.createCanvasContext('rain-canvas', this)
 				const _this = this
 				// 初始化红包雨
 				// https://static.roi-cloud.com/upload/20220124/60935669160410
 				uni.getImageInfo({
 					src: 'https://static.roi-cloud.com/upload/20220307/60935669155703',
+					fail(err) {
+						console.log(err, "errr")
+					},
 					success(res) {
 						console.log(res, "Resssss")
 						_this.openEnvelopeImg = res.path
@@ -822,11 +831,11 @@
 <style lang="scss" scoped>
 	@import '@/static/css/flex.scss';
 
-	@font-face {
-		font-family: 'iconfont';
-		src: url('~@/static/iconfont/iconfont.ttf');
-		// src: url('https://at.alicdn.com/t/font_865816_17gjspmmrkti.ttf') format('truetype');
-	}
+	// @font-face {
+	// 	font-family: 'iconfont';
+	// 	src: url('~@/static/iconfont/iconfont.ttf');
+	// 	// src: url('https://at.alicdn.com/t/font_865816_17gjspmmrkti.ttf') format('truetype');
+	// }
 
 	.box {
 		position: relative;
@@ -1141,12 +1150,14 @@
 				position: relative;
 
 				.score-change {
+					font-size: 80rpx !important;
 					position: absolute;
 					width: 50rpx;
 					height: 50rpx;
-					font-size: 40rpx;
-					color: #fffdc5;
+					font-size: 80rpx !important;
+					color: #fff;
 					opacity: 0;
+					font-family: NotoSansSC-Black;
 				}
 			}
 		}

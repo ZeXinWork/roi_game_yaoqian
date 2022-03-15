@@ -42,7 +42,7 @@
       }">
 
 			<!-- <button @click="test">开始</button> -->
-			<!-- <button @click="rainData.visible=true">玩游戏</button> -->
+			<button @click="rainData.visible=true">玩游戏</button>
 			<!-- <button @click="stopPlay">停止</button> -->
 			<!-- <button @click='startPlay'>kaishi</button> -->
 			<canvas :style="{ display: hideAmCanv ? 'none' : 'inline-block' }" canvas-id="lottie_demo" id="lottie_demo"
@@ -1069,7 +1069,7 @@
 				HongbaoDownAudio: null,
 				rainData: {
 					visible: false,
-					createSpeed: 8, // 速度
+					createSpeed: 5, // 速度
 					time: 20, // 游戏时间
 					readyTime: 3, // 准备时间
 					min: 0, // 最小金币
@@ -1152,6 +1152,10 @@
 			this.context = uni.createCanvasContext('shareCanvas', this)
 		},
 		onLoad(options) {
+			uni.loadFontFace({
+				family: 'iconfont',
+				source: 'url("https://static.roi-cloud.com/upload/yaoyaoshu/iconfont.ttf")'
+			})
 			const _this = this
 			const user = this.$storage.getUser()
 			// uni.getSystemInfo({
