@@ -176,7 +176,7 @@
 					{{ gameInfo.name + ', 邀请您领取会员卡'}}
 				</view>
 				<view class="g_content">
-					<view class="g_btn" @click="addCard(false)">去开卡</view>
+					<view class="g_btn" @click="addCard(true)">去开卡</view>
 				</view>
 			</view>
 		</popup>
@@ -190,7 +190,22 @@
 					{{ gameInfo.name + ', 邀请您领取会员卡'}}
 				</view>
 				<view class="g_content">
-					<view class="g_btn" @click="addCard(true)">去开卡</view>
+					<view class="g_btn" @click="addCard(false)">去开卡</view>
+				</view>
+			</view>
+		</popup>
+		<popup ref="vipCardOpened" class="vip_card" width="640" left="56" top="336">
+			<view class="content">
+				<view class="p_header">
+					<image @click="closevipCardOpened" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode="">
+					</image>
+				</view>
+				<view class="g_info">
+					<p>您已经开通过该会员卡</p>
+					<p>是否进行查看？</p>
+				</view>
+				<view class="g_content">
+					<view class="g_btn" @click="addCard(false)">是</view>
 				</view>
 			</view>
 		</popup>
@@ -256,13 +271,11 @@
 				curr_show_item: {},
 				integralName: '积分',
 				isOpenVip: false,
-				showVip: true,
 				userCardOpen: false, // 用户是否已经开通会员卡
 			};
 		},
 		onShow() {
 			this.getUserOpenCard()
-			this.showVip = true
 		},
 		onLoad(options) {
 			this.gameId = options.gameId;
@@ -297,11 +310,12 @@
 			},
 			closeVipCard(){
 				this.$refs.vipCard.close()
-				this.showVip = false
-				this.confirmExchange()
 			},
 			closeAdVipCard() {
 				this.$refs.adVipCard.close()
+			},
+			closevipCardOpened() {
+				this.$refs.vipCardOpened.close()
 			},
 			getUserOpenCard() {
 				getUserOpenCard({gameId: this.gameId}).then((res) =>{
@@ -461,6 +475,8 @@
 					if (gameInfo.membership_entry_ad && Number(gameInfo.membership_entry_ad) === 1) {
 						if (!this.userCardOpen) {
 							this.$refs.adVipCard.show()
+						} else {
+							this.$refs.vipCardOpened.show()
 						}
 					}
 				} else {
@@ -468,8 +484,8 @@
 				}
 			},
 			addCard(isExchange) {
-				if (this.userCardOpen) {
-					_this.exchangePrisePoupShow(_this.exchangeGoddsInfo)
+				if (this.userCardOpen && isExchange) {
+					this.exchangePrisePoupShow(this.exchangeGoddsInfo)
 					return
 				}
 				const _this = this
@@ -518,7 +534,7 @@
 
 					if (this.user_info.phone) {
 						// 功能开启 且 未开通会员卡
-						if (this.isOpenVip && !this.userCardOpen && this.showVip){
+						if (this.isOpenVip && !this.userCardOpen){
 							this.$refs.vipCard.show()
 						} else {
 							this.exchangePrise();
@@ -620,10 +636,10 @@
 			},
 			exchangePrisePoupShow(item) {
 				try {
+					this.exchangeGoddsInfo = item;
 					if (Number(item.prize_point) > Number(this.gameInfo.integral)) {
 						this.$toast.error(this.integralName + "不足");
 					} else {
-						this.exchangeGoddsInfo = item;
 						this.$refs.exchange.show();
 					}
 				} catch (e) {
