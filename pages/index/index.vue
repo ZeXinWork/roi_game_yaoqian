@@ -1324,7 +1324,7 @@
 			},
 			closeAdOpenHelp() {
 				this.$refs.vipCardOpenHelp.close()
-				this.showNoPlayNum()
+				// this.showNoPlayNum()
 			},
 			openCard(isNotify, location) {
 				const gameInfo = this.gameInfo
@@ -1352,8 +1352,11 @@
 						console.log("跳转开卡失败: ", err)
 					},
 					complete: function() {
-						that.closeAdOpenHelp()
-						that.closeAdOpen()
+						if (location == 'help') {
+							that.closeAdOpenHelp()
+						} else {
+							that.closeAdOpen()
+						}
 					}
 				})
 			},
