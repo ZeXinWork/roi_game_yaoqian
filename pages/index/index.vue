@@ -40,20 +40,9 @@
         }) no-repeat`,
         backgroundSize: '100%',
       }">
-
-			<!-- <button @click="test">开始</button> -->
 			<!-- <button @click="rainData.visible=true">玩游戏</button> -->
-			<!-- <button @click="stopPlay">停止</button> -->
-			<!-- <button @click='startPlay'>kaishi</button> -->
 			<canvas :style="{ display: hideAmCanv ? 'none' : 'inline-block' }" canvas-id="lottie_demo" id="lottie_demo"
 				type="2d" />
-			<!-- <button @click="init">初始化</button> -->
-			<!-- <button @click='startPlay'>开始玩</button> -->
-			<!-- 	<image class="levl-1 trunk" src="https://static.roi-cloud.com/upload/20211229/60935669183338"
-				mode="aspectFill">
-			</image> -->
-			<!-- <image class="cloud" src="https://static.roi-cloud.com/upload/yaoyaoshu/a0c6bdea09dc971d00d2a4656f5afe3.png"
-				mode="aspectFill"></image> -->
 			<view class="barrage1" v-show="radomIndex === 1">
 				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
@@ -1061,7 +1050,7 @@
 				HongbaoDownAudio: null,
 				rainData: {
 					visible: false,
-					createSpeed: 8, // 速度
+					createSpeed: 5, // 速度
 					time: 20, // 游戏时间
 					readyTime: 3, // 准备时间
 					min: 0, // 最小金币
@@ -1144,6 +1133,10 @@
 			this.context = uni.createCanvasContext('shareCanvas', this)
 		},
 		onLoad(options) {
+			uni.loadFontFace({
+				family: 'iconfont',
+				source: 'url("https://static.roi-cloud.com/upload/yaoyaoshu/iconfont.ttf")'
+			})
 			const _this = this
 			const user = this.$storage.getUser()
 			// uni.getSystemInfo({
@@ -1402,7 +1395,7 @@
 						// card_id: "pU2mM6ZBAtOnozvtmM0IYDqn0O2M",	// 测试用
 						create_card_appid: gameInfo.merchant_no,
 						card_id: gameInfo.member_no,
-						outer_str: that.gameId + location,
+						outer_str: that.gameId + '_' + location,
 						activate_type: "ACTIVATE_TYPE_NORMAL", // ACTIVATE_TYPE_NORMAL：一键激活 ACTIVATE_TYPE_JUMP：跳转激活
 					},
 					success: function(res) {
