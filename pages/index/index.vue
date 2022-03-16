@@ -5372,6 +5372,14 @@
 					background-color: #c9c9c9;
 				}
 			}
+
+			.phone_button {
+				border-radius: 92upx;
+				// width: 480upx;
+				height: 80upx;
+				line-height: 80upx;
+				margin: 40upx;
+			}
 			
 			.phone-radio-wrap {
 				display: flex;

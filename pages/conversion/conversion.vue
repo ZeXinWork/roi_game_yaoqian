@@ -479,7 +479,7 @@
 				if (gameInfo.open_wx_club && Number(gameInfo.open_wx_club) === 1){
 					if (gameInfo.membership_entry_ad && Number(gameInfo.membership_entry_ad) === 1) {
 						if (!this.userCardOpen) {
-							if (!this.user.phone) {
+							if (!this.user_info.phone) {
 								this.adGetPhone()
 							} else {
 								this.$refs.adVipCard.show()
