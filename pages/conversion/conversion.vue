@@ -525,6 +525,7 @@
 					complete: function() {
 						_this.$refs.vipCard.close()
 						_this.$refs.adVipCard.close()
+						_this.$refs.vipCardOpened.close()
 					}
 				})
 			},
