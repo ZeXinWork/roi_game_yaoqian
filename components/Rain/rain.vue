@@ -690,7 +690,7 @@
 							i.isRedEnvelope ?
 								_this.add = true : _this.add = false
 							_this.codeArray.push(i.score.code)
-							_this.showChangeScore = i.score.value
+							_this.showChangeScore = i.isRedEnvelope ? i.score.value : (i.score.value * 5)
 						} else {
 							_this.isShowScore = false
 						}

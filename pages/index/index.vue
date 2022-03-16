@@ -40,20 +40,9 @@
         }) no-repeat`,
         backgroundSize: '100%',
       }">
-
-			<!-- <button @click="test">开始</button> -->
-			<!-- <button @click="rainData.visible=true">玩游戏</button> -->
-			<!-- <button @click="stopPlay">停止</button> -->
-			<!-- <button @click='startPlay'>kaishi</button> -->
+			<button @click="rainData.visible=true">玩游戏</button>
 			<canvas :style="{ display: hideAmCanv ? 'none' : 'inline-block' }" canvas-id="lottie_demo" id="lottie_demo"
 				type="2d" />
-			<!-- <button @click="init">初始化</button> -->
-			<!-- <button @click='startPlay'>开始玩</button> -->
-			<!-- 	<image class="levl-1 trunk" src="https://static.roi-cloud.com/upload/20211229/60935669183338"
-				mode="aspectFill">
-			</image> -->
-			<!-- <image class="cloud" src="https://static.roi-cloud.com/upload/yaoyaoshu/a0c6bdea09dc971d00d2a4656f5afe3.png"
-				mode="aspectFill"></image> -->
 			<view class="barrage1" v-show="radomIndex === 1">
 				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
