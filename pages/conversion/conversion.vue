@@ -404,6 +404,11 @@
 					title: "保存成功",
 				});
 				this.$refs.dialog.close();
+
+				if (this.preOperate) {
+					this.$refs.adVipCard.show()
+					this.preOperate = false
+				}
 			},
 			getPrizeList() {
 				this.$loading.show();
@@ -474,7 +479,12 @@
 				if (gameInfo.open_wx_club && Number(gameInfo.open_wx_club) === 1){
 					if (gameInfo.membership_entry_ad && Number(gameInfo.membership_entry_ad) === 1) {
 						if (!this.userCardOpen) {
-							this.$refs.adVipCard.show()
+							if (!this.user.phone) {
+								this.adGetPhone()
+							} else {
+								this.$refs.adVipCard.show()
+							}
+							
 						} else {
 							this.$refs.vipCardOpened.show()
 						}
@@ -571,6 +581,36 @@
 				} catch (e) {
 					this.$toast.error(e);
 				}
+			},
+			adGetPhone() {
+				const _this = this;
+				this.preOperate = true;
+				uni.login({
+					success(res) {
+						const params = {
+							avatarUrl: _this.user_info.avatar,
+							nickName: _this.user_info.nickname,
+							platform: "yaoyaoshu",
+							code: res.code,
+						};
+						userLogin(params).then((res) => {
+							if (res.errno === "1") {
+								uni.showToast({
+									title: `请求异常！`,
+									icon: "error",
+								});
+								return;
+							}
+							const user = _this.$storage.getUser();
+
+							_this.$storage.setUser({
+								...user,
+								...res,
+							});
+						});
+					},
+				});
+				this.$refs.dialog.open();
 			},
 			getphonenumber(e) {
 				// 不允许授权

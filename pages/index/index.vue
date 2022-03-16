@@ -794,33 +794,24 @@
 				<view class="phone-container">
 					<image @click="onClose" src="https://static.roi-cloud.com/base/close.png" class="phone-close" />
 					<view class="phone-title">
-						<text>请留个备用手机号</text>
+						<text>请留手机号</text>
 					</view>
 					<view class="phone-subtitle">
 						<text>作为兑奖备用联系方式，我们会保护你的隐私</text>
 					</view>
-					<view class="phone-input-wrap">
+					<view class="phone-input-wrap" v-if="phone != ''">
 						<input :value="phone" cursor-spacing="10" @input="changePhone" class="phone-input"
-							placeholder="填写手机号" />
+							placeholder="填写手机号" disabled="true" />
 					</view>
-					<view v-if="phoneError" class="phone-error-msg"><text>{{ phoneError }}</text></view>
-					<view class="phone-input-wrap">
-						<input :value="verifyCode" cursor-spacing="10" @input="changeVerifyCode" maxlength="6"
-							class="phone-code-input" placeholder="填写验证码" />
-						<view :class="[
-                'phone-code-button',
-                { 'phone-code-button-disabled': verifyCodeTime !== 0 },
-              ]" @click="sendCode">
-							<text>{{ verifyCodeText }}</text>
-						</view>
-					</view>
+					<button v-else open-type="getPhoneNumber" @getphonenumber="getphonenumber" type="primary"
+						class="phone_button" :disabled="false">
+						微信手机号登录
+					</button>
 					<view v-if="codeError" class="phone-error-msg"><text>{{ codeError }}</text></view>
 
 					<view v-if="agreeError" class="agree-error-msg"><text>{{ agreeError }}</text></view>
-					<view :class="[
-              'phone-button',
-              { 'button-disabled': !phone || !verifyCode },
-            ]" @click="savePhone">
+					<view v-if="phone != ''" :class="['phone-button', { 'button-disabled': !phone }]"
+						@click="savePhone">
 						<text>保存</text>
 					</view>
 				</view>
@@ -955,6 +946,7 @@
 		getShareBg,
 		getUserOpenCard,
 		openCardOpenNotify,
+		getPhone,
 	} from '@/rest/api.js'
 
 	import {
@@ -1307,13 +1299,77 @@
 					})
 				}
 			},
+			adGetPhone() {
+				const _this = this;
+				this.preOperate = true;
+				uni.login({
+					success(res) {
+						const params = {
+							avatarUrl: _this.user.avatar,
+							nickName: _this.user.nickname,
+							platform: "yaoyaoshu",
+							code: res.code,
+						};
+						userLogin(params).then((res) => {
+							if (res.errno === "1") {
+								uni.showToast({
+									title: `请求异常！`,
+									icon: "error",
+								});
+								return;
+							}
+							const user = _this.$storage.getUser();
+
+							_this.$storage.setUser({
+								...user,
+								...res,
+							});
+						});
+					},
+				});
+				this.$refs.dialog.open();
+			},
+			getphonenumber(e) {
+				// 不允许授权
+				if (e.detail.errMsg !== "getPhoneNumber:ok") {
+					uni.showToast({
+						title: "请授权！",
+						icon: "error",
+					});
+					return;
+				}
+
+				const user = this.$storage.getUser();
+				const params = {
+					encryptedData: e.detail.encryptedData,
+					iv: e.detail.iv,
+					agreement_id: this.user.agreement_id,
+					privacy_clause_id: this.user.privacy_clause_id,
+					platform: "yaoyaoshu",
+				};
+				getPhone(params)
+					.then((res) => {
+						user.phone = res.phoneNumber;
+						this.phone = res.phoneNumber;
+						this.$storage.setUser(user);
+					})
+					.catch((err) => {
+						uni.showToast({
+							title: "出错啦",
+							icon: "error",
+						});
+					});
+				this.user = user;
+			},
 			addCard(location) {
 				const gameInfo = this.gameInfo
-				console.log(gameInfo.open_wx_club, Number(gameInfo.open_wx_club) === 1)
-				console.log(location, Number(location) === 1)
 				if (gameInfo.open_wx_club && Number(gameInfo.open_wx_club) === 1) {
 					if (location && Number(location) === 1) {
-						this.$refs.vipCardOpen.open()
+						if (!this.user.phone) {
+							this.adGetPhone()
+						} else {
+							this.$refs.vipCardOpen.open()
+						}
 					}
 				} else {
 					this.toMiniProg()
@@ -1329,6 +1385,14 @@
 			openCard(isNotify, location) {
 				const gameInfo = this.gameInfo
 				const that = this
+				if (!this.user.phone) {
+					if (location === 'help') {
+						this.$refs.vipCardOpenHelp.close()
+					}
+					this.adGetPhone()
+					this.currentLocation = location
+					return
+				}
 				wx.navigateToMiniProgram({
 					appId: 'wxeb490c6f9b154ef9', //固定为此 appId，不可改动
 					path: 'pages/card_open/card_open', //固定为此path
@@ -1340,7 +1404,6 @@
 						card_id: gameInfo.member_no,
 						outer_str: that.gameId + location,
 						activate_type: "ACTIVATE_TYPE_NORMAL", // ACTIVATE_TYPE_NORMAL：一键激活 ACTIVATE_TYPE_JUMP：跳转激活
-						// jump_url: "https://www.qq.com"//跳转路径
 					},
 					success: function(res) {
 						if (isNotify) {
@@ -1709,47 +1772,61 @@
 				}
 			},
 			savePhone: function() {
-				if (!this.phone) {
-					this.phoneError = '请填写手机号'
-					return false
-				} else if (!validPhone(this.phone)) {
-					this.phoneError = '手机号格式错误'
-					return false
-				} else {
-					this.phoneError = ''
+				uni.showToast({
+					title: "保存成功",
+				});
+				this.$refs.dialog.close();
+
+				if (this.preOperate) {
+					if (this.currentLocation === 'ad') {
+						this.$refs.vipCardOpen.open()
+					}
+					if (this.currentLocation == 'help') {
+						this.$refs.vipCardOpenHelp.open()
+					}
+					this.preOperate = false
 				}
-				if (!this.verifyCode) {
-					this.codeError = '请填写验证码'
-					return false
-				} else {
-					this.codeError = ''
-				}
-				let params = {
-					phone: this.phone,
-					verifyCode: this.verifyCode,
-					time: this.verifyCodeResult.time,
-					hash: this.verifyCodeResult.hash,
-				}
-				this.$loading.show()
-				updateUserPhone(params)
-					.then((response) => {
-						clearInterval(this.timer)
-						this.user = {
-							...this.user,
-							phone: this.phone,
-						}
-						// let user = this.$storage.getUser();
-						// this.$storage.setUser({
-						// 	...user,
-						// 	phone: this.phone
-						// });
-						this.$refs.dialog.close()
-						this.$loading.hide()
-					})
-					.catch((error) => {
-						this.$loading.hide()
-						this.$toast.error(error.msg || '短信验证码验证失败')
-					})
+				// if (!this.phone) {
+				// 	this.phoneError = '请填写手机号'
+				// 	return false
+				// } else if (!validPhone(this.phone)) {
+				// 	this.phoneError = '手机号格式错误'
+				// 	return false
+				// } else {
+				// 	this.phoneError = ''
+				// }
+				// if (!this.verifyCode) {
+				// 	this.codeError = '请填写验证码'
+				// 	return false
+				// } else {
+				// 	this.codeError = ''
+				// }
+				// let params = {
+				// 	phone: this.phone,
+				// 	verifyCode: this.verifyCode,
+				// 	time: this.verifyCodeResult.time,
+				// 	hash: this.verifyCodeResult.hash,
+				// }
+				// this.$loading.show()
+				// updateUserPhone(params)
+				// 	.then((response) => {
+				// 		clearInterval(this.timer)
+				// 		this.user = {
+				// 			...this.user,
+				// 			phone: this.phone,
+				// 		}
+				// 		// let user = this.$storage.getUser();
+				// 		// this.$storage.setUser({
+				// 		// 	...user,
+				// 		// 	phone: this.phone
+				// 		// });
+				// 		this.$refs.dialog.close()
+				// 		this.$loading.hide()
+				// 	})
+				// 	.catch((error) => {
+				// 		this.$loading.hide()
+				// 		this.$toast.error(error.msg || '短信验证码验证失败')
+				// 	})
 			},
 			changePhone: function(e) {
 				this.phone = e.detail.value
@@ -5231,6 +5308,128 @@
 					}
 				}
 			}
+		}
+	}
+	.phone-wrap {
+		width: 100vw;
+		
+		.phone-container {
+			margin: 0 auto;
+			width: 320px;
+			border-radius: 8px;
+			background-color: #fff;
+			padding: 16px 24px;
+			position: relative;
+			box-sizing: border-box;
+			
+			.phone-close {
+				position: absolute;
+				right: 16px;
+				top: 16px;
+				width: 16px;
+				height: 16px;
+			}
+			
+			.phone-title {
+				margin: 16px 0 0;
+				color: #000000;
+				font-weight: bold;
+				font-siz: 17px;
+				text-align: center;
+			}
+			
+			.phone-subtitle {
+				margin: 4px 0 0;
+				color: #999999;
+				font-size: 13px;
+				text-align: center;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			
+			.phone-input-wrap {
+				display: flex;
+				margin: 24px 0 0;
+				padding: 8px 0;
+				border-bottom: 1px solid #f5f5f5;
+				
+				.phone-input {
+					flex: 1;
+				}
+				
+				.phone-code-input {
+					flex: 1;
+				}
+				
+				.phone-code-button {
+					font-size: 12px;
+					background-color: #FF3737;
+					color: #fff;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: 12px;
+					width: 80px;
+					padding: 8px 0;
+					margin: 0 0 0 30px;
+				}
+				
+				.phone-code-button-disabled {
+					background-color: #c9c9c9;
+				}
+			}
+			
+			.phone-radio-wrap {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: 24px 0 0;
+				color: #999999;
+				font-size: 12px;
+				
+				.phone-radio {
+					width: 24px;
+					height: 24px;
+					border-radius: 100%;
+					overflow: hidden;
+					border: 1px solid rgba(#000000, 0.3);
+					box-sizing: border-box;
+					margin: 0 8px 0 0;
+				}
+				
+				.phone-radio-selected {
+					border: none;
+				}
+				
+				.phone-protocol {
+					color: #333333;
+					margin: 0 0 0 8px;
+				}
+			}
+		
+			.phone-button {
+				width: 240px;
+				margin: 16px auto 0;
+				background-color: #FF3737;
+				color: #fff;
+				font-weight: bold;
+				font-size: 17px;
+				text-align: center;
+				padding: 8px 0;
+				border-radius: 20px;
+			}
+		}
+
+		.phone-error-msg {
+			color: #FF3737;
+			font-size: 12px;
+		}
+		
+		.agree-error-msg {
+			color: #FF3737;
+			font-size: 12px;
+			text-align: center;
 		}
 	}
 </style>
