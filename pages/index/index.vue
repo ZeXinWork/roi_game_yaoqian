@@ -1322,6 +1322,7 @@
 			openCard(isNotify, location) {
 				const gameInfo = this.gameInfo
 				const that = this
+				
 				wx.navigateToMiniProgram({
 					appId: 'wxeb490c6f9b154ef9', //固定为此 appId，不可改动
 					path: 'pages/card_open/card_open', //固定为此path
@@ -1331,7 +1332,7 @@
 						// card_id: "pU2mM6ZBAtOnozvtmM0IYDqn0O2M",	// 测试用
 						create_card_appid: gameInfo.merchant_no,
 						card_id: gameInfo.member_no,
-						outer_str: that.gameId + location,
+						outer_str: that.gameId + '_' + location,
 						activate_type: "ACTIVATE_TYPE_NORMAL", // ACTIVATE_TYPE_NORMAL：一键激活 ACTIVATE_TYPE_JUMP：跳转激活
 						// jump_url: "https://www.qq.com"//跳转路径
 					},

@@ -498,7 +498,7 @@
 						// card_id: "pU2mM6ZBAtOnozvtmM0IYDqn0O2M",	// 测试用
 						create_card_appid: _this.gameInfo.merchant_no,
 						card_id: _this.gameInfo.member_no,
-						outer_str: _this.gameId + location,
+						outer_str: _this.gameId + '_' + location,
 						activate_type: "ACTIVATE_TYPE_NORMAL",// ACTIVATE_TYPE_NORMAL：一键激活 ACTIVATE_TYPE_JUMP：跳转激活
 						// jump_url: "https://www.qq.com"//跳转路径
 						// jump_appid: "" // 跳转小程序， 同时配置url和appid优先跳转appid
