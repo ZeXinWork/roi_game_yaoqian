@@ -75,11 +75,12 @@
 		onLoad() {
 			const user = this.$storage.getUser()
 			this.user = user
+			this.$loading.show()
 			getMyList({
 				offset: 0,
 				limit: 3
 			}).then((res) => {
-
+				this.$loading.hide()
 				if (Array.isArray(res)) {
 					this.gameList = res
 				} else if (res.errno == 1) {
@@ -87,7 +88,7 @@
 						title: "出错啦",
 						icon: "error"
 					})
-				}else{
+				} else {
 					uni.showToast({
 						title: "暂无数据!",
 						icon: "error"

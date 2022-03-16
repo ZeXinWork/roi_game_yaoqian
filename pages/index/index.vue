@@ -40,7 +40,7 @@
         }) no-repeat`,
         backgroundSize: '100%',
       }">
-			<button @click="rainData.visible=true">玩游戏</button>
+			<!-- <button @click="rainData.visible=true">玩游戏</button> -->
 			<canvas :style="{ display: hideAmCanv ? 'none' : 'inline-block' }" canvas-id="lottie_demo" id="lottie_demo"
 				type="2d" />
 			<view class="barrage1" v-show="radomIndex === 1">
