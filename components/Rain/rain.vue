@@ -9,22 +9,22 @@
 				<view v-if="showStatus === 1">
 					<view class="reminder-wrapper flex-column-center">
 						<view class="ready_title" :style="{
-						   background: `url(${'https://static.roi-cloud.com/upload/20220302/60935669145706'}) no-repeat`,
-						   backgroundSize: '100% 100%',
-						 }">
+                background: `url(${'https://static.roi-cloud.com/upload/20220302/60935669145706'}) no-repeat`,
+                backgroundSize: '100% 100%',
+              }">
 							彩蛋时间
 						</view>
 
 						<view class="ready_chunlian">
 							<view class="chunlian" :style="{
-						   background: `url(${'https://static.roi-cloud.com/upload/20220302/60935669152724'}) no-repeat`,
-						   backgroundSize: '100% 100%',
-						 }"><text>天降红包雨</text></view>
+                  background: `url(${'https://static.roi-cloud.com/upload/20220302/60935669152724'}) no-repeat`,
+                  backgroundSize: '100% 100%',
+                }"><text>天降红包雨</text></view>
 							<view class="ready_time">{{ readyTime }}</view>
 							<view class="chunlian" :style="{
-						   background: `url(${'https://static.roi-cloud.com/upload/20220302/60935669152724'}) no-repeat`,
-						   backgroundSize: '100% 100%',
-						 }"><text>好运在等你</text></view>
+                  background: `url(${'https://static.roi-cloud.com/upload/20220302/60935669152724'}) no-repeat`,
+                  backgroundSize: '100% 100%',
+                }"><text>好运在等你</text></view>
 						</view>
 						<!-- <image @click="handleReady" class="ready_button"
 							src="https://static.roi-cloud.com/upload/20220125/60935669104718" mode="aspectFit">
@@ -60,7 +60,7 @@
 							</view>
 						</view>
 						<view class="canvas-wrapper">
-							<view class="score-change" :animation="scoreAni" v-show='isShowScore'>
+							<view class="score-change" :animation="scoreAni" v-show="isShowScore">
 								<text v-if="add">+{{ showChangeScore }}</text>
 								<text v-else>-{{ showChangeScore }}</text>
 							</view>
@@ -75,7 +75,7 @@
 							<view class="group-content flex-column-center">
 								<view class="result-title">
 									<text>成绩揭晓</text>
-									<image @click="handleClose({close:true})"
+									<image @click="handleClose({ close: true })"
 										src="https://static.roi-cloud.com/upload/20220308/60935669161932"
 										mode="aspectFit"></image>
 								</view>
@@ -83,7 +83,7 @@
 									<!-- <text class="money">{{ showScore }}</text> -->
 									<view class="name-wrapper flex-column-center">
 										<image :src="user.avatar" class="user-thumb"></image>
-										<view class="name">{{user?user.nickname:''}}</view>
+										<view class="name">{{ user ? user.nickname : '' }}</view>
 										<view>恭喜你获得</view>
 										<!-- 	<view class="flex-end-start">
 											<image class="jinbi"
@@ -94,9 +94,9 @@
 										<image class="money-image"
 											src="https://static.roi-cloud.com/upload/20220308/60935669164902"
 											mode="aspectFill"></image>
-										<view class="money">{{showScore }}</view>
+										<view class="money">{{ showScore }}</view>
 									</view>
-									<view class="result-btn" @click="handleClose">点我去兑换</view>
+									<view class="result-btn" @click="handleClose({close:false})">点我去兑换</view>
 								</view>
 							</view>
 						</block>
@@ -154,7 +154,7 @@
 				add: null,
 				isShowScore: true,
 				gameInfo: {},
-				temDeleteIndex: []
+				temDeleteIndex: [],
 			}
 		},
 		computed: {
@@ -229,13 +229,11 @@
 				this.bgAudio.stop()
 			}
 			if (!_this.caluAudio) {
-				console.log("播放1")
 				_this.caluAudio = uni.createInnerAudioContext()
 				_this.caluAudio.autoplay = false
 				_this.caluAudio.src =
-					'https://static.roi-cloud.com/upload/yaoyaoshu/rain_count_down.mp3'
+					'https://static.roi-cloud.com/upload/yaoyaoshu/rain_count_down_v2.0.m4a'
 				_this.caluAudio.play()
-				console.log("播放")
 			} else {
 				_this.caluAudio.play()
 			}
@@ -252,28 +250,28 @@
 			readyTimer && clearInterval(readyTimer)
 			rainTimer && clearInterval(rainTimer)
 			animation && this.cancelCustomAnimationFrame(animation)
-
 		},
 		methods: {
-
 			// 开始准备倒计时
 			cultdown: function() {
 				let _this = this
 
 				readyTimer = setInterval(function() {
-
 					_this.$emit('reduceTime')
 					if (_this.readyTime <= 1) {
 						clearInterval(readyTimer)
-						const gameId = _this.$storage.get("gameId")
+						const gameId = _this.$storage.get('gameId')
 						rainStart({
-							game_id: gameId
+							game_id: gameId,
 						}).then((res) => {
 							if (res.errno == '1') {
 								uni.showModal({
-									title: "提示",
+									title: '提示',
 									content: `${res.errmsg}`,
-									showCancel: false
+									showCancel: false,
+								})
+								_this.handleClose({
+									close: true
 								})
 								return
 							}
@@ -289,22 +287,41 @@
 							} else {
 								_this.bgAudio.play()
 							}
+							const {
+								openEnvelopeImg,
+								redEnvelopeImg,
+								crab,
+								lobster,
+								fish,
+								bomb,
+								bombClick
+							} = _this
+							if (openEnvelopeImg &&
+								redEnvelopeImg &&
+								crab &&
+								lobster &&
+								fish &&
+								bomb &&
+								bombClick) {
+								_this.showRain()
+							}
 
-							_this.showRain()
 						})
-
 					}
-				}, 800)
+				}, 1000)
 			},
 			// 展示红包雨界面
 			showRain: function() {
 				let _this = this
 				// 显示红包雨
 				this.showStatus = 2
-				setTimeout(function() {
-					_this.initRainDrops() // 音效
-					_this.audioOfClick()
-				}.bind(_this), 300)
+				setTimeout(
+					function() {
+						_this.initRainDrops() // 音效
+						_this.audioOfClick()
+					}.bind(_this),
+					300
+				)
 				// 初始化红包雨
 				// this.initRain()
 
@@ -317,8 +334,8 @@
 						clearInterval(rainTimer)
 						if (animation) {
 							// 结束
-							_this.showRainResult()
 							_this.cancelCustomAnimationFrame(animation)
+							_this.showRainResult()
 						}
 					}
 					_this.showRainTotalTime = showRainTotalTime
@@ -328,7 +345,7 @@
 			ininProgress() {
 				const time = this.time
 				const animation = uni.createAnimation({
-					duration: time * 1000
+					duration: time * 1000,
 				})
 				animation.translateX(-180).step()
 				this.progressAni = animation.export()
@@ -361,20 +378,23 @@
 				close
 			}) {
 				this.$emit('closeRain', {
-					toExchange: close ? false : true
+					toExchange: close ? false : true,
 				})
 			},
 			// 显示结果
 			showRainResult: function() {
 				// 结束动画
-				console.log(this.showScore, "this.showScorethis.showScore")
-				this.$emit('finishRain', this.showScore)
-				setTimeout(function() {
-					this.cancelCustomAnimationFrame(animation)
-					this.showStatus = 3
-					this.bgEndAudio.play()
-					this.bgAudio.stop()
-				}.bind(this), 200)
+				// this.$emit('finishRain', this.showScore)
+				setTimeout(
+					function() {
+						this.cancelCustomAnimationFrame(animation)
+						this.showStatus = 3
+						this.$emit('finishRain', this.showScore)
+						this.bgEndAudio.play()
+						this.bgAudio.stop()
+					}.bind(this),
+					200
+				)
 			},
 			// 红包下落函数
 			customRequestAnimationFrame: function(e) {
@@ -399,7 +419,6 @@
 
 				context.clearRect(0, 0, windowWidth, windowHeight)
 				for (let n = 0; n < redEnvelopes.length; n += 1) {
-
 					const i = redEnvelopes[n] // 红包
 					const {
 						x,
@@ -410,7 +429,7 @@
 						height,
 						open,
 						isRedEnvelope,
-						animal,
+						animal
 					} = i
 
 					let img = ''
@@ -428,7 +447,6 @@
 						} else {
 							img = this.lobster
 						}
-
 					} else {
 						if (open) {
 							img = this.bombClick
@@ -454,11 +472,11 @@
 							vy,
 							score,
 							width,
-							height
+							height,
 						})
 						redEnvelopes.splice(n, 1, item)
 					}
-					i.x + width <= 0 && (i.x = windowWidth - width, i.open = false)
+					i.x + width <= 0 && ((i.x = windowWidth - width), (i.open = false))
 				}
 				context.draw()
 				// 下落函数
@@ -528,7 +546,7 @@
 								open: false,
 								click: false,
 								isRedEnvelope: true,
-								index: pre
+								index: pre,
 						}
 
 						case 2:
@@ -542,9 +560,13 @@
 									height: height,
 									open: false,
 									click: false,
-									animal: this.getAnimalType() === 1 ? 'crab' : this.getAnimalType() === 2 ? 'lobster' :
+									animal:
+									this.getAnimalType() === 1 ?
+									'crab' :
+									this.getAnimalType() === 2 ?
+									'lobster' :
 									'fish',
-									index: pre
+									index: pre,
 							}
 							default:
 								return {
@@ -558,9 +580,8 @@
 										open: false,
 										click: false,
 										bomb: true,
-										index: pre
+										index: pre,
 								}
-
 				}
 			},
 
@@ -577,7 +598,7 @@
 				// 红包图片宽度大小30~40
 				const width = 60
 				// 宽度为红包高度的百分之八十
-				const height = Math.floor(width / .8)
+				const height = Math.floor(width / 0.8)
 				// 速度
 				const score = this.radnScore(min, max + 1)
 				let vy = 1 * Math.random() + createSpeed
@@ -586,7 +607,7 @@
 					vy,
 					score,
 					width,
-					height
+					height,
 				}
 			},
 
@@ -605,7 +626,7 @@
 					vy,
 					score,
 					width,
-					height
+					height,
 				})
 				redEnvelopes.push(item)
 				let timer = null
@@ -625,15 +646,13 @@
 							vy,
 							score,
 							width,
-							height
+							height,
 						})
 						redEnvelopes.push(item)
-
 					} else {
 						clearInterval(timer)
 					}
 				}, 300)
-
 
 				this.doDrawRain()
 			},
@@ -680,24 +699,28 @@
 						if (i.isRedEnvelope || i.bomb) {
 							_this.isShowScore = true
 							_this.showScore = i.isRedEnvelope ?
-								_this.showScore + i.score.value : _this.showScore - (i.score.value * 5)
+								_this.showScore + i.score.value :
+								_this.showScore - i.score.value * 5
 
-							if (Number(_this.showScore) >= Number(_this.gameInfo.max_award_point)) {
+							if (
+								Number(_this.showScore) >= Number(_this.gameInfo.max_award_point)
+							) {
 								_this.showScore = _this.gameInfo.max_award_point
 							} else if (Number(_this.showScore) <= 0) {
 								_this.showScore = 0
 							}
-							i.isRedEnvelope ?
-								_this.add = true : _this.add = false
+							i.isRedEnvelope ? (_this.add = true) : (_this.add = false)
 							_this.codeArray.push(i.score.code)
-							_this.showChangeScore = i.isRedEnvelope ? i.score.value : (i.score.value * 5)
+							_this.showChangeScore = i.isRedEnvelope ?
+								i.score.value :
+								i.score.value * 5
 						} else {
 							_this.isShowScore = false
 						}
 
 						setTimeout(function() {
-							const newArray = redEnvelopes.filter(item =>
-								_this.temDeleteIndex.indexOf(item.index) === -1
+							const newArray = redEnvelopes.filter(
+								(item) => _this.temDeleteIndex.indexOf(item.index) === -1
 							)
 
 							redEnvelopes = newArray
@@ -714,14 +737,14 @@
 								vy,
 								score: cScore,
 								width,
-								height
+								height,
 							} = _this.initItemProps()
 							const item = _this.getItem({
 								startX,
 								vy,
 								score: cScore,
 								width,
-								height
+								height,
 							})
 							redEnvelopes.push(item)
 						}, 100)
@@ -732,48 +755,73 @@
 
 			// 初始化 canvas
 			initRain: function() {
-				console.log("执行")
 				this.context = uni.createCanvasContext('rain-canvas', this)
 				const _this = this
 				// 初始化红包雨
 				// https://static.roi-cloud.com/upload/20220124/60935669160410
-				uni.getImageInfo({
-					src: 'https://static.roi-cloud.com/upload/20220307/60935669155703',
-					fail(err) {
-						console.log(err, "errr")
-					},
-					success(res) {
-						console.log(res, "Resssss")
-						_this.openEnvelopeImg = res.path
-						uni.getImageInfo({
+				uni
+					.getImageInfo({
+						src: 'https://static.roi-cloud.com/upload/20220307/60935669155703',
+					})
+					.then((res) => {
+						console.log('openEnvelopeImg', res)
+						_this.openEnvelopeImg = res[1].path
+						return uni.getImageInfo({
 							src: 'https://static.roi-cloud.com/upload/20220307/60935669150830',
-							success(res) {
-								_this.redEnvelopeImg = res.path
-								uni.getImageInfo({
-									src: 'https://static.roi-cloud.com/upload/20220307/60935669154939',
-									success(res) {
-										_this.crab = res.path
-										uni.getImageInfo({
-											src: 'https://static.roi-cloud.com/upload/20220307/60935669155027',
-											success(res) {
-												_this.lobster = res.path
-												uni.getImageInfo({
-													src: 'https://static.roi-cloud.com/upload/20220307/60935669155119',
-													success(res) {
-														_this.fish = res
-															.path
-														_this.settingBomb()
-
-													},
-												})
-											},
-										})
-									},
-								})
-							},
 						})
-					},
-				})
+					})
+					.then((res) => {
+						console.log('redEnvelopeImg', res)
+						_this.redEnvelopeImg = res[1].path
+						return uni.getImageInfo({
+							src: 'https://static.roi-cloud.com/upload/20220307/60935669154939',
+						})
+					})
+					.then((res) => {
+						console.log('crab', res)
+						_this.crab = res[1].path
+						return uni.getImageInfo({
+							src: 'https://static.roi-cloud.com/upload/20220307/60935669155027',
+						})
+					})
+					.then((res) => {
+						console.log('lobster', res)
+						_this.lobster = res[1].path
+						return uni.getImageInfo({
+							src: 'https://static.roi-cloud.com/upload/20220307/60935669155119',
+						})
+					})
+					.then((res) => {
+						console.log('fish', res)
+						_this.fish = res[1].path
+						return uni.getImageInfo({
+							src: 'https://static.roi-cloud.com/upload/20220307/60935669163736',
+						})
+					})
+					.then((res) => {
+						console.log('bomb', res)
+						_this.bomb = res[1].path
+						return uni.getImageInfo({
+							src: 'https://static.roi-cloud.com/upload/20220307/60935669174045',
+						})
+					})
+					.then((res) => {
+						console.log('bombClick', res)
+						_this.bombClick = res[1].path
+					})
+					.catch((err) => {
+						console.log(err, "下载图片错误")
+						uni.showModal({
+							title: "提示",
+							content: "下载素材图片失败！请推出小程序重新进入",
+							showCancel: false,
+							success() {
+								_this.handleClose({
+									close: true
+								})
+							}
+						})
+					})
 			},
 			handleScrollTouch: function() {},
 			audioOfClick() {
@@ -781,49 +829,34 @@
 				if (!this.redEnvelopeAudio) {
 					this.redEnvelopeAudio = uni.createInnerAudioContext()
 					this.redEnvelopeAudio.autoplay = false
-					this.redEnvelopeAudio.src = 'https://www.sunniejs.cn/static/weapp/dianji.mp3'
+					this.redEnvelopeAudio.src =
+						'https://www.sunniejs.cn/static/weapp/dianji.mp3'
 				}
 
 				//点击炸弹音效
 				if (!this.bombAudio) {
 					this.bombAudio = uni.createInnerAudioContext()
 					this.bombAudio.autoplay = false
-					this.bombAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/click_bomb.mp3'
+					this.bombAudio.src =
+						'https://static.roi-cloud.com/upload/yaoyaoshu/click_bomb.mp3'
 				}
 
 				//点击小动物音效
 				if (!this.animalAudio) {
 					this.animalAudio = uni.createInnerAudioContext()
 					this.animalAudio.autoplay = false
-					this.animalAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/click_animal.wav'
+					this.animalAudio.src =
+						'https://static.roi-cloud.com/upload/yaoyaoshu/click_animal.wav'
 				}
 
 				//结束背景音乐
 				if (!this.bgEndAudio) {
 					this.bgEndAudio = uni.createInnerAudioContext()
 					this.bgEndAudio.autoplay = false
-					this.bgEndAudio.src = 'https://static.roi-cloud.com/upload/yaoyaoshu/ending_rain.mp3'
+					this.bgEndAudio.src =
+						'https://static.roi-cloud.com/upload/yaoyaoshu/ending_rain.mp3'
 				}
-
-
 			},
-			settingBomb() {
-				const _this = this
-				uni.getImageInfo({
-					src: 'https://static.roi-cloud.com/upload/20220307/60935669163736',
-					success(res) {
-						_this.bomb = res.path
-						uni.getImageInfo({
-							src: 'https://static.roi-cloud.com/upload/20220307/60935669174045',
-							success(res) {
-								_this.bombClick = res.path
-
-							}
-						})
-
-					},
-				})
-			}
 		},
 	}
 </script>
@@ -886,9 +919,7 @@
 		-webkit-border-radius: 48rpx;
 		overflow: hidden;
 		-webkit-background-size: 40px;
-
 	}
-
 
 	.animate>text text {
 		content: '';
@@ -961,7 +992,6 @@
 				font-size: 60rpx;
 				color: #000;
 				line-height: 110rpx;
-
 			}
 
 			.ready_chunlian {
@@ -1027,7 +1057,7 @@
 			}
 
 			.ready_button_text {
-				color: #FFF6E2;
+				color: #fff6e2;
 				font-size: 36rpx;
 				position: absolute;
 				top: 820rpx;
@@ -1137,13 +1167,11 @@
 
 					.total-score {
 						font-size: 30rpx;
-						color: #FF0000;
+						color: #ff0000;
 						margin-top: -10rpx;
 						margin-left: 10rpx;
 					}
-
 				}
-
 			}
 
 			.canvas-wrapper {
@@ -1202,15 +1230,14 @@
 						width: 122rpx;
 						height: 122rpx;
 						background: #fff;
-
 					}
 
 					.name {
-						margin: 12rpx 0 32rpx 20rpx
+						margin: 12rpx 0 32rpx 20rpx;
 					}
 
 					.money {
-						color: #E13421;
+						color: #e13421;
 						font-size: 60rpx;
 					}
 

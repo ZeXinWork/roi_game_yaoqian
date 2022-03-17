@@ -43,35 +43,35 @@
 			<!-- <button @click="rainData.visible=true">玩游戏</button> -->
 			<canvas :style="{ display: hideAmCanv ? 'none' : 'inline-block' }" canvas-id="lottie_demo" id="lottie_demo"
 				type="2d" />
-			<view class="barrage1" v-show="radomIndex === 1">
+			<view class="barrage1" v-show="radomIndex === 1 && showCash">
 				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
 					<text class="user_info">{{ showCash.nickname }}已兑换</text>
 					<text class="reword">{{ showCash.prize_name }}</text>
 				</view>
 			</view>
-			<view class="barrage2" v-show="radomIndex === 2">
+			<view class="barrage2" v-show="radomIndex === 2 && showCash">
 				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
 					<text class="user_info">{{ showCash.nickname }}已兑换</text>
 					<text class="reword">{{ showCash.prize_name }}</text>
 				</view>
 			</view>
-			<view class="barrage3" v-show="radomIndex === 3">
+			<view class="barrage3" v-show="radomIndex === 3 && showCash">
 				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
 					<text class="user_info">{{ showCash.nickname }}已兑换</text>
 					<text class="reword">{{ showCash.prize_name }}</text>
 				</view>
 			</view>
-			<view class="barrage4" v-show="radomIndex === 4">
+			<view class="barrage4" v-show="radomIndex === 4 && showCash">
 				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
 					<text class="user_info">{{ showCash.nickname }}已兑换</text>
 					<text class="reword">{{ showCash.prize_name }}</text>
 				</view>
 			</view>
-			<view class="barrage5" v-show="radomIndex === 5">
+			<view class="barrage5" v-show="radomIndex === 5 && showCash">
 				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
 					<text class="user_info">{{ showCash.nickname }}已兑换</text>
@@ -407,7 +407,7 @@
 					<view v-if="currentScoreItem == 2">
 						<view class="score_list" v-if="exchangeList.length > 0">
 							<scroll-view @scrolltolower.stop="getExchange" scroll-y style="height: 500rpx">
-								<view class="score_list_item" v-for="item in exchangeList" :key="item">
+								<view class="score_list_item" v-for="item in exchangeList" :key="item.id">
 									<view class="item_left">{{ item.name }}</view>
 									<view class="item_right">
 										<text class="t_blod" v-if="item.integral">{{
@@ -1527,6 +1527,7 @@
 					offset: 0,
 					limit: 50,
 				})
+				console.log(data,"data")
 				if (Array.isArray(data) && data.length > 0) {
 					_this.currentCashIndex = 0
 					clearInterval(this.cashTimer)
@@ -1546,7 +1547,9 @@
 					_this.currentCashIndex = _this.currentCashIndex + 1
 					this.cashTimer = setInterval(function() {
 						_this.radomIndex = Math.ceil(Math.random() * 5)
-						_this.showCash = data[_this.currentCashIndex]
+						if(data[_this.currentCashIndex]){
+							_this.showCash = data[_this.currentCashIndex]
+						}
 						if (_this.showCash.nickname.length === 3) {
 							_this.showCash.nickname = `${_this.showCash.nickname[0]}*${
               _this.showCash.nickname[_this.showCash.nickname.length - 1]
