@@ -828,7 +828,7 @@
 					<p>是否进行查看？</p>
 				</view>
 				<view class="g_info" v-else>
-					<p>{{gameInfo.name}} 邀请您开通会员卡</p>
+					<p>{{gameInfo.brand_name}} 邀请您开通会员卡</p>
 					<p>是否前往开通？</p>
 				</view>
 				<view class="g_content">
@@ -855,8 +855,8 @@
 					</image>
 				</view>
 				<view class="g_info">
-					<p>可通过开通会员卡新增次数</p>
-					<p>是否进行开通？</p>
+					<p>{{gameInfo.brand_name}} 邀请您开通会员卡</p>
+					<p>开卡即可增加 {{gameInfo.brand_play_time}} 次游戏次数</p>
 				</view>
 				<view class="g_content">
 					<view class="g_btn" @click="openCard(true, 'help')">去开卡</view>
@@ -2439,6 +2439,10 @@
 				if (!Number(this.playTime)) {
 					if (this.isOpenShareContent) {
 						// this.$refs.no_play_num.open()
+						console.log(this.gameInfo.open_wx_club,
+							Number(this.gameInfo.open_wx_club) === 1,
+							!this.userCardOpen,
+							Number(this.gameInfo.membership_entry_help) === 1)
 						if (this.gameInfo.open_wx_club &&
 							Number(this.gameInfo.open_wx_club) === 1 &&
 							!this.userCardOpen &&
