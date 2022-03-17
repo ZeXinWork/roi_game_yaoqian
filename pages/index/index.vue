@@ -1949,6 +1949,7 @@
 				// this.getMyRank()
 				// //获取游戏可玩次数
 				// this.getPlayNumber(true)
+				this.getUserOpenCard()
 				this.getWechatMessage()
 				this.getGameInfo() //获取游戏信息
 				// this.getPlayNumber(true) //获取游戏可玩次数
@@ -1958,7 +1959,6 @@
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
-				this.getUserOpenCard()
 			},
 			// 初始化
 			getRainSetting() {
@@ -3012,11 +3012,11 @@
 						this.$uma.setOpenid(this.user.openid)
 						this.getGameInfo(() => {
 							//获取游戏信息
-							this.getPlayNumber(true) //获取游戏可玩次数
+							this.getUserOpenCard()
 							this.getHelperList(1) // 助力记录
 							this.getMyRank() //获取当前我的排名信息
+							this.getPlayNumber(true) //获取游戏可玩次数
 							this.getWechatMessage()
-							this.getUserOpenCard()
 							if (this.currentScoreItem === 1) {
 								this.getAward()
 							}
