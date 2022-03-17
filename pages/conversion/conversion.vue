@@ -173,7 +173,7 @@
 					</image>
 				</view>
 				<view class="g_info">
-					{{ gameInfo.name + ', 邀请您领取会员卡'}}
+					{{ gameInfo.brand_name + ', 邀请您领取会员卡'}}
 				</view>
 				<view class="g_content">
 					<view class="g_btn" @click="addCard(true, 'prize')">去开卡</view>
@@ -187,7 +187,7 @@
 					</image>
 				</view>
 				<view class="g_info">
-					{{ gameInfo.name + ', 邀请您领取会员卡'}}
+					{{ gameInfo.brand_name + ', 邀请您领取会员卡'}}
 				</view>
 				<view class="g_content">
 					<view class="g_btn" @click="addCard(false, 'ad')">去开卡</view>
