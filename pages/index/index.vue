@@ -1060,7 +1060,7 @@
 				curr_show_item: {},
 				integralName: "积分",
 				scanRain: false,
-				userCardOpen: false, // 用户是否已经开通会员卡
+				userCardOpen: true, // 用户是否已经开通会员卡
 			}
 		},
 		name: 'game',
@@ -1236,7 +1236,7 @@
 				// this.getPlayNumber(true) //获取游戏可玩次数
 				// this.getHelperList(1) // 助力记录
 				// this.getMyRank() //获取当前我的排名信息
-				// this.getData()
+				this.getData()
 				if (this.currentScoreItem === 1) {
 					this.getAward()
 				}
@@ -2439,7 +2439,7 @@
 				if (!Number(this.playTime)) {
 					if (this.isOpenShareContent) {
 						// this.$refs.no_play_num.open()
-						console.log(this.gameInfo.open_wx_club,
+						console.log("SHareshareshare",this.gameInfo.open_wx_club,
 							Number(this.gameInfo.open_wx_club) === 1,
 							!this.userCardOpen,
 							Number(this.gameInfo.membership_entry_help) === 1)
