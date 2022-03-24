@@ -6,7 +6,7 @@
           : '#fdccb9',
     }"> -->
 	<view class="wrap" :style="{
-      backgroundColor: '#ff1500',
+      backgroundColor: '#e83d3d',
     }">
 		<navbar :params="{
         navColor: navColor,
@@ -36,14 +36,14 @@
         minHeight: minHeight + 'px',
         background: `url(${
           gameInfo.backgroundInfo.backgroundUrl ||
-          'https://static.roi-cloud.com/upload/20220124/60935669182121'
+          'https://static.roi-cloud.com/upload/20220324/60935669152005'
         }) no-repeat`,
         backgroundSize: '100%',
       }">
 			<!-- <button @click="rainData.visible=true">玩游戏</button> -->
 			<canvas :style="{ display: hideAmCanv ? 'none' : 'inline-block' }" canvas-id="lottie_demo" id="lottie_demo"
 				type="2d" />
-			<view class="barrage1" v-show="radomIndex === 1 && showCash">
+			<!-- <view class="barrage1" v-show="radomIndex === 1 && showCash">
 				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
 					<text class="user_info">{{ showCash.nickname }}已兑换</text>
@@ -77,9 +77,9 @@
 					<text class="user_info">{{ showCash.nickname }}已兑换</text>
 					<text class="reword">{{ showCash.prize_name }}</text>
 				</view>
-			</view>
+			</view> -->
 
-			<image id="trunkId" :class="[
+			<!-- <image id="trunkId" :class="[
           'levl-1',
           { swiper_anumation: !playAnimation },
           { trunk_slow: playAnimation },
@@ -163,7 +163,7 @@
           { swiper_anumation_most: !playAnimation },
           { Wobble: playAnimation },
         ]" src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
-			</image>
+			</image> -->
 			<view class="swiper_wrap">
 				<uni-notice-bar showIcon="true" color="#fff" background-color="transparent" scrollable="true"
 					single="true"
@@ -1300,7 +1300,7 @@
 						const params = {
 							avatarUrl: _this.user.avatar,
 							nickName: _this.user.nickname,
-							platform: "yaoyaoshu",
+							platform: "yaoyaoqian",
 							code: res.code,
 						};
 						userLogin(params).then((res) => {
@@ -1338,7 +1338,7 @@
 					iv: e.detail.iv,
 					agreement_id: this.user.agreement_id,
 					privacy_clause_id: this.user.privacy_clause_id,
-					platform: "yaoyaoshu",
+					platform: "yaoyaoqian",
 				};
 				getPhone(params)
 					.then((res) => {
@@ -1684,7 +1684,7 @@
 			},
 			getPrivacy() {
 				getArg({
-					platform: 'yaoyaoshu',
+					platform: 'yaoyaoqian',
 				}).then((res) => {
 					const params = {
 						agreement_id: res.agreement_id,
@@ -2963,7 +2963,7 @@
 							const params = {
 								avatarUrl: res.userInfo.avatarUrl,
 								nickName: res.userInfo.nickName,
-								platform: 'yaoyaoshu',
+								platform: 'yaoyaoqian',
 							}
 							this.$uma.setUserInfo(res.userInfo)
 							this.$loading.show()
@@ -4876,7 +4876,7 @@
 
 		.bowl {
 			width: 100%;
-			height: 788upx;
+			height: 748upx;
 			position: relative;
 
 			.rule {
@@ -4983,9 +4983,9 @@
 
 		.gift_wrap {
 			position: absolute;
-			right: 10upx;
+			right: 18upx;
 			width: 106upx;
-			top: -30upx;
+			top: -80upx;
 			z-index: 99;
 
 			.icon_gift {
@@ -4993,7 +4993,7 @@
 				height: 146upx;
 				position: absolute;
 				left: 50%;
-				top: -46%;
+				top: -40%;
 				transform: translateX(-50%);
 				z-index: 1;
 			}
