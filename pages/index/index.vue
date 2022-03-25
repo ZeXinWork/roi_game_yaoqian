@@ -873,7 +873,7 @@
 				<view class="g_info_name">
 					{{ curr_show_item.prize_name }}
 				</view>
-			</view>
+			</view>吗了，
 			<view class="g_content">
 				<view class="g_content_text">
 					<text class="m_content">{{
@@ -1237,7 +1237,7 @@
 				// this.getHelperList(1) // 助力记录
 				// this.getMyRank() //获取当前我的排名信息
 				this.getData()
-				if (this.currentScoreItem === 1) {
+				if (this.currentScoreItem === 1 && this.gameId) {
 					this.getAward()
 				}
 			}
@@ -1527,7 +1527,7 @@
 					offset: 0,
 					limit: 50,
 				})
-				console.log(data,"data")
+				console.log(data, "data")
 				if (Array.isArray(data) && data.length > 0) {
 					_this.currentCashIndex = 0
 					clearInterval(this.cashTimer)
@@ -1547,7 +1547,7 @@
 					_this.currentCashIndex = _this.currentCashIndex + 1
 					this.cashTimer = setInterval(function() {
 						_this.radomIndex = Math.ceil(Math.random() * 5)
-						if(data[_this.currentCashIndex]){
+						if (data[_this.currentCashIndex]) {
 							_this.showCash = data[_this.currentCashIndex]
 						}
 						if (_this.showCash.nickname.length === 3) {
@@ -1942,6 +1942,9 @@
 				})
 			},
 			getData() {
+				if (!this.gameId) {
+					return
+				}
 				// this.getGameInfo()
 				// // 获取排行榜
 				// this.getRankScore()
@@ -2436,10 +2439,13 @@
 				}
 			},
 			showNoPlayNum() {
+				if (!this.gameId) {
+					return
+				}
 				if (!Number(this.playTime)) {
 					if (this.isOpenShareContent) {
 						// this.$refs.no_play_num.open()
-						console.log("SHareshareshare",this.gameInfo.open_wx_club,
+						console.log("SHareshareshare", this.gameInfo.open_wx_club,
 							Number(this.gameInfo.open_wx_club) === 1,
 							!this.userCardOpen,
 							Number(this.gameInfo.membership_entry_help) === 1)
@@ -5310,9 +5316,10 @@
 			}
 		}
 	}
+
 	.phone-wrap {
 		width: 100vw;
-		
+
 		.phone-container {
 			margin: 0 auto;
 			width: 320px;
@@ -5321,7 +5328,7 @@
 			padding: 16px 24px;
 			position: relative;
 			box-sizing: border-box;
-			
+
 			.phone-close {
 				position: absolute;
 				right: 16px;
@@ -5329,7 +5336,7 @@
 				width: 16px;
 				height: 16px;
 			}
-			
+
 			.phone-title {
 				margin: 16px 0 0;
 				color: #000000;
@@ -5337,7 +5344,7 @@
 				font-siz: 17px;
 				text-align: center;
 			}
-			
+
 			.phone-subtitle {
 				margin: 4px 0 0;
 				color: #999999;
@@ -5347,21 +5354,21 @@
 				text-overflow: ellipsis;
 				white-space: nowrap;
 			}
-			
+
 			.phone-input-wrap {
 				display: flex;
 				margin: 24px 0 0;
 				padding: 8px 0;
 				border-bottom: 1px solid #f5f5f5;
-				
+
 				.phone-input {
 					flex: 1;
 				}
-				
+
 				.phone-code-input {
 					flex: 1;
 				}
-				
+
 				.phone-code-button {
 					font-size: 12px;
 					background-color: #FF3737;
@@ -5374,7 +5381,7 @@
 					padding: 8px 0;
 					margin: 0 0 0 30px;
 				}
-				
+
 				.phone-code-button-disabled {
 					background-color: #c9c9c9;
 				}
@@ -5387,7 +5394,7 @@
 				line-height: 80upx;
 				margin: 40upx;
 			}
-			
+
 			.phone-radio-wrap {
 				display: flex;
 				align-items: center;
@@ -5395,7 +5402,7 @@
 				margin: 24px 0 0;
 				color: #999999;
 				font-size: 12px;
-				
+
 				.phone-radio {
 					width: 24px;
 					height: 24px;
@@ -5405,17 +5412,17 @@
 					box-sizing: border-box;
 					margin: 0 8px 0 0;
 				}
-				
+
 				.phone-radio-selected {
 					border: none;
 				}
-				
+
 				.phone-protocol {
 					color: #333333;
 					margin: 0 0 0 8px;
 				}
 			}
-		
+
 			.phone-button {
 				width: 240px;
 				margin: 16px auto 0;
@@ -5433,7 +5440,7 @@
 			color: #FF3737;
 			font-size: 12px;
 		}
-		
+
 		.agree-error-msg {
 			color: #FF3737;
 			font-size: 12px;
