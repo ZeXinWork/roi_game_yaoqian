@@ -1069,6 +1069,7 @@
 			this.stopPlay()
 		},
 		onShow() {
+			// this.$refs.redEnvelope.open()
 			if (this.user && this.user.userId) {
 				// let pages = getCurrentPages()
 				// let currentPage = pages[pages.length - 1]

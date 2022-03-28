@@ -1,6 +1,38 @@
 <template>
 	<uni-popup @change="handleChange" ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
-		<view class="p_body">
+		<view class="wrapper">
+			<view class="reword" :style="{background: `url(${
+          'https://static.roi-cloud.com/upload/20220328/60935669091940'
+        }) no-repeat`,backgroundSize: '100% 100%',}">
+				<view class="reword__title">多挣亿点</view>
+				<view>
+					<view class="reword__contra">恭喜你获得积分</view>
+					<view class="reword__point">{{prize.award_point||0}}</view>
+				</view>
+			</view>
+
+			<view v-if="nearPrize && Object.keys(nearPrize).length!==0" class="p_body_mid_prize_yunbao_exchange"
+				@click="handleToReword">
+				<view class="header_wrapper">
+					<view class="exchange">
+						<image :src="nearPrize.prize_url" mode="aspectFill"></image>
+					</view>
+					<view class="title">
+						<view v-if="nearPrize.distance_point==0">现在可以兑换<text
+								class="name">{{nearPrize.prize_name}}</text>
+						</view>
+						<view v-else>{{`还差${nearPrize.distance_point}个${integralName}兑换`}}
+
+						</view>
+						<view><text class="name">{{nearPrize.prize_name }}</text></view>
+					</view>
+				</view>
+				<progress class="progress" :stroke-width='10' activeColor='#ff4a1a' backgroundColor='#dbc5a4'
+					:border-radius='20'
+					:percent="nearPrize.distance_point==0?100: ((nearPrize.prize_point-nearPrize.distance_point)/nearPrize.prize_point)*100" />
+			</view>
+		</view>
+		<!-- <view class="p_body">
 			<view class="p_body_mid" v-if="result">
 				<view class="p_body_mid_title" v-if="type == 1">恭喜您抽到奖品啦</view>
 				<view class="p_body_mid_title" v-else>恭喜您摇到</view>
@@ -74,7 +106,7 @@
 		<view class="p_bottom">
 			<image @click="$refs.prizeDetail.close()" class="icon_close"
 				src="https://static.roi-cloud.com/upload/20211229/60935669091530" mode=""></image>
-		</view>
+		</view> -->
 	</uni-popup>
 </template>
 
@@ -147,339 +179,83 @@
 </script>
 
 <style lang="scss">
-	.bet {
-		display: flex;
-		justify-content: space-between;
-		width: 100%;
-	}
+	.wrapper {
+		border-radius: 24rpx;
+		box-sizing: border-box;
+		min-height: 1100rpx;
+		width: 520rpx;
 
-	.flap {
-		animation: flip-horizontal-bottom 1s cubic-bezier(0.455, 0.030, 0.515, 0.955) forwards;
-	}
+		.reword {
+			height: 750rpx;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			padding-top: 100rpx;
 
-
-
-	@-webkit-keyframes flip-horizontal-bottom {
-		0% {
-			-webkit-transform: rotateX(0);
-			transform: rotateX(0);
-		}
-
-		25% {
-			-webkit-transform: rotateX(-100deg);
-			transform: rotateX(-180deg);
-		}
-
-		50% {
-			-webkit-transform: rotateX(-180deg);
-			transform: rotateX(-180deg);
-		}
-
-		75% {
-			-webkit-transform: rotateX(0);
-			transform: rotateX(0);
-		}
-
-		100% {
-			-webkit-transform: rotateX(0);
-			transform: rotateX(0);
-		}
-	}
-
-	@keyframes flip-horizontal-bottom {
-		0% {
-			-webkit-transform: rotateX(0);
-			transform: rotateX(0);
-		}
-
-		50% {
-			-webkit-transform: rotateX(-180deg);
-			transform: rotateX(-180deg);
-		}
-
-		100% {
-			-webkit-transform: rotateX(0);
-			transform: rotateX(0);
-		}
-	}
-
-	.progress {
-		margin-top: 16rpx;
-	}
-
-	.one_coin_view {
-		position: absolute;
-		top: 114rpx;
-		left: 23%;
-
-		.one_coin {
-			width: 300rpx;
-			height: 250rpx;
-		}
-	}
-
-	.two_coin_view {
-		position: absolute;
-		z-index: 3;
-		top: 5%;
-
-		.two_coin {
-			width: 560rpx;
-			height: 440rpx;
-		}
-	}
-
-	.three_coin_view {
-		position: absolute;
-		margin-top: 20%;
-
-		.three_coin {
-			width: 560rpx;
-			height: 440rpx;
-		}
-	}
-
-
-
-	.prizeDetail {
-		.p_body {
-			width: 600upx;
-			min-height: 880upx;
-			border-radius: 32upx;
-			background-image: linear-gradient(#fa7d6d, #e7514e);
-			position: relative;
-			box-sizing: border-box;
-			padding-top: 32rpx;
-
-
-			.p_body_mid {
-				width: 524upx;
-				min-height: 660upx;
-				border-radius: 32upx;
-				margin: auto;
-				background-image: linear-gradient(#fff7e0, #e8d7cb);
-
-				.no_prize_title {
-					width: 100%;
-					box-sizing: border-box;
-					text-align: center;
-					padding-top: 20rpx;
-					color: #976F1D;
-					font-weight: bold;
-				}
-
-				.no_win {
-					width: 176rpx !important;
-					height: 152rpx !important;
-					margin: 0 auto !important;
-					padding-top: 60rpx;
-					display: block;
-				}
-
-				.invite_wrapper {
-					background: none;
-					width: 100% !important;
-					margin: 0 auto;
-
-					&:after {
-						border: none;
-					}
-
-					.invite {
-						width: 460rpx;
-						height: 160rpx;
-						margin: 0 auto !important;
-						display: block;
-						padding-top: 80rpx;
-
-					}
-				}
-
-
-				.p_body_mid_title {
-					text-align: center;
-					padding: 30upx;
-					font-size: 34upx;
-					color: #976F1D;
-					font-weight: bold;
-				}
-
-				.p_body_mid_prize {
-					display: flex;
-					flex-direction: column;
-					margin-top: 0rpx;
-
-
-
-					.p_body_mid_prize_yunbao {
-						.p_body_mid_prize_yunbao_title {
-							box-sizing: border-box;
-							display: flex;
-							align-items: flex-end;
-							justify-content: center;
-
-							image {
-								width: 100rpx;
-								height: 80rpx;
-							}
-
-							.yuanbao {
-								margin-right: 32rpx;
-								color: #FA4542;
-								font-size: 140rpx;
-								height: 160rpx;
-								line-height: 160rpx;
-								font-weight: bold;
-							}
-
-							.yuanbao_item {
-								color: #FA4542;
-								font-size: 34rpx;
-								margin-bottom: 30rpx;
-							}
-						}
-
-						.p_body_mid_prize_yunbao_tip {
-							font-size: 26rpx;
-							color: #BF9B66;
-							margin: 40rpx 0rpx;
-							box-sizing: border-box;
-							display: flex;
-							justify-content: center;
-							align-items: center;
-
-							image {
-								width: 38rpx;
-								height: 28rpx;
-								margin-right: 8rpx;
-
-							}
-						}
-
-						.p_body_mid_prize_yunbao_exchange {
-							height: 160rpx;
-							display: flex;
-							align-items: center;
-							justify-content: space-between;
-							padding: 40rpx 24rpx;
-							box-sizing: border-box;
-							background: #FFFFFF;
-							border-radius: 20rpx;
-							width: 460rpx;
-							margin: 0 auto;
-
-							.title {
-								color: #976F1D;
-								font-size: 26rpx;
-
-
-								.name {
-									color: #E73D3D
-								}
-
-								image {
-									width: 280rpx;
-									height: 30rpx;
-									margin-top: 16rpx;
-								}
-							}
-
-							.reword {
-								image {
-									width: 108rpx;
-									height: 108rpx;
-									border-radius: 16upx;
-									background: #aaa;
-									margin-left: 26rpx;
-								}
-							}
-						}
-					}
-
-					.p_body_mid_prize_integral {
-						display: flex;
-						flex-direction: column;
-						align-items: center;
-
-						image {
-							width: 450rpx;
-							height: 330rpx;
-							// margin: auto 40rpx;
-						}
-
-						.get_integral {
-							font-size: 28rpx;
-							margin-top: -40rpx;
-
-							view {
-								display: flex;
-								line-height: 100rpx;
-							}
-
-							span {
-								font-size: 60rpx;
-								padding-right: 20rpx;
-							}
-						}
-					}
-				}
+			&__title {
+				width: 80rpx;
+				font-size: 100rpx;
 			}
 
-			.p_body_top {
-				z-index: 100;
-				width: 100%;
-				height: 336upx;
-				position: absolute;
-				bottom: 0;
-				left: 0;
+			&__contra {
+				color: #FFE3BA;
+				font-size: 24rpx;
+				margin-top: 40rpx;
+			}
 
-				.p_body_top_pink {
-					height: 272rpx;
-					width: 100%;
-					position: absolute;
-					z-index: 1;
-				}
+			&__point {
+				color: #FFE3BA;
+				font-size: 80rpx;
+				text-align: center;
+			}
+		}
 
-				.p_body_top_red {
-					height: 336rpx;
-					position: absolute;
-					width: 100%;
-					z-index: 2;
+		.p_body_mid_prize_yunbao_exchange {
+			display: flex;
+			flex-direction: column;
+			// align-items: center;
+			// justify-content: space-between;
+			padding: 40rpx 40rpx;
+			box-sizing: border-box;
+			background: #fff4da;
+			border-radius: 0 0 24rpx 24rpx;
+			// width: 460rpx;
+			margin: 0 auto;
+
+			.header_wrapper {
+				display: flex;
+				align-items: flex-start;
+				justify-content: space-between;
+				margin-bottom: 24rpx;
+
+				.title {
+					color: #333;
+					font-size: 28rpx;
+					margin-top: 12rpx;
+
+					.name {
+						font-size: 28rpx;
+					}
 
 					image {
-						width: 100%;
-						height: 100%;
+						width: 280rpx;
+						height: 30rpx;
+						margin-top: 16rpx;
 					}
 				}
-
-				.p_body_top_button {
-					height: 80rpx;
-					position: absolute;
-					width: 400rpx;
-					z-index: 3;
-					border-radius: 80rpx;
-					text-align: center;
-					line-height: 80rpx;
-					left: 0;
-					right: 0;
-					bottom: 90rpx;
-					margin: auto;
-					color: #976F1D;
-					font-weight: bold;
-					font-size: 34rpx;
-					background-image: linear-gradient(180deg, #F7EEB2 0%, #ECD87A 100%);
-				}
 			}
-		}
 
-		.p_bottom {
-			position: absolute;
-			left: 40%;
-			padding: 40upx;
 
-			.icon_close {
-				width: 80upx;
-				height: 80upx;
+
+			.exchange {
+				image {
+					width: 108rpx;
+					height: 108rpx;
+					border-radius: 16upx;
+					background: #aaa;
+				}
 			}
 		}
 	}
