@@ -1,4 +1,4 @@
-const templateId = 'brB4ziJN4HM9hVnIhwkkp-S-WPGvkubEoGV_aTQRots'
+const templateId = 'HAp4RAP9prwx7B6vIIJBwyQAMM_T0lalyUIdDIbVh6M'
 
 /**
  * 一次性服务通知

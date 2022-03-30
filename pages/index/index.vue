@@ -18,31 +18,19 @@
           ') center center no-repeat;background-size:contain'
         " />
 		</navbar>
-		<!-- <view id="main" :style="{
-        paddingTop: navbarHeight + 'px',
-        background: `url(${
-          gameInfo.backgroundInfo.backgroundUrl ||
-          'https://static.roi-cloud.com/upload/20211229/60935669175808'
-        }) no-repeat`,
-        backgroundSize: '100%',
-      }"> -->
-		<!-- https://static.roi-cloud.com/upload/20220113/60935669134954 -->
-		<!-- https://static.roi-cloud.com/upload/20220114/60935669172731 -->
-		<!-- https://static.roi-cloud.com/upload/20220117/60935669135726 -->
-		<!-- https://static.roi-cloud.com/upload/20220117/60935669135726 -->
-		<!-- https://static.roi-cloud.com/upload/20220117/60935669174041 -->
 		<view id="main" :style="{
         paddingTop: navbarHeight + 'px',
         minHeight: minHeight + 'px',
         background: `url(${
           gameInfo.backgroundInfo.backgroundUrl ||
-          'https://static.roi-cloud.com/upload/20220324/60935669152005'
+          'https://static.roi-cloud.com/upload/20220329/60935669150444'
         }) no-repeat`,
         backgroundSize: '100%',
       }">
+			<!-- <button @click="showQian = true">wan</button> -->
 			<!-- <button @click="rainData.visible=true">玩游戏</button> -->
-			<canvas :style="{ display: hideAmCanv ? 'none' : 'inline-block' }" canvas-id="lottie_demo" id="lottie_demo"
-				type="2d" />
+			<!-- 	<canvas :style="{ display: hideAmCanv ? 'none' : 'inline-block' }" canvas-id="lottie_demo" id="lottie_demo"
+				type="2d" /> -->
 			<!-- <view class="barrage1" v-show="radomIndex === 1 && showCash">
 				<image :src="showCash.avatar" mode="aspectFill"></image>
 				<view>
@@ -78,6 +66,44 @@
 					<text class="reword">{{ showCash.prize_name }}</text>
 				</view>
 			</view> -->
+			<!-- :class="['haoyunqian',{bounceTop:playAnimation}]" -->
+			<view class="shangshangqian" v-if="showQian">
+				<view class="mask">
+
+				</view>
+				<image src="https://static.roi-cloud.com/upload/20220330/60935669144208" mode="aspectFit">
+				</image>
+			</view>
+			<image :class="[
+          'haoyunqian',
+          { wobbleBottom1: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20220329/60935669161039" mode="aspectFit"></image>
+
+			<image :class="[
+          'taohuaqian',
+          { wobbleBottom2: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20220329/60935669155959" mode="aspectFit">
+			</image>
+			<image :class="[
+          'jixiangqian',
+          { wobbleBottom: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20220329/60935669172731" mode="aspectFit"></image>
+			<image :class="[
+          'ruyiqian',
+          { wobbleBottom3: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20220329/60935669171144" mode="aspectFit">
+			</image>
+			<image :class="[
+          'luckqian',
+          { wobbleBottom4: playAnimation },
+        ]" src="https://static.roi-cloud.com/upload/20220329/60935669171809" mode="aspectFit">
+			</image>
+			<image class="bucket" src="https://static.roi-cloud.com/upload/20220329/60935669151721" mode="aspectFit">
+			</image>
+			<image class="left_clound" src="https://static.roi-cloud.com/upload/20220329/60935669151906"
+				mode="aspectFit"></image>
+			<image class="right_clound" src="https://static.roi-cloud.com/upload/20220329/60935669153624"
+				mode="aspectFit"></image>
 
 			<!-- <image id="trunkId" :class="[
           'levl-1',
@@ -164,6 +190,8 @@
           { Wobble: playAnimation },
         ]" src="https://static.roi-cloud.com/upload/20211230/60935669091359" mode="aspectFill">
 			</image> -->
+
+
 			<view class="swiper_wrap">
 				<uni-notice-bar showIcon="true" color="#fff" background-color="transparent" scrollable="true"
 					single="true"
@@ -1061,6 +1089,7 @@
 				integralName: "积分",
 				scanRain: false,
 				userCardOpen: true, // 用户是否已经开通会员卡
+				showQian: false
 			}
 		},
 		name: 'game',
@@ -1069,7 +1098,7 @@
 			this.stopPlay()
 		},
 		onShow() {
-			// this.$refs.redEnvelope.open()
+
 			if (this.user && this.user.userId) {
 				// let pages = getCurrentPages()
 				// let currentPage = pages[pages.length - 1]
@@ -1130,7 +1159,7 @@
 					_this.minHeight = res.windowHeight
 				},
 			})
-			this.init()
+			// this.init()
 			this.context = uni.createCanvasContext('shareCanvas', this)
 		},
 		onLoad(options) {
@@ -1580,25 +1609,36 @@
 				this.playAnimation = true
 				const _this = this
 				setTimeout(function() {
-					_this.startPlay()
+					_this.playAnimation = false
+					_this.showQian = true
 					setTimeout(function() {
-						_this.playDownSound()
-					}, 300)
-
-					setTimeout(function() {
-						_this.pause()
-						_this.playAnimation = false
+						_this.showQian = false
 						_this.$refs.redEnvelope.open()
 						_this.playLoading = false
-						setTimeout(function() {
-							if (_this.gameResult.result) {
-								_this.playSound()
-							} else {
-								_this.playUnpublishedSound()
-							}
-						}, 400)
-					}, 3000)
+					}, 2000)
+
 				}, 2000)
+
+				// setTimeout(function() {
+				// 	_this.startPlay()
+				// 	setTimeout(function() {
+				// 		_this.playDownSound()
+				// 	}, 300)
+
+				// 	setTimeout(function() {
+				// 		_this.pause()
+				// 		_this.playAnimation = false
+				// 		_this.$refs.redEnvelope.open()
+				// 		_this.playLoading = false
+				// 		setTimeout(function() {
+				// 			if (_this.gameResult.result) {
+				// 				_this.playSound()
+				// 			} else {
+				// 				_this.playUnpublishedSound()
+				// 			}
+				// 		}, 400)
+				// 	}, 3000)
+				// }, 2000)
 			},
 			gameStatus(code) {
 				const orderStatus = {
@@ -2301,7 +2341,7 @@
 										console.log("herreee")
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
-												this.playShackSound()
+												// this.playShackSound()
 												this.getGameResult()
 											}
 										})
@@ -2319,14 +2359,14 @@
 											console.log("herreee2")
 											this.getSetting(() => {
 												if (this.showNoPlayNum()) {
-													this.playShackSound()
+													// this.playShackSound()
 													this.getGameResult()
 												}
 											})
 											return
 										} else {
 											if (this.showNoPlayNum()) {
-												this.playShackSound()
+												// this.playShackSound()
 												this.getGameResult()
 											}
 										}
@@ -2399,7 +2439,7 @@
 
 									this.getSetting(() => {
 										if (this.showNoPlayNum()) {
-											this.playShackSound()
+											// this.playShackSound()
 											this.getGameResult()
 										}
 									})
@@ -2415,14 +2455,14 @@
 										console.log((now - get_time) / 1000 / 60 / 60, "超时")
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
-												this.playShackSound()
+												// this.playShackSound()
 												this.getGameResult()
 											}
 										})
 										return
 									} else {
 										if (this.showNoPlayNum()) {
-											this.playShackSound()
+											// this.playShackSound()
 											this.getGameResult()
 										}
 									}
@@ -2999,8 +3039,9 @@
 				userLogin(wxData)
 					.then((res) => {
 						if (res.errno === '1') {
+							console.log(res, "res err")
 							uni.showToast({
-								title: `请求登陆失败！`,
+								title: `请求登录失败！`,
 								icon: 'error',
 							})
 							this.logining = false
@@ -3258,6 +3299,279 @@
 </script>
 
 <style lang="scss">
+	.wobbleBottom {
+		animation: wobble-hor-bottom 0.8s both;
+	}
+
+	.wobbleBottom1 {
+		animation: wobble-hor-bottom1 0.8s both;
+	}
+
+	.wobbleBottom2 {
+		animation: wobble-hor-bottom2 0.8s both;
+	}
+
+	.wobbleBottom3 {
+		animation: wobble-hor-bottom3 0.8s both;
+	}
+
+	.wobbleBottom4 {
+		animation: wobble-hor-bottom4 0.8s both;
+	}
+
+	@keyframes wobble-hor-bottom1 {
+		0% {
+			transform: translateX(0%) rotate(-15deg);
+		}
+
+		15% {
+			transform: translateX(5px) rotate(-10deg);
+		}
+
+		30% {
+			transform: translateX(0px) rotate(-15deg);
+		}
+
+		45% {
+			transform: translateX(5px) rotate(-10deg);
+		}
+
+		60% {
+			transform: translateX(2px) rotate(-12deg);
+		}
+
+		100% {
+			transform: translateX(0%) rotate(-15deg);
+		}
+	}
+
+	@keyframes wobble-hor-bottom2 {
+
+		0% {
+			transform: translateX(0%) rotate(9deg);
+		}
+
+		15% {
+			transform: translateX(-5px) rotate(5deg);
+		}
+
+		30% {
+			transform: translateX(0px) rotate(9deg);
+		}
+
+		45% {
+			transform: translateX(-5px) rotate(5deg);
+		}
+
+		60% {
+			transform: translateX(-2px) rotate(2deg);
+		}
+
+		100% {
+			transform: translateX(0%) rotate(9deg);
+		}
+	}
+
+	@keyframes wobble-hor-bottom3 {
+		0% {
+			transform: translateX(0%) rotate(-18deg);
+		}
+
+		15% {
+			transform: translateX(5px) rotate(-15deg);
+		}
+
+		30% {
+			transform: translateX(0px) rotate(-12deg);
+		}
+
+		45% {
+			transform: translateX(-5px) rotate(-10deg);
+		}
+
+		60% {
+			transform: translateX(5px) rotate(-12deg);
+		}
+
+		100% {
+			transform: translateX(0%) rotate(-18deg);
+		}
+	}
+
+	@keyframes wobble-hor-bottom4 {
+		0% {
+			transform: translateX(0%) rotate(13deg);
+		}
+
+		15% {
+			transform: translateX(-5px) rotate(10deg);
+		}
+
+		30% {
+			transform: translateX(0px) rotate(8deg);
+		}
+
+		45% {
+			transform: translateX(5px) rotate(10deg);
+		}
+
+		60% {
+			transform: translateX(-5px) rotate(11deg);
+		}
+
+		100% {
+			transform: translateX(0%) rotate(13deg);
+		}
+	}
+
+	@keyframes wobble-hor-bottom {
+		0% {
+			transform: translateX(0%);
+		}
+
+		15% {
+			transform: translateX(-5px);
+		}
+
+		30% {
+			transform: translateX(0px);
+		}
+
+		45% {
+			transform: translateX(5px);
+		}
+
+		60% {
+			transform: translateX(-5px);
+		}
+
+		100% {
+			transform: translateX(0%);
+		}
+	}
+
+	.shangshangqian {
+		width: 100vw;
+		height: 100vh;
+		position: absolute;
+		box-sizing: border-box;
+		z-index: 100;
+
+		.mask {
+			background: rgba(0, 0, 0, 0.3);
+			width: 100vw;
+			height: 100vh;
+			position: absolute;
+		}
+
+		image {
+			width: 600rpx;
+			height: 770rpx;
+			position: absolute;
+			top: 200rpx;
+			left: 80rpx;
+			animation: slide-in-fwd-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+			animation-duration: 2s;
+		}
+	}
+
+	@keyframes slide-in-fwd-center {
+		0% {
+			transform: scale(0.1);
+			/*开始为原始大小*/
+		}
+
+		80% {
+			transform: scale(1);
+		}
+
+		100% {
+			transform: scale(1) rotateY(100deg);
+		}
+	}
+
+	.haoyunqian {
+		width: 110rpx;
+		height: 260rpx;
+		transform: rotate(-15deg);
+		position: absolute;
+		box-sizing: border-box;
+		top: 438rpx;
+		left: 250rpx;
+		z-index: 10;
+	}
+
+	.jixiangqian {
+		width: 120rpx;
+		height: 260rpx;
+		position: absolute;
+		box-sizing: border-box;
+		top: 388rpx;
+		left: 318rpx;
+		z-index: 8;
+	}
+
+
+	.taohuaqian {
+		width: 110rpx;
+		height: 260rpx;
+		transform: rotate(9deg);
+		position: absolute;
+		box-sizing: border-box;
+		top: 434rpx;
+		left: 390rpx;
+		z-index: 10;
+	}
+
+	.ruyiqian {
+		width: 110rpx;
+		height: 260rpx;
+		transform: rotate(-18deg);
+		position: absolute;
+		box-sizing: border-box;
+		top: 420rpx;
+		left: 270rpx;
+		z-index: 6;
+	}
+
+	.luckqian {
+		width: 110rpx;
+		height: 260rpx;
+		transform: rotate(13deg);
+		position: absolute;
+		box-sizing: border-box;
+		top: 420rpx;
+		left: 380rpx;
+		z-index: 6;
+	}
+
+	.bucket {
+		width: 320rpx;
+		height: 460rpx;
+		position: absolute;
+		top: 570rpx;
+		left: 210rpx;
+		z-index: 7
+	}
+
+	.left_clound {
+		width: 300rpx;
+		height: 140rpx;
+		position: absolute;
+		left: 0;
+		top: 860rpx;
+		z-index: 8
+	}
+
+	.right_clound {
+		width: 360rpx;
+		height: 160rpx;
+		position: absolute;
+		right: -20rpx;
+		top: 860rpx;
+		z-index: 8
+	}
+
 	.vipCardOpen {
 		background: #fff;
 		/* height: 150px; */

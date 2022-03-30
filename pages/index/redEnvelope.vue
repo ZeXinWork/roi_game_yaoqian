@@ -1,36 +1,48 @@
 <template>
 	<uni-popup @change="handleChange" ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
 		<view class="wrapper">
-			<view class="reword" :style="{background: `url(${
-          'https://static.roi-cloud.com/upload/20220328/60935669091940'
-        }) no-repeat`,backgroundSize: '100% 100%',}">
-				<view class="reword__title">多挣亿点</view>
-				<view>
-					<view class="reword__contra">恭喜你获得积分</view>
-					<view class="reword__point">{{prize.award_point||0}}</view>
+			<view class="reword" :style="{background: `url(${imgWrapper}) no-repeat`,backgroundSize: '100% 100%',}">
+				<view v-if="result">
+					<view class="reword__title">多挣亿点</view>
+					<view>
+						<view class="reword__contra">恭喜你获得积分</view>
+						<view class="reword__point">{{prize.award_point||0}}</view>
+					</view>
+				</view>
+				<view v-else class="no_reword">
+					<view class="no_reword__title">
+						差点就摇到了
+					</view>
+					<view class="no_reword__subtitle">我运有我</view>
+					<view class="no_reword__subtitle2">不由签</view>
 				</view>
 			</view>
 
-			<view v-if="nearPrize && Object.keys(nearPrize).length!==0" class="p_body_mid_prize_yunbao_exchange"
-				@click="handleToReword">
-				<view class="header_wrapper">
-					<view class="exchange">
-						<image :src="nearPrize.prize_url" mode="aspectFill"></image>
-					</view>
-					<view class="title">
-						<view v-if="nearPrize.distance_point==0">现在可以兑换<text
-								class="name">{{nearPrize.prize_name}}</text>
+			<view class="p_body_mid_prize_yunbao_exchange" @click="handleToReword">
+				<view v-if="result">
+					<view class="header_wrapper" v-if="nearPrize && Object.keys(nearPrize).length!==0">
+						<view class="exchange">
+							<image :src="nearPrize.prize_url" mode="aspectFill"></image>
 						</view>
-						<view v-else>{{`还差${nearPrize.distance_point}个${integralName}兑换`}}
+						<view class="title">
+							<view v-if="nearPrize.distance_point==0">现在可以兑换<text
+									class="name">{{nearPrize.prize_name}}</text>
+							</view>
+							<view v-else>{{`还差${nearPrize.distance_point}个${integralName}兑换`}}
 
+							</view>
+							<view><text class="name">{{nearPrize.prize_name }}</text></view>
 						</view>
-						<view><text class="name">{{nearPrize.prize_name }}</text></view>
 					</view>
+					<progress v-if="nearPrize && Object.keys(nearPrize).length!==0" class="progress" :stroke-width='10'
+						activeColor='#ff4a1a' backgroundColor='#dbc5a4' :border-radius='20'
+						:percent="nearPrize.distance_point==0?100: ((nearPrize.prize_point-nearPrize.distance_point)/nearPrize.prize_point)*100" />
 				</view>
-				<progress class="progress" :stroke-width='10' activeColor='#ff4a1a' backgroundColor='#dbc5a4'
-					:border-radius='20'
-					:percent="nearPrize.distance_point==0?100: ((nearPrize.prize_point-nearPrize.distance_point)/nearPrize.prize_point)*100" />
+
+				<button class="invite" open-type='share' data-type='0' v-if="!result"> 邀请好友好运加倍 </button>
+
 			</view>
+			<view class="play" @click="close">再来一把</view>
 		</view>
 		<!-- <view class="p_body">
 			<view class="p_body_mid" v-if="result">
@@ -141,6 +153,12 @@
 			integralName: {
 				type: String,
 				default: '积分'
+			},
+		},
+		computed: {
+			imgWrapper() {
+				return this.result ? 'https://static.roi-cloud.com/upload/20220328/60935669091940' :
+					'https://static.roi-cloud.com/upload/20220329/60935669092954'
 			}
 		},
 		methods: {
@@ -168,6 +186,9 @@
 				this.$emit('handleGameResult', this.result)
 			},
 			handleToReword() {
+				if (!this.result) {
+					return
+				}
 				const _this = this
 				uni.navigateTo({
 					url: `/pages/conversion/conversion?gameId=${_this.$parent.gameId}`
@@ -184,6 +205,34 @@
 		box-sizing: border-box;
 		min-height: 1100rpx;
 		width: 520rpx;
+		position: relative;
+
+		.no_reword {
+			&__title {
+				width: 80rpx;
+				font-size: 80rpx;
+				position: absolute;
+				left: 92rpx;
+			}
+
+			&__subtitle {
+				width: 60rpx;
+				font-size: 40rpx;
+				position: absolute;
+				left: 200rpx;
+				top: 114rpx;
+				color: #1D1E1F
+			}
+
+			&__subtitle2 {
+				width: 60rpx;
+				font-size: 40rpx;
+				position: absolute;
+				left: 200rpx;
+				top: 370rpx;
+				color: #1D1E1F
+			}
+		}
 
 		.reword {
 			height: 750rpx;
@@ -224,6 +273,22 @@
 			// width: 460rpx;
 			margin: 0 auto;
 
+			.invite {
+				margin: 0 auto;
+				width: 200rpx;
+				color: #df4d4b;
+				font-size: 50rpx;
+				background: #fff4da;
+				padding: 0;
+
+				// border: 2rpx solid #fff4da;
+				line-height: 1;
+			}
+
+			.invite::after {
+				border: none;
+			}
+
 			.header_wrapper {
 				display: flex;
 				align-items: flex-start;
@@ -257,6 +322,19 @@
 					background: #aaa;
 				}
 			}
+		}
+
+		.play {
+			width: 400rpx;
+			height: 80rpx;
+			background: #fdd884;
+			color: #A26D00;
+			margin: 0 auto;
+			border-radius: 50rpx;
+			text-align: center;
+			line-height: 80rpx;
+			margin-top: 40rpx;
+			box-shadow: -1px 13px 9px -1px #951f1f;
 		}
 	}
 </style>
