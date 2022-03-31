@@ -243,7 +243,8 @@
 			<redEnvelope @handleGameResult="handleGameResult" @play="play(false)" ref="redEnvelope"
 				:result="gameResult.result" :prize="gameResult.prize" :playTime="playTime" :type="gameInfo.lottery_type"
 				:openShare="isOpenShareContent" :nearPrize="nearPrize" :integralName="integralName" />
-			<view v-if="isOpenShareContent" style="position: relative" class="de_btn zl_btn" @click="popShow('share')">
+			<view v-if="isOpenShareContent" style="position: relative;color:#ffeda3" class="de_btn zl_btn"
+				@click="popShow('share')">
 				喊好友来游戏</view>
 			<view class="recorde_ad_wrap" style="position: relative">
 				<!-- <view class="recorde_ad_wrap" :style="{'min-height': gameInfo && gameInfo.ad_info.length > 0 ? '400rpx' : '200rpx'}"> -->
@@ -5363,7 +5364,7 @@
 		}
 
 		.zl_btn {
-			border: 2px solid #976f1d;
+			border: 1px solid #FFEBA0;
 		}
 
 		.btn_primary {

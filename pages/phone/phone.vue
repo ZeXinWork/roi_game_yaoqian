@@ -27,13 +27,11 @@
 					<view class="phone__content__text__body">将作为您在本平台用户身份的唯一认证信息</view>
 				</view>
 			</view>
-
 		</view>
 
 		<button open-type="getPhoneNumber" @getphonenumber="getphonenumber" type="primary" class="phone__button">
 			微信手机号登录
 		</button>
-
 	</view>
 </template>
 
@@ -45,14 +43,12 @@
 		data() {
 			return {
 				user: '',
-
 			}
 		},
 		onShow() {
 			this.user = this.$storage.getUser()
 		},
 		methods: {
-
 			getphonenumber(e) {
 				let that = this
 				// 不允许授权
@@ -64,7 +60,7 @@
 				const params = {
 					encryptedData: e.detail.encryptedData,
 					iv: e.detail.iv,
-					platform: 'yaoyaoshu'
+					platform: 'yaoyaoqian',
 				}
 				getPhone(params)
 					.then((res) => {
@@ -75,20 +71,19 @@
 							success: function() {
 								setTimeout(() => {
 									uni.navigateTo({
-										url: '/pages/index/index'
+										url: '/pages/index/index',
 									})
 								}, 1500)
 							},
 						})
 					})
 					.catch((err) => {
-						console.log(err, "err")
+						console.log(err, 'err')
 						uni.showToast({
 							title: '出错啦',
 						})
 					})
 			},
-	
 		},
 	}
 </script>

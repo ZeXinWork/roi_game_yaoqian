@@ -36,7 +36,7 @@
 							<image :src="user_info.avatar" mode=""></image>
 						</view>
 						<view class="user_score">
-							<view class="">可兑{{integralName}}</view>
+							<view class="">可兑{{ integralName }}</view>
 							<view class="number">{{ gameInfo.integral || 0 }}</view>
 						</view>
 					</view>
@@ -45,7 +45,7 @@
 			</view>
 			<view v-if="prizeList.length > 0">
 				<view class="btn_part" @click="orderPrizeList">
-					<text>所需{{integralName}}</text>
+					<text>所需{{ integralName }}</text>
 					<uni-icons class="arrow" :type="points == 'desc' ? 'arrowup' : 'arrowdown'" color="#fff">
 					</uni-icons>
 
@@ -81,7 +81,7 @@
 						</view>
 					</view>
 					<view class="exchange_right">
-						<view class="score_title">需{{integralName}}</view>
+						<view class="score_title">需{{ integralName }}</view>
 						<view class="number">{{ item.prize_point }}</view>
 						<view class="conversion_btn" @click="exchangePrisePoupShow(item)">兑换</view>
 					</view>
@@ -101,7 +101,7 @@
 		</view>
 		<popup ref="exchange" class="exchange_poup" width="640" left="56" top="336">
 			<view class="content">
-				是否确认使用 {{ exchangeGoddsInfo.prize_point }} {{integralName}} 兑换
+				是否确认使用 {{ exchangeGoddsInfo.prize_point }} {{ integralName }} 兑换
 				{{ exchangeGoddsInfo.prize_name }}
 			</view>
 			<view class="action_part">
@@ -113,7 +113,9 @@
 		<popup ref="finish" class="finish_poup" width="640" left="56" top="336">
 			<view class="finish_content">
 				<view class="title">兑换成功</view>
-				<view class="sub_title">使用 {{ exchangeGoddsInfo.prize_point }} {{integralName}}兑换了</view>
+				<view class="sub_title">使用 {{ exchangeGoddsInfo.prize_point }}
+					{{ integralName }}兑换了
+				</view>
 				<image class="goods_img" :src="exchangeGoddsInfo.prize_url" mode="aspectFit"></image>
 				<view class="goods_info">{{ exchangeGoddsInfo.prize_name }}</view>
 				<view class="btn active" @click="toGetAward">找商家领奖</view>
@@ -161,7 +163,9 @@
 			</view>
 			<view class="g_content">
 				<view class="g_content_text">
-					<text class="m_content">{{curr_show_item.prize_desc || "暂无详细说明"}}</text>
+					<text class="m_content">{{
+            curr_show_item.prize_desc || '暂无详细说明'
+          }}</text>
 				</view>
 				<view class="g_btn" @click="hideDetail">我知道了</view>
 			</view>
@@ -169,11 +173,12 @@
 		<popup ref="vipCard" class="vip_card" width="640" left="56" top="336">
 			<view class="content">
 				<view class="p_header">
-					<image @click="closeVipCard" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode="">
+					<image @click="closeVipCard" class="icon_close" src="https://static.roi-cloud.com/base/close.png"
+						mode="">
 					</image>
 				</view>
 				<view class="g_info">
-					{{ gameInfo.brand_name + ', 邀请您领取会员卡'}}
+					{{ gameInfo.brand_name + ', 邀请您领取会员卡' }}
 				</view>
 				<view class="g_content">
 					<view class="g_btn" @click="addCard(true, 'prize')">去开卡</view>
@@ -183,11 +188,12 @@
 		<popup ref="adVipCard" class="vip_card" width="640" left="56" top="336">
 			<view class="content">
 				<view class="p_header">
-					<image @click="closeAdVipCard" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode="">
+					<image @click="closeAdVipCard" class="icon_close" src="https://static.roi-cloud.com/base/close.png"
+						mode="">
 					</image>
 				</view>
 				<view class="g_info">
-					{{ gameInfo.brand_name + ', 邀请您领取会员卡'}}
+					{{ gameInfo.brand_name + ', 邀请您领取会员卡' }}
 				</view>
 				<view class="g_content">
 					<view class="g_btn" @click="addCard(false, 'ad')">去开卡</view>
@@ -197,7 +203,8 @@
 		<popup ref="vipCardOpened" class="vip_card" width="640" left="56" top="336">
 			<view class="content">
 				<view class="p_header">
-					<image @click="closevipCardOpened" class="icon_close" src="https://static.roi-cloud.com/base/close.png" mode="">
+					<image @click="closevipCardOpened" class="icon_close"
+						src="https://static.roi-cloud.com/base/close.png" mode="">
 					</image>
 				</view>
 				<view class="g_info">
@@ -213,7 +220,7 @@
 </template>
 
 <script>
-	import "@/static/css/game.scss";
+	import '@/static/css/game.scss'
 	import {
 		emitDataPrevpage
 	} from '@/utils/utils.js'
@@ -229,18 +236,18 @@
 		getPhone,
 		userLogin,
 		getUserOpenCard,
-	} from "@/rest/api.js";
+	} from '@/rest/api.js'
 	import {
 		validPhone,
 		relativePath
-	} from "@/utils/tool.js";
+	} from '@/utils/tool.js'
 	import {
 		cleanObject
 	} from '@/utils/utils.js'
-	import moment from "moment";
-	import popup from "@/components/popup/popup.vue";
-	import navbar from "../../components/Navbar.vue";
-	import _ from "lodash";
+	import moment from 'moment'
+	import popup from '@/components/popup/popup.vue'
+	import navbar from '../../components/Navbar.vue'
+	import _ from 'lodash'
 	import {
 		uploadTrackLog
 	} from '@/rest/trackApi.js'
@@ -252,44 +259,43 @@
 		data() {
 			return {
 				exchangeGoddsInfo: {},
-				phone: "",
-				gameId: "",
+				phone: '',
+				gameId: '',
 				prizeList: [],
 				user_info: {},
 				setting: {},
-				verifyCode: "",
-				verifyCodeText: "发送验证码",
+				verifyCode: '',
+				verifyCodeText: '发送验证码',
 				verifyCodeTime: 0,
-				codeError: "",
+				codeError: '',
 				verifyCodeResult: {},
-				phoneError: "",
+				phoneError: '',
 				gameInfo: {},
 				advertList: [],
 				userPlayInfo: {},
-				points: "desc",
+				points: 'desc',
 				page: 0,
 				curr_show_item: {},
 				integralName: '积分',
 				isOpenVip: false,
 				userCardOpen: false, // 用户是否已经开通会员卡
-			};
+			}
 		},
 		onShow() {
 			this.getUserOpenCard()
 		},
 		onLoad(options) {
-			this.gameId = options.gameId;
-			this.getPrizeList();
-			this.getUserInfo();
-			this.getGameInfo();
+			this.gameId = options.gameId
+			this.getPrizeList()
+			this.getUserInfo()
+			this.getGameInfo()
 			this.getUserOpenCard()
 			// this.getUserPlayInfo()
-
 		},
 		onReachBottom() {
 			if (this.more) {
-				this.page++;
-				this.getPrizeList();
+				this.page++
+				this.getPrizeList()
 			}
 		},
 		methods: {
@@ -304,11 +310,11 @@
 						fail: function(err) {
 							console.log(err)
 						},
-						complete: function() {}
+						complete: function() {},
 					})
 				}
 			},
-			closeVipCard(){
+			closeVipCard() {
 				this.$refs.vipCard.close()
 			},
 			closeAdVipCard() {
@@ -318,8 +324,10 @@
 				this.$refs.vipCardOpened.close()
 			},
 			getUserOpenCard() {
-				getUserOpenCard({gameId: this.gameId}).then((res) =>{
-					if (res.is_open != 1){
+				getUserOpenCard({
+					gameId: this.gameId
+				}).then((res) => {
+					if (res.is_open != 1) {
 						this.userCardOpen = false
 					}
 					if (res.is_open === 1) {
@@ -328,82 +336,82 @@
 				})
 			},
 			getUserPlayInfo() {
-				this.$loading.show();
+				this.$loading.show()
 				userGame({
 					gameId: this.gameId,
 				}).then((res) => {
-					this.userPlayInfo = res;
-					this.$loading.hide();
-				});
+					this.userPlayInfo = res
+					this.$loading.hide()
+				})
 			},
 			toGetAward() {
 				this.trackEvent('claimPrizeInExchangeSuccessPopup', {})
 				uni.navigateTo({
-					url: "/pages/prize/prize?gameId=" + this.gameId,
-				});
+					url: '/pages/prize/prize?gameId=' + this.gameId,
+				})
 			},
 			showDetail(item) {
-				this.curr_show_item = item;
+				this.curr_show_item = item
 				this.trackEvent('priceImpression', {
-					'gameID_evar': this.gameId,
-					'gameName_evar': this.gameInfo.name,
-					'prizeId_evar': item.game_award_id,
-					'prizePage_evar': '/pages/conversion/conversion',
+					gameID_evar: this.gameId,
+					gameName_evar: this.gameInfo.name,
+					prizeId_evar: item.game_award_id,
+					prizePage_evar: '/pages/conversion/conversion',
 				})
-				this.$refs.prizeInfoDetail.show();
+				this.$refs.prizeInfoDetail.show()
 			},
 			hideDetail() {
-				this.$refs.prizeInfoDetail.hide();
+				this.$refs.prizeInfoDetail.hide()
 			},
 			orderPrizeList() {
-				this.points == "desc" ? (this.points = "asc") : (this.points = "desc");
-				this.page = 1;
-				this.getPrizeList();
+				this.points == 'desc' ? (this.points = 'asc') : (this.points = 'desc')
+				this.page = 1
+				this.getPrizeList()
 			},
 			changePhone: function(e) {
-				this.phone = e.detail.value;
+				this.phone = e.detail.value
 			},
 			changeVerifyCode: function(e) {
-				this.verifyCode = e.detail.value;
+				this.verifyCode = e.detail.value
 			},
 			sendCode: function() {
 				if (this.verifyCodeTime === 0) {
 					if (!this.phone) {
-						this.phoneError = "请填写手机号";
-						return false;
+						this.phoneError = '请填写手机号'
+						return false
 					} else if (!validPhone(this.phone)) {
-						this.phoneError = "手机号格式错误";
-						return false;
+						this.phoneError = '手机号格式错误'
+						return false
 					} else {
-						this.phoneError = "";
+						this.phoneError = ''
 					}
 					let params = {
 						phone: this.phone,
-					};
+					}
 					smsBindUserVerifyCode(params).then((response) => {
-						this.verifyCodeResult = response;
-						let code = 60;
-						this.verifyCodeTime = code;
-						this.verifyCodeText = code;
+						this.verifyCodeResult = response
+						let code = 60
+						this.verifyCodeTime = code
+						this.verifyCodeText = code
 						this.timer = setInterval(() => {
-							code = code - 1;
-							this.verifyCodeTime = code;
+							code = code - 1
+							this.verifyCodeTime = code
 							if (code <= 0) {
-								this.verifyCodeTime = 0;
-								this.verifyCodeText = "重新发送";
-								clearInterval(this.timer);
+								this.verifyCodeTime = 0
+								this.verifyCodeText = '重新发送'
+								clearInterval(this.timer)
 							} else {
-								this.verifyCodeText = code;
+								this.verifyCodeText = code
 							}
-						}, 1000);
-					});
+						}, 1000)
+					})
 				}
 			},
 			savePhone() {
 				uni.showToast({
-					title: "保存成功",
-				});
-				this.$refs.dialog.close();
+					title: '保存成功',
+				})
+				this.$refs.dialog.close()
 
 				if (this.preOperate) {
 					this.$refs.adVipCard.show()
@@ -411,27 +419,27 @@
 				}
 			},
 			getPrizeList() {
-				this.$loading.show();
+				this.$loading.show()
 				let params = {
 					page: this.page,
 					gameId: this.gameId,
 					pageSzie: 20,
-				};
+				}
 				exchangeGamePrizeList(params).then((res) => {
-					this.$loading.hide();
+					this.$loading.hide()
 					res = _.map(res, (item) => {
 						return {
 							...item,
 							prize_point: Number(item.prize_point),
-							left_num: Number(item.left_num)
+							left_num: Number(item.left_num),
 						}
 					})
 
 					const leftPrize = _.filter(res, (obj) => obj.left_num > 0)
 					const unLeftPrize = _.filter(res, (obj) => obj.left_num <= 0)
 					this.prizeList = [
-						...(_.orderBy(leftPrize, ['prize_point'], this.points)),
-						...(_.orderBy(unLeftPrize, ['prize_point'], this.points)),
+						..._.orderBy(leftPrize, ['prize_point'], this.points),
+						..._.orderBy(unLeftPrize, ['prize_point'], this.points),
 					]
 					// if(params.page == 1) this.prizeList = res
 					// else this.prizeList = [...this.prizeList,...res]
@@ -440,18 +448,20 @@
 					// } else {
 					// 	this.more = true
 					// }
-				});
+				})
 			},
 			getGameInfo() {
 				apiGetGameInfo({
 					game_id: this.gameId,
-					template_id: "2021110901",
+					template_id: '2021110901',
 				}).then((res) => {
 					res.redeemEndTime = moment(res.last_receive_time * 1000).format(
-						"YYYY年MM月DD日"
-					);
-					this.gameInfo = res;
-					this.isOpenVip = Number(res.open_wx_club) === 1 && Number(res.membership_entry_redeem) === 1
+						'YYYY年MM月DD日'
+					)
+					this.gameInfo = res
+					this.isOpenVip =
+						Number(res.open_wx_club) === 1 &&
+						Number(res.membership_entry_redeem) === 1
 					if (this.isOpenVip) {
 						// TODO： 判断是否领取会员卡
 						this.getUserOpenCard()
@@ -464,7 +474,7 @@
 						this.advertList = res.ad_info
 					} else {
 						if (res.ad_info.length > 0) {
-							res.ad_info.forEach(item => {
+							res.ad_info.forEach((item) => {
 								if (Number(item.ad_location) == 2 && item.ad_pic_url) {
 									this.advertList = [item]
 								}
@@ -472,19 +482,21 @@
 						}
 					}
 					// this.gameInfo.integral = res.integral.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
-				});
+				})
 			},
 			showOpenCard() {
 				const gameInfo = this.gameInfo
-				if (gameInfo.open_wx_club && Number(gameInfo.open_wx_club) === 1){
-					if (gameInfo.membership_entry_ad && Number(gameInfo.membership_entry_ad) === 1) {
+				if (gameInfo.open_wx_club && Number(gameInfo.open_wx_club) === 1) {
+					if (
+						gameInfo.membership_entry_ad &&
+						Number(gameInfo.membership_entry_ad) === 1
+					) {
 						if (!this.userCardOpen) {
 							if (!this.user_info.phone) {
 								this.adGetPhone()
 							} else {
 								this.$refs.adVipCard.show()
 							}
-							
 						} else {
 							this.$refs.vipCardOpened.show()
 						}
@@ -501,21 +513,21 @@
 				const _this = this
 				wx.navigateToMiniProgram({
 					appId: 'wxeb490c6f9b154ef9', //固定为此 appId，不可改动
-					path: 'pages/card_open/card_open',//固定为此path
-					envVersion: 'release',//商家正式版小程序拉起正式版组件；若此时为商家体验版小程序拉起体验版组件，则envVersion传值trial（体验版拉起，需找微信支付产品单独开权限）
+					path: 'pages/card_open/card_open', //固定为此path
+					envVersion: 'release', //商家正式版小程序拉起正式版组件；若此时为商家体验版小程序拉起体验版组件，则envVersion传值trial（体验版拉起，需找微信支付产品单独开权限）
 					extraData: {
 						// create_card_appid:"wxbc1da991f125c7c8", // 测试用
 						// card_id: "pU2mM6ZBAtOnozvtmM0IYDqn0O2M",	// 测试用
 						create_card_appid: _this.gameInfo.merchant_no,
 						card_id: _this.gameInfo.member_no,
 						outer_str: _this.gameId + '_' + location,
-						activate_type: "ACTIVATE_TYPE_NORMAL",// ACTIVATE_TYPE_NORMAL：一键激活 ACTIVATE_TYPE_JUMP：跳转激活
+						activate_type: 'ACTIVATE_TYPE_NORMAL', // ACTIVATE_TYPE_NORMAL：一键激活 ACTIVATE_TYPE_JUMP：跳转激活
 						// jump_url: "https://www.qq.com"//跳转路径
 						// jump_appid: "" // 跳转小程序， 同时配置url和appid优先跳转appid
 						// jump_path: "" // 跳转小程序路径
-					},  
+					},
 					success: function(res) {
-						if (isExchange){
+						if (isExchange) {
 							_this.exchangePrisePoupShow(_this.exchangeGoddsInfo)
 						}
 					},
@@ -526,183 +538,183 @@
 						_this.$refs.vipCard.close()
 						_this.$refs.adVipCard.close()
 						_this.$refs.vipCardOpened.close()
-					}
+					},
 				})
 			},
 			onClose: function() {
-				clearInterval(this.timer);
-				this.$refs.dialog.close();
+				clearInterval(this.timer)
+				this.$refs.dialog.close()
 			},
 			confirmExchange(e) {
 				try {
-					this.$refs.exchange.hide();
+					this.$refs.exchange.hide()
 					let pages = getCurrentPages()
 					if (pages.length !== 1) {
 						emitDataPrevpage('exange', {
-							flag: true
+							flag: true,
 						})
 					}
 
 					if (this.user_info.phone) {
 						// 功能开启 且 未开通会员卡
-						if (this.isOpenVip && !this.userCardOpen){
+						if (this.isOpenVip && !this.userCardOpen) {
 							this.$refs.vipCard.show()
 						} else {
-							this.exchangePrise();
+							this.exchangePrise()
 						}
 					} else {
-						const _this = this;
+						const _this = this
 						uni.login({
 							success(res) {
 								const params = {
 									avatarUrl: _this.user_info.avatar,
 									nickName: _this.user_info.nickname,
-									platform: "yaoyaoshu",
+									platform: 'yaoyaoqian',
 									code: res.code,
-								};
+								}
 								userLogin(params).then((res) => {
-									if (res.errno === "1") {
+									if (res.errno === '1') {
 										uni.showToast({
 											title: `请求异常！`,
-											icon: "error",
-										});
-										return;
+											icon: 'error',
+										})
+										return
 									}
-									const user = _this.$storage.getUser();
+									const user = _this.$storage.getUser()
 
 									_this.$storage.setUser({
 										...user,
 										...res,
-									});
-								});
+									})
+								})
 							},
-						});
-						this.$refs.dialog.open();
+						})
+						this.$refs.dialog.open()
 					}
 				} catch (e) {
-					this.$toast.error(e);
+					this.$toast.error(e)
 				}
 			},
 			adGetPhone() {
-				const _this = this;
-				this.preOperate = true;
+				const _this = this
+				this.preOperate = true
 				uni.login({
 					success(res) {
 						const params = {
 							avatarUrl: _this.user_info.avatar,
 							nickName: _this.user_info.nickname,
-							platform: "yaoyaoshu",
+							platform: 'yaoyaoqian',
 							code: res.code,
-						};
+						}
 						userLogin(params).then((res) => {
-							if (res.errno === "1") {
+							if (res.errno === '1') {
 								uni.showToast({
 									title: `请求异常！`,
-									icon: "error",
-								});
-								return;
+									icon: 'error',
+								})
+								return
 							}
-							const user = _this.$storage.getUser();
+							const user = _this.$storage.getUser()
 
 							_this.$storage.setUser({
 								...user,
 								...res,
-							});
-						});
+							})
+						})
 					},
-				});
-				this.$refs.dialog.open();
+				})
+				this.$refs.dialog.open()
 			},
 			getphonenumber(e) {
 				// 不允许授权
-				if (e.detail.errMsg !== "getPhoneNumber:ok") {
+				if (e.detail.errMsg !== 'getPhoneNumber:ok') {
 					uni.showToast({
-						title: "请授权！",
-						icon: "error",
-					});
-					return;
+						title: '请授权！',
+						icon: 'error',
+					})
+					return
 				}
 
-				const user = this.$storage.getUser();
+				const user = this.$storage.getUser()
 				const params = {
 					encryptedData: e.detail.encryptedData,
 					iv: e.detail.iv,
 					agreement_id: this.user_info.agreement_id,
 					privacy_clause_id: this.user_info.privacy_clause_id,
-					platform: "yaoyaoshu",
-				};
+					platform: 'yaoyaoqian',
+				}
 				getPhone(params)
 					.then((res) => {
-						user.phone = res.phoneNumber;
-						this.phone = res.phoneNumber;
-						this.$storage.setUser(user);
+						user.phone = res.phoneNumber
+						this.phone = res.phoneNumber
+						this.$storage.setUser(user)
 					})
 					.catch((err) => {
 						uni.showToast({
-							title: "出错啦",
-							icon: "error",
-						});
-					});
-				this.user_info = user;
+							title: '出错啦',
+							icon: 'error',
+						})
+					})
+				this.user_info = user
 			},
 			exchangePrise() {
-				this.$loading.show();
+				this.$loading.show()
 				console.log(this.exchangeGoddsInfo)
 				addExchangeGamePrize({
 					gameId: this.gameId,
 					gameAwardId: this.exchangeGoddsInfo.game_award_id,
 				}).then((res) => {
-					console.log(res, "resssss");
+					console.log(res, 'resssss')
 					if (res.errno) {
-						this.$loading.hide();
+						this.$loading.hide()
 						uni.showModal({
 							title: '提示',
 							content: res.errmsg,
-							showCancel: false
+							showCancel: false,
 						})
-						return;
+						return
 					}
-					this.getGameInfo();
-					this.getPrizeList();
-					this.trackEvent("exchangePrize", {})
-					this.$loading.hide();
-					this.$refs.finish.show();
-				});
+					this.getGameInfo()
+					this.getPrizeList()
+					this.trackEvent('exchangePrize', {})
+					this.$loading.hide()
+					this.$refs.finish.show()
+				})
 			},
 
 			getUserInfo() {
-				this.user_info = this.$storage.getUser();
-				this.phone = this.user_info.phone;
-				console.log(this.user_info);
+				this.user_info = this.$storage.getUser()
+				this.phone = this.user_info.phone
+				console.log(this.user_info)
 			},
 			exchangePrisePoupShow(item) {
 				try {
-					this.exchangeGoddsInfo = item;
+					this.exchangeGoddsInfo = item
 					if (Number(item.prize_point) > Number(this.gameInfo.integral)) {
-						this.$toast.error(this.integralName + "不足");
+						this.$toast.error(this.integralName + '不足')
 					} else {
-						this.$refs.exchange.show();
+						this.$refs.exchange.show()
 					}
 				} catch (e) {
-					this.$toast.error(e);
+					this.$toast.error(e)
 				}
 			},
 			trackEvent(name, data) {
 				const locationTime = this.$storage.get('getLocationTime')
 				if (_.isEmpty(data)) {
 					const params = cleanObject({
-						'prizeId_evar': this.exchangeGoddsInfo.game_award_id,
-						'prizeName_evar': this.exchangeGoddsInfo.game_award_name,
-						'prizeType_evar': this.exchangeGoddsInfo.prize_type,
-						'prizeExchangePoint_evar': this.exchangeGoddsInfo.prize_point,
-						'prizeLevel_evar': this.exchangeGoddsInfo.template_award_id,
+						prizeId_evar: this.exchangeGoddsInfo.game_award_id,
+						prizeName_evar: this.exchangeGoddsInfo.game_award_name,
+						prizeType_evar: this.exchangeGoddsInfo.prize_type,
+						prizeExchangePoint_evar: this.exchangeGoddsInfo.prize_point,
+						prizeLevel_evar: this.exchangeGoddsInfo.template_award_id,
 						'3rdpartyUserID_evar': this.user_info.userId,
-						'locationLongitude_evar': locationTime.longitude,
-						'locationLatitude_evar': locationTime.latitude,
-						'gameID_evar': this.gameId,
-						'gameName_evar': this.gameInfo.name,
-						'userOpenID_evar': this.user_info.openid + '',
-						'timeStamp_evar': Date.parse(new Date()) + ''
+						locationLongitude_evar: locationTime.longitude,
+						locationLatitude_evar: locationTime.latitude,
+						gameID_evar: this.gameId,
+						gameName_evar: this.gameInfo.name,
+						userOpenID_evar: this.user_info.openid + '',
+						timeStamp_evar: Date.parse(new Date()) + '',
 					})
 					this.$uma.trackEvent(name, params)
 					uploadTrackLog(name, params)
@@ -710,9 +722,9 @@
 					this.$uma.trackEvent(name, data)
 					uploadTrackLog(name, data)
 				}
-			}
+			},
 		},
-	};
+	}
 </script>
 
 <style lang="scss">
@@ -720,10 +732,12 @@
 		.content {
 			display: flex;
 			flex-direction: column;
+
 			.p_header {
 				display: flex;
 				padding: 40upx;
 				justify-content: flex-end;
+
 				.icon_close {
 					width: 40upx;
 					height: 40upx;
@@ -734,12 +748,13 @@
 				text-align: center;
 				padding: 0 40rpx;
 			}
-			
+
 			.g_content {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				text-align: center;
+
 				.g_btn {
 					width: 406upx;
 					height: 80upx;
@@ -754,6 +769,7 @@
 			}
 		}
 	}
+
 	.prizeInfoDetail {
 		.p_header {
 			display: flex;
@@ -930,7 +946,6 @@
 
 	#main {
 		padding: 46upx 30upx;
-
 
 		.card {
 			background: #fff;

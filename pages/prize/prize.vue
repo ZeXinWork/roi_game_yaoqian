@@ -1,5 +1,5 @@
 <template>
-	<view style="padding-bottom: 40rpx;">
+	<view style="padding-bottom: 40rpx">
 		<view class="tips">
 			奖品领奖需自行联系商家。
 			可通过“去领奖”进入详细页面扫二维码添加商家微信或者直接电话（如果商家开放电话）
@@ -59,7 +59,7 @@
 			</view>
 			<view class="g_content">
 				<view class="m_content">{{
-          curr_show_item.prize_desc || "暂无详细说明"
+          curr_show_item.prize_desc || '暂无详细说明'
         }}</view>
 				<view class="g_btn" @click="$refs.prizeDetail.hide()">我知道了</view>
 			</view>
@@ -99,13 +99,13 @@
 	import {
 		cleanObject
 	} from '@/utils/utils.js'
-	import "@/static/css/game.scss";
+	import '@/static/css/game.scss'
 	import {
 		prizeList,
 		getPhone,
 		userLogin
-	} from "@/rest/api.js";
-	import moment from "moment";
+	} from '@/rest/api.js'
+	import moment from 'moment'
 	import {
 		uploadTrackLog
 	} from '@/rest/trackApi.js'
@@ -116,14 +116,14 @@
 				current: 0,
 				page: 0,
 				more: true,
-				gameId: "",
-				phone: "",
+				gameId: '',
+				phone: '',
 				userPrizeList: [],
 				curr_show_item: {},
 				path: '/pages/index/index?gameId=' + this.gameId,
 				goReceiveItem: {},
 				user_info: {},
-				gameInfo:{},
+				gameInfo: {},
 				integralName: '积分',
 				source: ['', '即开即中', '积分兑换', '粉丝PK排行榜'],
 				// 这部分是领券测试数据
@@ -134,24 +134,24 @@
 				// }],
 				// send_coupon_merchant: "1616627254",
 				// sign: "82C0D72F3069FF2559611F7D6274B5AE98165378607B3CF09999F4664DE9D3C3"
-			};
+			}
 		},
 		onReachBottom(e) {
 			if (this.more) {
-				this.page++;
-				this.getPrizeList(this.current);
+				this.page++
+				this.getPrizeList(this.current)
 			}
 		},
 		onshow() {
 			this.path = '/pages/index/index?gameId=' + this.gameId
 		},
 		onLoad(options) {
-			this.gameId = options.gameId;
+			this.gameId = options.gameId
 			this.path = '/pages/index/index?gameId=' + this.gameId
-			this.getPrizeList();
-			const user = this.$storage.getUser();
+			this.getPrizeList()
+			const user = this.$storage.getUser()
 			this.user_info = user
-			this.phone = user.phone;
+			this.phone = user.phone
 			const gameInfo = this.$storage.get('gameInfo')
 			this.gameInfo = gameInfo
 			if (gameInfo.integral_name) {
@@ -165,51 +165,51 @@
 			// 	console.log("getcoupon", params)
 			// },
 			changeType(type) {
-				this.page = 0;
-				this.current = type;
-				this.getPrizeList(type);
+				this.page = 0
+				this.current = type
+				this.getPrizeList(type)
 			},
 			showDetail(item) {
-				this.curr_show_item = item;
-				this.$refs.prizeDetail.show();
+				this.curr_show_item = item
+				this.$refs.prizeDetail.show()
 			},
 			getPrizeList(type) {
 				let params = {
 					offset: this.page * 20,
 					limit: 20,
 					gameId: this.gameId,
-				};
-				if (type != undefined && type > 0) params.prizeType = type;
-				this.$loading.show();
+				}
+				if (type != undefined && type > 0) params.prizeType = type
+				this.$loading.show()
 				prizeList(params).then((res) => {
 					for (let index in res) {
 						res[index].last_receive_time = moment(
 							res[index].last_receive_time * 1000
-						).format("YYYY.MM.DD");
+						).format('YYYY.MM.DD')
 					}
 					if (res) {
 						if (params.offset == 0) {
-							this.userPrizeList = res;
+							this.userPrizeList = res
 						} else {
-							this.userPrizeList = [...this.userPrizeList, ...res];
+							this.userPrizeList = [...this.userPrizeList, ...res]
 						}
 						if (res.length == 20) {
-							this.more = true;
+							this.more = true
 						} else {
-							this.more = false;
+							this.more = false
 						}
 					} else {
-						this.more = false;
+						this.more = false
 					}
-					this.$loading.hide();
-				});
+					this.$loading.hide()
+				})
 			},
 			receivePrize(item) {
 				if (this.phone) {
 					this.goReceiveItem = item
-					this.toReceive(item);
+					this.toReceive(item)
 				} else {
-					const _this = this;
+					const _this = this
 					const user = _this.$storage.getUser()
 					console.log(_this)
 					uni.login({
@@ -217,114 +217,114 @@
 							const params = {
 								avatarUrl: user.avatar,
 								nickName: user.nickname,
-								platform: "yaoyaoshu",
+								platform: 'yaoyaoqian',
 								code: res.code,
-							};
+							}
 							userLogin(params).then((res) => {
-								if (res.errno === "1") {
+								if (res.errno === '1') {
 									uni.showToast({
 										title: `请求异常！`,
-										icon: "error",
-									});
-									return;
+										icon: 'error',
+									})
+									return
 								}
-								const user = _this.$storage.getUser();
+								const user = _this.$storage.getUser()
 
 								_this.$storage.setUser({
 									...user,
 									...res,
-								});
-							});
+								})
+							})
 						},
-					});
-					this.$refs.dialog.open();
+					})
+					this.$refs.dialog.open()
 				}
 			},
 			getphonenumber(e) {
 				// 不允许授权
-				if (e.detail.errMsg !== "getPhoneNumber:ok") {
+				if (e.detail.errMsg !== 'getPhoneNumber:ok') {
 					uni.showToast({
-						title: "请授权！",
-						icon: "error",
-					});
-					return;
+						title: '请授权！',
+						icon: 'error',
+					})
+					return
 				}
 
-				const user = this.$storage.getUser();
+				const user = this.$storage.getUser()
 				const params = {
 					encryptedData: e.detail.encryptedData,
 					iv: e.detail.iv,
 					agreement_id: user.agreement_id,
 					privacy_clause_id: user.privacy_clause_id,
-					platform: "yaoyaoshu",
-				};
+					platform: 'yaoyaoqian',
+				}
 				getPhone(params)
 					.then((res) => {
 						if (res.errno) {
 							uni.showToast({
-								title: "出错啦",
-								icon: "error",
-							});
-							return;
+								title: '出错啦',
+								icon: 'error',
+							})
+							return
 						}
-						user.phone = res.phoneNumber;
-						this.phone = res.phoneNumber;
-						this.$storage.setUser(user);
+						user.phone = res.phoneNumber
+						this.phone = res.phoneNumber
+						this.$storage.setUser(user)
 					})
 					.catch((err) => {
 						uni.showToast({
-							title: "出错啦",
-							icon: "error",
-						});
-					});
+							title: '出错啦',
+							icon: 'error',
+						})
+					})
 			},
 			savePhone() {
 				uni.showToast({
-					title: "保存成功",
-				});
-				this.$refs.dialog.close();
+					title: '保存成功',
+				})
+				this.$refs.dialog.close()
 			},
 			onClose() {
-				this.$refs.dialog.close();
+				this.$refs.dialog.close()
 			},
 			toReceive(item) {
 				this.trackEvent('claimPrizeInMyPrizePage', {})
 				uni.navigateTo({
-					url: "./accpect?uid=" +
+					url: './accpect?uid=' +
 						item.user_prize_id +
-						"&gameId=" +
+						'&gameId=' +
 						item.game_id +
-						"&verifyCode=" +
+						'&verifyCode=' +
 						item.verify_code +
-						"&prizeName=" +
+						'&prizeName=' +
 						item.prize_name +
-						"&awardName=" +
+						'&awardName=' +
 						item.award_name +
-						"&prizeItem=" +
+						'&prizeItem=' +
 						JSON.stringify(this.goReceiveItem),
-				});
+				})
 			},
 			trackEvent(name, data) {
 				const locationTime = this.$storage.get('getLocationTime')
 				const params = cleanObject({
-					'prizeId_evar': this.goReceiveItem.award_id,
-					'prizeName_evar': this.goReceiveItem.prize_name,
-					'prizeType_evar': this.goReceiveItem.prize_type,
-					'prizeExchangePoint_evar': this.goReceiveItem.prize_point,
-					'prizeLevel_evar': this.goReceiveItem.award_seq,
+					prizeId_evar: this.goReceiveItem.award_id,
+					prizeName_evar: this.goReceiveItem.prize_name,
+					prizeType_evar: this.goReceiveItem.prize_type,
+					prizeExchangePoint_evar: this.goReceiveItem.prize_point,
+					prizeLevel_evar: this.goReceiveItem.award_seq,
 					'3rdpartyUserID_evar': this.user_info.userId,
-					'locationLongitude_evar': locationTime.longitude,
-					'locationLatitude_evar': locationTime.latitude,
-					'gameID_evar': this.gameId,
-					'gameName_evar': this.gameInfo.name,
-					'userOpenID_evar': this.user_info.openid + '',
-					'timeStamp_evar': Date.parse(new Date()) + ''
+					locationLongitude_evar: locationTime.longitude,
+					locationLatitude_evar: locationTime.latitude,
+					gameID_evar: this.gameId,
+					gameName_evar: this.gameInfo.name,
+					userOpenID_evar: this.user_info.openid + '',
+					timeStamp_evar: Date.parse(new Date()) + '',
 				})
 				this.$uma.trackEvent(name, params)
 				uploadTrackLog(name, params)
-			}
+			},
 		},
-	};
+	}
 </script>
 
 <style lang="scss">
