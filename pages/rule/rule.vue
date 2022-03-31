@@ -4,7 +4,7 @@
 			<view class="main_title">游戏规则</view>
 			<view class="subtitle">
 				<view>嘿！欢迎来到{{ gameInfo.name }}</view>
-				<view class="text_center">摇摇树活动</view>
+				<view class="text_center">摇摇签活动</view>
 			</view>
 			<view class="gift_list">
 				<view class="gift_item" v-for="item in gameAward" :key="item.game_award_id">

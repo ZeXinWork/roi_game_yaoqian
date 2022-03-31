@@ -3459,10 +3459,11 @@
 		z-index: 100;
 
 		.mask {
-			background: rgba(0, 0, 0, 0.3);
+			background: #000;
 			width: 100vw;
 			height: 100vh;
 			position: absolute;
+			opacity: 0.69;
 		}
 
 		image {
@@ -3487,7 +3488,7 @@
 		}
 
 		100% {
-			transform: scale(1) rotateY(100deg);
+			transform: scale(1) rotateY(360deg);
 		}
 	}
 
@@ -5308,7 +5309,7 @@
 			right: 18upx;
 			width: 106upx;
 			top: -80upx;
-			z-index: 99;
+			z-index: 200;
 
 			.icon_gift {
 				width: 134upx;
@@ -5317,7 +5318,7 @@
 				left: 50%;
 				top: -40%;
 				transform: translateX(-50%);
-				z-index: 1;
+				
 			}
 
 			.shadow {

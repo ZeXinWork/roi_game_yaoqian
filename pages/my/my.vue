@@ -55,10 +55,10 @@
 		<view class="agreement-wrapper__text">
 			<view>使用本产品服务表示您已同意</view>
 			<text class="cert-item-xieyi" @click="openProtocol('agreement')">
-				络绎有客摇摇树用户服务协议
+				络绎有客上上签用户服务协议
 			</text>
 			和
-			<text class="cert-item-xieyi" @click="openProtocol('privacy')">络绎有客摇摇树用户隐私条款</text>
+			<text class="cert-item-xieyi" @click="openProtocol('privacy')">络绎有客上上签用户隐私条款</text>
 		</view>
 	</view>
 </template>

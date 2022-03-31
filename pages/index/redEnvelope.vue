@@ -1,9 +1,14 @@
 <template>
-	<uni-popup @change="handleChange" ref="prizeDetail" class="prizeDetail" width="640" left="56" top="336">
+	<uni-popup maskColor="#000000" :maskOpacity="0.69"  @change="handleChange" ref="prizeDetail" class="prizeDetail" width="640" left="56"
+		top="336">
 		<view class="wrapper">
 			<view class="reword" :style="{background: `url(${imgWrapper}) no-repeat`,backgroundSize: '100% 100%',}">
 				<view v-if="result">
-					<view class="reword__title">多挣亿点</view>
+					<view class="title_wprapper">
+						<view class="reword__title mr-20">{{rewordTitle}}</view>
+						<view class="reword__title">{{rewordTitle2}}</view>
+					</view>
+
 					<view>
 						<view class="reword__contra">恭喜你获得积分</view>
 						<view class="reword__point">{{prize.award_point||0}}</view>
@@ -159,6 +164,18 @@
 			imgWrapper() {
 				return this.result ? 'https://static.roi-cloud.com/upload/20220328/60935669091940' :
 					'https://static.roi-cloud.com/upload/20220329/60935669092954'
+			},
+			rewordTitle() {
+				if (this.prize && this.prize.literal_meaning) {
+					return this.prize.literal_meaning.split(',')[0]
+				}
+				return ''
+			},
+			rewordTitle2() {
+				if (this.prize && this.prize.literal_meaning) {
+					return this.prize.literal_meaning.split(',')[1]
+				}
+				return ''
 			}
 		},
 		methods: {
@@ -167,9 +184,9 @@
 			},
 			handleChange(e) {
 				this.PopOpen = e.show
-				if (e.show) {
-					this.$parent.init()
-				}
+				// if (e.show) {
+				// 	this.$parent.init()
+				// }
 				// && this.$parent.playTime == 4
 				// if (!e.show ) {
 				// 	setTimeout(function() {
@@ -207,6 +224,10 @@
 		width: 520rpx;
 		position: relative;
 
+		.mr-20 {
+			margin-right: 40rpx;
+		}
+
 		.no_reword {
 			&__title {
 				width: 80rpx;
@@ -243,9 +264,16 @@
 			align-items: center;
 			padding-top: 100rpx;
 
+			.title_wprapper {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+			}
+
 			&__title {
 				width: 80rpx;
 				font-size: 100rpx;
+				font-family: 'iconfont' !important;
 			}
 
 			&__contra {
@@ -292,13 +320,14 @@
 			.header_wrapper {
 				display: flex;
 				align-items: flex-start;
-				justify-content: space-between;
+				justify-content: flex-start;
 				margin-bottom: 24rpx;
 
 				.title {
 					color: #333;
 					font-size: 28rpx;
-					margin-top: 12rpx;
+
+					margin: 12rpx 0 0 30rpx;
 
 					.name {
 						font-size: 28rpx;
