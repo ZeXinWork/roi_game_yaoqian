@@ -10,7 +10,7 @@
 					</view>
 
 					<view>
-						<view class="reword__contra">恭喜你获得积分</view>
+						<view class="reword__contra">恭喜你获得{{integralName}}</view>
 						<view class="reword__point">{{prize.award_point||0}}</view>
 					</view>
 				</view>

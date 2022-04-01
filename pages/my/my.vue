@@ -17,7 +17,7 @@
 				<view class="user-info-game-wrap_title">我的游戏</view>
 				<view class="user-info-game-wrap_content" v-for="item of gameList" :key='item.game_id'
 					@click="toGame(item)">
-					<image src="https://static.roi-cloud.com/upload/20211223/60935669155516" mode="aspectFill"
+					<image src="https://static.roi-cloud.com/upload/20220401/60935669100417" mode="aspectFill"
 						class="user-info-game-wrap_content_img"></image>
 					<view class="user-info-game-wrap_content_body">
 						<view class="user-info-game-wrap_content_body_header">
