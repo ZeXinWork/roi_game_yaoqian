@@ -1249,7 +1249,7 @@
 			this.Audio.src = 'https://static.roi-cloud.com/upload/audio/getRewordss_v2.0.m4a' //音频地址
 			this.ShakeAudio = uni.createInnerAudioContext() // 摇树
 			this.ShakeAudio.src =
-				'https://static.roi-cloud.com/game/music/rocking_tree.m4a'
+				'https://static.roi-cloud.com/ssq/wave_stick.mp3'
 			this.UnpublishedAudio = uni.createInnerAudioContext() // 未获奖
 			this.UnpublishedAudio.src =
 				'https://static.roi-cloud.com/upload/audio/noRewordss_v2.0.m4a' //音频地址
@@ -1708,6 +1708,9 @@
 
 				this.ShakeAudio.seek(0.1)
 				this.ShakeAudio.play() //执行播放
+				setTimeout(()=>{
+					this.ShakeAudio.stop()
+				},800)
 			},
 			getMyRank() {
 				getMyRank({
@@ -2342,7 +2345,7 @@
 										console.log("herreee")
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
-												// this.playShackSound()
+												this.playShackSound()
 												this.getGameResult()
 											}
 										})
@@ -2360,14 +2363,14 @@
 											console.log("herreee2")
 											this.getSetting(() => {
 												if (this.showNoPlayNum()) {
-													// this.playShackSound()
+													this.playShackSound()
 													this.getGameResult()
 												}
 											})
 											return
 										} else {
 											if (this.showNoPlayNum()) {
-												// this.playShackSound()
+												this.playShackSound()
 												this.getGameResult()
 											}
 										}
@@ -2440,7 +2443,7 @@
 
 									this.getSetting(() => {
 										if (this.showNoPlayNum()) {
-											// this.playShackSound()
+											this.playShackSound()
 											this.getGameResult()
 										}
 									})
@@ -2456,14 +2459,14 @@
 										console.log((now - get_time) / 1000 / 60 / 60, "超时")
 										this.getSetting(() => {
 											if (this.showNoPlayNum()) {
-												// this.playShackSound()
+												this.playShackSound()
 												this.getGameResult()
 											}
 										})
 										return
 									} else {
 										if (this.showNoPlayNum()) {
-											// this.playShackSound()
+											this.playShackSound()
 											this.getGameResult()
 										}
 									}
@@ -2544,7 +2547,6 @@
 								type: 'gcj02',
 								altitude: true,
 								success(res) {
-
 									that.updateLocation(res)
 									handler && handler()
 								},
@@ -2599,6 +2601,7 @@
 					},
 					// 授权失败
 					fail: (err) => {
+						console.log(err, "不能获取地址的原因")
 						this.playLoading = false
 						this.$refs.location.show()
 					},
@@ -5318,7 +5321,7 @@
 				left: 50%;
 				top: -40%;
 				transform: translateX(-50%);
-				
+
 			}
 
 			.shadow {
